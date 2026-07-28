@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+.ruff_cache/
+
+# Node / Frontend
+node_modules/
+.next/
+out/
+
+# Environment & Config
+.env
+.env.local
+docker-compose.override.yml
+
+# Data & Models
+*.pt
+*.pth
+*.pkl
+*.joblib
+*.sqlite3
+services/evaluation/results/*.json
+services/evaluation/results/*.csv
+
+# IDE & OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

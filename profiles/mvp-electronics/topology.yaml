@@ -1,0 +1,57 @@
+manufacturer:
+  id: "mfg-01"
+  name: "Apex Electronics Manufacturing"
+  location: { lat: 22.5431, lon: 114.0579 } # Shenzhen
+
+products:
+  - id: "prod-101"
+    name: "Smart IoT Controller"
+    sku: "SKU-IOT-101"
+  - id: "prod-102"
+    name: "Industrial Sensor Unit"
+    sku: "SKU-SNS-102"
+  - id: "prod-103"
+    name: "High-Capacity Power Module"
+    sku: "SKU-PWR-103"
+
+suppliers:
+  - id: "sup-01"
+    name: "Semico Components"
+    reliability_profile: "high"
+    lead_time_days: 7
+    location: { lat: 24.1477, lon: 120.6736 } # Taiwan
+  - id: "sup-02"
+    name: "MicroBattery Global"
+    reliability_profile: "medium"
+    lead_time_days: 12
+    location: { lat: 37.5665, lon: 126.9780 } # Seoul
+  - id: "sup-03"
+    name: "Precision Enclosures Inc"
+    reliability_profile: "high"
+    lead_time_days: 5
+    location: { lat: 31.2304, lon: 121.4737 } # Shanghai
+  - id: "sup-04"
+    name: "OptoDisplay Tech"
+    reliability_profile: "volatile"
+    lead_time_days: 14
+    location: { lat: 35.6762, lon: 139.6503 } # Tokyo
+  - id: "sup-05"
+    name: "Global PCB Solutions"
+    reliability_profile: "medium"
+    lead_time_days: 9
+    location: { lat: 1.3521, lon: 103.8198 } # Singapore
+
+warehouses:
+  - id: "wh-01"
+    name: "East Asia Transit Hub"
+    capacity_units: 50000
+    location: { lat: 22.3193, lon: 114.1694 } # Hong Kong
+  - id: "wh-02"
+    name: "Southeast Asia Logistics Hub"
+    capacity_units: 35000
+    location: { lat: 13.7563, lon: 100.5018 } # Bangkok
+
+distribution_centers:
+  - id: "dc-01"
+    name: "Central Distribution Hub"
+    location: { lat: 25.0330, lon: 121.5654 } # Taipei

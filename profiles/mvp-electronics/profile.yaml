@@ -1,0 +1,5 @@
+profile_id: "mvp-electronics"
+name: "MVP Electronics Supply Chain"
+version: "1.0.0"
+description: "Bounded supply chain scope for SCOF MVP: 1 manufacturer, 3-5 products, 5 suppliers, 2 warehouses, 1 DC, multi-route logistics network."
+author: "SCOF Team"

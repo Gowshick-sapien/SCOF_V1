@@ -1,0 +1,24 @@
+disruption_types:
+  - id: "supplier_delay"
+    name: "Supplier Lead Time Delay"
+    severity_range: [1, 5]
+    default_duration_days: 7
+    target_entity: "supplier"
+
+  - id: "transport_failure"
+    name: "Logistics / Transport Route Disruption"
+    severity_range: [1, 5]
+    default_duration_days: 4
+    target_entity: "route"
+
+  - id: "demand_spike"
+    name: "Unplanned Market Demand Surge"
+    severity_range: [1, 5]
+    default_duration_days: 14
+    target_entity: "product"
+
+  - id: "adverse_weather"
+    name: "Adverse Weather Event"
+    severity_range: [1, 5]
+    default_duration_days: 3
+    target_entity: "route"

@@ -1,0 +1,15 @@
+fast_path:
+  confidence_threshold: 0.85
+  max_impact_level: "LOW"
+
+slow_path:
+  min_confidence: 0.50
+  max_impact_level: "HIGH"
+
+human_escalation:
+  consensus_stability_min: 0.40
+  impact_level_trigger: "CRITICAL"
+
+calibration:
+  frequency: "every_100_decisions"
+  min_kappa: 0.70
