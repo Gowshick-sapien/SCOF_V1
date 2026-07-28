@@ -10,7 +10,7 @@
   "total_shipments_generated": 162,
   "total_inventory_rows": 1080,
   "total_disruptions_generated": 4,
-  "execution_time_ms": 13,
+  "execution_time_ms": 23,
   "generator_version": "1.0.0",
   "row_counts": {
     "manufacturers": 1,

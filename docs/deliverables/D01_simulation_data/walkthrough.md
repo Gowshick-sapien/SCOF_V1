@@ -83,29 +83,45 @@ Ran the full 8-phase simulation pipeline (`python -m services.simulation.src.mai
 
 ## Manual Testing & Verification Strategy
 
+> [!NOTE]
+> On Windows (CMD / PowerShell) without GNU `make` installed, use the direct `python` or `docker` commands shown under each step below.
+
 ### 1. Container & Infrastructure Startup
 Verify Docker services are initialized and healthy:
 ```bash
-make up
-# or
 docker compose up -d
 docker compose ps
+# (or 'make up' on Linux/macOS/Git Bash)
 ```
 Confirm PostgreSQL (port 5432), Neo4j (7474/7687), Redis (6379), and Kafka (9092) container statuses report healthy.
 
 ### 2. Full Simulation Data Generation Execution
-Run the data generator inside container or host environment:
-```bash
-make generate
-# or
-docker compose run --rm simulation python -m src.main
-# or locally
+Run the data generator on Windows CMD/PowerShell or inside a Docker container:
+```cmd
+:: On Windows CMD / PowerShell / Host Python:
 python -m services.simulation.src.main
+
+:: Inside Docker container:
+docker compose run --rm simulation python -m src.main
+
+:: Or on Linux / macOS / Git Bash:
+make generate
 ```
 Verify stdout phase log output (Phase 1 through Phase 8) and confirm creation of `generation_manifest.json`.
 
 ### 3. PostgreSQL Direct DDL & Data Integrity Queries
-Connect to PostgreSQL and execute the following SQL queries to manually verify DDL integrity, extensions, multi-sourcing, and multi-run isolation:
+
+To run these SQL queries from Windows CMD, execute `psql` inside the running Docker container:
+
+```cmd
+:: Option A: Open interactive psql terminal inside Docker container:
+docker exec -it scof-postgres psql -U scof -d scof
+
+:: Option B: Run a single query directly from CMD:
+docker exec -it scof-postgres psql -U scof -d scof -c "SELECT extname FROM pg_extension WHERE extname = 'vector';"
+```
+
+Once connected to `psql`, execute the following SQL queries to manually verify DDL integrity, extensions, multi-sourcing, and multi-run isolation:
 
 ```sql
 -- Check vector extension installation
@@ -135,11 +151,13 @@ SELECT run_id, count(*) AS total_disruptions FROM scof.disruption_events GROUP B
 ```
 
 ### 4. Automated Health Check Execution
-Run the automated verification script:
-```bash
-make verify-d1
-# or
+Run the automated verification script on Windows CMD/PowerShell:
+```cmd
+:: On Windows CMD / PowerShell:
 python scripts/verify_d1.py
+
+:: On Linux / macOS / Git Bash:
+make verify-d1
 ```
 Expected output: All 5 health check categories report `[PASS]` with exit code `0`.
 
