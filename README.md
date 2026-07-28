@@ -6,20 +6,20 @@ SCOF is a profile-driven, multi-agent cognitive platform that monitors, predicts
 
 ---
 
-## 📚 Documentation Index
+##  Documentation Index
 
 All core project documentation has been organized into the [`docs/`](./docs/) directory:
 
-- 📘 [Ideation & Vision](./docs/ideation.md)
-- 📋 [Software Requirements Specification (SRS)](./docs/srs.md)
-- 🏗️ [System Architecture](./docs/architecture.md)
-- 🗺️ [Implementation Plan (Docker-Simulation MVP)](./docs/implementation_plan.md)
-- 🧩 [Domain Binding Strategy](./docs/domain_binding_strategy.md)
-- 📁 [Repository Structure & Layout](./docs/repository_structure.md)
+-  [Ideation & Vision](./docs/ideation.md)
+-  [Software Requirements Specification (SRS)](./docs/srs.md)
+-  [System Architecture](./docs/architecture.md)
+-  [Implementation Plan (Docker-Simulation MVP)](./docs/implementation_plan.md)
+-  [Domain Binding Strategy](./docs/domain_binding_strategy.md)
+-  [Repository Structure & Layout](./docs/repository_structure.md)
 
 ---
 
-## 📁 Deliverable Tracking (`docs/deliverables/`)
+##  Deliverable Tracking (`docs/deliverables/`)
 
 Documentation, plans, and acceptance evidence for each deliverable stage:
 
@@ -39,14 +39,14 @@ Documentation, plans, and acceptance evidence for each deliverable stage:
 
 ---
 
-## ⚙️ Domain Profiles (`profiles/`)
+##  Domain Profiles (`profiles/`)
 
 SCOF is domain-agnostic and relies on declarative Domain Profiles for supply chain context:
-- 🔌 Active Profile: [`profiles/mvp-electronics/`](./profiles/mvp-electronics/)
+-  Active Profile: [`profiles/mvp-electronics/`](./profiles/mvp-electronics/)
 
 ---
 
-## 🚀 Quickstart
+##  Quickstart
 
 1. Configure environment variables:
    ```bash

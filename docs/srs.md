@@ -127,13 +127,13 @@ Requirements are grouped by deliverable stage (D1–D11), matching the implement
 
 ### **3.0 Deliverable Dependency Overview**
 
-D1 (Sim Data) → D2 (Knowledge Layer) → D3 (Demand+Inventory Agents) ─┐  
-                                      → D4 (Supplier+Transport Agents) ─┤  
-                                                                        ▼  
+D1 (Sim Data) → D2 (Knowledge Layer) → D3 (Demand+Inventory Agents)   
+                                      → D4 (Supplier+Transport Agents)   
+                                                                          
                                 D3 \+ D4 → D5 (Orchestration) → D6 (CD²F Consensus Engine)  
-                                                                        │  
+                                                                          
                                                 D6 → D7 (Observability) → D8 (Backend API \+ Realtime)  
-                                                                        │  
+                                                                          
                                                         D8 → D9 (Frontend Dashboard)  
                                                         D8 \+ D9 → D10 (Integration \+ Evaluation) \= MVP COMPLETE  
                                                         D10 → D11 (Post-MVP interface stubs, not built)

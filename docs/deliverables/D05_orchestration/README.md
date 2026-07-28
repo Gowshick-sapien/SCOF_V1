@@ -1,11 +1,11 @@
 # Deliverable D5 — Agent Orchestration & Protocol Layer
 
-## 🎯 Objective
+##  Objective
 Wire the four specialist agents together under a LangGraph Coordinator using standardized A2A and MCP protocols.
 
 ---
 
-## 📋 Requirements Summary (from SRS)
+##  Requirements Summary (from SRS)
 - **FR-5.1**: LangGraph state graph connecting specialist agents to Coordinator node.
 - **FR-5.2**: Formalized MCP servers wrapping agent tool/data access.
 - **FR-5.3**: A2A layer where agents publish Agent Cards for dynamic Coordinator discovery and delegation.

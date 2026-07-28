@@ -6,17 +6,17 @@
 
 ## **Dependency Graph**
 
-D1 (Sim Data) ──► D2 (Knowledge Layer) ──► D3 (Demand+Inventory Agents)  
-                                        ├─► D4 (Supplier+Transport Agents)  
+D1 (Sim Data)  D2 (Knowledge Layer)  D3 (Demand+Inventory Agents)  
+                                         D4 (Supplier+Transport Agents)  
                                           
-D3 \+ D4 ──► D5 (Orchestration: LangGraph \+ MCP \+ A2A) ──► D6 (CD²F Consensus Engine)  
-                                                                    │  
-D6 ──► D7 (Observability/Explainability) ──► D8 (Backend API \+ Realtime)  
-                                                                    │  
-D8 ──► D9 (Frontend Dashboard)   
-D8 \+ D9 ──► D10 (End-to-End Integration \+ Evaluation Harness) \= MVP COMPLETE
+D3 \+ D4  D5 (Orchestration: LangGraph \+ MCP \+ A2A)  D6 (CD²F Consensus Engine)  
+                                                                      
+D6  D7 (Observability/Explainability)  D8 (Backend API \+ Realtime)  
+                                                                      
+D8  D9 (Frontend Dashboard)   
+D8 \+ D9  D10 (End-to-End Integration \+ Evaluation Harness) \= MVP COMPLETE
 
-D10 ──► D11 (Post-MVP stubs — not built, only interfaced)
+D10  D11 (Post-MVP stubs — not built, only interfaced)
 
 ---
 

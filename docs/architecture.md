@@ -59,18 +59,18 @@ A Domain Profile is a directory of declarative YAML configuration files that cap
 
 ```
 profiles/
-└── <profile-name>/
-    ├── profile.yaml              # Top-level metadata (name, version, description)
-    ├── topology.yaml             # Entities and relationships
-    ├── agents.yaml               # Active agents and their configurations
-    ├── disruptions.yaml          # Disruption catalog
-    ├── consensus.yaml            # CD²F thresholds and escalation rules
-    ├── data_bindings.yaml        # MCP server configs, DB connection mappings
-    ├── evaluation.yaml           # Metrics, baselines, scenario sets
-    ├── dashboard.yaml            # View configuration, map bounds, labels
-    └── scenarios/
-        ├── calibration_set.json  # Hand-labeled scenarios for judge calibration
-        └── evaluation_set.json   # Scenarios for benchmark evaluation
+ <profile-name>/
+     profile.yaml              # Top-level metadata (name, version, description)
+     topology.yaml             # Entities and relationships
+     agents.yaml               # Active agents and their configurations
+     disruptions.yaml          # Disruption catalog
+     consensus.yaml            # CD²F thresholds and escalation rules
+     data_bindings.yaml        # MCP server configs, DB connection mappings
+     evaluation.yaml           # Metrics, baselines, scenario sets
+     dashboard.yaml            # View configuration, map bounds, labels
+     scenarios/
+         calibration_set.json  # Hand-labeled scenarios for judge calibration
+         evaluation_set.json   # Scenarios for benchmark evaluation
 ```
 
 ### **2.4 How Layers Consume the Profile**
@@ -113,145 +113,145 @@ These platform components work identically across all profiles:
 ## **3\. High-Level Architecture**
 
 ```
-┌──────────────────────────────────────────────────────────────────────────────┐
-│                              USER LAYER                                      │
-│                                                                              │
-│   ┌──────────────────────────────────────────────────────────────────────┐   │
-│   │                    Frontend Dashboard (D9)                           │   │
-│   │  React · Next.js · TypeScript · Tailwind CSS · D3/Recharts · Leaflet │   │
-│   │                                                                      │   │
-│   │  ┌─────────────┐ ┌──────────────┐ ┌─────────────┐ ┌──────────────┐  │   │
-│   │  │ Operational  │ │ Supply Chain │ │  AI Meeting │ │  What-If     │  │   │
-│   │  │ Dashboard    │ │ Map (Leaflet)│ │  Log View   │ │  Simulation  │  │   │
-│   │  └─────────────┘ └──────────────┘ └─────────────┘ └──────────────┘  │   │
-│   │  ┌─────────────┐ ┌──────────────┐ ┌─────────────┐ ┌──────────────┐  │   │
-│   │  │ Confidence & │ │  Decision    │ │  Risk       │ │  Scenario    │  │   │
-│   │  │ Disagreement │ │  Replay UI   │ │  Heatmap    │ │  Library     │  │   │
-│   │  └─────────────┘ └──────────────┘ └─────────────┘ └──────────────┘  │   │
-│   │  ┌─────────────┐ ┌──────────────┐                                    │   │
-│   │  │ Recommend.   │ │  AI Chat     │                                    │   │
-│   │  │ Timeline     │ │  (NL Q&A)    │                                    │   │
-│   │  └─────────────┘ └──────────────┘                                    │   │
-│   └──────────────────────────────────────────────────────────────────────┘   │
-│                               │ HTTP/REST + WebSocket                        │
-└───────────────────────────────┼──────────────────────────────────────────────┘
-                                ▼
-┌──────────────────────────────────────────────────────────────────────────────┐
-│                           API & REAL-TIME LAYER (D8)                         │
-│                                                                              │
-│   ┌──────────────────────────────────────────────────────────────────────┐   │
-│   │                      FastAPI Backend Service                         │   │
-│   │                                                                      │   │
-│   │  /scenarios/trigger   /whatif/run   /dashboard/state                  │   │
-│   │  /decisions/{id}/log  /decisions/{id}/trace  /decisions/{id}/replay   │   │
-│   └──────────────────────────────────────────────────────────────────────┘   │
-│          │                          │                          │              │
-│    ┌─────┴─────┐             ┌──────┴──────┐          ┌───────┴───────┐     │
-│    │ WebSocket │             │ Event Bus   │          │ REST          │     │
-│    │ (Live     │             │ (Kafka /    │          │ Endpoints     │     │
-│    │  Push)    │             │  RabbitMQ)  │          │               │     │
-│    └───────────┘             └─────────────┘          └───────────────┘     │
-└──────────────────────────────────────────────────────────────────────────────┘
-                                ▼
-┌──────────────────────────────────────────────────────────────────────────────┐
-│                     OBSERVABILITY & EXPLAINABILITY LAYER (D7)                 │
-│                                                                              │
-│   ┌──────────────────┐  ┌──────────────────┐  ┌──────────────────────────┐  │
-│   │ LangSmith /      │  │ Decision Trace   │  │ Judge Calibration        │  │
-│   │ Langfuse Tracing │  │ Persistence      │  │ Metrics Logger           │  │
-│   │ (per-agent turn, │  │ (Postgres/       │  │ (Cohen's kappa over      │  │
-│   │  token cost,     │  │  pgvector, keyed │  │  time, queryable)        │  │
-│   │  latency)        │  │  per decision)   │  │                          │  │
-│   └──────────────────┘  └──────────────────┘  └──────────────────────────┘  │
-└──────────────────────────────────────────────────────────────────────────────┘
-                                ▼
-┌──────────────────────────────────────────────────────────────────────────────┐
-│                         CD²F CONSENSUS ENGINE (D6)                           │
-│                                                                              │
-│   ┌────────────────────────────────────────────────────────────────┐         │
-│   │                  Arbitration Pipeline                           │         │
-│   │                                                                │         │
-│   │  Structured Claims ──► Confidence-Weighted Voting ──► Decision │         │
-│   │   (from all agents)    (stated confidence × rolling            │         │
-│   │                         historical accuracy)                   │         │
-│   └────────────────────────────────────────────────────────────────┘         │
-│                                                                              │
-│   ┌──────────────────────────────────────────────────────────────────────┐   │
-│   │                Escalation Tiering (profile-configurable)              │   │
-│   │                                                                      │   │
-│   │   FAST PATH              SLOW PATH              HUMAN ESCALATION     │   │
-│   │   ┌──────────────┐      ┌──────────────┐       ┌──────────────┐     │   │
-│   │   │ Single agent │      │ Full CD²F    │       │ Low consensus│     │   │
-│   │   │ High conf.   │──►   │ multi-agent  │──►    │ or high      │     │   │
-│   │   │ Low impact   │      │ discussion   │       │ impact       │     │   │
-│   │   └──────────────┘      └──────────────┘       └──────────────┘     │   │
-│   └──────────────────────────────────────────────────────────────────────┘   │
-│                                                                              │
-│   Thresholds, impact scales, and escalation criteria read from               │
-│   consensus.yaml in the active Domain Profile.                               │
-└──────────────────────────────────────────────────────────────────────────────┘
-                                ▼
-┌──────────────────────────────────────────────────────────────────────────────┐
-│                  AGENT ORCHESTRATION & PROTOCOL LAYER (D5)                    │
-│                                                                              │
-│   ┌──────────────────────────────────────────────────────────────────────┐   │
-│   │                      LangGraph State Graph                           │   │
-│   │                                                                      │   │
-│   │                    ┌─────────────────────┐                           │   │
-│   │                    │  COORDINATOR AGENT  │                           │   │
-│   │                    │  Discovers agents   │                           │   │
-│   │                    │  via A2A Agent Cards│                           │   │
-│   │                    │  (roster from       │                           │   │
-│   │                    │   agents.yaml)      │                           │   │
-│   │                    └────────┬────────────┘                           │   │
-│   │           ┌────────────────┼────────────────┐                       │   │
-│   │           │ A2A            │ A2A            │ A2A                    │   │
-│   │           ▼                ▼                ▼                        │   │
-│   │  ┌────────────┐  ┌────────────┐  ┌────────────┐  ┌────────────┐    │   │
-│   │  │  DEMAND    │  │ INVENTORY  │  │  SUPPLIER  │  │ TRANSPORT  │    │   │
-│   │  │  AGENT     │  │  AGENT     │  │  AGENT     │  │  AGENT     │    │   │
-│   │  │  (D3)      │  │  (D3)      │  │  (D4)      │  │  (D4)      │    │   │
-│   │  └─────┬──────┘  └─────┬──────┘  └─────┬──────┘  └─────┬──────┘    │   │
-│   │        │ MCP           │ MCP           │ MCP           │ MCP        │   │
-│   │        ▼               ▼               ▼               ▼            │   │
-│   │   Tools & Data    Tools & Data    Tools & Data    Tools & Data      │   │
-│   └──────────────────────────────────────────────────────────────────────┘   │
-│                                                                              │
-│   Agent set is determined by agents.yaml — adding/removing an agent is       │
-│   a profile configuration change, not a code change.                         │
-└──────────────────────────────────────────────────────────────────────────────┘
-                                ▼
-┌──────────────────────────────────────────────────────────────────────────────┐
-│                    DATA & KNOWLEDGE LAYER (D1 + D2)                          │
-│                                                                              │
-│   ┌──────────────┐  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐   │
-│   │  PostgreSQL  │  │  pgvector    │  │    Neo4j     │  │    Redis     │   │
-│   │  (Operational│  │  (Decision   │  │  (Knowledge  │  │  (Cache,     │   │
-│   │   DB: orders,│  │   records,   │  │   Graph:     │  │   session,   │   │
-│   │   inventory, │  │   evidence   │  │   supplier → │  │   ephemeral  │   │
-│   │   suppliers, │  │   embeddings,│  │   product →  │  │   state)     │   │
-│   │   shipments) │  │   AI Chat    │  │   warehouse  │  │              │   │
-│   │              │  │   retrieval) │  │   → route)   │  │              │   │
-│   └──────────────┘  └──────────────┘  └──────────────┘  └──────────────┘   │
-│                                                                              │
-│   ┌──────────────────────────────────────────────────────────────────────┐   │
-│   │          Synthetic Data & Disruption Generator (D1)                   │   │
-│   │  Reads topology.yaml and disruptions.yaml from the active profile    │   │
-│   │  to generate entities, relationships, and disruption events.         │   │
-│   └──────────────────────────────────────────────────────────────────────┘   │
-│                                                                              │
-│   ┌──────────────────────────────────────────────────────────────────────┐   │
-│   │                      ETL Pipeline (D2)                                │   │
-│   │  Reads data_bindings.yaml to load D1 data into Neo4j + Postgres.     │   │
-│   └──────────────────────────────────────────────────────────────────────┘   │
-│                                                                              │
-│   ┌──────────────────────────────────────────────────────────────────────┐   │
-│   │                   DOMAIN PROFILE (active)                             │   │
-│   │  profiles/<profile-name>/                                             │   │
-│   │  topology.yaml · agents.yaml · disruptions.yaml · consensus.yaml     │   │
-│   │  data_bindings.yaml · evaluation.yaml · dashboard.yaml               │   │
-│   └──────────────────────────────────────────────────────────────────────┘   │
-└──────────────────────────────────────────────────────────────────────────────┘
+
+                              USER LAYER                                      
+                                                                              
+      
+                       Frontend Dashboard (D9)                              
+     React · Next.js · TypeScript · Tailwind CSS · D3/Recharts · Leaflet    
+                                                                            
+             
+      Operational    Supply Chain    AI Meeting    What-If          
+      Dashboard      Map (Leaflet)   Log View      Simulation       
+             
+             
+      Confidence &    Decision       Risk          Scenario         
+      Disagreement    Replay UI      Heatmap       Library          
+             
+                                             
+      Recommend.      AI Chat                                            
+      Timeline        (NL Q&A)                                           
+                                             
+      
+                                HTTP/REST + WebSocket                        
+
+                                
+
+                           API & REAL-TIME LAYER (D8)                         
+                                                                              
+      
+                         FastAPI Backend Service                            
+                                                                            
+     /scenarios/trigger   /whatif/run   /dashboard/state                     
+     /decisions/{id}/log  /decisions/{id}/trace  /decisions/{id}/replay      
+      
+                                                                            
+                                
+     WebSocket               Event Bus              REST               
+     (Live                   (Kafka /               Endpoints          
+      Push)                   RabbitMQ)                                
+                                
+
+                                
+
+                     OBSERVABILITY & EXPLAINABILITY LAYER (D7)                 
+                                                                              
+         
+    LangSmith /         Decision Trace      Judge Calibration          
+    Langfuse Tracing    Persistence         Metrics Logger             
+    (per-agent turn,    (Postgres/          (Cohen's kappa over        
+     token cost,         pgvector, keyed     time, queryable)          
+     latency)            per decision)                                 
+         
+
+                                
+
+                         CD²F CONSENSUS ENGINE (D6)                           
+                                                                              
+            
+                     Arbitration Pipeline                                    
+                                                                            
+     Structured Claims  Confidence-Weighted Voting  Decision          
+      (from all agents)    (stated confidence × rolling                     
+                            historical accuracy)                            
+            
+                                                                              
+      
+                   Escalation Tiering (profile-configurable)                 
+                                                                            
+      FAST PATH              SLOW PATH              HUMAN ESCALATION        
+                           
+       Single agent        Full CD²F            Low consensus        
+       High conf.       multi-agent       or high              
+       Low impact          discussion           impact               
+                           
+      
+                                                                              
+   Thresholds, impact scales, and escalation criteria read from               
+   consensus.yaml in the active Domain Profile.                               
+
+                                
+
+                  AGENT ORCHESTRATION & PROTOCOL LAYER (D5)                    
+                                                                              
+      
+                         LangGraph State Graph                              
+                                                                            
+                                                     
+                         COORDINATOR AGENT                                
+                         Discovers agents                                 
+                         via A2A Agent Cards                              
+                         (roster from                                     
+                          agents.yaml)                                    
+                                                     
+                                        
+               A2A             A2A             A2A                       
+                                                                         
+                  
+       DEMAND       INVENTORY      SUPPLIER     TRANSPORT         
+       AGENT         AGENT         AGENT         AGENT            
+       (D3)          (D3)          (D4)          (D4)             
+                  
+            MCP            MCP            MCP            MCP           
+                                                                       
+      Tools & Data    Tools & Data    Tools & Data    Tools & Data         
+      
+                                                                              
+   Agent set is determined by agents.yaml — adding/removing an agent is       
+   a profile configuration change, not a code change.                         
+
+                                
+
+                    DATA & KNOWLEDGE LAYER (D1 + D2)                          
+                                                                              
+            
+     PostgreSQL      pgvector          Neo4j           Redis        
+     (Operational    (Decision       (Knowledge      (Cache,        
+      DB: orders,     records,        Graph:          session,      
+      inventory,      evidence        supplier →      ephemeral     
+      suppliers,      embeddings,     product →       state)        
+      shipments)      AI Chat         warehouse                     
+                      retrieval)      → route)                      
+            
+                                                                              
+      
+             Synthetic Data & Disruption Generator (D1)                      
+     Reads topology.yaml and disruptions.yaml from the active profile       
+     to generate entities, relationships, and disruption events.            
+      
+                                                                              
+      
+                         ETL Pipeline (D2)                                   
+     Reads data_bindings.yaml to load D1 data into Neo4j + Postgres.        
+      
+                                                                              
+      
+                      DOMAIN PROFILE (active)                                
+     profiles/<profile-name>/                                                
+     topology.yaml · agents.yaml · disruptions.yaml · consensus.yaml        
+     data_bindings.yaml · evaluation.yaml · dashboard.yaml                  
+      
+
 ```
 
 ---
@@ -330,19 +330,19 @@ Every agent, without exception, outputs this structure:
 Each agent accesses its tools and data through **MCP (Model Context Protocol)** servers — not direct database connections. The MCP server configurations are declared in the profile's `agents.yaml` and `data_bindings.yaml`:
 
 ```
-┌─────────────┐      MCP Protocol       ┌──────────────────────┐
-│  Agent       │ ◄──────────────────────► │  MCP Server          │
-│  (reads its  │                          │  (tools declared in  │
-│   config from│                          │   agents.yaml)       │
-│   agents.yaml│                          │                      │
-│  )           │                          │                      │
-└─────────────┘                          └──────────┬───────────┘
-                                                    │
-                                         ┌──────────▼───────────┐
-                                         │  Data Store           │
-                                         │  (connection from     │
-                                         │   data_bindings.yaml) │
-                                         └──────────────────────┘
+      MCP Protocol       
+  Agent           MCP Server          
+  (reads its                              (tools declared in  
+   config from                             agents.yaml)       
+   agents.yaml                                                
+  )                                                           
+                          
+                                                    
+                                         
+                                           Data Store           
+                                           (connection from     
+                                            data_bindings.yaml) 
+                                         
 ```
 
 ---
@@ -486,58 +486,58 @@ Built against the stable D8 API. All views are data-driven from the observabilit
 The complete data flow from disruption injection to human-visible decision:
 
 ```
-                        ┌──────────────┐
-                        │ Domain       │
-                        │ Profile      │ ◄── Loaded at startup
-                        │ (active)     │
-                        └──────┬───────┘
-                               │ configures all layers
-                               ▼
-  ┌──────────┐    ┌──────────────┐    ┌──────────────┐
-  │  D1:     │    │  Event Bus   │    │  D5:         │
-  │  Simulate│───►│  (Kafka /    │───►│  Coordinator │
-  │  Disrupt.│    │   RabbitMQ)  │    │  discovers   │
-  └──────────┘    └──────────────┘    │  agents via  │
-                                      │  A2A         │
-                                      └──────┬───────┘
-                               ┌─────────────┼─────────────┐
-                               │ A2A         │ A2A         │ A2A
-                               ▼             ▼             ▼
-                          ┌────────┐   ┌────────┐   ┌────────┐
-                          │ Agent  │   │ Agent  │   │ Agent  │  ...N agents
-                          │  (MCP) │   │  (MCP) │   │  (MCP) │  (from profile)
-                          └───┬────┘   └───┬────┘   └───┬────┘
-                              │            │            │
-                              └────────────┼────────────┘
-                                           │ Structured Claims
-                                           ▼
-                                    ┌──────────────┐
-                                    │  D6: CD²F    │
-                                    │  Consensus   │ ◄── thresholds from
-                                    │  Engine      │     consensus.yaml
-                                    └──────┬───────┘
-                                           │ Final Decision
-                                           │ + Reasoning Trail
-                                           │ + Escalation Tier
-                                           ▼
-                                    ┌──────────────┐
-                                    │  D7:         │
-                                    │  Persist     │
-                                    │  Trace       │
-                                    └──────┬───────┘
-                                           │
-                                           ▼
-                                    ┌──────────────┐
-                                    │  D8: API +   │
-                                    │  WebSocket   │
-                                    │  push        │
-                                    └──────┬───────┘
-                                           │
-                                           ▼
-                                    ┌──────────────┐
-                                    │  D9:         │ ◄── views configured by
-                                    │  Dashboard   │     dashboard.yaml
-                                    └──────────────┘
+                        
+                         Domain       
+                         Profile        Loaded at startup
+                         (active)     
+                        
+                                configures all layers
+                               
+          
+    D1:           Event Bus         D5:         
+    Simulate  (Kafka /      Coordinator 
+    Disrupt.       RabbitMQ)        discovers   
+            agents via  
+                                        A2A         
+                                      
+                               
+                                A2A          A2A          A2A
+                                                         
+                                
+                           Agent      Agent      Agent    ...N agents
+                            (MCP)      (MCP)      (MCP)   (from profile)
+                                
+                                                      
+                              
+                                            Structured Claims
+                                           
+                                    
+                                      D6: CD²F    
+                                      Consensus     thresholds from
+                                      Engine           consensus.yaml
+                                    
+                                            Final Decision
+                                            + Reasoning Trail
+                                            + Escalation Tier
+                                           
+                                    
+                                      D7:         
+                                      Persist     
+                                      Trace       
+                                    
+                                           
+                                           
+                                    
+                                      D8: API +   
+                                      WebSocket   
+                                      push        
+                                    
+                                           
+                                           
+                                    
+                                      D9:           views configured by
+                                      Dashboard        dashboard.yaml
+                                    
 ```
 
 ---

@@ -32,52 +32,52 @@ A Domain Profile is a single configuration artifact that captures everything SCO
 ### What a Domain Profile Defines
 
 ```
-┌───────────────────────────────────────────────────────────────┐
-│                        DOMAIN PROFILE                         │
-│                                                               │
-│  ┌─────────────────────────────────────────────────────────┐  │
-│  │  1. TOPOLOGY                                             │  │
-│  │     What entities exist and how they connect              │  │
-│  │     (suppliers, products, warehouses, routes, DCs)        │  │
-│  └─────────────────────────────────────────────────────────┘  │
-│                                                               │
-│  ┌─────────────────────────────────────────────────────────┐  │
-│  │  2. AGENT ROSTER                                         │  │
-│  │     Which agents are active and how they're configured    │  │
-│  │     (models, thresholds, MCP tool bindings)               │  │
-│  └─────────────────────────────────────────────────────────┘  │
-│                                                               │
-│  ┌─────────────────────────────────────────────────────────┐  │
-│  │  3. DISRUPTION CATALOG                                   │  │
-│  │     What disruption types are relevant to this context    │  │
-│  │     (parameters, severity scales, propagation rules)      │  │
-│  └─────────────────────────────────────────────────────────┘  │
-│                                                               │
-│  ┌─────────────────────────────────────────────────────────┐  │
-│  │  4. CONSENSUS TUNING                                     │  │
-│  │     CD²F thresholds and escalation rules for this domain  │  │
-│  │     (confidence floors, impact scales, fast-path criteria)│  │
-│  └─────────────────────────────────────────────────────────┘  │
-│                                                               │
-│  ┌─────────────────────────────────────────────────────────┐  │
-│  │  5. DATA BINDINGS                                        │  │
-│  │     Where the data lives and how it maps to the platform  │  │
-│  │     (DB schemas, MCP server configs, ETL mappings)        │  │
-│  └─────────────────────────────────────────────────────────┘  │
-│                                                               │
-│  ┌─────────────────────────────────────────────────────────┐  │
-│  │  6. EVALUATION CRITERIA                                  │  │
-│  │     What "good" means for this particular environment     │  │
-│  │     (metrics, baselines, scenario sets)                   │  │
-│  └─────────────────────────────────────────────────────────┘  │
-│                                                               │
-│  ┌─────────────────────────────────────────────────────────┐  │
-│  │  7. DASHBOARD CONFIGURATION                              │  │
-│  │     Which views are active and what labels/scales they    │  │
-│  │     use (map coordinates, heatmap dimensions, entity      │  │
-│  │     display names)                                        │  │
-│  └─────────────────────────────────────────────────────────┘  │
-└───────────────────────────────────────────────────────────────┘
+
+                        DOMAIN PROFILE                         
+                                                               
+    
+    1. TOPOLOGY                                               
+       What entities exist and how they connect                
+       (suppliers, products, warehouses, routes, DCs)          
+    
+                                                               
+    
+    2. AGENT ROSTER                                           
+       Which agents are active and how they're configured      
+       (models, thresholds, MCP tool bindings)                 
+    
+                                                               
+    
+    3. DISRUPTION CATALOG                                     
+       What disruption types are relevant to this context      
+       (parameters, severity scales, propagation rules)        
+    
+                                                               
+    
+    4. CONSENSUS TUNING                                       
+       CD²F thresholds and escalation rules for this domain    
+       (confidence floors, impact scales, fast-path criteria)  
+    
+                                                               
+    
+    5. DATA BINDINGS                                          
+       Where the data lives and how it maps to the platform    
+       (DB schemas, MCP server configs, ETL mappings)          
+    
+                                                               
+    
+    6. EVALUATION CRITERIA                                    
+       What "good" means for this particular environment       
+       (metrics, baselines, scenario sets)                     
+    
+                                                               
+    
+    7. DASHBOARD CONFIGURATION                                
+       Which views are active and what labels/scales they      
+       use (map coordinates, heatmap dimensions, entity        
+       display names)                                          
+    
+
 ```
 
 ### The Core Idea
@@ -404,14 +404,14 @@ Domain Profiles enable three deployment patterns, each progressively more flexib
 The simplest model. One SCOF instance, one Domain Profile. This is what the MVP already is — just with the profile externalized rather than hardcoded.
 
 ```
-┌─────────────────────────────┐
-│       SCOF Platform         │
-│                             │
-│  ┌───────────────────────┐  │
-│  │  Domain Profile:      │  │
-│  │  "acme-electronics"   │  │
-│  └───────────────────────┘  │
-└─────────────────────────────┘
+
+       SCOF Platform         
+                             
+    
+    Domain Profile:        
+    "acme-electronics"     
+    
+
 ```
 
 **When to use:** Single organization, single supply chain scope, MVP.
@@ -421,18 +421,18 @@ The simplest model. One SCOF instance, one Domain Profile. This is what the MVP 
 One SCOF instance can load different profiles. Useful for organizations with multiple supply chain contexts (e.g., different product lines, different regions).
 
 ```
-┌─────────────────────────────────────────────┐
-│              SCOF Platform                   │
-│                                             │
-│  ┌──────────────┐  ┌──────────────────────┐ │
-│  │ Profile A:   │  │ Profile B:           │ │
-│  │ "electronics │  │ "pharma-cold-chain"  │ │
-│  │  -southeast" │  │                      │ │
-│  └──────────────┘  └──────────────────────┘ │
-│                                             │
-│  Active Profile: [A] ← switchable at        │
-│                        startup or runtime    │
-└─────────────────────────────────────────────┘
+
+              SCOF Platform                   
+                                             
+     
+   Profile A:      Profile B:            
+   "electronics    "pharma-cold-chain"   
+    -southeast"                          
+     
+                                             
+  Active Profile: [A] ← switchable at        
+                        startup or runtime    
+
 ```
 
 **When to use:** Same organization, multiple supply chain contexts, shared infrastructure.
@@ -442,18 +442,18 @@ One SCOF instance can load different profiles. Useful for organizations with mul
 Multiple SCOF instances, each with its own profile, sharing core platform containers but isolated data stores. This is the path toward SCOF-as-a-service.
 
 ```
-┌──────────────────────────────────────────────────────────┐
-│                   Shared SCOF Platform                    │
-│         (Agent images, CD²F engine, dashboard shell)      │
-│                                                          │
-│  ┌────────────────┐  ┌────────────────┐  ┌────────────┐ │
-│  │  Tenant A      │  │  Tenant B      │  │  Tenant C  │ │
-│  │  Profile:      │  │  Profile:      │  │  Profile:  │ │
-│  │  "electronics" │  │  "pharma"      │  │  "auto"    │ │
-│  │  Own data      │  │  Own data      │  │  Own data  │ │
-│  │  stores        │  │  stores        │  │  stores    │ │
-│  └────────────────┘  └────────────────┘  └────────────┘ │
-└──────────────────────────────────────────────────────────┘
+
+                   Shared SCOF Platform                    
+         (Agent images, CD²F engine, dashboard shell)      
+                                                          
+       
+    Tenant A          Tenant B          Tenant C   
+    Profile:          Profile:          Profile:   
+    "electronics"     "pharma"          "auto"     
+    Own data          Own data          Own data   
+    stores            stores            stores     
+       
+
 ```
 
 **When to use:** Platform-as-a-service, multiple organizations, full data isolation.
@@ -544,18 +544,18 @@ A complete Domain Profile lives in a single directory:
 
 ```
 profiles/
-└── acme-electronics-southeast-asia/
-    ├── profile.yaml              # Top-level metadata (name, version, description)
-    ├── topology.yaml             # Entities and relationships
-    ├── agents.yaml               # Active agents and their configurations
-    ├── disruptions.yaml          # Disruption catalog
-    ├── consensus.yaml            # CD²F thresholds and escalation rules
-    ├── evaluation.yaml           # Metrics, baselines, scenario sets
-    ├── dashboard.yaml            # View configuration, map bounds, labels
-    ├── data_bindings.yaml        # MCP server configs, DB connection mappings
-    └── scenarios/
-        ├── calibration_set.json  # Hand-labeled scenarios for judge calibration
-        └── evaluation_set.json   # Scenarios for benchmark evaluation
+ acme-electronics-southeast-asia/
+     profile.yaml              # Top-level metadata (name, version, description)
+     topology.yaml             # Entities and relationships
+     agents.yaml               # Active agents and their configurations
+     disruptions.yaml          # Disruption catalog
+     consensus.yaml            # CD²F thresholds and escalation rules
+     evaluation.yaml           # Metrics, baselines, scenario sets
+     dashboard.yaml            # View configuration, map bounds, labels
+     data_bindings.yaml        # MCP server configs, DB connection mappings
+     scenarios/
+         calibration_set.json  # Hand-labeled scenarios for judge calibration
+         evaluation_set.json   # Scenarios for benchmark evaluation
 ```
 
 Deploying SCOF to a new supply chain context means **writing a new profile directory** — not modifying platform code.

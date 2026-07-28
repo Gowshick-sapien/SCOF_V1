@@ -257,23 +257,23 @@ If the Coordinator acts as a judge over agent claims, its arbitration should be 
 
                        User Dashboard
 
-                              │
+                              
 
                       FastAPI Backend
 
-                              │
+                              
 
                     Coordinator AI Agent
 
                     (discovers/delegates via A2A)
 
-    ─────────────────────────────────────────
+    
 
     Supplier \-- Inventory \-- Demand \-- Transport
 
     Finance \-- Risk \-- Weather \-- Sustainability
 
-    ─────────────────────────────────────────
+    
 
    Each agent reaches tools/data via MCP:
 
@@ -283,7 +283,7 @@ If the Coordinator acts as a judge over agent claims, its arbitration should be 
 
    Vector Store (pgvector) \-- External APIs \-- ERP Data
 
-    ─────────────────────────────────────────
+    
 
    Observability Layer (LangSmith / Langfuse)
 

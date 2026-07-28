@@ -1,4 +1,4 @@
-.PHONY: up down build generate etl test lint clean
+.PHONY: up down build generate etl test verify-d1 lint clean
 
 up:
 	docker compose up -d
@@ -14,6 +14,9 @@ generate:
 
 etl:
 	docker compose run --rm etl python -m src.main
+
+verify-d1:
+	python scripts/verify_d1.py
 
 test:
 	pytest
