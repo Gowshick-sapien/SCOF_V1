@@ -29,7 +29,8 @@ Deliverable D1 establishes a self-contained, reproducible synthetic supply chain
 3. **[`design_decisions.md`](./design_decisions.md)**: Architectural design decisions for run-keyed dataset coexistence, SHA-256 profile hashing, canonical ID conventions, supplier sourcing junctions, polymorphic routes, metadata tracking, and verification automation.
 4. **[`schema_design.md`](./schema_design.md)**: PostgreSQL relational table schemas, primary/foreign keys, indexes, and constraints.
 5. **[`data_dictionary.md`](./data_dictionary.md)**: Complete field-by-field reference guide for all generated database tables.
-6. **[`acceptance_evidence.md`](./acceptance_evidence.md)**: Empirical test logs, SQL query results, and verification evidence (populated upon implementation completion).
+6. **[`acceptance_evidence.md`](./acceptance_evidence.md)**: Empirical test logs, SQL query results, and verification evidence.
+7. **[`walkthrough.md`](./walkthrough.md)**: Detailed walkthrough of D1 implementation, verification output, and manual testing strategy.
 
 ---
 
