@@ -48,10 +48,12 @@ SCOF/
     deliverables/                           # Per-deliverable documentation
        D01_simulation_data/
           README.md                       # D1 overview, objectives, acceptance criteria
+          implementation_plan.md          # D1 implementation plan
           design_decisions.md             # Generator architecture, data model choices
           schema_design.md                # PostgreSQL schema definitions
           data_dictionary.md              # Entity fields, types, constraints
-          acceptance_evidence.md           # Test results proving "done"
+          acceptance_evidence.md          # Test results proving "done"
+          walkthrough.md                  # D1 walkthrough
       
        D02_knowledge_layer/
           README.md                       # D2 overview, objectives, acceptance criteria
