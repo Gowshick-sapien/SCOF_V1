@@ -40,11 +40,14 @@ The MVP is built and validated entirely within a **Docker-based simulation envir
 | Meeting Log | A stored, human-readable transcript of inter-agent discussion for a given decision |
 | Fast/Slow Path | Escalation tiers in CD²F based on confidence and impact thresholds |
 | MVP | Minimum Viable Product (Deliverables D1–D10) |
+| Domain Profile | A declarative configuration artifact (directory of YAML files) that captures the supply chain context SCOF operates in — topology, agents, disruptions, consensus thresholds, evaluation criteria, and dashboard configuration |
 
 ### **1.5 References**
 
 * SCOF Ideation Document (Project Themes, Vision, Objectives, Architecture, Section 1–23)  
-* SCOF Implementation Plan — Docker-Simulation MVP (Deliverables D1–D11)
+* SCOF Implementation Plan — Docker-Simulation MVP (Deliverables D1–D11)  
+* SCOF System Architecture Document  
+* SCOF Domain Binding Strategy
 
 ---
 
@@ -52,7 +55,9 @@ The MVP is built and validated entirely within a **Docker-based simulation envir
 
 ### **2.1 Product Perspective**
 
-SCOF is a new, standalone system (not an extension of an existing ERP). It is conceptually modeled as "NASA Mission Control for Supply Chains": specialized agents each own a domain, and a Coordinator Agent reconciles their input into a single, auditable decision — analogous to a flight director reconciling propulsion, life support, navigation, and comms specialists.
+SCOF is a new, standalone, **profile-driven platform** (not an extension of an existing ERP). The platform's engine — agent orchestration, CD²F consensus, observability, API, and dashboard — is **domain-agnostic**: it operates independently of any particular supply chain context. The specific supply chain environment (its topology, entities, disruption types, escalation thresholds, and evaluation criteria) is provided through a declarative configuration artifact called a **Domain Profile**.
+
+This design means deploying SCOF to a new supply chain context requires writing a new Domain Profile — not modifying platform code. Specialized agents each own a domain, and a Coordinator Agent discovers them dynamically (via A2A Agent Cards) and reconciles their input into a single, auditable decision through the CD²F mechanism.
 
 ### **2.2 Product Functions (Summary)**
 
@@ -67,7 +72,7 @@ SCOF is a new, standalone system (not an extension of an existing ERP). It is co
 
 ### **2.3 Product Scope (MVP Boundary)**
 
-As defined in Section 21 of the ideation document, the MVP models a **bounded system**:
+As defined in Section 21 of the ideation document, the MVP models a **bounded system**, expressed as the MVP Domain Profile:
 
 * 1 manufacturer producing 3–5 products  
 * 5 suppliers with varying reliability profiles  
@@ -77,7 +82,7 @@ As defined in Section 21 of the ideation document, the MVP models a **bounded sy
 * Simulated disruptions only: supplier delays, transport failures, demand spikes, adverse weather  
 * Dashboard with live state, agent reasoning ("meeting log"), recommendations, and what-if analysis
 
-All MVP work is validated in a Docker-based simulation with synthetic data before any consideration of real ERP/IoT integration.
+All MVP work is validated in a Docker-based simulation with synthetic data before any consideration of real ERP/IoT integration. The MVP scope above is captured as a Domain Profile (topology, agents, disruptions, consensus thresholds, evaluation criteria) so that the platform is validated as profile-driven from day one.
 
 ### **2.4 User Classes and Characteristics**
 
@@ -87,6 +92,7 @@ All MVP work is validated in a Docker-based simulation with synthetic data befor
 | Research Evaluator | Reviews evaluation metrics, benchmark comparisons, calibration reports |
 | System Administrator | Manages Docker environment, data generation, service health |
 | Developer / Extender | Adds new agents or extends orchestration per D11 interface contracts |
+| Profile Author | Defines Domain Profiles to deploy SCOF to new supply chain contexts — writes topology, agent roster, disruption catalog, and consensus tuning configuration |
 
 ### **2.5 Operating Environment**
 
@@ -103,7 +109,8 @@ All MVP work is validated in a Docker-based simulation with synthetic data befor
 * MVP must run fully offline against synthetic/simulated data — no external live data feeds or hardware integration  
 * Agent orchestration framework choice (LangGraph vs. CrewAI vs. AutoGen vs. Semantic Kernel) must be evaluated and finalized before D5; this SRS assumes LangGraph per the implementation plan  
 * Consensus algorithm specifics (confidence-weighted arbitration, learned meta-policy, or rule-based arbitration with escalation) are a design task resolved during D6, but must conform to the structured claim input/output contract defined in Section 3.4  
-* All decision traces must be persisted and replayable (non-negotiable, since explainability is a core research contribution)
+* All decision traces must be persisted and replayable (non-negotiable, since explainability is a core research contribution)  
+* The MVP scope (entities, agents, disruptions, thresholds) shall be expressed as a Domain Profile from day one, so that the platform is validated as profile-driven and redeployable to new supply chain contexts without code changes
 
 ### **2.7 Assumptions and Dependencies**
 
@@ -143,6 +150,7 @@ D1 (Sim Data) → D2 (Knowledge Layer) → D3 (Demand+Inventory Agents) ─┐
 | FR-1.2 | The system shall generate synthetic entities for 1 manufacturer, 3–5 products, 5 suppliers (with varying reliability profiles), 2 warehouses, 1 distribution center, and a multi-route transport network. |
 | FR-1.3 | The system shall generate a disruption event generator supporting: supplier delay, transport failure, demand spike, and adverse weather, each parameterized by severity, duration, and timing. |
 | FR-1.4 | The generated data shall be queryable directly from Postgres, independent of any agent or API code. |
+| FR-1.5 | The synthetic data generator shall read entity definitions, relationship structures, and disruption parameters from the active Domain Profile (`topology.yaml` and `disruptions.yaml`) rather than from hardcoded values, so that the same generator can produce data for any profile. |
 
 **Acceptance Criterion (Standalone "Done"):** Running docker compose up, triggering the generator, and querying Postgres directly returns realistic order/inventory/shipment histories and injectable disruption events, with no agents or APIs involved.
 
@@ -210,6 +218,7 @@ D1 (Sim Data) → D2 (Knowledge Layer) → D3 (Demand+Inventory Agents) ─┐
 | FR-5.2 | The system shall formalize MCP servers for each agent's existing tool/data access, protocol-wrapping the D3/D4 implementations. |
 | FR-5.3 | The system shall implement an A2A layer where each agent publishes an Agent Card, and the Coordinator discovers and delegates via A2A rather than hardcoded calls. |
 | FR-5.4 | The Coordinator, at this stage, shall only collect claims from all agents — no arbitration logic is invoked. |
+| FR-5.5 | The Coordinator shall determine the active agent set from the Domain Profile (`agents.yaml`) and discover them via A2A at startup, so that adding or removing agents is a profile configuration change, not a code change. |
 
 **Acceptance Criterion:** Triggering one D1 disruption scenario end-to-end results in the Coordinator receiving all four agents' structured claims via A2A/MCP, with the full call graph visible; output is a raw claim bundle, not a decision.
 
@@ -226,6 +235,7 @@ D1 (Sim Data) → D2 (Knowledge Layer) → D3 (Demand+Inventory Agents) ─┐
 | FR-6.3 | The system shall support a judge/Coordinator calibration check against a hand-labeled scenario set, computing Cohen's kappa. |
 | FR-6.4 | The system shall implement a naive-majority-voting baseline, used solely as an evaluation comparator (not in production decisions). |
 | FR-6.5 | For every arbitration, the engine shall produce: a final decision, a reasoning trail, and an escalation tier. |
+| FR-6.6 | Escalation thresholds, impact scale definitions, fast-path/slow-path criteria, and calibration settings shall be read from the Domain Profile (`consensus.yaml`) rather than hardcoded, so that the consensus engine adapts to different deployment contexts without code changes. |
 
 **Acceptance Criterion:** Feeding the engine a fixture set of mock agent claims (agreement, disagreement, conflicting-evidence cases) produces a final decision, reasoning trail, and escalation tier matching hand-worked expectations — independent of live D5 output.
 
@@ -339,6 +349,7 @@ D1 (Sim Data) → D2 (Knowledge Layer) → D3 (Demand+Inventory Agents) ─┐
 | Environment Isolation | The MVP shall run fully within Docker containers against synthetic data, with no external hardware or live data feed dependency. |
 | Response Time | The CD²F engine shall support a fast-path/slow-path split so that low-complexity decisions resolve with materially lower latency than escalated ones (measured in D10). |
 | Evaluability | The system shall support benchmarking of decision quality against defined baselines (single-agent, naive-majority-voting) using the metrics in Section 20 of the ideation document. |
+| Domain Portability | The platform shall treat its operating context (topology, agents, disruptions, thresholds, evaluation criteria) as a declarative Domain Profile input, so that deploying to a new supply chain context requires writing a new profile — not modifying platform code. |
 
 ---
 
@@ -377,5 +388,6 @@ D1 (Sim Data) → D2 (Knowledge Layer) → D3 (Demand+Inventory Agents) ─┐
 **Constraints:**
 
 * Orchestration framework must be selected (LangGraph assumed) prior to D5  
-* Consensus algorithm mechanics finalized during D6 implementation, within the structured claim contract defined here
+* Consensus algorithm mechanics finalized during D6 implementation, within the structured claim contract defined here  
+* The MVP scope shall be expressed as a Domain Profile from D1 onward, validating the profile-driven architecture as part of the MVP build itself
 
