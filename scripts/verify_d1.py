@@ -7,6 +7,7 @@ and non-zero table counts.
 
 import os
 import sys
+# pyrefly: ignore [missing-import]
 import psycopg
 
 
