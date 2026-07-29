@@ -9,6 +9,7 @@ import os
 import sys
 # pyrefly: ignore [missing-import]
 import psycopg
+from psycopg import sql
 
 
 def get_db_dsn() -> str:
@@ -18,6 +19,11 @@ def get_db_dsn() -> str:
     user = os.getenv("POSTGRES_USER", "scof")
     pw = os.getenv("POSTGRES_PASSWORD", "changeme")
     return f"postgresql://{user}:{pw}@{host}:{port}/{db}"
+
+
+def fetch_count(cur) -> int:
+    row = cur.fetchone()
+    return int(row[0]) if row is not None else 0
 
 
 def verify_d1():
@@ -60,8 +66,8 @@ def verify_d1():
 
                 print("\n--- Database Table Row Counts ---")
                 for table in tables:
-                    cur.execute(f"SELECT count(*) FROM scof.{table};")
-                    count = cur.fetchone()[0]
+                    cur.execute(sql.SQL("SELECT count(*) FROM scof.{};").format(sql.Identifier(table)))
+                    count = fetch_count(cur)
                     print(f"  scof.{table:<25}: {count} rows")
                     if count == 0 and table != "simulation_runs":
                         checks.append(f"[FAIL] Table scof.{table} is empty.")
@@ -69,9 +75,9 @@ def verify_d1():
 
                 # Check 3: supplier_products integrity (preferred vs alternate)
                 cur.execute("SELECT count(*) FROM scof.supplier_products WHERE is_preferred_supplier = TRUE;")
-                pref_count = cur.fetchone()[0]
+                pref_count = fetch_count(cur)
                 cur.execute("SELECT count(*) FROM scof.supplier_products WHERE is_preferred_supplier = FALSE;")
-                alt_count = cur.fetchone()[0]
+                alt_count = fetch_count(cur)
                 if pref_count > 0 and alt_count > 0:
                     checks.append(f"[PASS] supplier_products integrity validated ({pref_count} preferred, {alt_count} alternate).")
                 else:
@@ -91,7 +97,7 @@ def verify_d1():
 
                 # Check 5: Run ID FK Coexistence
                 cur.execute("SELECT count(DISTINCT run_id) FROM scof.inventory_levels;")
-                run_count = cur.fetchone()[0]
+                run_count = fetch_count(cur)
                 if run_count > 0:
                     checks.append(f"[PASS] Multi-run FK isolation validated ({run_count} distinct run_id(s) active).")
                 else:

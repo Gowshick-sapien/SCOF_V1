@@ -12,3 +12,9 @@ target-version = "py311"
 testpaths = ["shared", "services"]
 python_files = ["test_*.py"]
 python_functions = ["test_*"]
+pythonpath = ["shared", "services/simulation"]
+
+[tool.pyright]
+extraPaths = ["shared", "services/simulation"]
+
+

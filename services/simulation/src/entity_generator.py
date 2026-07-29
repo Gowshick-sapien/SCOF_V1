@@ -7,7 +7,9 @@ and Polymorphic Routes using canonical ID conventions.
 
 import math
 from typing import Dict, List, Any
+# pyrefly: ignore [missing-import]
 from scof_shared.profile.loader import DomainProfile
+# pyrefly: ignore [missing-import]
 from src.constants import TransportMode, Prefix
 
 
