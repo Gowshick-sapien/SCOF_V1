@@ -7,6 +7,11 @@ and non-zero table counts.
 
 import os
 import sys
+from pathlib import Path
+
+# Add project root directory to sys.path
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
 # pyrefly: ignore [missing-import]
 import psycopg
 from psycopg import sql

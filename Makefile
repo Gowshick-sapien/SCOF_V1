@@ -18,6 +18,9 @@ etl:
 verify-d1:
 	python scripts/verify_d1.py
 
+verify-d2:
+	python scripts/verify_d2.py
+
 test:
 	pytest
 
