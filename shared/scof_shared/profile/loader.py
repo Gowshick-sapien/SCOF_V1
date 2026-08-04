@@ -12,6 +12,9 @@ import yaml
 from pydantic import BaseModel, Field, ConfigDict
 
 
+from scof_shared.profile.agents_config import AgentsRosterModel, load_agents_config
+
+
 class Location(BaseModel):
     lat: float
     lon: float
@@ -82,6 +85,7 @@ class DomainProfile(BaseModel):
     meta: ProfileMetaModel
     topology: TopologyModel
     disruptions: DisruptionConfigModel
+    agents: Optional[AgentsRosterModel] = None
     profile_hash: str
     profile_path: Path
 
@@ -143,12 +147,17 @@ class ProfileLoader:
             disruption_data = yaml.safe_load(f)
         disruptions = DisruptionConfigModel(**disruption_data)
 
+        agents_roster = None
+        if (path / "agents.yaml").exists():
+            agents_roster = load_agents_config(path)
+
         p_hash = compute_profile_hash(path)
 
         return DomainProfile(
             meta=meta,
             topology=topology,
             disruptions=disruptions,
+            agents=agents_roster,
             profile_hash=p_hash,
             profile_path=path,
         )

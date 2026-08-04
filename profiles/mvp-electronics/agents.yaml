@@ -3,11 +3,28 @@ active_agents:
     name: "Demand Forecast Agent"
     port: 8011
     confidence_floor: 0.60
+    ensemble_weights:
+      xgboost: 0.6
+      statistical: 0.4
+    forecast_horizon_days: 14
+    mcp_tools:
+      - read_historical_demand
+      - read_demand_disruptions
+      - read_product_catalog
 
   - id: "inventory-agent"
     name: "Inventory Agent"
     port: 8012
     confidence_floor: 0.65
+    ensemble_weights:
+      xgboost: 0.6
+      statistical: 0.4
+    forecast_horizon_days: 14
+    mcp_tools:
+      - read_stock_levels
+      - read_reorder_points
+      - read_inbound_shipments
+      - read_inventory_disruptions
 
   - id: "supplier-agent"
     name: "Supplier Intelligence Agent"

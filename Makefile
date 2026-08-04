@@ -21,6 +21,9 @@ verify-d1:
 verify-d2:
 	python scripts/verify_d2.py
 
+verify-d3:
+	python scripts/verify_d3.py
+
 test:
 	pytest
 
