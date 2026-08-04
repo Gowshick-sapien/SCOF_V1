@@ -22,6 +22,7 @@ from src.features import InventoryFeatureBuilder
 from src.mcp.tools import INVENTORY_MCP_TOOLS
 from src.models.ensemble import InventoryEnsemble
 from src.models.statistical_model import InventoryStatisticalInference, InventoryStatisticalTrainer
+from scof_shared.knowledge import Neo4jGraphClient, PgVectorClient
 from src.models.xgboost_model import InventoryXGBoostInference, InventoryXGBoostTrainer
 
 
@@ -32,8 +33,8 @@ class InventoryAgent(BaseAgent):
         self,
         profile_path: Optional[str] = None,
         db_config: Optional[dict] = None,
-        graph_client: Optional[object] = None,
-        vector_client: Optional[object] = None,
+        graph_client: Optional[Neo4jGraphClient] = None,
+        vector_client: Optional[PgVectorClient] = None,
     ):
         super().__init__(
             agent_id=AGENT_ID,

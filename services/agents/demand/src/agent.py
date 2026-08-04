@@ -9,7 +9,7 @@ from scof_shared.schemas.agent_card import AgentCard
 from scof_shared.schemas.scenario_context import ScenarioContext
 from scof_shared.schemas.structured_claim import StructuredClaim
 
-from src.config import (
+from .config import (
     AGENT_ID,
     AGENT_NAME,
     MODEL_ARTIFACT_DIR,
@@ -17,12 +17,13 @@ from src.config import (
     PYTHON_RANDOM_SEED,
     XGBOOST_SEED,
 )
-from src.data_access import DemandDataAccess
-from src.features import DemandFeatureBuilder
-from src.mcp.tools import DEMAND_MCP_TOOLS
-from src.models.ensemble import DemandEnsemble
-from src.models.statistical_model import DemandStatisticalInference, DemandStatisticalTrainer
-from src.models.xgboost_model import DemandXGBoostInference, DemandXGBoostTrainer
+from .data_access import DemandDataAccess
+from .features import DemandFeatureBuilder
+from .mcp.tools import DEMAND_MCP_TOOLS
+from .models.ensemble import DemandEnsemble
+from .models.statistical_model import DemandStatisticalInference, DemandStatisticalTrainer
+from scof_shared.knowledge import Neo4jGraphClient, PgVectorClient
+from .models.xgboost_model import DemandXGBoostInference, DemandXGBoostTrainer
 
 
 class DemandAgent(BaseAgent):
@@ -32,8 +33,8 @@ class DemandAgent(BaseAgent):
         self,
         profile_path: Optional[str] = None,
         db_config: Optional[dict] = None,
-        graph_client: Optional[object] = None,
-        vector_client: Optional[object] = None,
+        graph_client: Optional[Neo4jGraphClient] = None,
+        vector_client: Optional[PgVectorClient] = None,
     ):
         super().__init__(
             agent_id=AGENT_ID,

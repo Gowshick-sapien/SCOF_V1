@@ -1,14 +1,15 @@
-"""FastAPI application entry point for Demand Agent microservice."""
+"""FastAPI application entry point for Supplier Intelligence Agent microservice."""
 
 import time
 from contextlib import asynccontextmanager
+from typing import Optional
 from fastapi import FastAPI, HTTPException
 from scof_shared.schemas.agent_card import AgentCard
 from scof_shared.schemas.scenario_context import ScenarioContext
 from scof_shared.schemas.structured_claim import StructuredClaim
 
-from .agent import DemandAgent
-from .config import (
+from src.agent import SupplierAgent
+from src.config import (
     AGENT_ID,
     NEO4J_URI,
     POSTGRES_DB,
@@ -18,13 +19,13 @@ from .config import (
 )
 
 START_TIME = time.time()
-agent_instance: DemandAgent | None = None
+agent_instance: Optional[SupplierAgent] = None
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     global agent_instance
-    agent_instance = DemandAgent(
+    agent_instance = SupplierAgent(
         profile_path=SCOF_PROFILE_PATH,
         db_config={
             "host": POSTGRES_HOST,
@@ -36,9 +37,9 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(
-    title="SCOF Demand Agent Service",
+    title="SCOF Supplier Intelligence Agent Service",
     version="1.0.0",
-    description="Microservice providing demand forecasting claims.",
+    description="Microservice providing supplier reliability assessment and backup vendor recommendations.",
     lifespan=lifespan,
 )
 
@@ -72,7 +73,7 @@ def get_agent_card() -> AgentCard:
 
 @app.post("/analyze", response_model=StructuredClaim)
 def analyze(context: ScenarioContext) -> StructuredClaim:
-    """Invokes Demand Agent analysis pipeline."""
+    """Invokes Supplier Agent analysis pipeline."""
     if not agent_instance:
         raise HTTPException(status_code=503, detail="Agent instance not initialized")
     try:

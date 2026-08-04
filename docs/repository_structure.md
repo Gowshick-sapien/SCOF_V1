@@ -60,14 +60,16 @@ SCOF/
           neo4j_schema.md                 # Graph schema: nodes, relationships, properties
           pgvector_schema.md              # Vector store tables, embedding strategy
           etl_design.md                   # ETL pipeline design and idempotency approach
-          acceptance_evidence.md
+          acceptance_evidence.md          # Test results proving "done"
+          walkthrough.md   
       
        D03_demand_inventory_agents/
           README.md                       # D3 overview, objectives, acceptance criteria
           demand_agent_design.md          # Model selection, ensemble strategy, MCP tools
           inventory_agent_design.md       # Model selection, ensemble strategy, MCP tools
           model_evaluation.md             # Forecast accuracy against D1 ground truth
-          acceptance_evidence.md
+          acceptance_evidence.md          # Test results proving "done"
+          walkthrough.md                  # D3 walkthrough
       
        D04_supplier_transport_agents/
           README.md                       # D4 overview, objectives, acceptance criteria

@@ -144,8 +144,65 @@ services:
       - ./profiles:/app/profiles:ro
       - ./models/inventory:/app/models:rw
 
+  supplier-agent:
+    build:
+      context: .
+      dockerfile: services/agents/supplier/Dockerfile
+    container_name: scof-supplier-agent
+    depends_on:
+      postgres:
+        condition: service_healthy
+      neo4j:
+        condition: service_healthy
+    environment:
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=${POSTGRES_DB:-scof}
+      - POSTGRES_USER=${POSTGRES_USER:-scof}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-changeme}
+      - NEO4J_URI=bolt://neo4j:7687
+      - NEO4J_USER=${NEO4J_USER:-neo4j}
+      - NEO4J_PASSWORD=${NEO4J_PASSWORD:-changeme}
+      - SCOF_PROFILE_PATH=/app/profiles/mvp-electronics
+      - NUMPY_SEED=42
+      - SKLEARN_SEED=42
+    ports:
+      - "8013:8013"
+    volumes:
+      - ./profiles:/app/profiles:ro
+      - ./models/supplier:/app/models:rw
+
+  transport-agent:
+    build:
+      context: .
+      dockerfile: services/agents/transportation/Dockerfile
+    container_name: scof-transport-agent
+    depends_on:
+      postgres:
+        condition: service_healthy
+      neo4j:
+        condition: service_healthy
+    environment:
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=${POSTGRES_DB:-scof}
+      - POSTGRES_USER=${POSTGRES_USER:-scof}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-changeme}
+      - NEO4J_URI=bolt://neo4j:7687
+      - NEO4J_USER=${NEO4J_USER:-neo4j}
+      - NEO4J_PASSWORD=${NEO4J_PASSWORD:-changeme}
+      - SCOF_PROFILE_PATH=/app/profiles/mvp-electronics
+      - NUMPY_SEED=42
+      - SKLEARN_SEED=42
+    ports:
+      - "8014:8014"
+    volumes:
+      - ./profiles:/app/profiles:ro
+      - ./models/transportation:/app/models:rw
+
 volumes:
   postgres_data:
   neo4j_data:
   redis_data:
   kafka_data:
+

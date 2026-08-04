@@ -17,14 +17,14 @@ RUN pip install --upgrade pip setuptools wheel
 COPY shared/ /app/shared/
 RUN pip install -e /app/shared
 
-# Copy inventory agent package and install
-COPY services/agents/inventory/ /app/services/agents/inventory/
-RUN pip install -e /app/services/agents/inventory/
+# Copy supplier agent package and install
+COPY services/agents/supplier/ /app/services/agents/supplier/
+RUN pip install -e /app/services/agents/supplier/
 
 # Expose HTTP port
-EXPOSE 8012
+EXPOSE 8013
 
-ENV PYTHONPATH=/app/shared:/app/services/agents/inventory
+ENV PYTHONPATH=/app/shared:/app/services/agents/supplier
 ENV SCOF_PROFILE_PATH=/app/profiles/mvp-electronics
 
-CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8012"]
+CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8013"]

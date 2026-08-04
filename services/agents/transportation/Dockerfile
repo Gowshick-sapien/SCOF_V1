@@ -5,6 +5,7 @@ WORKDIR /app
 # Install system dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
+    libpq-dev \
     && rm -rf /var/lib/apt/lists/*
 
 ENV PIP_DEFAULT_TIMEOUT=1000
@@ -17,14 +18,14 @@ RUN pip install --upgrade pip setuptools wheel
 COPY shared/ /app/shared/
 RUN pip install -e /app/shared
 
-# Copy inventory agent package and install
-COPY services/agents/inventory/ /app/services/agents/inventory/
-RUN pip install -e /app/services/agents/inventory/
+# Copy transportation agent package and install
+COPY services/agents/transportation/ /app/services/agents/transportation/
+RUN pip install -e /app/services/agents/transportation/
 
 # Expose HTTP port
-EXPOSE 8012
+EXPOSE 8014
 
-ENV PYTHONPATH=/app/shared:/app/services/agents/inventory
+ENV PYTHONPATH=/app/shared:/app/services/agents/transportation
 ENV SCOF_PROFILE_PATH=/app/profiles/mvp-electronics
 
-CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8012"]
+CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8014"]

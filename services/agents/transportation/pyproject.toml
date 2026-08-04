@@ -1,0 +1,37 @@
+[project]
+name = "transport-agent"
+version = "1.0.0"
+description = "SCOF Transportation Agent - delay prediction, route evaluation, and carrier rerouting"
+authors = [{ name = "SCOF Core Team" }]
+requires-python = ">=3.11"
+dependencies = [
+    "scof-shared",
+    "fastapi>=0.110.0",
+    "uvicorn>=0.28.0",
+    "pydantic>=2.6.0",
+    "numpy>=1.26.0",
+    "pandas>=2.2.0",
+    "scikit-learn>=1.4.0",
+    "psycopg[binary]>=3.1.0",
+    "pyyaml>=6.0.0",
+    "neo4j>=5.18.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.23.0",
+    "httpx>=0.27.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+pythonpath = [".", "src", "../../../shared"]

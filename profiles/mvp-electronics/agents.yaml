@@ -30,8 +30,25 @@ active_agents:
     name: "Supplier Intelligence Agent"
     port: 8013
     confidence_floor: 0.55
+    ensemble_weights:
+      reliability_scorer: 0.6
+      rule_scorer: 0.4
+    mcp_tools:
+      - query_supplier_graph
+      - read_delivery_history
+      - query_alternate_suppliers
+      - read_supplier_disruptions
 
   - id: "transport-agent"
     name: "Transportation Agent"
     port: 8014
     confidence_floor: 0.50
+    ensemble_weights:
+      delay_predictor: 0.6
+      route_scorer: 0.4
+    mcp_tools:
+      - query_route_network
+      - estimate_delay
+      - query_alternative_routes
+      - read_transport_disruptions
+

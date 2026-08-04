@@ -9,14 +9,20 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
     && rm -rf /var/lib/apt/lists/*
 
+ENV PIP_DEFAULT_TIMEOUT=1000
+ENV PIP_RETRIES=10
+ENV PIP_PREFER_BINARY=1
+
+RUN pip install --upgrade pip setuptools wheel
+
 # Copy shared library and install it
 COPY shared /app/shared
-RUN pip install --no-cache-dir -e /app/shared
+RUN pip install -e /app/shared
 
 # Copy simulation service and install dependencies
 COPY services/simulation /app/services/simulation
 WORKDIR /app/services/simulation
-RUN pip install --no-cache-dir -e .
+RUN pip install -e .
 
 ENV PYTHONPATH=/app/services/simulation:/app/shared
 
