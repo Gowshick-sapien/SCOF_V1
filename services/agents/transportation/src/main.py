@@ -7,6 +7,7 @@ from fastapi import FastAPI, HTTPException
 from scof_shared.schemas.agent_card import AgentCard
 from scof_shared.schemas.scenario_context import ScenarioContext
 from scof_shared.schemas.structured_claim import StructuredClaim
+from scof_shared.protocols.mcp_server import create_mcp_router
 from .agent import TransportAgent
 from .config import get_config
 from .mcp.tools import MCP_TOOL_DEFINITIONS
@@ -16,14 +17,59 @@ logger = logging.getLogger(__name__)
 
 START_TIME = time.time()
 config = get_config()
+
+# Global agent instance
+agent: TransportAgent = TransportAgent(config=config)
+
+
+def _handle_query_route_network(args: dict) -> dict:
+    routes, q_hash = agent.data_access.get_route_graph_data(
+        origin_id=args.get("origin_id"),
+        destination_id=args.get("destination_id"),
+    )
+    return {"query_hash": q_hash, "routes": routes}
+
+
+def _handle_estimate_delay(args: dict) -> dict:
+    df, q_hash = agent.data_access.get_shipment_delivery_history(
+        carrier_ids=[args.get("carrier_id")] if args.get("carrier_id") else None,
+        route_ids=[args.get("route_id")] if args.get("route_id") else None,
+    )
+    return {"query_hash": q_hash, "record_count": len(df), "rows": df.to_dict(orient="records")}
+
+
+def _handle_query_alternative_routes(args: dict) -> dict:
+    alternates, q_hash = agent.data_access.get_alternate_routes(
+        disrupted_route_id=args.get("disrupted_route_id", "route-101"),
+        destination_id=args.get("destination_id"),
+    )
+    return {"query_hash": q_hash, "alternatives": alternates}
+
+
+def _handle_read_transport_disruptions(args: dict) -> dict:
+    disruptions, q_hash = agent.data_access.get_transport_disruptions(
+        run_id=args.get("run_id"),
+        scenario_id=args.get("scenario_id"),
+    )
+    return {"query_hash": q_hash, "disruptions": disruptions}
+
+
+mcp_handlers = {
+    "query_route_network": _handle_query_route_network,
+    "estimate_delay": _handle_estimate_delay,
+    "query_alternative_routes": _handle_query_alternative_routes,
+    "read_transport_disruptions": _handle_read_transport_disruptions,
+}
+
+mcp_router = create_mcp_router(tools=MCP_TOOL_DEFINITIONS, execution_handlers=mcp_handlers)
+
 app = FastAPI(
     title=config.name,
     version=config.version,
     description="Transportation Agent for delay prediction, route risk scoring, and carrier rerouting in SCOF.",
 )
 
-# Global agent instance
-agent: TransportAgent = TransportAgent(config=config)
+app.include_router(mcp_router)
 
 
 @app.get("/health")

@@ -7,7 +7,9 @@ from scof_shared.schemas.agent_card import AgentCard
 from scof_shared.schemas.scenario_context import ScenarioContext
 from scof_shared.schemas.structured_claim import StructuredClaim
 
+from scof_shared.protocols.mcp_server import create_mcp_router
 from .agent import DemandAgent
+from .mcp.tools import DEMAND_MCP_TOOLS
 from .config import (
     AGENT_ID,
     NEO4J_URI,
@@ -19,6 +21,42 @@ from .config import (
 
 START_TIME = time.time()
 agent_instance: DemandAgent | None = None
+
+
+def _handle_read_historical_demand(args: dict) -> dict:
+    if not agent_instance:
+        raise RuntimeError("Demand agent not initialized")
+    df, q_hash = agent_instance.data_access.get_historical_demand(
+        run_id=args.get("run_id"),
+        product_ids=args.get("product_ids"),
+        limit_days=args.get("limit_days", 365),
+    )
+    return {"query_hash": q_hash, "record_count": len(df), "rows": df.to_dict(orient="records")}
+
+
+def _handle_read_demand_disruptions(args: dict) -> dict:
+    if not agent_instance:
+        raise RuntimeError("Demand agent not initialized")
+    disruptions, q_hash = agent_instance.data_access.get_active_disruptions(
+        run_id=args.get("run_id"),
+        scenario_id=args.get("scenario_id"),
+    )
+    return {"query_hash": q_hash, "disruptions": disruptions}
+
+
+def _handle_read_product_catalog(args: dict) -> dict:
+    product_ids = args.get("product_ids", [])
+    products = [{"product_id": pid, "category": "electronics", "name": f"Product {pid}"} for pid in product_ids]
+    return {"products": products}
+
+
+mcp_handlers = {
+    "read_historical_demand": _handle_read_historical_demand,
+    "read_demand_disruptions": _handle_read_demand_disruptions,
+    "read_product_catalog": _handle_read_product_catalog,
+}
+
+mcp_router = create_mcp_router(tools=DEMAND_MCP_TOOLS, execution_handlers=mcp_handlers)
 
 
 @asynccontextmanager
@@ -41,6 +79,8 @@ app = FastAPI(
     description="Microservice providing demand forecasting claims.",
     lifespan=lifespan,
 )
+
+app.include_router(mcp_router)
 
 
 @app.get("/health")

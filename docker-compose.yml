@@ -194,15 +194,37 @@ services:
       - SCOF_PROFILE_PATH=/app/profiles/mvp-electronics
       - NUMPY_SEED=42
       - SKLEARN_SEED=42
+  coordinator:
+    build:
+      context: .
+      dockerfile: services/coordinator/Dockerfile
+    container_name: scof-coordinator
+    depends_on:
+      demand-agent:
+        condition: service_started
+      inventory-agent:
+        condition: service_started
+      supplier-agent:
+        condition: service_started
+      transport-agent:
+        condition: service_started
+    environment:
+      - SCOF_PROFILE_PATH=/app/profiles/mvp-electronics
+      - PORT=8010
+      - CONNECT_TIMEOUT_SECONDS=2.0
+      - READ_TIMEOUT_SECONDS=8.0
+      - MAX_RETRIES=2
+      - MAX_CONCURRENT_DISPATCH=8
+      - MOCK_MODE=false
     ports:
-      - "8014:8014"
+      - "8010:8010"
     volumes:
       - ./profiles:/app/profiles:ro
-      - ./models/transportation:/app/models:rw
 
 volumes:
   postgres_data:
   neo4j_data:
   redis_data:
   kafka_data:
+
 

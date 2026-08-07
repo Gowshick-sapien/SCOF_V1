@@ -30,4 +30,7 @@ class AgentCard(BaseModel):
         "StructuredClaim", description="Output contract name produced by agent"
     )
     protocol: str = Field("A2A/1.0", description="Supported protocol standard")
+    protocol_version: str = Field("A2A/1.0", description="A2A protocol version")
+    agent_version: str = Field("1.0.0", description="Semantic version string of the agent")
+    profile_version: Optional[str] = Field("1.0.0", description="Domain profile compatibility version")
     endpoint: str = Field(..., description="Base HTTP URL for agent service")

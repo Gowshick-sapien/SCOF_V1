@@ -161,3 +161,9 @@ class ProfileLoader:
             profile_hash=p_hash,
             profile_path=path,
         )
+
+
+def load_profile(profile_path: Union[str, Path]) -> DomainProfile:
+    """Convenience functional interface to ProfileLoader.load_profile."""
+    return ProfileLoader.load_profile(profile_path)
+
