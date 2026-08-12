@@ -13,10 +13,10 @@ Deliverable D5 introduces the cognitive coordination and agent-to-agent protocol
 
 2. **Specialist Agent MCP Protocol Integration**:
    - Mounted standard MCP tool servers across all 4 specialist agent microservices:
-     - **Demand Agent** (port `8011`): Tools `forecast_demand`, `inspect_ensemble_weights`.
-     - **Inventory Agent** (port `8012`): Tools `simulate_inventory_policy`, `calculate_safety_stock`.
-     - **Supplier Agent** (port `8013`): Tools `query_supplier_graph`, `score_supplier_reliability`.
-     - **Transportation Agent** (port `8014`): Tools `query_routes_graph`, `predict_transit_delays`.
+     - **Demand Agent** (port `8011`): Tools `read_historical_demand`, `read_demand_disruptions`, `read_product_catalog`.
+     - **Inventory Agent** (port `8012`): Tools `read_stock_levels`, `read_reorder_points`, `read_inbound_shipments`, `read_inventory_disruptions`.
+     - **Supplier Agent** (port `8013`): Tools `query_supplier_graph`, `read_delivery_history`, `query_alternate_suppliers`, `read_supplier_disruptions`.
+     - **Transportation Agent** (port `8014`): Tools `query_route_network`, `estimate_delay`, `query_alternative_routes`, `read_transport_disruptions`.
 
 3. **Coordinator Microservice ([services/coordinator/](file:///d:/projects/SCOF_V1/SCOF/services/coordinator/))**:
    - FastAPI microservice running on port `8010` with endpoints `GET /health`, `GET /metrics`, `GET /.well-known/agent.json`, `GET /agents`, `POST /agents/refresh`, `GET /graph`, `POST /orchestrate`, and `POST /analyze`.
@@ -153,15 +153,24 @@ Invoke-RestMethod http://localhost:8010/metrics
 ```json
 {
   "status": "healthy",
-  "service": "coordinator",
+  "agent_id": "coordinator-agent",
+  "name": "Supply Chain Cognitive Coordinator",
   "version": "1.0.0",
-  "profile_name": "mvp-electronics",
-  "profile_version": "1.0.0",
   "registered_agents_count": 4,
-  "healthy_agents_count": 4,
+  "healthy_agents": ["inventory-agent", "supplier-agent"],
   "graph_compiled": true,
-  "graph_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-  "uptime_seconds": 24.5
+  "graph_hash": "500b2c9db2555b76ff9c46b116d76bb46b280dc07c6b4898073fc43130ed4861",
+  "mock_mode": false,
+  "metrics": {
+    "orchestrations_executed": 1,
+    "orchestrations_successful": 1,
+    "orchestrations_partial": 0,
+    "orchestrations_failed": 0,
+    "total_orchestration_latency_ms": 970.07,
+    "average_latency_ms": 970.07,
+    "last_discovery_duration_ms": 32.78,
+    "uptime_seconds": 20.69
+  }
 }
 ```
 
@@ -248,10 +257,15 @@ curl.exe -X POST http://localhost:8010/agents/refresh
 **Expected Response**:
 ```json
 {
-  "status": "refreshed",
+  "status": "success",
   "registered_agents_count": 4,
-  "healthy_agents_count": 4,
-  "timestamp": "2026-08-06T16:30:00Z"
+  "discovery_duration_ms": 29.18,
+  "agents": [
+    "demand-agent",
+    "inventory-agent",
+    "supplier-agent",
+    "transport-agent"
+  ]
 }
 ```
 
@@ -277,10 +291,14 @@ curl.exe -X POST http://localhost:8014/mcp/tools/list -H "Content-Type: applicat
 ```
 
 #### B. Execute MCP Tool Call (`POST /mcp/tools/call`)
-Call the `score_supplier_reliability` tool on the Supplier Agent:
+Call the `query_supplier_graph` tool on the Supplier Agent:
 
 ```powershell
-curl.exe -X POST http://localhost:8013/mcp/tools/call -H "Content-Type: application/json" -d '{\"name\": \"score_supplier_reliability\", \"arguments\": {\"supplier_id\": \"sup-01\", \"days_window\": 30}}'
+# Via PowerShell / CMD:
+curl.exe -X POST http://localhost:8013/mcp/tools/call -H "Content-Type: application/json" -d '{\"name\": \"query_supplier_graph\", \"arguments\": {\"product_id\": \"prod-101\"}}'
+
+# Or via PowerShell Invoke-RestMethod:
+Invoke-RestMethod -Uri http://localhost:8013/mcp/tools/call -Method POST -ContentType "application/json" -Body '{"name": "query_supplier_graph", "arguments": {"product_id": "prod-101"}}'
 ```
 
 ---
@@ -296,21 +314,22 @@ curl.exe http://localhost:8010/graph
 **Expected Response**:
 ```json
 {
-  "graph_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-  "entry_point": "initialize_context",
-  "node_count": 4,
   "nodes": [
-    "initialize_context",
-    "discover_agents",
-    "dispatch_parallel",
-    "finalize_bundle"
+    {"name": "initialize_context", "type": "function"},
+    {"name": "discover_agents", "type": "function"},
+    {"name": "dispatch_parallel", "type": "function"},
+    {"name": "finalize_bundle", "type": "function"}
   ],
   "edges": [
+    {"source": "START", "target": "initialize_context"},
     {"source": "initialize_context", "target": "discover_agents"},
     {"source": "discover_agents", "target": "dispatch_parallel"},
+    {"source": "discover_agents", "target": "finalize_bundle"},
     {"source": "dispatch_parallel", "target": "finalize_bundle"},
-    {"source": "finalize_bundle", "target": "__end__"}
-  ]
+    {"source": "finalize_bundle", "target": "END"}
+  ],
+  "graph_hash": "500b2c9db2555b76ff9c46b116d76bb46b280dc07c6b4898073fc43130ed4861",
+  "mermaid": "graph TD\n    __start__([Start]) --> initialize_context[Initialize Context]\n    initialize_context --> discover_agents[Discover Agents]\n    discover_agents -->|Agents Found| dispatch_parallel[Parallel Dispatch]\n    discover_agents -->|No Agents| finalize_bundle[Finalize Bundle]\n    dispatch_parallel --> finalize_bundle\n    finalize_bundle --> __end__([End])"
 }
 ```
 

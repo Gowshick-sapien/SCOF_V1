@@ -1,6 +1,7 @@
 """A2A HTTP Client for dynamic agent discovery, bounded parallel delegation, and retries."""
 
 import asyncio
+import os
 import time
 from typing import Any, Dict, List, Optional, Tuple
 import httpx
@@ -47,9 +48,8 @@ class A2AClient:
                 response = client.get(url)
                 if response.status_code == 200:
                     data = response.json()
-                    # Ensure endpoint is recorded accurately
-                    if not data.get("endpoint"):
-                        data["endpoint"] = endpoint_url
+                    # Ensure endpoint is recorded accurately with discovered reachable URL
+                    data["endpoint"] = endpoint_url
                     return AgentCard(**data)
         except Exception:
             return None
@@ -66,8 +66,8 @@ class A2AClient:
                 response = await client.get(url)
                 if response.status_code == 200:
                     data = response.json()
-                    if not data.get("endpoint"):
-                        data["endpoint"] = endpoint_url
+                    # Ensure endpoint is recorded accurately with discovered reachable URL
+                    data["endpoint"] = endpoint_url
                     return AgentCard(**data)
         except Exception:
             return None
@@ -83,16 +83,25 @@ class A2AClient:
         discovered: List[Tuple[AgentCard, str]] = []
 
         for agent_cfg in roster.active_agents:
-            host = host_map.get(agent_cfg.id, "localhost")
-            endpoint = f"http://{host}:{agent_cfg.port}"
-            if self.mock_mode:
-                card = self._create_card_from_config(agent_cfg, endpoint)
-                discovered.append((card, endpoint))
+            env_host = os.getenv(f"{agent_cfg.id.upper().replace('-', '_')}_HOST")
+            if agent_cfg.id in host_map:
+                hosts_to_try = [host_map[agent_cfg.id]]
+            elif env_host:
+                hosts_to_try = [env_host]
             else:
-                card = self.discover_agent(endpoint)
-                if card:
-                    discovered.append((card, endpoint))
+                hosts_to_try = [agent_cfg.id, "localhost", "127.0.0.1"]
 
+            for host in hosts_to_try:
+                endpoint = f"http://{host}:{agent_cfg.port}"
+                if self.mock_mode:
+                    card = self._create_card_from_config(agent_cfg, endpoint)
+                    discovered.append((card, endpoint))
+                    break
+                else:
+                    card = self.discover_agent(endpoint)
+                    if card:
+                        discovered.append((card, endpoint))
+                        break
 
         return discovered
 
@@ -124,7 +133,15 @@ class A2AClient:
             "X-Profile-Version": profile_version,
             "X-Agent-ID": agent_id,
         }
-        payload = context.to_dict()
+
+        if hasattr(context, "model_dump"):
+            payload = context.model_dump()
+        elif hasattr(context, "dict"):
+            payload = context.dict()
+        elif hasattr(context, "to_dict"):
+            payload = context.to_dict()
+        else:
+            payload = dict(context)
 
         last_error: Optional[str] = None
         for attempt in range(self.max_retries + 1):

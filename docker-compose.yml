@@ -100,6 +100,8 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+      neo4j:
+        condition: service_healthy
     environment:
       - POSTGRES_HOST=postgres
       - POSTGRES_PORT=5432
@@ -125,6 +127,8 @@ services:
     container_name: scof-inventory-agent
     depends_on:
       postgres:
+        condition: service_healthy
+      neo4j:
         condition: service_healthy
     environment:
       - POSTGRES_HOST=postgres
@@ -194,6 +198,11 @@ services:
       - SCOF_PROFILE_PATH=/app/profiles/mvp-electronics
       - NUMPY_SEED=42
       - SKLEARN_SEED=42
+    ports:
+      - "8014:8014"
+    volumes:
+      - ./profiles:/app/profiles:ro
+      - ./models/transportation:/app/models:rw
   coordinator:
     build:
       context: .
