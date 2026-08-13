@@ -8,6 +8,8 @@ from scof_shared.profile.agents_config import (
     load_agents_config,
     get_agent_config,
 )
+from scof_shared.profile.consensus_config import ConsensusConfig
+
 
 __all__ = [
     "ProfileLoader",
@@ -17,4 +19,5 @@ __all__ = [
     "AgentsRosterModel",
     "load_agents_config",
     "get_agent_config",
+    "ConsensusConfig",
 ]

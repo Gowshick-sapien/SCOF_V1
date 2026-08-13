@@ -13,7 +13,7 @@ from pydantic import BaseModel, Field, ConfigDict
 
 
 from scof_shared.profile.agents_config import AgentsRosterModel, load_agents_config
-
+from scof_shared.profile.consensus_config import ConsensusConfig
 
 class Location(BaseModel):
     lat: float
@@ -86,6 +86,7 @@ class DomainProfile(BaseModel):
     topology: TopologyModel
     disruptions: DisruptionConfigModel
     agents: Optional[AgentsRosterModel] = None
+    consensus: Optional[ConsensusConfig] = None
     profile_hash: str
     profile_path: Path
 
@@ -151,6 +152,12 @@ class ProfileLoader:
         if (path / "agents.yaml").exists():
             agents_roster = load_agents_config(path)
 
+        consensus_config = None
+        if (path / "consensus.yaml").exists():
+            with open(path / "consensus.yaml", "r", encoding="utf-8") as f:
+                c_data = yaml.safe_load(f)
+            consensus_config = ConsensusConfig(**c_data)
+
         p_hash = compute_profile_hash(path)
 
         return DomainProfile(
@@ -158,6 +165,7 @@ class ProfileLoader:
             topology=topology,
             disruptions=disruptions,
             agents=agents_roster,
+            consensus=consensus_config,
             profile_hash=p_hash,
             profile_path=path,
         )

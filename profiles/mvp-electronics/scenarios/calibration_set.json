@@ -1,0 +1,402 @@
+[
+  {
+    "bundle": {
+      "bundle_id": "6a468738-4736-47e1-ab07-515d9407b36b",
+      "scenario_id": "mock_scenario",
+      "trace_id": "61071bba-ecfc-4ae1-b9e5-86e37c8d316a",
+      "timestamp": "2026-08-13T05:14:20.368170Z",
+      "profile_name": "mvp-electronics",
+      "profile_version": "1.0",
+      "status": "COMPLETE",
+      "participating_agents": [],
+      "successful_agents": [],
+      "failed_agents": {},
+      "claims": {
+        "agent_1": {
+          "agent_id": "agent_1",
+          "scenario_id": "mock_scenario",
+          "recommendation": "Re-route to Backup Supplier A",
+          "reasoning": "mock reasoning",
+          "confidence": 0.9,
+          "low_confidence": false,
+          "priority": "HIGH",
+          "impact": "minor",
+          "evidence": [
+            {
+              "type": "external_signal",
+              "source": "mock",
+              "summary": "Mock summary",
+              "reference_id": "ref_1",
+              "query_hash": null
+            }
+          ],
+          "timestamp": "2026-08-13T05:14:20.368170Z"
+        },
+        "agent_2": {
+          "agent_id": "agent_2",
+          "scenario_id": "mock_scenario",
+          "recommendation": "Re-route to Backup Supplier A",
+          "reasoning": "mock reasoning",
+          "confidence": 0.92,
+          "low_confidence": false,
+          "priority": "HIGH",
+          "impact": "minor",
+          "evidence": [
+            {
+              "type": "external_signal",
+              "source": "mock",
+              "summary": "Mock summary",
+              "reference_id": "ref_1",
+              "query_hash": null
+            }
+          ],
+          "timestamp": "2026-08-13T05:14:20.368170Z"
+        },
+        "agent_3": {
+          "agent_id": "agent_3",
+          "scenario_id": "mock_scenario",
+          "recommendation": "Re-route to Backup Supplier A",
+          "reasoning": "mock reasoning",
+          "confidence": 0.88,
+          "low_confidence": false,
+          "priority": "HIGH",
+          "impact": "minor",
+          "evidence": [
+            {
+              "type": "external_signal",
+              "source": "mock",
+              "summary": "Mock summary",
+              "reference_id": "ref_1",
+              "query_hash": null
+            }
+          ],
+          "timestamp": "2026-08-13T05:14:20.368170Z"
+        },
+        "agent_4": {
+          "agent_id": "agent_4",
+          "scenario_id": "mock_scenario",
+          "recommendation": "Re-route to Backup Supplier A",
+          "reasoning": "mock reasoning",
+          "confidence": 0.95,
+          "low_confidence": false,
+          "priority": "HIGH",
+          "impact": "minor",
+          "evidence": [
+            {
+              "type": "external_signal",
+              "source": "mock",
+              "summary": "Mock summary",
+              "reference_id": "ref_1",
+              "query_hash": null
+            }
+          ],
+          "timestamp": "2026-08-13T05:14:20.368170Z"
+        }
+      },
+      "total_latency_ms": 0.0,
+      "agent_latencies_ms": {},
+      "metadata": {}
+    },
+    "ground_truth": {
+      "expected_recommendation": "Re-route to Backup Supplier A",
+      "expected_escalation_tier": "FAST_PATH",
+      "reasoning": "Unanimous agreement with low impact."
+    }
+  },
+  {
+    "bundle": {
+      "bundle_id": "cf39cb21-a3f2-4603-afc3-771ee5d912aa",
+      "scenario_id": "mock_scenario",
+      "trace_id": "27dd19b0-d350-470a-8d2b-902f1e34a80e",
+      "timestamp": "2026-08-13T05:14:20.374211Z",
+      "profile_name": "mvp-electronics",
+      "profile_version": "1.0",
+      "status": "COMPLETE",
+      "participating_agents": [],
+      "successful_agents": [],
+      "failed_agents": {},
+      "claims": {
+        "a1": {
+          "agent_id": "a1",
+          "scenario_id": "mock_scenario",
+          "recommendation": "Approve purchase order",
+          "reasoning": "mock reasoning",
+          "confidence": 0.9,
+          "low_confidence": false,
+          "priority": "HIGH",
+          "impact": "minor",
+          "evidence": [
+            {
+              "type": "external_signal",
+              "source": "mock",
+              "summary": "Mock summary",
+              "reference_id": "ref_1",
+              "query_hash": null
+            }
+          ],
+          "timestamp": "2026-08-13T05:14:20.374211Z"
+        },
+        "a2": {
+          "agent_id": "a2",
+          "scenario_id": "mock_scenario",
+          "recommendation": "Approve purchase order",
+          "reasoning": "mock reasoning",
+          "confidence": 0.9,
+          "low_confidence": false,
+          "priority": "HIGH",
+          "impact": "minor",
+          "evidence": [
+            {
+              "type": "external_signal",
+              "source": "mock",
+              "summary": "Mock summary",
+              "reference_id": "ref_1",
+              "query_hash": null
+            }
+          ],
+          "timestamp": "2026-08-13T05:14:20.374211Z"
+        }
+      },
+      "total_latency_ms": 0.0,
+      "agent_latencies_ms": {},
+      "metadata": {}
+    },
+    "ground_truth": {
+      "expected_recommendation": "Approve purchase order",
+      "expected_escalation_tier": "FAST_PATH",
+      "reasoning": "Unanimous"
+    }
+  },
+  {
+    "bundle": {
+      "bundle_id": "3a8f0e0f-8fa3-4113-abc6-382a7fcefe52",
+      "scenario_id": "mock_scenario",
+      "trace_id": "1642b7c4-a632-4b64-97e6-9495aa93fd67",
+      "timestamp": "2026-08-13T05:14:20.371199Z",
+      "profile_name": "mvp-electronics",
+      "profile_version": "1.0",
+      "status": "COMPLETE",
+      "participating_agents": [],
+      "successful_agents": [],
+      "failed_agents": {},
+      "claims": {
+        "agent_1": {
+          "agent_id": "agent_1",
+          "scenario_id": "mock_scenario",
+          "recommendation": "Restock immediately via air freight",
+          "reasoning": "mock reasoning",
+          "confidence": 0.85,
+          "low_confidence": false,
+          "priority": "HIGH",
+          "impact": "moderate",
+          "evidence": [
+            {
+              "type": "external_signal",
+              "source": "mock",
+              "summary": "Mock summary",
+              "reference_id": "ref_1",
+              "query_hash": null
+            }
+          ],
+          "timestamp": "2026-08-13T05:14:20.371199Z"
+        },
+        "agent_2": {
+          "agent_id": "agent_2",
+          "scenario_id": "mock_scenario",
+          "recommendation": "Wait for scheduled maritime shipment",
+          "reasoning": "mock reasoning",
+          "confidence": 0.6,
+          "low_confidence": false,
+          "priority": "HIGH",
+          "impact": "moderate",
+          "evidence": [
+            {
+              "type": "external_signal",
+              "source": "mock",
+              "summary": "Mock summary",
+              "reference_id": "ref_1",
+              "query_hash": null
+            }
+          ],
+          "timestamp": "2026-08-13T05:14:20.371199Z"
+        },
+        "agent_3": {
+          "agent_id": "agent_3",
+          "scenario_id": "mock_scenario",
+          "recommendation": "Restock immediately via air freight",
+          "reasoning": "mock reasoning",
+          "confidence": 0.7,
+          "low_confidence": false,
+          "priority": "HIGH",
+          "impact": "moderate",
+          "evidence": [
+            {
+              "type": "external_signal",
+              "source": "mock",
+              "summary": "Mock summary",
+              "reference_id": "ref_1",
+              "query_hash": null
+            }
+          ],
+          "timestamp": "2026-08-13T05:14:20.371199Z"
+        },
+        "agent_4": {
+          "agent_id": "agent_4",
+          "scenario_id": "mock_scenario",
+          "recommendation": "Wait for scheduled maritime shipment",
+          "reasoning": "mock reasoning",
+          "confidence": 0.8,
+          "low_confidence": false,
+          "priority": "HIGH",
+          "impact": "moderate",
+          "evidence": [
+            {
+              "type": "external_signal",
+              "source": "mock",
+              "summary": "Mock summary",
+              "reference_id": "ref_1",
+              "query_hash": null
+            }
+          ],
+          "timestamp": "2026-08-13T05:14:20.371199Z"
+        }
+      },
+      "total_latency_ms": 0.0,
+      "agent_latencies_ms": {},
+      "metadata": {}
+    },
+    "ground_truth": {
+      "expected_recommendation": "Restock immediately via air freight",
+      "expected_escalation_tier": "SLOW_PATH",
+      "reasoning": "Split vote but decision confidence is sufficient."
+    }
+  },
+  {
+    "bundle": {
+      "bundle_id": "3e7a26fe-4fcb-4c32-83bf-fa388eab1099",
+      "scenario_id": "mock_scenario",
+      "trace_id": "ca1ff367-3f63-4817-a21b-ed6f3d0d4972",
+      "timestamp": "2026-08-13T05:14:20.374211Z",
+      "profile_name": "mvp-electronics",
+      "profile_version": "1.0",
+      "status": "COMPLETE",
+      "participating_agents": [],
+      "successful_agents": [],
+      "failed_agents": {},
+      "claims": {
+        "a1": {
+          "agent_id": "a1",
+          "scenario_id": "mock_scenario",
+          "recommendation": "Alternative A",
+          "reasoning": "mock reasoning",
+          "confidence": 0.7,
+          "low_confidence": false,
+          "priority": "HIGH",
+          "impact": "severe",
+          "evidence": [
+            {
+              "type": "external_signal",
+              "source": "mock",
+              "summary": "Mock summary",
+              "reference_id": "ref_1",
+              "query_hash": null
+            }
+          ],
+          "timestamp": "2026-08-13T05:14:20.374211Z"
+        },
+        "a2": {
+          "agent_id": "a2",
+          "scenario_id": "mock_scenario",
+          "recommendation": "Alternative B",
+          "reasoning": "mock reasoning",
+          "confidence": 0.6,
+          "low_confidence": false,
+          "priority": "HIGH",
+          "impact": "severe",
+          "evidence": [
+            {
+              "type": "external_signal",
+              "source": "mock",
+              "summary": "Mock summary",
+              "reference_id": "ref_1",
+              "query_hash": null
+            }
+          ],
+          "timestamp": "2026-08-13T05:14:20.374211Z"
+        }
+      },
+      "total_latency_ms": 0.0,
+      "agent_latencies_ms": {},
+      "metadata": {}
+    },
+    "ground_truth": {
+      "expected_recommendation": "Alternative A",
+      "expected_escalation_tier": "SLOW_PATH",
+      "reasoning": "Split vote with severe impact, should route to slow path."
+    }
+  },
+  {
+    "bundle": {
+      "bundle_id": "0be7bc2f-6907-4e60-be1f-43878c29dcee",
+      "scenario_id": "mock_scenario",
+      "trace_id": "5f57d990-fe05-4be6-958f-a4df9594d11d",
+      "timestamp": "2026-08-13T05:14:20.372205Z",
+      "profile_name": "mvp-electronics",
+      "profile_version": "1.0",
+      "status": "COMPLETE",
+      "participating_agents": [],
+      "successful_agents": [],
+      "failed_agents": {},
+      "claims": {
+        "agent_1": {
+          "agent_id": "agent_1",
+          "scenario_id": "mock_scenario",
+          "recommendation": "Halt production",
+          "reasoning": "mock reasoning",
+          "confidence": 0.9,
+          "low_confidence": false,
+          "priority": "HIGH",
+          "impact": "critical",
+          "evidence": [
+            {
+              "type": "external_signal",
+              "source": "mock",
+              "summary": "Mock summary",
+              "reference_id": "ref_1",
+              "query_hash": null
+            }
+          ],
+          "timestamp": "2026-08-13T05:14:20.372205Z"
+        },
+        "agent_2": {
+          "agent_id": "agent_2",
+          "scenario_id": "mock_scenario",
+          "recommendation": "Continue with safety stock",
+          "reasoning": "mock reasoning",
+          "confidence": 0.95,
+          "low_confidence": false,
+          "priority": "HIGH",
+          "impact": "critical",
+          "evidence": [
+            {
+              "type": "external_signal",
+              "source": "mock",
+              "summary": "Mock summary",
+              "reference_id": "ref_1",
+              "query_hash": null
+            }
+          ],
+          "timestamp": "2026-08-13T05:14:20.372205Z"
+        }
+      },
+      "total_latency_ms": 0.0,
+      "agent_latencies_ms": {},
+      "metadata": {}
+    },
+    "ground_truth": {
+      "expected_recommendation": "Continue with safety stock",
+      "expected_escalation_tier": "HUMAN_ESCALATION",
+      "reasoning": "Critical impact level forces human escalation."
+    }
+  }
+]

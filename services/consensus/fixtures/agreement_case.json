@@ -1,0 +1,97 @@
+{
+  "bundle_id": "6a468738-4736-47e1-ab07-515d9407b36b",
+  "scenario_id": "mock_scenario",
+  "trace_id": "61071bba-ecfc-4ae1-b9e5-86e37c8d316a",
+  "timestamp": "2026-08-13T05:14:20.368170Z",
+  "profile_name": "mvp-electronics",
+  "profile_version": "1.0",
+  "status": "COMPLETE",
+  "participating_agents": [],
+  "successful_agents": [],
+  "failed_agents": {},
+  "claims": {
+    "agent_1": {
+      "agent_id": "agent_1",
+      "scenario_id": "mock_scenario",
+      "recommendation": "Re-route to Backup Supplier A",
+      "reasoning": "mock reasoning",
+      "confidence": 0.9,
+      "low_confidence": false,
+      "priority": "HIGH",
+      "impact": "minor",
+      "evidence": [
+        {
+          "type": "external_signal",
+          "source": "mock",
+          "summary": "Mock summary",
+          "reference_id": "ref_1",
+          "query_hash": null
+        }
+      ],
+      "timestamp": "2026-08-13T05:14:20.368170Z"
+    },
+    "agent_2": {
+      "agent_id": "agent_2",
+      "scenario_id": "mock_scenario",
+      "recommendation": "Re-route to Backup Supplier A",
+      "reasoning": "mock reasoning",
+      "confidence": 0.92,
+      "low_confidence": false,
+      "priority": "HIGH",
+      "impact": "minor",
+      "evidence": [
+        {
+          "type": "external_signal",
+          "source": "mock",
+          "summary": "Mock summary",
+          "reference_id": "ref_1",
+          "query_hash": null
+        }
+      ],
+      "timestamp": "2026-08-13T05:14:20.368170Z"
+    },
+    "agent_3": {
+      "agent_id": "agent_3",
+      "scenario_id": "mock_scenario",
+      "recommendation": "Re-route to Backup Supplier A",
+      "reasoning": "mock reasoning",
+      "confidence": 0.88,
+      "low_confidence": false,
+      "priority": "HIGH",
+      "impact": "minor",
+      "evidence": [
+        {
+          "type": "external_signal",
+          "source": "mock",
+          "summary": "Mock summary",
+          "reference_id": "ref_1",
+          "query_hash": null
+        }
+      ],
+      "timestamp": "2026-08-13T05:14:20.368170Z"
+    },
+    "agent_4": {
+      "agent_id": "agent_4",
+      "scenario_id": "mock_scenario",
+      "recommendation": "Re-route to Backup Supplier A",
+      "reasoning": "mock reasoning",
+      "confidence": 0.95,
+      "low_confidence": false,
+      "priority": "HIGH",
+      "impact": "minor",
+      "evidence": [
+        {
+          "type": "external_signal",
+          "source": "mock",
+          "summary": "Mock summary",
+          "reference_id": "ref_1",
+          "query_hash": null
+        }
+      ],
+      "timestamp": "2026-08-13T05:14:20.368170Z"
+    }
+  },
+  "total_latency_ms": 0.0,
+  "agent_latencies_ms": {},
+  "metadata": {}
+}

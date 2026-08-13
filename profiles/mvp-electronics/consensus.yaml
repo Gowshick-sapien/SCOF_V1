@@ -13,3 +13,19 @@ human_escalation:
 calibration:
   frequency: "every_100_decisions"
   min_kappa: 0.70
+
+partial_bundle:
+  min_participating_agents: 2
+
+accuracy:
+  default_accuracy: 0.50
+  window_size: 50
+
+impact_mapping:
+  "critical": "CRITICAL"
+  "business-critical": "CRITICAL"
+  "severe": "HIGH"
+  "significant": "HIGH"
+  "moderate": "MEDIUM"
+  "minor": "LOW"
+  "negligible": "LOW"

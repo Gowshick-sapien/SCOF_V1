@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "scof-consensus"
+version = "1.0.0"
+description = "Consensus-Driven Collaborative Decision Framework (CD2F) Engine"
+authors = [{ name = "SCOF Team" }]
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi>=0.100.0",
+    "uvicorn>=0.23.0",
+    "pydantic>=2.0",
+    "scikit-learn>=1.3.0",
+    "scof-shared"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.0",
+    "pytest-asyncio>=0.21.0"
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["*"]

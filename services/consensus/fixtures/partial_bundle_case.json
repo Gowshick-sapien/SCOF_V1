@@ -1,0 +1,39 @@
+{
+  "bundle_id": "79bc43a1-cdf2-4662-9442-3809a43508f5",
+  "scenario_id": "mock_scenario",
+  "trace_id": "9c8205cd-5334-48cd-b174-3d11fe2f1a0e",
+  "timestamp": "2026-08-13T05:14:20.372205Z",
+  "profile_name": "mvp-electronics",
+  "profile_version": "1.0",
+  "status": "PARTIAL",
+  "participating_agents": [],
+  "successful_agents": [],
+  "failed_agents": {
+    "agent_5": "Timeout"
+  },
+  "claims": {
+    "agent_1": {
+      "agent_id": "agent_1",
+      "scenario_id": "mock_scenario",
+      "recommendation": "Notify customers of delay",
+      "reasoning": "mock reasoning",
+      "confidence": 0.9,
+      "low_confidence": false,
+      "priority": "HIGH",
+      "impact": "minor",
+      "evidence": [
+        {
+          "type": "external_signal",
+          "source": "mock",
+          "summary": "Mock summary",
+          "reference_id": "ref_1",
+          "query_hash": null
+        }
+      ],
+      "timestamp": "2026-08-13T05:14:20.372205Z"
+    }
+  },
+  "total_latency_ms": 0.0,
+  "agent_latencies_ms": {},
+  "metadata": {}
+}
