@@ -205,6 +205,19 @@ services:
     volumes:
       - ./profiles:/app/profiles:ro
       - ./models/transportation:/app/models:rw
+
+  consensus:
+    build:
+      context: .
+      dockerfile: services/consensus/Dockerfile
+    container_name: scof-consensus
+    environment:
+      - SCOF_PROFILE_PATH=/app/profiles/mvp-electronics
+    ports:
+      - "8020:8020"
+    volumes:
+      - ./profiles:/app/profiles:ro
+
   coordinator:
     build:
       context: .

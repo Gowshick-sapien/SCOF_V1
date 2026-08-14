@@ -190,7 +190,7 @@ class CoordinatorOrchestrator:
             try:
                 # D6 Consensus runs on port 8020 in docker
                 resp = await client.post(
-                    "http://consensus:8020/consensus",
+                    "http://consensus:8020/arbitrate",
                     json={"bundle": bundle.model_dump(mode="json"), "profile_name": state["profile_name"]},
                     timeout=10.0
                 )

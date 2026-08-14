@@ -1,6 +1,10 @@
-FROM python:3.12-slim
+FROM python:3.11-slim
 
 WORKDIR /app
+
+ENV PIP_DEFAULT_TIMEOUT=1000
+ENV PIP_RETRIES=10
+ENV PIP_PREFER_BINARY=1
 
 COPY services/observability/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt

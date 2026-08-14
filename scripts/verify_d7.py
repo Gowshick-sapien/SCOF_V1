@@ -24,7 +24,7 @@ logger = logging.getLogger("verify_d7")
 async def verify_d7_observability():
     logger.info("Starting D7 Observability Verification...")
 
-    scenario_id = f"SCENARIO-{uuid.uuid4().hex[:6].upper()}"
+    scenario_id = "scen-01"
     trace_id = f"TRACE-{uuid.uuid4().hex[:6].upper()}"
     bundle_id = f"BUNDLE-{uuid.uuid4().hex[:6].upper()}"
 
@@ -103,7 +103,7 @@ async def verify_d7_observability():
         # 4. Verify Semantic Search
         logger.info(f"Verifying semantic search...")
         try:
-            query = "supplier delay rerouting"
+            query = "inventory shortage optimization"
             resp = await client.post(
                 "http://localhost:8030/decisions/search",
                 json={"query_text": query, "limit": 3},
@@ -111,12 +111,14 @@ async def verify_d7_observability():
             )
             resp.raise_for_status()
             search_results = resp.json()
-            logger.info(f"Semantic search for '{query}' returned {len(search_results)} results.")
+            logger.info(f"Semantic search for '{query}' returned {len(search_results)} results:")
+            for idx, res in enumerate(search_results):
+                logger.info(f"  {idx+1}. Score: {res.get('similarity_score', 0):.4f} | Tier: {res.get('escalation_tier', 'UNKNOWN')}")
         except Exception as e:
             logger.error(f"Failed to perform semantic search: {e}")
             return False
 
-    logger.info("D7 Observability Verification Successful! ✅")
+    logger.info("D7 Observability Verification Successful! ")
     return True
 
 if __name__ == "__main__":

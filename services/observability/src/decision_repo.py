@@ -20,7 +20,7 @@ class DecisionRepository:
                 id, scenario_id, consensus_bundle_id, source_bundle_id, trace_id,
                 decision_type, recommendation, confidence, priority, created_by,
                 outcome, status, wcs, escalation_tier, decision_method,
-                reasoning_trail, meeting_log_entries, timestamp
+                reasoning_trail, meeting_log_entries, created_at
             )
             VALUES (
                 %s, %s, %s, %s, %s,
@@ -31,8 +31,8 @@ class DecisionRepository:
             ON CONFLICT (id) DO NOTHING;
         """
         
-        reasoning_trail_json = json.dumps([step.model_dump() for step in decision.reasoning_trail])
-        meeting_log_json = json.dumps([log.model_dump() for log in decision.meeting_log_entries])
+        reasoning_trail_json = json.dumps([step.model_dump(mode="json") for step in decision.reasoning_trail])
+        meeting_log_json = json.dumps([log.model_dump(mode="json") for log in decision.meeting_log_entries])
         
         await self.conn.execute(
             decision_sql,
@@ -90,7 +90,7 @@ class DecisionRepository:
             SELECT id, scenario_id, consensus_bundle_id, source_bundle_id, trace_id,
                    decision_type, recommendation, confidence, priority,
                    outcome, status, wcs, escalation_tier, decision_method,
-                   reasoning_trail, meeting_log_entries, timestamp
+                   reasoning_trail, meeting_log_entries, created_at
             FROM scof.decision_records
             WHERE id = %s
         """
@@ -123,10 +123,10 @@ class DecisionRepository:
         
     async def get_decisions_by_scenario(self, scenario_id: str) -> List[Dict[str, Any]]:
         sql = """
-            SELECT id, escalation_tier, recommendation, confidence, timestamp
+            SELECT id, escalation_tier, recommendation, confidence, created_at
             FROM scof.decision_records
             WHERE scenario_id = %s
-            ORDER BY timestamp DESC
+            ORDER BY created_at DESC
         """
         results = []
         async with self.conn.cursor() as cur:
