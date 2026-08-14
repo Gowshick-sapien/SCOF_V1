@@ -6,11 +6,14 @@ import logging
 import time
 import uuid
 from typing import Any, Dict, Optional
+import httpx
 from langgraph.graph import END, START, StateGraph
 from scof_shared.protocols.a2a_client import A2AClient
 from scof_shared.protocols.a2a_registry import A2ARegistry
 from scof_shared.schemas.claim_bundle import ClaimBundle
+from scof_shared.schemas.decision_record import DecisionRecord
 from scof_shared.schemas.scenario_context import ScenarioContext
+from scof_shared.observability.tracing import create_runnable_config
 from .agent_discovery import AgentDiscoveryService
 from .claim_collector import ClaimCollector
 from .state import CoordinatorExecutionState
@@ -38,13 +41,15 @@ class CoordinatorOrchestrator:
 
     def _build_graph(self) -> StateGraph:
         """Constructs the LangGraph StateGraph."""
-        builder = StateGraph(CoordinatorExecutionState)
+        builder = StateGraph(CoordinatorExecutionState)  # type: ignore
 
         # Register nodes
         builder.add_node("initialize_context", self._node_initialize_context)
         builder.add_node("discover_agents", self._node_discover_agents)
         builder.add_node("dispatch_parallel", self._node_dispatch_parallel)
         builder.add_node("finalize_bundle", self._node_finalize_bundle)
+        builder.add_node("run_consensus", self._node_run_consensus)
+        builder.add_node("persist_decision", self._node_persist_decision)
 
         # Wire edges
         builder.add_edge(START, "initialize_context")
@@ -61,7 +66,9 @@ class CoordinatorOrchestrator:
         )
 
         builder.add_edge("dispatch_parallel", "finalize_bundle")
-        builder.add_edge("finalize_bundle", END)
+        builder.add_edge("finalize_bundle", "run_consensus")
+        builder.add_edge("run_consensus", "persist_decision")
+        builder.add_edge("persist_decision", END)
 
         return builder
 
@@ -144,9 +151,91 @@ class CoordinatorOrchestrator:
         return {
             "claim_bundle": bundle,
             "status": bundle.status,
-            "end_time": time.time(),
             "execution_log": logs,
         }
+
+    async def _node_run_consensus(self, state: CoordinatorExecutionState) -> Dict[str, Any]:
+        bundle = state["claim_bundle"]
+        if not bundle:
+            raise RuntimeError("No ClaimBundle available for consensus")
+            
+        logs = list(state.get("execution_log", []))
+        
+        if getattr(self.client, "mock_mode", False):
+            from datetime import datetime
+            decision = DecisionRecord(
+                decision_id=f"dec-mock-{uuid.uuid4().hex[:8]}",
+                scenario_id=bundle.scenario_id,
+                consensus_bundle_id=bundle.bundle_id,
+                source_bundle_id=bundle.bundle_id,
+                decision_method="CD2F",
+                final_recommendation="Mock mode consensus approved",
+                decision_confidence=0.99,
+                weighted_consensus_stability=0.95,
+                escalation_tier="FAST_PATH",
+                escalation_rationale="Mock",
+                agent_weights={},
+                recommendation_tallies={},
+                reasoning_trail=[],
+                meeting_log_entries=[],
+                timestamp=datetime.now(),
+                profile_name=state.get("profile_name", "mvp-electronics"),
+                profile_version=state.get("profile_version", "1.0.0"),
+                engine_version="1.0.0"
+            )
+            logs.append(f"Generated Mock DecisionRecord '{decision.decision_id}'")
+            return {"decision_record": decision, "execution_log": logs}
+            
+        async with httpx.AsyncClient() as client:
+            try:
+                # D6 Consensus runs on port 8020 in docker
+                resp = await client.post(
+                    "http://consensus:8020/consensus",
+                    json={"bundle": bundle.model_dump(mode="json"), "profile_name": state["profile_name"]},
+                    timeout=10.0
+                )
+                resp.raise_for_status()
+                decision = DecisionRecord(**resp.json())
+                logs.append(f"Generated DecisionRecord '{decision.decision_id}' via CD2F engine")
+                return {"decision_record": decision, "execution_log": logs}
+            except Exception as e:
+                logs.append(f"Consensus generation failed: {e}")
+                raise RuntimeError(f"Failed to generate consensus: {e}")
+
+    async def _node_persist_decision(self, state: CoordinatorExecutionState) -> Dict[str, Any]:
+        decision = state["decision_record"]
+        if not decision:
+            raise RuntimeError("No DecisionRecord available for persistence")
+            
+        logs = list(state.get("execution_log", []))
+        
+        if getattr(self.client, "mock_mode", False):
+            logs.append(f"Mock persisted decision '{decision.decision_id}'")
+            return {"execution_log": logs, "end_time": time.time()}
+            
+        async with httpx.AsyncClient() as client:
+            # Implement bounded retries for D7 persistence
+            max_retries = 3
+            for attempt in range(max_retries):
+                try:
+                    # D7 Observability runs on port 8030
+                    resp = await client.post(
+                        "http://observability:8030/decisions",
+                        json=decision.model_dump(mode="json"),
+                        headers={"X-Trace-ID": state["trace_id"]},
+                        timeout=5.0
+                    )
+                    resp.raise_for_status()
+                    logs.append(f"Successfully persisted decision '{decision.decision_id}' to D7 (attempt {attempt+1})")
+                    return {"execution_log": logs, "end_time": time.time()}
+                except Exception as e:
+                    if attempt == max_retries - 1:
+                        logs.append(f"Failed to persist decision to D7 after {max_retries} attempts: {e}")
+                        raise RuntimeError(f"D7 persistence failed: {e}")
+                    # Brief backoff
+                    import asyncio
+                    await asyncio.sleep(0.5)
+        raise RuntimeError("Unreachable")
 
     def _compute_graph_hash(self) -> str:
         structure = {
@@ -219,16 +308,29 @@ class CoordinatorOrchestrator:
             "failed_agents": {},
             "agent_latencies_ms": {},
             "claim_bundle": None,
+            "decision_record": None,
             "execution_log": [],
             "status": "INITIALIZING",
             "start_time": now,
             "end_time": 0.0,
         }
 
-        final_state = await self.app.ainvoke(initial_state)
-        claim_bundle = final_state["claim_bundle"]
+        # Apply LangSmith trace context
+        run_config = create_runnable_config(
+            scenario_id=context.scenario_id,
+            bundle_id=bundle,
+            trace_id=trace,
+            profile_version=self.profile_version
+        )
+
+        final_state = await self.app.ainvoke(initial_state, config=run_config)  # type: ignore[reportArgumentType]
+        claim_bundle = final_state.get("claim_bundle")
+        decision_record = final_state.get("decision_record")
 
         if claim_bundle is None:
             raise RuntimeError("Orchestration finished without producing a ClaimBundle.")
-
+            
+        # Optional: return decision_record along with claim_bundle if the API changes
+        # For now, we return ClaimBundle to satisfy the existing D5 API contract,
+        # but the decision has been generated and persisted in D7.
         return claim_bundle

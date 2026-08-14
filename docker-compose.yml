@@ -11,6 +11,8 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme}
     volumes:
       - ./infrastructure/database/postgres/01_init_schema.sql:/docker-entrypoint-initdb.d/01_init_schema.sql
+      - ./infrastructure/database/postgres/02_init_vector_schema.sql:/docker-entrypoint-initdb.d/02_init_vector_schema.sql
+      - ./infrastructure/database/postgres/03_observability_schema.sql:/docker-entrypoint-initdb.d/03_observability_schema.sql
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-scof} -d ${POSTGRES_DB:-scof}"]
@@ -229,6 +231,24 @@ services:
       - "8010:8010"
     volumes:
       - ./profiles:/app/profiles:ro
+
+  observability:
+    build:
+      context: .
+      dockerfile: services/observability/Dockerfile
+    container_name: scof-observability
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=${POSTGRES_DB:-scof}
+      - POSTGRES_USER=${POSTGRES_USER:-scof}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-changeme}
+      - PORT=8030
+    ports:
+      - "8030:8030"
 
 volumes:
   postgres_data:

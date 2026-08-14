@@ -4,13 +4,14 @@ import sys
 from pathlib import Path
 
 pkg_root = Path(__file__).resolve().parents[1]
-if str(pkg_root) not in sys.path:
-    sys.path.insert(0, str(pkg_root))
+workspace_root = Path(__file__).resolve().parents[4]
+if str(workspace_root) not in sys.path:
+    sys.path.insert(0, str(workspace_root))
 
 import numpy as np
-from src.models.ensemble import InventoryEnsemble
-from src.models.xgboost_model import InventoryXGBoostTrainer, InventoryXGBoostInference
-from src.models.statistical_model import InventoryStatisticalTrainer, InventoryStatisticalInference
+from services.agents.inventory.src.models.ensemble import InventoryEnsemble
+from services.agents.inventory.src.models.xgboost_model import InventoryXGBoostTrainer, InventoryXGBoostInference
+from services.agents.inventory.src.models.statistical_model import InventoryStatisticalTrainer, InventoryStatisticalInference
 
 
 def test_inventory_ensemble_prediction():

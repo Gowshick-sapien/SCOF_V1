@@ -1,9 +1,9 @@
 """Unit tests for DelayPredictor, RouteScorer, and TransportEnsemble."""
 
 import numpy as np
-from src.models.delay_predictor import DelayPredictorTrainer, DelayPredictorInference
-from src.models.route_scorer import RouteScorerInitializer, RouteScorerInference
-from src.models.ensemble import TransportEnsemble, create_trained_transport_ensemble
+from services.agents.transportation.src.models.delay_predictor import DelayPredictorTrainer, DelayPredictorInference
+from services.agents.transportation.src.models.route_scorer import RouteScorerInitializer, RouteScorerInference
+from services.agents.transportation.src.models.ensemble import TransportEnsemble, create_trained_transport_ensemble
 
 
 def test_delay_predictor_fit_and_predict():

@@ -44,16 +44,16 @@ class InventoryFeatureBuilder:
         if "safety_stock" not in df.columns:
             df["safety_stock"] = 80.0
 
-        stock = df["quantity_on_hand"].values
+        stock = np.asarray(df["quantity_on_hand"].values, dtype=float)
         n = len(stock)
 
         # Depletion rate calculation (diff)
         diffs = np.diff(stock, prepend=stock[0])
-        depletion_rate = np.maximum(0.1, -pd.Series(diffs).rolling(7, min_periods=1).mean().values)
+        depletion_rate = np.maximum(0.1, -np.asarray(pd.Series(diffs).rolling(7, min_periods=1).mean().values, dtype=float))  # type: ignore
 
         days_of_supply = stock / depletion_rate
-        safety_prox = stock - df["safety_stock"].values
-        reorder_prox = stock - df["reorder_point"].values
+        safety_prox = stock - np.asarray(df["safety_stock"].values, dtype=float)
+        reorder_prox = stock - np.asarray(df["reorder_point"].values, dtype=float)
 
         # Disruption severity feature
         disr_sev = np.zeros(n, dtype=float)

@@ -2,12 +2,12 @@
 
 from datetime import date
 from pathlib import Path
-# pyrefly: ignore [missing-import]
+# type: ignore
 from scof_shared.profile.loader import ProfileLoader
-# pyrefly: ignore [missing-import]
-from src.disruption_generator import DisruptionGenerator
-# pyrefly: ignore [missing-import]
-from src.entity_generator import EntityGenerator
+# type: ignore
+from services.simulation.src.disruption_generator import DisruptionGenerator
+# type: ignore
+from services.simulation.src.entity_generator import EntityGenerator
 
 PROFILE_PATH = Path("profiles/mvp-electronics")
 

@@ -1,7 +1,7 @@
 """Unit tests for Supplier Intelligence Agent."""
 
 from scof_shared.schemas.scenario_context import ScenarioContext
-from src.agent import SupplierAgent
+from services.agents.supplier.src.agent import SupplierAgent
 
 
 def test_supplier_agent_card():

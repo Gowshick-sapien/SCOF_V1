@@ -2,7 +2,7 @@
 
 from pathlib import Path
 from scof_shared.profile.loader import ProfileLoader
-from src.entity_generator import EntityGenerator, calculate_haversine_distance
+from services.simulation.src.entity_generator import EntityGenerator, calculate_haversine_distance
 
 PROFILE_PATH = Path("profiles/mvp-electronics")
 

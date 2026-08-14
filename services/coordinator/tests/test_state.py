@@ -57,7 +57,7 @@ def test_claim_bundle_immutability():
 
     # Attempt mutation should raise ValidationError (frozen model)
     with pytest.raises(ValidationError):
-        bundle.status = "FAILED"
+        bundle.status = "FAILED"  # type: ignore
 
     with pytest.raises(ValidationError):
-        bundle.profile_version = "2.0.0"
+        bundle.profile_version = "2.0.0"  # type: ignore

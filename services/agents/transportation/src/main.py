@@ -2,7 +2,7 @@
 
 import logging
 import time
-from typing import Dict, Any, List
+from typing import Dict, Any, List, Callable
 from fastapi import FastAPI, HTTPException
 from scof_shared.schemas.agent_card import AgentCard
 from scof_shared.schemas.scenario_context import ScenarioContext
@@ -22,15 +22,15 @@ config = get_config()
 agent: TransportAgent = TransportAgent(config=config)
 
 
-def _handle_query_route_network(args: dict) -> dict:
+def _handle_query_route_network(args: Dict[str, Any]) -> Dict[str, Any]:
     routes, q_hash = agent.data_access.get_route_graph_data(
-        origin_id=args.get("origin_id"),
-        destination_id=args.get("destination_id"),
+        origin=args.get("origin_id"),
+        destination=args.get("destination_id"),
     )
     return {"query_hash": q_hash, "routes": routes}
 
 
-def _handle_estimate_delay(args: dict) -> dict:
+def _handle_estimate_delay(args: Dict[str, Any]) -> Dict[str, Any]:
     df, q_hash = agent.data_access.get_shipment_delivery_history(
         carrier_ids=[args.get("carrier_id")] if args.get("carrier_id") else None,
         route_ids=[args.get("route_id")] if args.get("route_id") else None,
@@ -38,15 +38,15 @@ def _handle_estimate_delay(args: dict) -> dict:
     return {"query_hash": q_hash, "record_count": len(df), "rows": df.to_dict(orient="records")}
 
 
-def _handle_query_alternative_routes(args: dict) -> dict:
+def _handle_query_alternative_routes(args: Dict[str, Any]) -> Dict[str, Any]:
     alternates, q_hash = agent.data_access.get_alternate_routes(
         disrupted_route_id=args.get("disrupted_route_id", "route-101"),
-        destination_id=args.get("destination_id"),
+        destination=args.get("destination_id"),
     )
     return {"query_hash": q_hash, "alternatives": alternates}
 
 
-def _handle_read_transport_disruptions(args: dict) -> dict:
+def _handle_read_transport_disruptions(args: Dict[str, Any]) -> Dict[str, Any]:
     disruptions, q_hash = agent.data_access.get_transport_disruptions(
         run_id=args.get("run_id"),
         scenario_id=args.get("scenario_id"),
@@ -54,7 +54,7 @@ def _handle_read_transport_disruptions(args: dict) -> dict:
     return {"query_hash": q_hash, "disruptions": disruptions}
 
 
-mcp_handlers = {
+mcp_handlers: Dict[str, Callable[[Dict[str, Any]], Any]] = {
     "query_route_network": _handle_query_route_network,
     "estimate_delay": _handle_estimate_delay,
     "query_alternative_routes": _handle_query_alternative_routes,

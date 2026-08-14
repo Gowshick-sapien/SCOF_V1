@@ -1,8 +1,10 @@
 """State definitions for LangGraph multi-agent orchestration."""
 
-from typing import Dict, List, Optional, TypedDict
+from typing import Dict, List, Optional
+from typing import TypedDict
 from scof_shared.schemas.agent_card import AgentCard
 from scof_shared.schemas.claim_bundle import ClaimBundle
+from scof_shared.schemas.decision_record import DecisionRecord
 from scof_shared.schemas.scenario_context import ScenarioContext
 from scof_shared.schemas.structured_claim import StructuredClaim
 
@@ -23,6 +25,7 @@ class CoordinatorExecutionState(TypedDict):
     agent_latencies_ms: Dict[str, float]
 
     claim_bundle: Optional[ClaimBundle]
+    decision_record: Optional[DecisionRecord]
 
     execution_log: List[str]
     status: str

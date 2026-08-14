@@ -3,7 +3,7 @@
 from scof_shared.protocols.a2a_registry import A2ARegistry, HealthStatus
 from scof_shared.schemas.agent_card import AgentCard
 from scof_shared.schemas.scenario_context import ScenarioContext
-from src.agent_discovery import AgentDiscoveryService
+from services.coordinator.src.agent_discovery import AgentDiscoveryService
 
 
 def test_agent_discovery_context_matching():

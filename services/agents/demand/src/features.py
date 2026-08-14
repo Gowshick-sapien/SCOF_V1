@@ -43,16 +43,16 @@ class DemandFeatureBuilder:
         if "daily_demand" not in df.columns:
             df["daily_demand"] = 100.0
 
-        series = df["daily_demand"].values
+        series = np.asarray(df["daily_demand"].values, dtype=float)
         n = len(series)
 
         # Day of week
         dow = np.arange(n) % 7
 
         # Rolling statistics
-        r7 = pd.Series(series).rolling(7, min_periods=1).mean().values
-        r14 = pd.Series(series).rolling(14, min_periods=1).mean().values
-        r30 = pd.Series(series).rolling(30, min_periods=1).mean().values
+        r7 = np.asarray(pd.Series(series).rolling(7, min_periods=1).mean().values, dtype=float)  # type: ignore
+        r14 = np.asarray(pd.Series(series).rolling(14, min_periods=1).mean().values, dtype=float)  # type: ignore
+        r30 = np.asarray(pd.Series(series).rolling(30, min_periods=1).mean().values, dtype=float)  # type: ignore
 
         # Lags
         lag1 = np.roll(series, 1)

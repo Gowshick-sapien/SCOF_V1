@@ -1,8 +1,8 @@
 """End-to-End Pipeline Unit Test."""
 
 from pathlib import Path
-# pyrefly: ignore [missing-import]
-from src.main import run_pipeline
+# type: ignore
+from services.simulation.src.main import run_pipeline
 
 
 def test_full_simulation_pipeline():

@@ -4,13 +4,14 @@ import sys
 from pathlib import Path
 
 pkg_root = Path(__file__).resolve().parents[1]
-if str(pkg_root) not in sys.path:
-    sys.path.insert(0, str(pkg_root))
+workspace_root = Path(__file__).resolve().parents[4]
+if str(workspace_root) not in sys.path:
+    sys.path.insert(0, str(workspace_root))
 
 import numpy as np
-from src.models.ensemble import DemandEnsemble
-from src.models.xgboost_model import DemandXGBoostTrainer, DemandXGBoostInference
-from src.models.statistical_model import DemandStatisticalTrainer, DemandStatisticalInference
+from services.agents.demand.src.models.ensemble import DemandEnsemble
+from services.agents.demand.src.models.xgboost_model import DemandXGBoostTrainer, DemandXGBoostInference
+from services.agents.demand.src.models.statistical_model import DemandStatisticalTrainer, DemandStatisticalInference
 
 
 def test_demand_ensemble_prediction():

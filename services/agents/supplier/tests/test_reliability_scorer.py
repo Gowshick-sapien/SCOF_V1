@@ -1,9 +1,9 @@
 """Unit tests for Supplier Agent Reliability Models."""
 
 import numpy as np
-from src.models.reliability_scorer import ReliabilityScorerInference, ReliabilityScorerTrainer
-from src.models.rule_scorer import RuleScorerInference, RuleScorerInitializer
-from src.models.ensemble import SupplierEnsemble
+from services.agents.supplier.src.models.reliability_scorer import ReliabilityScorerInference, ReliabilityScorerTrainer
+from services.agents.supplier.src.models.rule_scorer import RuleScorerInference, RuleScorerInitializer
+from services.agents.supplier.src.models.ensemble import SupplierEnsemble
 
 
 def test_reliability_scorer_fit_and_predict():

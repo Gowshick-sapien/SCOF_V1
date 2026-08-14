@@ -65,7 +65,7 @@ class InventoryDataAccess:
         try:
             conn_str = self._get_connection_string()
             with psycopg.connect(conn_str) as conn:
-                df = pd.read_sql_query(sql, conn, params=params if params else None)
+                df = pd.read_sql_query(sql, conn, params=params if params else None)  # type: ignore
             return df, q_hash
         except Exception:
             # Fallback mock synthetic DataFrame for offline testing

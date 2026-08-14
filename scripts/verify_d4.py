@@ -19,27 +19,13 @@ from scof_shared.schemas.structured_claim import StructuredClaim
 from scof_shared.schemas.agent_card import AgentCard
 
 
-def clear_src_modules():
-    to_delete = [k for k in list(sys.modules.keys()) if k == "src" or k.startswith("src.")]
-    for k in to_delete:
-        del sys.modules[k]
-
-
 def load_supplier_agent():
-    clear_src_modules()
-    supplier_dir = str(root_dir / "services" / "agents" / "supplier")
-    sys.path = [p for p in sys.path if "services/agents" not in p and "services\\agents" not in p]
-    sys.path.insert(0, supplier_dir)
-    import src.agent as supplier_mod
+    from services.agents.supplier.src import agent as supplier_mod
     return supplier_mod.SupplierAgent
 
 
 def load_transport_agent():
-    clear_src_modules()
-    transport_dir = str(root_dir / "services" / "agents" / "transportation")
-    sys.path = [p for p in sys.path if "services/agents" not in p and "services\\agents" not in p]
-    sys.path.insert(0, transport_dir)
-    import src.agent as transport_mod
+    from services.agents.transportation.src import agent as transport_mod
     return transport_mod.TransportAgent
 
 

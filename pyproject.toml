@@ -12,9 +12,20 @@ target-version = "py311"
 testpaths = ["shared", "services"]
 python_files = ["test_*.py"]
 python_functions = ["test_*"]
-pythonpath = ["shared", "services/simulation"]
+pythonpath = ["shared", "services/simulation", "services/coordinator"]
 
 [tool.pyright]
-extraPaths = ["shared", "services/simulation"]
-
+extraPaths = ["shared"]
+executionEnvironments = [
+  { root = "services/consensus", extraPaths = ["shared", "services/consensus"] },
+  { root = "services/coordinator", extraPaths = ["shared", "services/coordinator"] },
+  { root = "services/etl", extraPaths = ["shared", "services/etl"] },
+  { root = "services/observability", extraPaths = ["shared", "services/observability"] },
+  { root = "services/simulation", extraPaths = ["shared", "services/simulation"] },
+  { root = "services/agents/demand", extraPaths = ["shared", "services/agents/demand"] },
+  { root = "services/agents/inventory", extraPaths = ["shared", "services/agents/inventory"] },
+  { root = "services/agents/supplier", extraPaths = ["shared", "services/agents/supplier"] },
+  { root = "services/agents/transportation", extraPaths = ["shared", "services/agents/transportation"] },
+  { root = ".", extraPaths = ["shared"] }
+]
 

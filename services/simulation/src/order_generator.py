@@ -7,8 +7,8 @@ and Daily Inventory Levels keyed to run_id over history_days.
 from datetime import date, datetime, timedelta, timezone
 from typing import Dict, List, Any
 import numpy as np
-# pyrefly: ignore [missing-import]
-from src.constants import OrderStatus, ShipmentStatus, Prefix
+# type: ignore
+from .constants import OrderStatus, ShipmentStatus, Prefix
 
 
 class OrderGenerator:

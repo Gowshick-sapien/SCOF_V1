@@ -2,16 +2,16 @@
 
 import time
 from contextlib import asynccontextmanager
-from typing import Optional
+from typing import Optional, Any, Callable
 from fastapi import FastAPI, HTTPException
 from scof_shared.schemas.agent_card import AgentCard
 from scof_shared.schemas.scenario_context import ScenarioContext
 from scof_shared.schemas.structured_claim import StructuredClaim
 
 from scof_shared.protocols.mcp_server import create_mcp_router
-from src.agent import SupplierAgent
-from src.mcp.tools import SUPPLIER_MCP_TOOLS
-from src.config import (
+from .agent import SupplierAgent
+from .mcp.tools import SUPPLIER_MCP_TOOLS
+from .config import (
     AGENT_ID,
     NEO4J_URI,
     POSTGRES_DB,
@@ -24,7 +24,7 @@ START_TIME = time.time()
 agent_instance: Optional[SupplierAgent] = None
 
 
-def _handle_query_supplier_graph(args: dict) -> dict:
+def _handle_query_supplier_graph(args: dict[str, Any]) -> Any:
     if not agent_instance:
         raise RuntimeError("Supplier agent not initialized")
     lineage, q_hash = agent_instance.data_access.get_supplier_graph_data(
@@ -33,7 +33,7 @@ def _handle_query_supplier_graph(args: dict) -> dict:
     return {"query_hash": q_hash, "lineage": lineage}
 
 
-def _handle_read_delivery_history(args: dict) -> dict:
+def _handle_read_delivery_history(args: dict[str, Any]) -> Any:
     if not agent_instance:
         raise RuntimeError("Supplier agent not initialized")
     df, q_hash = agent_instance.data_access.get_supplier_delivery_history(
@@ -44,7 +44,7 @@ def _handle_read_delivery_history(args: dict) -> dict:
     return {"query_hash": q_hash, "record_count": len(df), "rows": df.to_dict(orient="records")}
 
 
-def _handle_query_alternate_suppliers(args: dict) -> dict:
+def _handle_query_alternate_suppliers(args: dict[str, Any]) -> Any:
     if not agent_instance:
         raise RuntimeError("Supplier agent not initialized")
     alternates, q_hash = agent_instance.data_access.get_alternate_suppliers(
@@ -54,7 +54,7 @@ def _handle_query_alternate_suppliers(args: dict) -> dict:
     return {"query_hash": q_hash, "alternates": alternates}
 
 
-def _handle_read_supplier_disruptions(args: dict) -> dict:
+def _handle_read_supplier_disruptions(args: dict[str, Any]) -> Any:
     if not agent_instance:
         raise RuntimeError("Supplier agent not initialized")
     disruptions, q_hash = agent_instance.data_access.get_supplier_disruptions(
@@ -64,7 +64,7 @@ def _handle_read_supplier_disruptions(args: dict) -> dict:
     return {"query_hash": q_hash, "disruptions": disruptions}
 
 
-mcp_handlers = {
+mcp_handlers: dict[str, Callable[[dict[str, Any]], Any]] = {
     "query_supplier_graph": _handle_query_supplier_graph,
     "read_delivery_history": _handle_read_delivery_history,
     "query_alternate_suppliers": _handle_query_alternate_suppliers,

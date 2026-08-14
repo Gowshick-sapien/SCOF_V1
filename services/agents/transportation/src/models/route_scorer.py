@@ -26,7 +26,7 @@ class RouteScorerInitializer(BaseTrainer):
         self.port_factor = port_factor
         self.unreliability_factor = unreliability_factor
 
-    def fit(self, X: np.ndarray, y: np.ndarray) -> ModelArtifact:
+    def fit(self, X_train: np.ndarray, y_train: np.ndarray, **kwargs) -> ModelArtifact:
         """Stores rule configuration parameters in ModelArtifact."""
         params = {
             "base_delay": self.base_delay,
@@ -39,8 +39,8 @@ class RouteScorerInitializer(BaseTrainer):
             model_name="route_scorer",
             model_version="1.0.0",
             training_metadata={
-                "n_samples": len(X),
-                "mean_y": float(np.mean(y)) if len(y) > 0 else 0.0,
+                "n_samples": len(X_train),
+                "mean_y": float(np.mean(y_train)) if len(y_train) > 0 else 0.0,
             },
         )
 

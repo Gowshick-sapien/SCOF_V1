@@ -22,14 +22,11 @@ class ClaimBundle(BaseModel):
         default_factory=lambda: datetime.now(timezone.utc),
         description="UTC timestamp when bundle was assembled",
     )
-    profile_name: str = Field(
-        "mvp-electronics", description="Name of the active Domain Profile"
+    profile_name: str = Field(default="mvp-electronics", description="Name of the active Domain Profile"
     )
-    profile_version: str = Field(
-        "1.0.0", description="Semantic version of the active Domain Profile"
+    profile_version: str = Field(default="1.0.0", description="Semantic version of the active Domain Profile"
     )
-    status: Literal["COMPLETE", "PARTIAL", "FAILED"] = Field(
-        "COMPLETE", description="Overall bundle aggregation status"
+    status: Literal["COMPLETE", "PARTIAL", "FAILED"] = Field(default="COMPLETE", description="Overall bundle aggregation status"
     )
     participating_agents: List[str] = Field(
         default_factory=list,
@@ -47,8 +44,7 @@ class ClaimBundle(BaseModel):
         default_factory=dict,
         description="Mapping of agent ID to its returned StructuredClaim",
     )
-    total_latency_ms: float = Field(
-        0.0, description="End-to-end orchestration latency in milliseconds"
+    total_latency_ms: float = Field(default=0.0, description="End-to-end orchestration latency in milliseconds"
     )
     agent_latencies_ms: Dict[str, float] = Field(
         default_factory=dict,

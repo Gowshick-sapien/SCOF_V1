@@ -5,7 +5,7 @@ from scof_shared.protocols.a2a_client import A2AClient
 from scof_shared.protocols.a2a_registry import A2ARegistry
 from scof_shared.schemas.agent_card import AgentCard
 from scof_shared.schemas.scenario_context import ScenarioContext
-from src.orchestrator import CoordinatorOrchestrator
+from services.coordinator.src.orchestrator import CoordinatorOrchestrator
 
 
 @pytest.mark.asyncio

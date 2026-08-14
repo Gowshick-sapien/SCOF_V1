@@ -7,12 +7,12 @@ pkg_root = Path(__file__).resolve().parents[1]
 workspace_root = Path(__file__).resolve().parents[4]
 if str(workspace_root / "shared") not in sys.path:
     sys.path.insert(0, str(workspace_root / "shared"))
-if str(pkg_root) not in sys.path:
-    sys.path.insert(0, str(pkg_root))
+if str(workspace_root) not in sys.path:
+    sys.path.insert(0, str(workspace_root))
 
 from scof_shared.schemas.scenario_context import ScenarioContext
-from src.agent import InventoryAgent
-from src.config import SCOF_PROFILE_PATH
+from services.agents.inventory.src.agent import InventoryAgent
+from services.agents.inventory.src.config import SCOF_PROFILE_PATH
 
 
 def test_inventory_agent_analysis():

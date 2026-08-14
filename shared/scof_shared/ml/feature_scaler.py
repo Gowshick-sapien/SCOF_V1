@@ -2,7 +2,7 @@
 
 from pathlib import Path
 import pickle
-from typing import Any
+from typing import Any, Optional
 import numpy as np
 
 
@@ -10,8 +10,8 @@ class FeatureScaler:
     """Serializable StandardScaler wrapper."""
 
     def __init__(self):
-        self.mean_: np.ndarray = None
-        self.scale_: np.ndarray = None
+        self.mean_: Optional[np.ndarray] = None
+        self.scale_: Optional[np.ndarray] = None
 
     def fit(self, X: Any) -> "FeatureScaler":
         arr = np.asarray(X, dtype=float)

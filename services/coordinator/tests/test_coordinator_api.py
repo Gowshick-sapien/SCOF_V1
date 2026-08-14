@@ -3,7 +3,7 @@
 import os
 from fastapi.testclient import TestClient
 import pytest
-from src.main import app
+from services.coordinator.src.main import app
 
 os.environ["MOCK_MODE"] = "true"
 

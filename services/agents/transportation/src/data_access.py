@@ -99,7 +99,7 @@ class TransportDataAccess:
                 with psycopg.connect(conn_str) as conn:
                     with conn.cursor() as cur:
                         cur.execute(sql, params)
-                        cols = [desc[0] for desc in cur.description]
+                        cols = [desc[0] for desc in (cur.description or [])]
                         rows = cur.fetchall()
                         if rows:
                             self._postgres_available = True
@@ -139,7 +139,7 @@ class TransportDataAccess:
                 with psycopg.connect(conn_str) as conn:
                     with conn.cursor() as cur:
                         cur.execute(sql, params)
-                        cols = [desc[0] for desc in cur.description]
+                        cols = [desc[0] for desc in (cur.description or [])]
                         rows = [dict(zip(cols, row)) for row in cur.fetchall()]
                         self._postgres_available = True
                         return rows, q_hash
@@ -161,27 +161,33 @@ class TransportDataAccess:
         client = self._get_graph_client()
         if client is not None:
             try:
+                cypher = "MATCH (o)-[r:CONNECTED_TO|SHIPPED_VIA]->(d)\n"
+                params = {}
+                
                 if origin and destination:
-                    routes = client.get_route_details(origin, destination)
-                    if routes:
-                        self._neo4j_available = True
-                        return routes, q_hash
-                else:
-                    cypher = """
-                    MATCH (o)-[r:CONNECTED_TO|SHIPPED_VIA]->(d)
-                    RETURN coalesce(r.id, 'route-' + id(r)) AS route_id,
-                           coalesce(r.mode, 'road') AS mode,
-                           coalesce(r.carrier, 'Standard Carrier') AS carrier,
-                           coalesce(r.transit_time_days, 5.0) AS transit_time_days,
-                           coalesce(r.cost, 1000.0) AS cost,
-                           coalesce(r.reliability_rating, 0.90) AS reliability_rating,
-                           o.id AS origin_id,
-                           d.id AS destination_id
-                    """
-                    records = client.execute_read(cypher)
-                    if records:
-                        self._neo4j_available = True
-                        return records, q_hash
+                    cypher += "WHERE o.id = $origin AND d.id = $destination\n"
+                    params = {"origin": origin, "destination": destination}
+                elif origin:
+                    cypher += "WHERE o.id = $origin\n"
+                    params = {"origin": origin}
+                elif destination:
+                    cypher += "WHERE d.id = $destination\n"
+                    params = {"destination": destination}
+                    
+                cypher += """
+                RETURN coalesce(r.id, 'route-' + id(r)) AS route_id,
+                       coalesce(r.mode, 'road') AS mode,
+                       coalesce(r.carrier, 'Standard Carrier') AS carrier,
+                       coalesce(r.transit_time_days, 5.0) AS transit_time_days,
+                       coalesce(r.cost, 1000.0) AS cost,
+                       coalesce(r.reliability_rating, 0.90) AS reliability_rating,
+                       o.id AS origin_id,
+                       d.id AS destination_id
+                """
+                records = client.execute_read(cypher, params)
+                if records:
+                    self._neo4j_available = True
+                    return records, q_hash
             except Exception as e:
                 self._neo4j_available = False
                 logger.warning("Neo4j connection failed, using fallback mock route graph: %s", e)

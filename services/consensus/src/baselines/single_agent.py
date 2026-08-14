@@ -4,7 +4,7 @@ from scof_shared.schemas.claim_bundle import ClaimBundle
 from scof_shared.schemas.evaluation_decision import EvaluationDecision
 from services.consensus.src.config import ENGINE_VERSION
 
-def run_single_agent_baseline(bundle: ClaimBundle, target_agent_id: str = None) -> EvaluationDecision:
+def run_single_agent_baseline(bundle: ClaimBundle, target_agent_id: str | None = None) -> EvaluationDecision:
     if not bundle.claims:
         raise ValueError("Cannot run baseline on empty ClaimBundle")
         
@@ -21,6 +21,10 @@ def run_single_agent_baseline(bundle: ClaimBundle, target_agent_id: str = None) 
             if claim.confidence > max_conf:
                 max_conf = claim.confidence
                 selected_agent = agent_id
+        
+        if selected_agent is None:
+            raise RuntimeError("Failed to select an agent")
+
         selected_claim = bundle.claims[selected_agent]
 
     return EvaluationDecision(

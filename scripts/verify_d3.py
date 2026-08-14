@@ -19,27 +19,13 @@ from scof_shared.schemas.structured_claim import StructuredClaim
 from scof_shared.schemas.agent_card import AgentCard
 
 
-def clear_src_modules():
-    to_delete = [k for k in list(sys.modules.keys()) if k == "src" or k.startswith("src.")]
-    for k in to_delete:
-        del sys.modules[k]
-
-
 def load_demand_agent():
-    clear_src_modules()
-    demand_dir = str(root_dir / "services" / "agents" / "demand")
-    sys.path = [p for p in sys.path if "services/agents" not in p and "services\\agents" not in p]
-    sys.path.insert(0, demand_dir)
-    import src.agent as demand_mod
+    from services.agents.demand.src import agent as demand_mod
     return demand_mod.DemandAgent
 
 
 def load_inventory_agent():
-    clear_src_modules()
-    inventory_dir = str(root_dir / "services" / "agents" / "inventory")
-    sys.path = [p for p in sys.path if "services/agents" not in p and "services\\agents" not in p]
-    sys.path.insert(0, inventory_dir)
-    import src.agent as inv_mod
+    from services.agents.inventory.src import agent as inv_mod
     return inv_mod.InventoryAgent
 
 

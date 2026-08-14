@@ -2,7 +2,7 @@ import os
 import logging
 import time
 from typing import Any, Dict, List, Optional
-# pyrefly: ignore [missing-import]
+# type: ignore
 from neo4j import GraphDatabase, Driver, Session
 
 logger = logging.getLogger(__name__)
@@ -56,13 +56,13 @@ class Neo4jGraphClient:
     def execute_read(self, cypher: str, parameters: Optional[Dict[str, Any]] = None) -> List[Dict[str, Any]]:
         driver = self.connect()
         with driver.session() as session:
-            result = session.run(cypher, parameters or {})
+            result = session.run(cypher, parameters or {})  # type: ignore[reportArgumentType]
             return [record.data() for record in result]
 
     def execute_write(self, cypher: str, parameters: Optional[Dict[str, Any]] = None) -> List[Dict[str, Any]]:
         driver = self.connect()
         with driver.session() as session:
-            result = session.run(cypher, parameters or {})
+            result = session.run(cypher, parameters or {})  # type: ignore[reportArgumentType]
             records = [record.data() for record in result]
             result.consume()
             return records
@@ -70,7 +70,7 @@ class Neo4jGraphClient:
     def execute_batch(self, cypher: str, batch: List[Dict[str, Any]]) -> None:
         driver = self.connect()
         with driver.session() as session:
-            result = session.run(cypher, {"batch": batch})
+            result = session.run(cypher, {"batch": batch})  # type: ignore[reportArgumentType]
             result.consume()
 
     def get_shortest_path(self, origin_id: str, destination_id: str, max_depth: int = 6) -> List[Dict[str, Any]]:

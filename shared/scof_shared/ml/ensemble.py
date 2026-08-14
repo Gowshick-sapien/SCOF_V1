@@ -4,7 +4,7 @@ Combines predictions from multiple registered BaseInferenceModel instances using
 and computes agreement metrics.
 """
 
-from typing import Dict, Any
+from typing import Dict, Any, Optional
 import numpy as np
 from scof_shared.ml.base_model import BaseInferenceModel
 from scof_shared.ml.confidence import ConfidenceCalculator
@@ -59,9 +59,9 @@ class BaseEnsemble:
 
         contributions: Dict[str, ForecastResult] = {}
         total_weight = 0.0
-        weighted_points = None
-        weighted_lowers = None
-        weighted_uppers = None
+        weighted_points: Optional[np.ndarray] = None
+        weighted_lowers: Optional[np.ndarray] = None
+        weighted_uppers: Optional[np.ndarray] = None
 
         for name, model in self.models.items():
             w = float(self.weights.get(name, 1.0))
@@ -75,19 +75,22 @@ class BaseEnsemble:
                 metadata={"weight": w},
             )
 
-            if weighted_points is None:
-                weighted_points = w * point
-                weighted_lowers = w * interval.lower
-                weighted_uppers = w * interval.upper
+            if weighted_points is None or weighted_lowers is None or weighted_uppers is None:
+                weighted_points = np.asarray(w * point, dtype=float)
+                weighted_lowers = np.asarray(w * interval.lower, dtype=float)
+                weighted_uppers = np.asarray(w * interval.upper, dtype=float)
             else:
-                weighted_points += w * point
-                weighted_lowers += w * interval.lower
-                weighted_uppers += w * interval.upper
+                weighted_points += np.asarray(w * point, dtype=float)
+                weighted_lowers += np.asarray(w * interval.lower, dtype=float)
+                weighted_uppers += np.asarray(w * interval.upper, dtype=float)
 
             total_weight += w
 
         if total_weight <= 0:
             total_weight = 1.0
+
+        if weighted_points is None or weighted_lowers is None or weighted_uppers is None:
+            raise ValueError("No models produced valid predictions.")
 
         final_point = weighted_points / total_weight
         final_lower = weighted_lowers / total_weight

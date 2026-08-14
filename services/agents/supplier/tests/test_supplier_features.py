@@ -2,7 +2,7 @@
 
 import pandas as pd
 import numpy as np
-from src.features import SupplierFeatureBuilder
+from services.agents.supplier.src.features import SupplierFeatureBuilder
 
 
 def test_build_features_nominal():

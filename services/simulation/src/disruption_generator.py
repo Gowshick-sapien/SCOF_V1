@@ -8,7 +8,7 @@ from datetime import date, timedelta
 from typing import Dict, List, Any
 import numpy as np
 from scof_shared.profile.loader import DomainProfile
-from src.constants import Prefix, DisruptionStatus
+from .constants import Prefix, DisruptionStatus
 
 
 class DisruptionGenerator:

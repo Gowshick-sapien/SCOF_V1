@@ -20,12 +20,12 @@ from pathlib import Path
 
 from scof_shared.profile.loader import ProfileLoader
 from scof_shared.profile.validators import validate_profile_topology
-from src.config import settings
-from src.constants import GENERATOR_VERSION, Prefix
-from src.db_writer import DBWriter
-from src.disruption_generator import DisruptionGenerator
-from src.entity_generator import EntityGenerator
-from src.order_generator import OrderGenerator
+from .config import settings
+from .constants import GENERATOR_VERSION, Prefix
+from .db_writer import DBWriter
+from .disruption_generator import DisruptionGenerator
+from .entity_generator import EntityGenerator
+from .order_generator import OrderGenerator
 
 logging.basicConfig(
     level=logging.INFO,

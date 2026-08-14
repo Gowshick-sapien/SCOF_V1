@@ -2,7 +2,7 @@
 
 from unittest.mock import MagicMock, patch
 import pytest
-from src.db_writer import DBWriter
+from services.simulation.src.db_writer import DBWriter
 
 
 @pytest.fixture

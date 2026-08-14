@@ -19,10 +19,14 @@ from pathlib import Path
 import pytest
 from fastapi.testclient import TestClient
 from pydantic import ValidationError
+from typing import Any, Callable
 
 # Set python path
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "shared"))
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "services" / "coordinator"))
+
+# Set default profile path for tests so it resolves correctly regardless of cwd
+os.environ["SCOF_PROFILE_PATH"] = str(Path(__file__).resolve().parent.parent / "profiles" / "mvp-electronics")
 
 from scof_shared.protocols.a2a_client import A2AClient
 from scof_shared.protocols.a2a_registry import A2ARegistry, HealthStatus
@@ -38,11 +42,11 @@ from scof_shared.schemas.evidence import EvidenceItem
 from scof_shared.schemas.scenario_context import ScenarioContext
 from scof_shared.schemas.structured_claim import StructuredClaim
 
-from src.agent_discovery import AgentDiscoveryService
-from src.claim_collector import ClaimCollector
-from src.main import app
-from src.orchestrator import CoordinatorOrchestrator
-from src.runtime import CoordinatorRuntime
+from services.coordinator.src.agent_discovery import AgentDiscoveryService
+from services.coordinator.src.claim_collector import ClaimCollector
+from services.coordinator.src.main import app
+from services.coordinator.src.orchestrator import CoordinatorOrchestrator
+from services.coordinator.src.runtime import CoordinatorRuntime
 
 
 def run_test(name: str, test_func):
@@ -102,7 +106,7 @@ def test_1_claim_bundle_immutability():
 
     # Verify immutability
     try:
-        bundle.status = "FAILED"
+        bundle.status = "FAILED"  # type: ignore
         raise AssertionError("Expected ValidationError when mutating frozen ClaimBundle")
     except ValidationError:
         pass
@@ -168,7 +172,9 @@ def test_3_mcp_server_router_and_tools():
             "inputSchema": {"type": "object", "properties": {"msg": {"type": "string"}}},
         }
     ]
-    handlers = {"test_echo": lambda args: {"echoed": args.get("msg", "")}}
+    handlers: dict[str, Callable[[dict[str, Any]], Any]] = {
+        "test_echo": lambda args: {"echoed": args.get("msg", "")}
+    }
     router = create_mcp_router(tools=tools, execution_handlers=handlers)
 
     test_app = app

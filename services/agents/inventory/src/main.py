@@ -8,9 +8,10 @@ from scof_shared.schemas.scenario_context import ScenarioContext
 from scof_shared.schemas.structured_claim import StructuredClaim
 
 from scof_shared.protocols.mcp_server import create_mcp_router
-from src.agent import InventoryAgent
-from src.mcp.tools import INVENTORY_MCP_TOOLS
-from src.config import (
+from typing import Any, Callable
+from .agent import InventoryAgent
+from .mcp.tools import INVENTORY_MCP_TOOLS
+from .config import (
     AGENT_ID,
     NEO4J_URI,
     POSTGRES_DB,
@@ -20,10 +21,10 @@ from src.config import (
 )
 
 START_TIME = time.time()
-agent_instance: InventoryAgent = None
+agent_instance: InventoryAgent | None = None
 
 
-def _handle_read_stock_levels(args: dict) -> dict:
+def _handle_read_stock_levels(args: dict[str, Any]) -> Any:
     if not agent_instance:
         raise RuntimeError("Inventory agent not initialized")
     df, q_hash = agent_instance.data_access.get_inventory_levels(
@@ -34,7 +35,7 @@ def _handle_read_stock_levels(args: dict) -> dict:
     return {"query_hash": q_hash, "record_count": len(df), "inventory_levels": df.to_dict(orient="records")}
 
 
-def _handle_read_reorder_points(args: dict) -> dict:
+def _handle_read_reorder_points(args: dict[str, Any]) -> Any:
     product_ids = args.get("product_ids", [])
     warehouse_ids = args.get("warehouse_ids", [])
     thresholds = [
@@ -45,7 +46,7 @@ def _handle_read_reorder_points(args: dict) -> dict:
     return {"thresholds": thresholds}
 
 
-def _handle_read_inbound_shipments(args: dict) -> dict:
+def _handle_read_inbound_shipments(args: dict[str, Any]) -> Any:
     warehouse_ids = args.get("warehouse_ids", [])
     shipments = [
         {"shipment_id": f"SHP-{wid}-01", "warehouse_id": wid, "status": "IN_TRANSIT", "eta_days": 3}
@@ -54,17 +55,17 @@ def _handle_read_inbound_shipments(args: dict) -> dict:
     return {"shipments": shipments}
 
 
-def _handle_read_inventory_disruptions(args: dict) -> dict:
+def _handle_read_inventory_disruptions(args: dict[str, Any]) -> Any:
     if not agent_instance:
         raise RuntimeError("Inventory agent not initialized")
-    disruptions, q_hash = agent_instance.data_access.get_active_disruptions(
+    disruptions, q_hash = agent_instance.data_access.get_supplier_disruptions(
         run_id=args.get("run_id"),
         scenario_id=args.get("scenario_id"),
     )
     return {"query_hash": q_hash, "disruptions": disruptions}
 
 
-mcp_handlers = {
+mcp_handlers: dict[str, Callable[[dict[str, Any]], Any]] = {
     "read_stock_levels": _handle_read_stock_levels,
     "read_reorder_points": _handle_read_reorder_points,
     "read_inbound_shipments": _handle_read_inbound_shipments,

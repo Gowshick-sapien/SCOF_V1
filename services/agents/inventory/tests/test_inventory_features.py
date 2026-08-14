@@ -4,12 +4,13 @@ import sys
 from pathlib import Path
 
 pkg_root = Path(__file__).resolve().parents[1]
-if str(pkg_root) not in sys.path:
-    sys.path.insert(0, str(pkg_root))
+workspace_root = Path(__file__).resolve().parents[4]
+if str(workspace_root) not in sys.path:
+    sys.path.insert(0, str(workspace_root))
 
 import pandas as pd
 import numpy as np
-from src.features import InventoryFeatureBuilder
+from services.agents.inventory.src.features import InventoryFeatureBuilder
 
 
 def test_inventory_feature_builder_empty():

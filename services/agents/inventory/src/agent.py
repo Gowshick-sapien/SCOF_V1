@@ -8,7 +8,7 @@ from scof_shared.schemas.agent_card import AgentCard
 from scof_shared.schemas.scenario_context import ScenarioContext
 from scof_shared.schemas.structured_claim import StructuredClaim
 
-from src.config import (
+from .config import (
     AGENT_ID,
     AGENT_NAME,
     NUMPY_SEED,
@@ -17,13 +17,13 @@ from src.config import (
     SAFETY_STOCK_THRESHOLD_DAYS,
     XGBOOST_SEED,
 )
-from src.data_access import InventoryDataAccess
-from src.features import InventoryFeatureBuilder
-from src.mcp.tools import INVENTORY_MCP_TOOLS
-from src.models.ensemble import InventoryEnsemble
-from src.models.statistical_model import InventoryStatisticalInference, InventoryStatisticalTrainer
+from .data_access import InventoryDataAccess
+from .features import InventoryFeatureBuilder
+from .mcp.tools import INVENTORY_MCP_TOOLS
+from .models.ensemble import InventoryEnsemble
+from .models.statistical_model import InventoryStatisticalInference, InventoryStatisticalTrainer
 from scof_shared.knowledge import Neo4jGraphClient, PgVectorClient
-from src.models.xgboost_model import InventoryXGBoostInference, InventoryXGBoostTrainer
+from .models.xgboost_model import InventoryXGBoostInference, InventoryXGBoostTrainer
 
 
 class InventoryAgent(BaseAgent):

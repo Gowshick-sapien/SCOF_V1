@@ -79,6 +79,8 @@ class CoordinatorRuntime:
 
         assert self.profile is not None
         roster = self.profile.agents
+        if not roster:
+            raise ValueError("Domain profile does not contain an agents roster")
 
         # Assemble new registry snapshot out-of-band
         new_registry = A2ARegistry()

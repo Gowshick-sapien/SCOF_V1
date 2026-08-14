@@ -1,7 +1,7 @@
 """Unit and integration tests for TransportAgent."""
 
 from scof_shared.schemas.scenario_context import ScenarioContext
-from src.agent import TransportAgent
+from services.agents.transportation.src.agent import TransportAgent
 
 
 def test_transport_agent_card():

@@ -10,7 +10,7 @@ from scof_shared.schemas.structured_claim import StructuredClaim
 
 from scof_shared.knowledge import Neo4jGraphClient, PgVectorClient
 
-from src.config import (
+from .config import (
     AGENT_ID,
     AGENT_NAME,
     HIGH_RELIABILITY_THRESHOLD,
@@ -19,12 +19,12 @@ from src.config import (
     PYTHON_RANDOM_SEED,
     SKLEARN_SEED,
 )
-from src.data_access import SupplierDataAccess
-from src.features import SupplierFeatureBuilder
-from src.mcp.tools import SUPPLIER_MCP_TOOLS
-from src.models.ensemble import SupplierEnsemble
-from src.models.reliability_scorer import ReliabilityScorerInference, ReliabilityScorerTrainer
-from src.models.rule_scorer import RuleScorerInference, RuleScorerInitializer
+from .data_access import SupplierDataAccess
+from .features import SupplierFeatureBuilder
+from .mcp.tools import SUPPLIER_MCP_TOOLS
+from .models.ensemble import SupplierEnsemble
+from .models.reliability_scorer import ReliabilityScorerInference, ReliabilityScorerTrainer
+from .models.rule_scorer import RuleScorerInference, RuleScorerInitializer
 
 
 class SupplierAgent(BaseAgent):
@@ -112,8 +112,15 @@ class SupplierAgent(BaseAgent):
         for alt in alternates:
             alt_id = alt.get("alt_supplier_id", "")
             rel = reliabilities.get(alt_id, 0.90)
-            lead_time = float(alt.get("alt_lead_time_days", alt.get("lead_time_days", 7.0)))
-            unit_cost = float(alt.get("alt_unit_cost", alt.get("unit_cost", 25.0)))
+            lead_time_raw = alt.get("alt_lead_time_days")
+            if lead_time_raw is None:
+                lead_time_raw = alt.get("lead_time_days")
+            lead_time = float(lead_time_raw if lead_time_raw is not None else 7.0)
+
+            unit_cost_raw = alt.get("alt_unit_cost")
+            if unit_cost_raw is None:
+                unit_cost_raw = alt.get("unit_cost")
+            unit_cost = float(unit_cost_raw if unit_cost_raw is not None else 25.0)
             hops = float(hops_map.get(alt_id, 2))
 
             norm_lead_time = min(1.0, max(0.0, lead_time / 30.0))

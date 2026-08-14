@@ -20,10 +20,10 @@ class DelayPredictorTrainer(BaseTrainer):
         self.n_estimators = n_estimators
         self.max_depth = max_depth
 
-    def fit(self, X: np.ndarray, y: np.ndarray) -> ModelArtifact:
+    def fit(self, X_train: np.ndarray, y_train: np.ndarray, **kwargs) -> ModelArtifact:
         """Fits regressor and calculates empirical residual standard deviation."""
-        X_arr = np.asarray(X, dtype=float)
-        y_arr = np.asarray(y, dtype=float)
+        X_arr = np.asarray(X_train, dtype=float)
+        y_arr = np.asarray(y_train, dtype=float)
 
         model = GradientBoostingRegressor(
             random_state=self.seed,

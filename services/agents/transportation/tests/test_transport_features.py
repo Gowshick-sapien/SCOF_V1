@@ -2,7 +2,7 @@
 
 import numpy as np
 import pandas as pd
-from src.features import TransportFeatureBuilder
+from services.agents.transportation.src.features import TransportFeatureBuilder
 
 
 def test_build_transport_features_nominal():

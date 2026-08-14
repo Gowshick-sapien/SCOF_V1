@@ -1,7 +1,7 @@
 """Unit tests for TransportDataAccess layer."""
 
 import pandas as pd
-from src.data_access import TransportDataAccess
+from services.agents.transportation.src.data_access import TransportDataAccess
 
 
 def test_transport_shipment_history_mock():

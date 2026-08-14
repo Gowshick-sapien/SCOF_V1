@@ -15,17 +15,13 @@ class StructuredClaim(BaseModel):
     agent_id: str = Field(..., description="Unique identifier of the issuing agent")
     scenario_id: str = Field(..., description="Scenario identifier context")
     recommendation: str = Field(..., description="Proposed mitigation or operational action")
-    reasoning: str = Field(
-        ..., description="Concise rationale summarizing why this recommendation was made"
+    reasoning: str = Field(default= ..., description="Concise rationale summarizing why this recommendation was made"
     )
-    confidence: float = Field(
-        ..., description="Model computed confidence score in range [0.0, 1.0]"
+    confidence: float = Field(default= ..., description="Model computed confidence score in range [0.0, 1.0]"
     )
-    low_confidence: bool = Field(
-        False, description="True if confidence is below the agent confidence floor"
+    low_confidence: bool = Field(default=False, description="True if confidence is below the agent confidence floor"
     )
-    priority: Literal["HIGH", "MEDIUM", "LOW"] = Field(
-        "MEDIUM", description="Urgency level of the claim"
+    priority: Literal["HIGH", "MEDIUM", "LOW"] = Field(default="MEDIUM", description="Urgency level of the claim"
     )
     impact: str = Field(..., description="Estimated operational or financial impact")
     evidence: List[EvidenceItem] = Field(

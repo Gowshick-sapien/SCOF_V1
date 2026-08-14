@@ -1,6 +1,7 @@
 """FastAPI application entry point for Demand Agent microservice."""
 
 import time
+from typing import Any, Callable
 from contextlib import asynccontextmanager
 from fastapi import FastAPI, HTTPException
 from scof_shared.schemas.agent_card import AgentCard
@@ -23,7 +24,7 @@ START_TIME = time.time()
 agent_instance: DemandAgent | None = None
 
 
-def _handle_read_historical_demand(args: dict) -> dict:
+def _handle_read_historical_demand(args: dict[str, Any]) -> dict[str, Any]:
     if not agent_instance:
         raise RuntimeError("Demand agent not initialized")
     df, q_hash = agent_instance.data_access.get_historical_demand(
@@ -34,7 +35,7 @@ def _handle_read_historical_demand(args: dict) -> dict:
     return {"query_hash": q_hash, "record_count": len(df), "rows": df.to_dict(orient="records")}
 
 
-def _handle_read_demand_disruptions(args: dict) -> dict:
+def _handle_read_demand_disruptions(args: dict[str, Any]) -> dict[str, Any]:
     if not agent_instance:
         raise RuntimeError("Demand agent not initialized")
     disruptions, q_hash = agent_instance.data_access.get_active_disruptions(
@@ -44,13 +45,13 @@ def _handle_read_demand_disruptions(args: dict) -> dict:
     return {"query_hash": q_hash, "disruptions": disruptions}
 
 
-def _handle_read_product_catalog(args: dict) -> dict:
+def _handle_read_product_catalog(args: dict[str, Any]) -> dict[str, Any]:
     product_ids = args.get("product_ids", [])
     products = [{"product_id": pid, "category": "electronics", "name": f"Product {pid}"} for pid in product_ids]
     return {"products": products}
 
 
-mcp_handlers = {
+mcp_handlers: dict[str, Callable[[dict[str, Any]], Any]] = {
     "read_historical_demand": _handle_read_historical_demand,
     "read_demand_disruptions": _handle_read_demand_disruptions,
     "read_product_catalog": _handle_read_product_catalog,

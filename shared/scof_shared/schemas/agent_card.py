@@ -13,7 +13,7 @@ class AgentCard(BaseModel):
     agent_id: str = Field(..., description="Unique ID of the agent")
     name: str = Field(..., description="Human-readable agent display name")
     description: str = Field(..., description="Detailed functional description of the agent")
-    version: str = Field("1.0.0", description="Semantic version string")
+    version: str = Field(default="1.0.0", description="Semantic version string")
     capabilities: List[str] = Field(default_factory=list, description="List of capability names")
     tags: List[str] = Field(default_factory=list, description="Classification tags")
     supported_contexts: List[str] = Field(
@@ -26,11 +26,10 @@ class AgentCard(BaseModel):
         default_factory=lambda: {"context": "ScenarioContext"},
         description="Input contract name or schema",
     )
-    output_schema: str = Field(
-        "StructuredClaim", description="Output contract name produced by agent"
+    output_schema: str = Field(default="StructuredClaim", description="Output contract name produced by agent"
     )
-    protocol: str = Field("A2A/1.0", description="Supported protocol standard")
-    protocol_version: str = Field("A2A/1.0", description="A2A protocol version")
-    agent_version: str = Field("1.0.0", description="Semantic version string of the agent")
-    profile_version: Optional[str] = Field("1.0.0", description="Domain profile compatibility version")
+    protocol: str = Field(default="A2A/1.0", description="Supported protocol standard")
+    protocol_version: str = Field(default="A2A/1.0", description="A2A protocol version")
+    agent_version: str = Field(default="1.0.0", description="Semantic version string of the agent")
+    profile_version: Optional[str] = Field(default="1.0.0", description="Domain profile compatibility version")
     endpoint: str = Field(..., description="Base HTTP URL for agent service")

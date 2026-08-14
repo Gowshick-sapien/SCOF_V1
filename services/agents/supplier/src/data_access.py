@@ -100,7 +100,7 @@ class SupplierDataAccess:
                 with psycopg.connect(conn_str) as conn:
                     with conn.cursor() as cur:
                         cur.execute(sql, params)
-                        cols = [desc[0] for desc in cur.description]
+                        cols = [desc[0] for desc in cur.description] if cur.description else []
                         rows = cur.fetchall()
                         if rows:
                             self._postgres_available = True
@@ -140,7 +140,7 @@ class SupplierDataAccess:
                 with psycopg.connect(conn_str) as conn:
                     with conn.cursor() as cur:
                         cur.execute(sql, params)
-                        cols = [desc[0] for desc in cur.description]
+                        cols = [desc[0] for desc in (cur.description or [])]
                         rows = [dict(zip(cols, row)) for row in cur.fetchall()]
                         self._postgres_available = True
                         return rows, q_hash
@@ -269,8 +269,8 @@ class SupplierDataAccess:
         for s in all_suppliers:
             n_orders = 30
             for i in range(n_orders):
-                is_ontime = np.random.rand() < s["ontime_prob"]
-                delay = 0.0 if is_ontime else float(np.random.exponential(s["base_delay"]) + 1.0)
+                is_ontime = np.random.rand() < float(s["ontime_prob"])
+                delay = 0.0 if is_ontime else float(np.random.exponential(float(s["base_delay"])) + 1.0)
                 status = "DELIVERED" if (is_ontime or np.random.rand() > 0.05) else "CANCELLED"
                 records.append({
                     "order_id": f"po-{order_idx:04d}",

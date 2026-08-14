@@ -8,7 +8,7 @@ from scof_shared.schemas.agent_card import AgentCard
 from scof_shared.schemas.evidence import EvidenceItem
 from scof_shared.schemas.scenario_context import ScenarioContext
 from scof_shared.schemas.structured_claim import StructuredClaim
-from src.claim_collector import ClaimCollector
+from services.coordinator.src.claim_collector import ClaimCollector
 
 
 @pytest.mark.asyncio

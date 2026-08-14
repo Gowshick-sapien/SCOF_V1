@@ -1,6 +1,6 @@
 """Unit tests for SupplierDataAccess."""
 
-from src.data_access import SupplierDataAccess
+from services.agents.supplier.src.data_access import SupplierDataAccess
 
 
 def test_supplier_delivery_history_mock():
