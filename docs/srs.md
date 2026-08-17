@@ -269,20 +269,23 @@ D1 (Sim Data) → D2 (Knowledge Layer) → D3 (Demand+Inventory Agents)
 
 ---
 
-### **3.9 D9 — Frontend Dashboard**
+### **3.9 D9 — SCOF Desktop Operations Console**
 
 **Objective:** Build the user-facing surface against the stable D8 API.
 
 | ID | Requirement |
 | ----- | ----- |
-| FR-9.1 | The system shall provide an Operational Dashboard and interactive Supply Chain Map (React/Next.js, Leaflet, D3/Recharts). |
-| FR-9.2 | The system shall provide an AI Meeting Log view and a Confidence & Disagreement View. |
-| FR-9.3 | The system shall provide a What-If Simulation UI and a Scenario Library / Scenario Comparison view. |
-| FR-9.4 | The system shall provide a Decision Replay UI allowing step-through of D7's stored traces. |
-| FR-9.5 | The system shall provide a Recommendation Timeline and a basic Risk Heatmap. |
-| FR-9.6 | The system shall provide an AI Chat interface for natural-language Q\&A over operational data (e.g., "Why is Warehouse 4 at risk?"). |
+| FR-9.1 | The system shall provide an Operational Dashboard and interactive Supply Chain Map within the Tauri desktop application (React + TypeScript, Leaflet, D3/Recharts), reading map bounds and entity labels from the Domain Profile (`dashboard.yaml`). |
+| FR-9.2 | The system shall provide an AI Meeting Log view and a Confidence and Disagreement View, accessible from the Decision Center. |
+| FR-9.3 | The system shall provide a What-If Simulation Lab and a Scenario Library within the desktop console, supporting parameter modification and outcome comparison. |
+| FR-9.4 | The system shall provide a Reasoning Trace Explorer allowing step-through of D07's stored traces, rendered as a vertical pipeline visualization. |
+| FR-9.5 | The system shall provide a Recommendation Timeline and a basic Risk Heatmap within the Operations view. |
+| FR-9.6 | The system shall provide an AI Chat panel for natural-language Q&A over operational data, integrated into the desktop console. |
+| FR-9.7 | The system shall provide an Agent Command Center displaying real-time agent execution monitoring via the `WS /ws/agents/activity` channel. |
+| FR-9.8 | The system shall provide desktop-native operational features: system tray with connection status, desktop notifications for critical events, persistent window state, and close-to-tray behavior with explicit quit action. |
+| FR-9.9 | The system shall generate TypeScript types from D08's OpenAPI specification rather than manually maintaining duplicate type definitions. |
 
-**Acceptance Criterion:** A reviewer can, via a fully clickable demo against D8's API alone, trigger a what-if scenario, watch it run, and inspect the resulting meeting log and confidence view, without needing D1–D7 explained separately.
+**Acceptance Criterion:** A reviewer can launch the SCOF Desktop Operations Console, connect to a running D08 instance, trigger a what-if scenario, observe real-time agent activity and decision progression, and inspect the resulting meeting log, confidence breakdown, and reasoning trace -- all within the desktop application, without needing D01-D07 explained separately.
 
 ---
 
@@ -320,7 +323,7 @@ D1 (Sim Data) → D2 (Knowledge Layer) → D3 (Demand+Inventory Agents)
 
 ### **4.1 User Interfaces**
 
-* Web dashboard (React/Next.js) accessible via browser, covering: Operational Dashboard, Supply Chain Map, AI Meeting Log, What-If Simulation, Scenario Comparison, Risk Heatmap, Recommendation Timeline, AI Chat.
+* Desktop application (Tauri v2 + React + TypeScript) installable on Windows, macOS, and Linux, covering: Operational Dashboard, Supply Chain Map, AI Meeting Log, What-If Simulation, Scenario Comparison, Risk Heatmap, Recommendation Timeline, AI Chat, Agent Command Center, and Settings.
 
 ### **4.2 Software Interfaces**
 

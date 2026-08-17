@@ -13,7 +13,7 @@ D3 \+ D4  D5 (Orchestration: LangGraph \+ MCP \+ A2A)  D6 (CD²F Consensus Engin
                                                                       
 D6  D7 (Observability/Explainability)  D8 (Backend API \+ Realtime)  
                                                                       
-D8  D9 (Frontend Dashboard)   
+D8  D9 (Desktop Operations Console)   
 D8 \+ D9  D10 (End-to-End Integration \+ Evaluation Harness) \= MVP COMPLETE
 
 D10  D11 (Post-MVP stubs — not built, only interfaced)
@@ -152,13 +152,14 @@ D10  D11 (Post-MVP stubs — not built, only interfaced)
 
 ---
 
-## **D9 — Frontend Dashboard**
+## **D9 — SCOF Desktop Operations Console**
 
 **Objective:** Build the user-facing surface against the now-stable D8 API.
 
 **Builds:**
 
-* Operational Dashboard + Supply Chain Map (React/Next.js, Leaflet, D3/Recharts) — map bounds, entity labels, and active views read from the profile's `dashboard.yaml`  
+* Desktop Operations Console — A Tauri v2 + React + TypeScript application acting as the control room.
+* Operational Dashboard + Supply Chain Map (Leaflet, D3/Recharts) — map bounds, entity labels, and active views read from the profile's `dashboard.yaml`  
 * AI Meeting Log view + Confidence & Disagreement View  
 * What-If Simulation UI + Scenario Library  
 * Decision Replay UI (step through D7's stored traces)  
@@ -217,7 +218,7 @@ D10  D11 (Post-MVP stubs — not built, only interfaced)
 | D6 | Validated consensus decisions on fixture data | (standalone, tested against fixtures) | `consensus.yaml` |
 | D7 | Fully inspectable decision traces | D5, D6 | — |
 | D8 | Fully API-drivable pipeline | D1–D7 | `profile.yaml` |
-| D9 | Clickable dashboard demo | D8 | `dashboard.yaml` |
+| D9 | Clickable desktop console demo | D8 | `dashboard.yaml` |
 | D10 | **MVP**: full loop + benchmark results | D1–D9 | `evaluation.yaml` |
 | D11 | Extension interface doc (no code) | D10 | — |
 

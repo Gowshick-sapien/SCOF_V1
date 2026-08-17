@@ -106,10 +106,13 @@ SCOF/
           websocket_design.md             # Channel specifications, payload formats
           acceptance_evidence.md
       
-       D09_frontend_dashboard/
+       D09_desktop_operations_console/
           README.md                       # D9 overview, objectives, acceptance criteria
+          implementation_plan.md          # D9 implementation plan
           component_design.md             # React component hierarchy, view specifications
           ui_ux_design.md                 # Wireframes, interaction patterns
+          desktop_integration.md          # Tauri native features: tray, notifications, window
+          type_contract.md                # OpenAPI codegen strategy, WebSocket type definitions
           acceptance_evidence.md
       
        D10_integration_evaluation/
@@ -438,87 +441,67 @@ SCOF/
             __init__.py
             test_harness.py
 
- frontend/                                   # D9 — Frontend Dashboard
-    Dockerfile
-    package.json                            # Dependencies: next, react, typescript, tailwindcss, d3, recharts, leaflet
-    package-lock.json
-    tsconfig.json
-    next.config.js
-    tailwind.config.js
-    postcss.config.js
-    README.md
-    public/
-       favicon.ico
-       assets/                             # Static assets (icons, images)
-           .gitkeep
-    src/
-       app/                                # Next.js App Router
-          layout.tsx                      # Root layout
-          page.tsx                        # Home / Operational Dashboard
-          globals.css                     # Global styles + Tailwind imports
-          map/
-             page.tsx                    # Supply Chain Map (Leaflet)
-          meeting-log/
-             page.tsx                    # AI Meeting Log View
-          confidence/
-             page.tsx                    # Confidence & Disagreement View
-          whatif/
-             page.tsx                    # What-If Simulation UI
-          scenarios/
-             page.tsx                    # Scenario Library & Comparison
-          replay/
-             page.tsx                    # Decision Replay UI
-          timeline/
-             page.tsx                    # Recommendation Timeline
-          heatmap/
-             page.tsx                    # Risk Heatmap
-          chat/
-              page.tsx                    # AI Chat Interface
-       components/                         # Reusable React components
-          ui/                             # Generic UI primitives
-             Button.tsx
-             Card.tsx
-             Modal.tsx
-             Badge.tsx
-             Spinner.tsx
-          dashboard/                      # Dashboard-specific components
-             MetricsPanel.tsx
-             AgentStatusCard.tsx
-             DisruptionAlert.tsx
-          map/                            # Map components
-             SupplyChainMap.tsx
-             SupplierMarker.tsx
-             WarehouseMarker.tsx
-             RoutePolyline.tsx
-          meeting-log/                    # Meeting log components
-             MeetingLogTimeline.tsx
-             AgentClaimCard.tsx
-             DecisionSummaryCard.tsx
-          charts/                         # Charting components (D3/Recharts wrappers)
-             ConfidenceChart.tsx
-             DisagreementHeatmap.tsx
-             DemandForecastChart.tsx
-             InventoryLevelChart.tsx
-          chat/                           # AI Chat components
-              ChatWindow.tsx
-              ChatMessage.tsx
-              ChatInput.tsx
+ desktop/                                    # D09 — SCOF Desktop Operations Console
+    src-tauri/                              # Tauri native layer (Rust, kept thin)
+       Cargo.toml
+       tauri.conf.json                     # Window config, app metadata, permissions
+       icons/                              # Application icons (all platforms)
+       src/
+          main.rs                         # Tauri entry point
+          tray.rs                         # System tray setup and menu
+          notifications.rs                # Desktop notification dispatch
+          window.rs                       # Window state persistence
+    src/                                    # React + TypeScript UI
+       main.tsx                            # React entry point
+       App.tsx                             # Root layout
+       App.module.css                      # Root layout styles
+       index.css                           # Design system tokens (CSS custom properties)
+       api/                                # D08 communication layer
+          client.ts                       # REST client
+          client.test.ts
+          websocket.ts                    # WebSocket connection manager
+          websocket.test.ts
+          generated/
+             types.ts                    # TypeScript types from Pydantic schemas
+          ws-types.ts                     # WebSocket event payload types
+       stores/                             # Zustand state management
+          connectionStore.ts              # D08 connection state
+          connectionStore.test.ts
+          dashboardStore.ts               # Dashboard operational state
+          decisionStore.ts                # Decision list and detail cache
+          agentStore.ts                   # Agent activity and status
+          scenarioStore.ts                # Scenario library and active scenario state
        hooks/                              # Custom React hooks
-          useWebSocket.ts                 # WebSocket connection hook
-          useDashboardState.ts            # Dashboard state polling/subscription
-          useDecision.ts                  # Fetch decision details
-          useProfile.ts                   # Fetch active Domain Profile
-       lib/                                # Utility libraries
-          api.ts                          # API client (fetch wrapper for D8 endpoints)
-          websocket.ts                    # WebSocket client
-          types.ts                        # TypeScript type definitions (mirrors shared schemas)
-       styles/                             # Component-specific styles (if not using Tailwind only)
-           .gitkeep
-    tests/                                  # Frontend tests
-        components/
-           .gitkeep
-        e2e/
-            .gitkeep
+          useDashboardState.ts
+          useDecisions.ts
+          useAgentActivity.ts
+          useWebSocket.ts
+          useProfile.ts
+          usePolling.ts
+       views/                              # Top-level view components
+          Operations/
+          Scenarios/
+          DecisionCenter/
+          AgentCommand/
+          WhatIfLab/
+          ReasoningTrace/
+          Evaluation/
+          Settings/
+       components/                         # Reusable UI components
+          layout/
+          cards/
+          charts/
+          map/
+          meeting-log/
+          chat/
+       utils/                              # Utility functions
+          formatters.ts
+          constants.ts
+    package.json                            # Dependencies: react, zustand, recharts, d3, leaflet, etc.
+    tsconfig.json
+    vite.config.ts                          # Vite bundler configuration (Tauri default)
+    index.html                              # HTML entry point (Vite)
+    .eslintrc.cjs
 
  infrastructure/                             # Docker, database init, and deployment configs
    
