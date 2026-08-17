@@ -1,10 +1,15 @@
 import "./App.css";
+import { ConnectionProvider } from "./state/connection";
+import { ConnectionStatus } from "./components/ConnectionStatus";
 
 function App() {
   return (
-    <main className="scof-shell">
-      <h1>SCOF Operations Console</h1>
-    </main>
+    <ConnectionProvider>
+      <main className="scof-shell">
+        <h1>SCOF Operations Console</h1>
+        <ConnectionStatus />
+      </main>
+    </ConnectionProvider>
   );
 }
 
