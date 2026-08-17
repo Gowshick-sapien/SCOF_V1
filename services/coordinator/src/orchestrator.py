@@ -12,8 +12,10 @@ from scof_shared.protocols.a2a_client import A2AClient
 from scof_shared.protocols.a2a_registry import A2ARegistry
 from scof_shared.schemas.claim_bundle import ClaimBundle
 from scof_shared.schemas.decision_record import DecisionRecord
+from scof_shared.schemas.orchestration_result import OrchestrationResult
 from scof_shared.schemas.scenario_context import ScenarioContext
 from scof_shared.observability.tracing import create_runnable_config
+import datetime
 from .agent_discovery import AgentDiscoveryService
 from .claim_collector import ClaimCollector
 from .state import CoordinatorExecutionState
@@ -35,9 +37,45 @@ class CoordinatorOrchestrator:
         self.client = client
         self.profile_name = profile_name
         self.profile_version = profile_version
+        self.activity_producer = None
         self.graph = self._build_graph()
         self.app = self.graph.compile()
         self.graph_hash = self._compute_graph_hash()
+
+    async def _publish_activity(self, state: CoordinatorExecutionState, agent_id: str, status: str, latency_ms: float = 0.0):
+        if not self.activity_producer:
+            return
+        
+        try:
+            envelope = {
+                "event_id": f"evt-{uuid.uuid4().hex}",
+                "event_type": "agents.activity",
+                "schema_version": "1.0.0",
+                "producer": "scof-coordinator",
+                "timestamp": datetime.datetime.utcnow().isoformat() + "Z",
+                "correlation": {
+                    "trace_id": state["trace_id"],
+                    "scenario_id": state["scenario_context"].scenario_id,
+                    "profile_version": state["profile_version"],
+                    # request_id can be passed if we extract it, but trace_id is sufficient for now
+                    "request_id": state.get("request_id", "")
+                },
+                "payload": {
+                    "agent_id": agent_id,
+                    "status": status,
+                    "latency_ms": latency_ms,
+                    "scenario_id": state["scenario_context"].scenario_id,
+                    "trace_id": state["trace_id"]
+                }
+            }
+            # The activity producer is expected to be an AIOKafkaProducer
+            await self.activity_producer.send_and_wait(
+                "scof.agents.activity",
+                key=agent_id.encode("utf-8"),
+                value=json.dumps(envelope).encode("utf-8")
+            )
+        except Exception as e:
+            logger.warning("Failed to publish agent activity for %s: %s", agent_id, e)
 
     def _build_graph(self) -> StateGraph:
         """Constructs the LangGraph StateGraph."""
@@ -109,6 +147,11 @@ class CoordinatorOrchestrator:
         self, state: CoordinatorExecutionState
     ) -> Dict[str, Any]:
         targets = state["target_agent_cards"]
+        
+        # Best-effort pre-dispatch publishing
+        for target in targets:
+            await self._publish_activity(state, target.agent_id, "DISPATCHED")
+
         raw_claims, failed_agents, latencies = await ClaimCollector.dispatch_parallel(
             client=self.client,
             registry=self.registry,
@@ -118,6 +161,14 @@ class CoordinatorOrchestrator:
             bundle_id=state["bundle_id"],
             profile_version=state["profile_version"],
         )
+        
+        # Best-effort post-dispatch publishing
+        for agent_id, claim in raw_claims.items():
+            await self._publish_activity(state, agent_id, "COMPLETED", latencies.get(agent_id, 0.0))
+            
+        for agent_id, error in failed_agents.items():
+            await self._publish_activity(state, agent_id, "FAILED", latencies.get(agent_id, 0.0))
+            
         logs = list(state.get("execution_log", []))
         logs.append(
             f"Parallel dispatch complete: {len(raw_claims)} successful, {len(failed_agents)} failed"
@@ -330,7 +381,52 @@ class CoordinatorOrchestrator:
         if claim_bundle is None:
             raise RuntimeError("Orchestration finished without producing a ClaimBundle.")
             
-        # Optional: return decision_record along with claim_bundle if the API changes
-        # For now, we return ClaimBundle to satisfy the existing D5 API contract,
-        # but the decision has been generated and persisted in D7.
         return claim_bundle
+
+    async def orchestrate_full(
+        self,
+        context: ScenarioContext,
+        trace_id: Optional[str] = None,
+        bundle_id: Optional[str] = None,
+    ) -> OrchestrationResult:
+        """Runs the LangGraph orchestration pipeline for a scenario context and returns full result."""
+        trace = trace_id or str(uuid.uuid4())
+        bundle = bundle_id or f"bundle-{uuid.uuid4().hex[:8]}"
+        now = time.time()
+
+        initial_state: CoordinatorExecutionState = {
+            "scenario_context": context,
+            "trace_id": trace,
+            "bundle_id": bundle,
+            "profile_name": self.profile_name,
+            "profile_version": self.profile_version,
+            "target_agent_cards": [],
+            "raw_claims": {},
+            "failed_agents": {},
+            "agent_latencies_ms": {},
+            "claim_bundle": None,
+            "decision_record": None,
+            "execution_log": [],
+            "status": "INITIALIZING",
+            "start_time": now,
+            "end_time": 0.0,
+        }
+
+        run_config = create_runnable_config(
+            scenario_id=context.scenario_id,
+            bundle_id=bundle,
+            trace_id=trace,
+            profile_version=self.profile_version
+        )
+
+        final_state = await self.app.ainvoke(initial_state, config=run_config)  # type: ignore[reportArgumentType]
+        claim_bundle = final_state.get("claim_bundle")
+        decision_record = final_state.get("decision_record")
+
+        if claim_bundle is None:
+            raise RuntimeError("Orchestration finished without producing a ClaimBundle.")
+            
+        return OrchestrationResult(
+            claim_bundle=claim_bundle,
+            decision_record=decision_record
+        )

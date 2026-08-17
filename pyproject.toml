@@ -26,6 +26,7 @@ executionEnvironments = [
   { root = "services/agents/inventory", extraPaths = ["shared", "services/agents/inventory"] },
   { root = "services/agents/supplier", extraPaths = ["shared", "services/agents/supplier"] },
   { root = "services/agents/transportation", extraPaths = ["shared", "services/agents/transportation"] },
+  { root = "services/api", extraPaths = ["shared", "services/api"] },
   { root = ".", extraPaths = ["shared"] }
 ]
 

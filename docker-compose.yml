@@ -73,8 +73,27 @@ services:
       KAFKA_CONTROLLER_LISTENER_NAMES: 'CONTROLLER'
       KAFKA_LOG_DIRS: '/tmp/kraft-combined-logs'
       KAFKA_CLUSTER_ID: 'MkU3OEVBNTcwNTJENDM2Qk'
-    volumes:
-      - kafka_data:/tmp/kraft-combined-logs
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "false"
+
+  kafka-setup:
+    image: confluentinc/cp-kafka:7.3.0
+    container_name: scof-kafka-setup
+    depends_on:
+      kafka:
+        condition: service_started
+    command: >
+      bash -c "
+      echo 'Waiting for Kafka to be ready...' &&
+      cub kafka-ready -b kafka:29092 1 20 &&
+      echo 'Creating topics with correct partitions and retention...' &&
+      kafka-topics --create --if-not-exists --bootstrap-server kafka:29092 --partitions 1 --replication-factor 1 --topic scof.disruptions.triggered --config retention.ms=604800000 &&
+      kafka-topics --create --if-not-exists --bootstrap-server kafka:29092 --partitions 1 --replication-factor 1 --topic scof.whatif.requested --config retention.ms=604800000 &&
+      kafka-topics --create --if-not-exists --bootstrap-server kafka:29092 --partitions 1 --replication-factor 1 --topic scof.decisions.completed --config retention.ms=604800000 &&
+      kafka-topics --create --if-not-exists --bootstrap-server kafka:29092 --partitions 1 --replication-factor 1 --topic scof.orchestration.failed --config retention.ms=604800000 &&
+      kafka-topics --create --if-not-exists --bootstrap-server kafka:29092 --partitions 1 --replication-factor 1 --topic scof.agents.activity --config retention.ms=604800000 &&
+      kafka-topics --create --if-not-exists --bootstrap-server kafka:29092 --partitions 1 --replication-factor 1 --topic scof.dlq --config retention.ms=604800000 &&
+      echo 'Topics created successfully.'
+      "
 
   simulation:
     build:
@@ -224,6 +243,8 @@ services:
       dockerfile: services/coordinator/Dockerfile
     container_name: scof-coordinator
     depends_on:
+      kafka-setup:
+        condition: service_completed_successfully
       demand-agent:
         condition: service_started
       inventory-agent:
@@ -240,6 +261,7 @@ services:
       - MAX_RETRIES=2
       - MAX_CONCURRENT_DISPATCH=8
       - MOCK_MODE=false
+      - KAFKA_BOOTSTRAP_SERVERS=kafka:29092
     ports:
       - "8010:8010"
     volumes:
@@ -262,6 +284,41 @@ services:
       - PORT=8030
     ports:
       - "8030:8030"
+
+  api:
+    build:
+      context: .
+      dockerfile: services/api/Dockerfile
+    container_name: scof-api
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      kafka-setup:
+        condition: service_completed_successfully
+      coordinator:
+        condition: service_started
+      observability:
+        condition: service_started
+    environment:
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=${POSTGRES_DB:-scof}
+      - POSTGRES_USER=${POSTGRES_USER:-scof}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-changeme}
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - KAFKA_BOOTSTRAP_SERVERS=kafka:29092
+      - COORDINATOR_URL=http://coordinator:8010
+      - OBSERVABILITY_URL=http://observability:8030
+      - SCOF_PROFILE_PATH=/app/profiles/mvp-electronics
+      - API_PORT=8000
+      - CORS_ORIGINS=["http://localhost:3000"]
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./profiles:/app/profiles:ro
 
 volumes:
   postgres_data:

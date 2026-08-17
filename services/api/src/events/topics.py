@@ -1,0 +1,6 @@
+TOPIC_DISRUPTIONS_TRIGGERED = "scof.disruptions.triggered"
+TOPIC_WHATIF_REQUESTED = "scof.whatif.requested"
+TOPIC_DECISIONS_COMPLETED = "scof.decisions.completed"
+TOPIC_ORCHESTRATION_FAILED = "scof.orchestration.failed"
+TOPIC_AGENTS_ACTIVITY = "scof.agents.activity"
+TOPIC_DLQ = "scof.dlq"

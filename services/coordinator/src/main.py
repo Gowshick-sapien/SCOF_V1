@@ -8,7 +8,9 @@ from typing import Any, Dict, List, Optional
 from fastapi import FastAPI, HTTPException, Request
 from scof_shared.schemas.agent_card import AgentCard
 from scof_shared.schemas.claim_bundle import ClaimBundle
+from scof_shared.schemas.orchestration_result import OrchestrationResult
 from scof_shared.schemas.scenario_context import ScenarioContext
+from aiokafka import AIOKafkaProducer
 from .config import (
     CONNECT_TIMEOUT_SECONDS,
     COORDINATOR_ID,
@@ -28,12 +30,13 @@ logger = logging.getLogger("coordinator")
 
 runtime: Optional[CoordinatorRuntime] = None
 orchestrator: Optional[CoordinatorOrchestrator] = None
+kafka_producer: Optional[AIOKafkaProducer] = None
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Initializes Coordinator runtime, domain profile, A2A registry, and LangGraph orchestrator."""
-    global runtime, orchestrator
+    global runtime, orchestrator, kafka_producer
     logger.info("Initializing SCOF Coordinator Service...")
 
     mock_mode = os.getenv("MOCK_MODE", "false").lower() in ("true", "1")
@@ -62,8 +65,23 @@ async def lifespan(app: FastAPI):
     runtime.compiled_graph = orchestrator.app
     runtime.graph_metadata = orchestrator.get_metadata()
 
+    # Initialize Kafka Producer for agent activity events
+    bootstrap_servers = os.getenv("KAFKA_BOOTSTRAP_SERVERS", "kafka:29092")
+    try:
+        kafka_producer = AIOKafkaProducer(
+            bootstrap_servers=bootstrap_servers,
+            enable_idempotence=True
+        )
+        await kafka_producer.start()
+        orchestrator.activity_producer = kafka_producer
+        logger.info("Kafka producer initialized for agent activity events.")
+    except Exception as e:
+        logger.warning(f"Failed to initialize Kafka producer (running without activity publishing): {e}")
+
     yield
     logger.info("Shutting down SCOF Coordinator Service...")
+    if kafka_producer:
+        await kafka_producer.stop()
 
 
 app = FastAPI(
@@ -215,3 +233,42 @@ async def orchestrate_scenario(context: ScenarioContext, request: Request) -> Cl
 async def analyze_scenario_alias(context: ScenarioContext, request: Request) -> ClaimBundle:
     """A2A-compatible alias for /orchestrate."""
     return await orchestrate_scenario(context, request)
+
+
+@app.post("/orchestrate/full", response_model=OrchestrationResult)
+async def orchestrate_scenario_full(context: ScenarioContext, request: Request) -> OrchestrationResult:
+    """Executes the multi-agent orchestration pipeline for a scenario context and returns full result."""
+    if not orchestrator or not runtime:
+        raise HTTPException(status_code=503, detail="Coordinator service not initialized")
+
+    start_time = time.time()
+    trace_id = request.headers.get("X-Trace-ID")
+    bundle_id = request.headers.get("X-Bundle-ID")
+
+    try:
+        result = await orchestrator.orchestrate_full(
+            context=context,
+            trace_id=trace_id,
+            bundle_id=bundle_id,
+        )
+
+        latency_ms = (time.time() - start_time) * 1000
+        runtime.metrics.orchestrations_executed += 1
+        runtime.metrics.total_orchestration_latency_ms += latency_ms
+
+        if result.claim_bundle.status == "COMPLETE":
+            runtime.metrics.orchestrations_successful += 1
+        elif result.claim_bundle.status == "PARTIAL":
+            runtime.metrics.orchestrations_partial += 1
+        else:
+            runtime.metrics.orchestrations_failed += 1
+
+        return result
+
+    except Exception as e:
+        latency_ms = (time.time() - start_time) * 1000
+        runtime.metrics.orchestrations_executed += 1
+        runtime.metrics.orchestrations_failed += 1
+        runtime.metrics.total_orchestration_latency_ms += latency_ms
+        logger.exception("Orchestration failed: %s", e)
+        raise HTTPException(status_code=500, detail=str(e))

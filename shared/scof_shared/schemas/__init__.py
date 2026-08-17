@@ -9,6 +9,7 @@ from scof_shared.schemas.consensus_bundle import ConsensusBundle, NormalizedClai
 from scof_shared.schemas.decision_record import DecisionRecord, AgentWeightBreakdown, ReasoningStep
 from scof_shared.schemas.evaluation_decision import EvaluationDecision
 from scof_shared.schemas.meeting_log import MeetingLogEntry
+from scof_shared.schemas.orchestration_result import OrchestrationResult
 
 __all__ = [
     "EvidenceItem",
@@ -23,4 +24,5 @@ __all__ = [
     "ReasoningStep",
     "EvaluationDecision",
     "MeetingLogEntry",
+    "OrchestrationResult",
 ]
