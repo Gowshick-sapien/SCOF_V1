@@ -314,7 +314,7 @@ services:
       - OBSERVABILITY_URL=http://observability:8030
       - SCOF_PROFILE_PATH=/app/profiles/mvp-electronics
       - API_PORT=8000
-      - CORS_ORIGINS=["http://localhost:3000"]
+      - CORS_ORIGINS=["http://localhost:3000", "http://localhost:1420"]
     ports:
       - "8000:8000"
     volumes:

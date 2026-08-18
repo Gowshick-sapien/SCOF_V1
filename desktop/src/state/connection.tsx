@@ -96,13 +96,24 @@ export const ConnectionProvider: React.FC<{ children: React.ReactNode }> = ({ ch
       "/ws/agents/activity"
     ];
 
-    const unsubs = channels.map(channel => {
+    const unsubs = channels.map((channel) => {
+      const unsubscribe = wsManager.subscribeState(
+        channel,
+        (wsState, error) => {
+          if (mounted) {
+            dispatch({
+              type: "SET_WS_STATE",
+              channel,
+              state: wsState,
+              error,
+            });
+          }
+        },
+      );
+
       wsManager.connect(channel);
-      return wsManager.subscribeState(channel, (wsState, error) => {
-        if (mounted) {
-          dispatch({ type: "SET_WS_STATE", channel, state: wsState, error });
-        }
-      });
+
+      return unsubscribe;
     });
 
     return () => {

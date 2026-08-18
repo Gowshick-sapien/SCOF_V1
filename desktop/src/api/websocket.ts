@@ -15,6 +15,8 @@ interface ChannelState {
   reconnectTimeout: ReturnType<typeof setTimeout> | null;
   messageHandlers: Set<MessageHandler>;
   stateHandlers: Set<StateHandler>;
+  generation: number;
+  desired: boolean;
 }
 
 const MAX_RECONNECT_DELAY = 30000; // 30 seconds
@@ -31,6 +33,8 @@ class WebSocketManager {
         reconnectTimeout: null,
         messageHandlers: new Set(),
         stateHandlers: new Set(),
+        generation: 0,
+        desired: false,
       });
     }
     return this.channels.get(channel)!;
@@ -44,6 +48,8 @@ class WebSocketManager {
 
   public connect(channel: WebSocketChannel) {
     const channelState = this.getChannelState(channel);
+    channelState.generation++;
+    channelState.desired = true;
     
     // Don't connect if already connected or connecting
     if (channelState.state === "connected" || channelState.state === "connecting") {
@@ -89,6 +95,8 @@ class WebSocketManager {
 
   public disconnect(channel: WebSocketChannel) {
     const channelState = this.getChannelState(channel);
+    channelState.desired = false;
+    channelState.generation++;
     
     if (channelState.reconnectTimeout) {
       clearTimeout(channelState.reconnectTimeout);
@@ -109,33 +117,74 @@ class WebSocketManager {
 
   private reconnect(channel: WebSocketChannel) {
     const channelState = this.getChannelState(channel);
-    
-    // Calculate exponential backoff: 1s, 2s, 4s, 8s, 16s...
-    const delay = Math.min(1000 * Math.pow(2, channelState.reconnectAttempts), MAX_RECONNECT_DELAY);
+
+    channelState.generation++;
+
+    if (channelState.reconnectTimeout) {
+      return;
+    }
+
+    const delay = Math.min(
+      1000 * Math.pow(2, channelState.reconnectAttempts),
+      MAX_RECONNECT_DELAY,
+    );
+
     channelState.reconnectAttempts++;
+    const generation = channelState.generation;
 
     channelState.reconnectTimeout = setTimeout(() => {
+      channelState.reconnectTimeout = null;
+
+      // The channel may have been explicitly disconnected while waiting.
+      if (!channelState.desired) {
+        return;
+      }
+
+      // If a newer connection generation exists, don't create another one.
+      if (channelState.generation !== generation) {
+        return;
+      }
+
       this.connect(channel);
     }, delay);
   }
 
-  public subscribe(channel: WebSocketChannel, onMessage: MessageHandler) {
+  public subscribe(
+    channel: WebSocketChannel,
+    onMessage: MessageHandler,
+  ) {
     const channelState = this.getChannelState(channel);
+
     channelState.messageHandlers.add(onMessage);
-    return () => this.unsubscribe(channel, onMessage);
+
+    return () => {
+      this.unsubscribe(channel, onMessage);
+    };
   }
 
-  public unsubscribe(channel: WebSocketChannel, onMessage: MessageHandler) {
+  public unsubscribe(
+    channel: WebSocketChannel,
+    onMessage: MessageHandler,
+  ) {
     const channelState = this.getChannelState(channel);
+
     channelState.messageHandlers.delete(onMessage);
   }
 
-  public subscribeState(channel: WebSocketChannel, onStateChange: StateHandler) {
+  public subscribeState(
+    channel: WebSocketChannel,
+    onStateChange: StateHandler,
+  ) {
     const channelState = this.getChannelState(channel);
+
     channelState.stateHandlers.add(onStateChange);
-    // Immediately emit current state to new subscriber
+
+    // Immediately provide current state.
     onStateChange(channelState.state);
-    return () => channelState.stateHandlers.delete(onStateChange);
+
+    return () => {
+      channelState.stateHandlers.delete(onStateChange);
+    };
   }
 }
 
