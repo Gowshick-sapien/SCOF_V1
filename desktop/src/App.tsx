@@ -2,6 +2,7 @@ import "./App.css";
 import { ConnectionProvider } from "./state/connection";
 import { ConnectionStatus } from "./components/ConnectionStatus";
 import { ProfileStatus } from "./components/ProfileStatus";
+import { LiveEventsViewer } from "./components/LiveEventsViewer";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
         <div className="shell-grid">
           <ConnectionStatus />
           <ProfileStatus />
+          <LiveEventsViewer />
         </div>
       </main>
     </ConnectionProvider>

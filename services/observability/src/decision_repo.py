@@ -65,9 +65,7 @@ class DecisionRepository:
                 VALUES (
                     gen_random_uuid()::varchar, 'decision', %s, %s, %s,
                     %s, %s::vector, %s
-                )
-                ON CONFLICT (entity_type, entity_id, content_text) 
-                DO UPDATE SET embedding = EXCLUDED.embedding;
+                );
             """
             metadata_json = json.dumps({
                 "scenario_id": decision.scenario_id,
@@ -139,6 +137,42 @@ class DecisionRepository:
                     "recommendation": row[2],
                     "confidence": float(row[3]),
                     "timestamp": row[4]
+                })
+        return results
+
+    async def list_decisions(self, limit: int = 50) -> List[Dict[str, Any]]:
+        sql = """
+            SELECT id, scenario_id, consensus_bundle_id, source_bundle_id, trace_id,
+                   decision_type, recommendation, confidence, priority,
+                   outcome, status, wcs, escalation_tier, decision_method,
+                   reasoning_trail, meeting_log_entries, created_at
+            FROM scof.decision_records
+            ORDER BY created_at DESC
+            LIMIT %s
+        """
+        results = []
+        async with self.conn.cursor() as cur:
+            await cur.execute(sql, (limit,))
+            rows = await cur.fetchall()
+            for row in rows:
+                results.append({
+                    "decision_id": row[0],
+                    "scenario_id": row[1],
+                    "consensus_bundle_id": row[2],
+                    "source_bundle_id": row[3],
+                    "trace_id": row[4],
+                    "decision_type": row[5],
+                    "final_recommendation": row[6],
+                    "decision_confidence": float(row[7]) if row[7] is not None else 0.0,
+                    "priority": row[8],
+                    "outcome": row[9],
+                    "status": row[10],
+                    "weighted_consensus_stability": float(row[11]) if row[11] is not None else None,
+                    "escalation_tier": row[12],
+                    "decision_method": row[13],
+                    "reasoning_trail": row[14],
+                    "meeting_log_entries": row[15],
+                    "timestamp": row[16]
                 })
         return results
 

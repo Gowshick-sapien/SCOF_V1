@@ -1,0 +1,83 @@
+.events-panel {
+  background-color: #2a2a2a;
+  border-radius: 8px;
+  padding: 24px;
+  margin-top: 24px;
+  width: 600px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+  text-align: left;
+  border: 1px solid #3d3d3d;
+  color: #cccccc;
+}
+
+.events-panel h2 {
+  margin-top: 0;
+  font-size: 1.25rem;
+  color: #ffffff;
+  font-weight: 500;
+}
+
+.events-panel h3 {
+  font-size: 1.1rem;
+  color: #eeeeee;
+  border-bottom: 1px solid #444;
+  padding-bottom: 8px;
+  margin-bottom: 12px;
+  font-weight: 500;
+}
+
+.events-panel hr {
+  border: none;
+  border-top: 1px solid #444;
+  margin: 16px 0;
+}
+
+.section {
+  margin-bottom: 24px;
+}
+
+pre {
+  background-color: #1e1e1e;
+  padding: 12px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  overflow-x: auto;
+  border: 1px solid #333;
+}
+
+.activity-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.activity-table th, .activity-table td {
+  padding: 8px;
+  border-bottom: 1px solid #444;
+  text-align: left;
+}
+
+.activity-table th {
+  color: #fff;
+  font-weight: 500;
+}
+
+.status-dispatched { color: #2196f3; font-weight: 600; }
+.status-completed { color: #4caf50; font-weight: 600; }
+.status-failed { color: #f44336; font-weight: 600; }
+
+.empty {
+  color: #888;
+  font-style: italic;
+  font-size: 0.9rem;
+}
+
+.decision-list {
+  padding-left: 20px;
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.decision-list li {
+  margin-bottom: 8px;
+}

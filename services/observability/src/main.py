@@ -46,6 +46,15 @@ async def ingest_decision(
         logger.error(f"Failed to persist decision {decision.decision_id}: {e}")
         raise HTTPException(status_code=500, detail="Database persistence failed")
 
+@app.get("/decisions")
+async def list_decisions(
+    limit: int = 50,
+    db: psycopg.AsyncConnection = Depends(get_db)
+):
+    """List recent decision records."""
+    repo = DecisionRepository(db)
+    return await repo.list_decisions(limit)
+
 @app.get("/decisions/{decision_id}")
 async def get_decision_trace(
     decision_id: str,

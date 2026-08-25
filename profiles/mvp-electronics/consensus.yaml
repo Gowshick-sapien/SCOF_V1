@@ -26,6 +26,7 @@ impact_mapping:
   "business-critical": "CRITICAL"
   "severe": "HIGH"
   "significant": "HIGH"
+  "high": "HIGH"
   "moderate": "MEDIUM"
   "minor": "LOW"
   "negligible": "LOW"

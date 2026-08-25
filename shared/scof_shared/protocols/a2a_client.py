@@ -135,7 +135,7 @@ class A2AClient:
         }
 
         if hasattr(context, "model_dump"):
-            payload = context.model_dump()
+            payload = context.model_dump(mode="json")
         elif hasattr(context, "dict"):
             payload = context.dict()
         elif hasattr(context, "to_dict"):

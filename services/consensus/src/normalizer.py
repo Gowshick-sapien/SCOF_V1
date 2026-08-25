@@ -19,12 +19,26 @@ def normalize_claim_bundle(bundle: ClaimBundle, config: ConsensusConfig) -> Cons
             excluded_claims[agent_id] = "Missing impact field"
             continue
             
-        impact_key = claim.impact.lower()
-        if impact_key not in config.impact_mapping:
-            excluded_claims[agent_id] = f"Unparseable impact text: '{claim.impact}' not in impact_mapping"
-            continue
-            
-        parsed_impact_level = config.impact_mapping[impact_key]
+        impact_text = claim.impact.strip().lower()
+        if impact_text in config.impact_mapping:
+            parsed_impact_level = config.impact_mapping[impact_text]
+        else:
+            matched_key = next(
+                (
+                    key
+                    for key in sorted(config.impact_mapping, key=len, reverse=True)
+                    if key in impact_text
+                ),
+                None,
+            )
+
+            if matched_key is None:
+                excluded_claims[agent_id] = (
+                    f"Unparseable impact text: '{claim.impact}' not in impact_mapping"
+                )
+                continue
+
+            parsed_impact_level = config.impact_mapping[matched_key]
         
         normalized_claims[agent_id] = NormalizedClaim(
             agent_id=agent_id,
