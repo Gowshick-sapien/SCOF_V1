@@ -70,9 +70,10 @@ export interface MeetingLogEntry {
 export interface DecisionRecord {
   decision_id: string;
   scenario_id: string;
+  trace_id?: string;
   consensus_bundle_id: string;
   source_bundle_id: string;
-  decision_method: "CD2F" | "SINGLE_AGENT" | "NAIVE_MAJORITY";
+  decision_method: "CD2F" | "SINGLE_AGENT" | "NAIVE_MAJORITY" | string;
   final_recommendation?: string;
   decision_confidence: number;
   weighted_consensus_stability: number;
@@ -164,6 +165,7 @@ export interface AgentActivityPayload {
   trace_id: string;
   claim?: StructuredClaim;
   error?: string;
+  timestamp?: string;
 }
 
 export interface DecisionCompletedPayload {

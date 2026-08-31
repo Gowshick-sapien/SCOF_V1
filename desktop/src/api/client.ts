@@ -17,7 +17,6 @@ import {
 } from "./types";
 
 // Configuration for API base URL
-// In development, this points to the local D08 instance
 export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
 
 /**
@@ -74,7 +73,6 @@ async function fetchApi<T>(endpoint: string, options: RequestInit = {}): Promise
     if (error instanceof ApiError) {
       throw error;
     }
-    // Network errors or parsing issues
     throw new Error(error instanceof Error ? error.message : String(error));
   }
 }
@@ -91,6 +89,7 @@ export const ApiClient = {
 
   // Scenarios
   listScenarios: () => fetchApi<{ scenarios: Scenario[] }>("/scenarios"),
+  getScenarios: () => fetchApi<{ scenarios: Scenario[] }>("/scenarios"),
   triggerScenario: (scenarioId: string) => 
     fetchApi<ScenarioTriggerResponse>("/scenarios/trigger", {
       method: "POST",
@@ -104,19 +103,24 @@ export const ApiClient = {
 
   // Decisions
   listDecisions: () => fetchApi<DecisionRecord[]>("/decisions"),
+  getDecisions: () => fetchApi<DecisionRecord[]>("/decisions"),
   getDecisionLog: (decisionId: string) => fetchApi<DecisionLog>(`/decisions/${decisionId}/log`),
   getDecisionConfidence: (decisionId: string) => fetchApi<DecisionConfidence>(`/decisions/${decisionId}/confidence`),
   getDecisionTrace: (decisionId: string) => fetchApi<DecisionTrace>(`/decisions/${decisionId}/trace`),
 
   // What-If
-  runWhatIf: (scenarioId: string, severityOverride?: number) => 
-    fetchApi<WhatIfRunResponse>("/whatif/run", {
+  runWhatIf: (requestOrScenario: any, severityOverride?: number) => {
+    const body = typeof requestOrScenario === "string" 
+      ? { scenario_id: requestOrScenario, severity_override: severityOverride }
+      : { 
+          scenario_id: requestOrScenario.base_scenario_id || requestOrScenario.scenario_id,
+          severity_override: requestOrScenario.overrides?.severity || severityOverride
+        };
+    return fetchApi<WhatIfRunResponse>("/whatif/run", {
       method: "POST",
-      body: JSON.stringify({ 
-        scenario_id: scenarioId,
-        severity_override: severityOverride 
-      })
-    }),
+      body: JSON.stringify(body)
+    });
+  },
   getWhatIfResult: (whatIfId: string) => fetchApi<WhatIfResult>(`/whatif/${whatIfId}/result`),
 
   // Evaluation
@@ -128,5 +132,12 @@ export const ApiClient = {
     fetchApi<ChatResponse>("/chat/query", {
       method: "POST",
       body: JSON.stringify({ query, limit })
+    }),
+  chatQuery: (query: string, limit?: number) => 
+    fetchApi<ChatResponse>("/chat/query", {
+      method: "POST",
+      body: JSON.stringify({ query, limit })
     })
 };
+
+export const apiClient = ApiClient;
