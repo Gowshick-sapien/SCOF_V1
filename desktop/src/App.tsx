@@ -12,6 +12,8 @@ import { ReasoningTraceView } from "./views/ReasoningTrace/ReasoningTraceView";
 import { EvaluationView } from "./views/Evaluation/EvaluationView";
 import { AIChatDrawer } from "./components/chat/AIChatDrawer";
 
+import { useAgentActivity } from "./hooks/useAgentActivity";
+
 const VIEW_LABELS: Record<ViewKey, string> = {
   operations: "Operational Overview",
   decisions: "Decision Center & Meeting Log",
@@ -23,6 +25,7 @@ const VIEW_LABELS: Record<ViewKey, string> = {
 };
 
 function App() {
+  useAgentActivity();
   const [activeView, setActiveView] = useState<ViewKey>("operations");
   const [selectedDecisionId, setSelectedDecisionId] = useState<string | undefined>();
   const [isChatOpen, setIsChatOpen] = useState<boolean>(false);

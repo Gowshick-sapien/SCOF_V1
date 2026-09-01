@@ -51,8 +51,8 @@ export const AgentCommandView: React.FC = () => {
     if (!latest) return { status: "IDLE", latency: null, timestamp: null };
     return {
       status: latest.status,
-      latency: (latest as any).execution_time_ms || null,
-      timestamp: (latest as any).timestamp || null,
+      latency: latest.latency_ms ?? (latest as any).execution_time_ms ?? null,
+      timestamp: latest.timestamp || null,
     };
   };
 
@@ -102,7 +102,7 @@ export const AgentCommandView: React.FC = () => {
 
               <div className={styles.agentMeta}>
                 <span>Endpoint: :{agent.endpoint.split(":").pop()}</span>
-                <span>{latency ? `${latency}ms` : "Ready"}</span>
+                <span>{latency ? `${Math.round(latency)}ms` : "Ready"}</span>
               </div>
             </div>
           );
@@ -130,6 +130,7 @@ export const AgentCommandView: React.FC = () => {
                   <span className={styles.timelineAgent}>{act.agent_id}</span>
                   <span className={styles.timelineMessage}>
                     Status changed to <strong style={{ color: "var(--accent-cyan)" }}>{act.status}</strong>
+                    {act.latency_ms ? ` (${Math.round(act.latency_ms)}ms)` : ""}
                   </span>
                 </div>
                 <span className={styles.timelineTime}>
