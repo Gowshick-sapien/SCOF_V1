@@ -32,11 +32,13 @@ class CoordinatorOrchestrator:
         client: A2AClient,
         profile_name: str = "mvp-electronics",
         profile_version: str = "1.0.0",
+        runtime: Optional[Any] = None,
     ):
         self.registry = registry
         self.client = client
         self.profile_name = profile_name
         self.profile_version = profile_version
+        self.runtime = runtime
         self.activity_producer = None
         self.graph = self._build_graph()
         self.app = self.graph.compile()
@@ -65,7 +67,8 @@ class CoordinatorOrchestrator:
                     "status": status,
                     "latency_ms": latency_ms,
                     "scenario_id": state["scenario_context"].scenario_id,
-                    "trace_id": state["trace_id"]
+                    "trace_id": state["trace_id"],
+                    "timestamp": datetime.datetime.utcnow().isoformat() + "Z"
                 }
             }
             # The activity producer is expected to be an AIOKafkaProducer
@@ -125,6 +128,11 @@ class CoordinatorOrchestrator:
     async def _node_discover_agents(
         self, state: CoordinatorExecutionState
     ) -> Dict[str, Any]:
+        if len(self.registry) == 0 and hasattr(self, "runtime") and self.runtime:
+            logger.info("Registry is empty during discovery node. Triggering automatic discovery refresh...")
+            self.runtime.refresh_discovery()
+            self.registry = self.runtime.registry
+
         targets = AgentDiscoveryService.resolve_targets(
             registry=self.registry,
             context=state["scenario_context"],

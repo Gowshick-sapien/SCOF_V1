@@ -61,6 +61,7 @@ async def lifespan(app: FastAPI):
         client=runtime.a2a_client,
         profile_name=profile_name,
         profile_version=COORDINATOR_VERSION,
+        runtime=runtime,
     )
     runtime.compiled_graph = orchestrator.app
     runtime.graph_metadata = orchestrator.get_metadata()
@@ -196,6 +197,11 @@ async def orchestrate_scenario(context: ScenarioContext, request: Request) -> Cl
     if not orchestrator or not runtime:
         raise HTTPException(status_code=503, detail="Coordinator service not initialized")
 
+    if len(runtime.registry) == 0:
+        logger.info("Registry is empty prior to orchestrate. Triggering discovery refresh...")
+        runtime.refresh_discovery()
+        orchestrator.registry = runtime.registry
+
     start_time = time.time()
     trace_id = request.headers.get("X-Trace-ID")
     bundle_id = request.headers.get("X-Bundle-ID")
@@ -240,6 +246,11 @@ async def orchestrate_scenario_full(context: ScenarioContext, request: Request) 
     """Executes the multi-agent orchestration pipeline for a scenario context and returns full result."""
     if not orchestrator or not runtime:
         raise HTTPException(status_code=503, detail="Coordinator service not initialized")
+
+    if len(runtime.registry) == 0:
+        logger.info("Registry is empty prior to orchestrate/full. Triggering discovery refresh...")
+        runtime.refresh_discovery()
+        orchestrator.registry = runtime.registry
 
     start_time = time.time()
     trace_id = request.headers.get("X-Trace-ID")
