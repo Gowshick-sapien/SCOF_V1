@@ -14,6 +14,10 @@ from services.consensus.src.engine import run_consensus
 
 app = FastAPI(title="SCOF CD2F Consensus Engine")
 
+@app.get("/health")
+async def health_check():
+    return {"status": "ok", "service": "scof-consensus"}
+
 # Global instances initialized on startup
 profile = None
 accuracy_tracker = None

@@ -28,6 +28,10 @@ app = FastAPI(
     lifespan=lifespan
 )
 
+@app.get("/health")
+async def health_check():
+    return {"status": "ok", "service": "scof-observability"}
+
 @app.post("/decisions", status_code=status.HTTP_201_CREATED)
 async def ingest_decision(
     decision: DecisionRecord,

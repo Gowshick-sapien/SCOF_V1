@@ -25,7 +25,11 @@ async def get_decision_log(decision_id: str):
             resp = await client.get(f"{OBSERVABILITY_URL}/decisions/{decision_id}")
             resp.raise_for_status()
             decision = resp.json()
-            return {"meeting_log": decision.get("meeting_log_entries", [])}
+            entries = decision.get("meeting_log_entries", [])
+            return {
+                "meeting_log": entries,
+                "meeting_log_entries": entries
+            }
         except httpx.HTTPStatusError as e:
             if e.response.status_code == 404:
                 raise HTTPException(status_code=404, detail="Decision not found")
@@ -43,7 +47,8 @@ async def get_decision_confidence(decision_id: str):
             return {
                 "decision_confidence": decision.get("decision_confidence", 0.0),
                 "weighted_consensus_stability": decision.get("weighted_consensus_stability", 0.0),
-                "agent_weights": decision.get("agent_weights", {})
+                "agent_weights": decision.get("agent_weights", {}),
+                "recommendation_tallies": decision.get("recommendation_tallies", {})
             }
         except httpx.HTTPStatusError as e:
             if e.response.status_code == 404:
