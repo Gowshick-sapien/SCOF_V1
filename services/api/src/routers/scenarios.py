@@ -1,5 +1,6 @@
 from fastapi import APIRouter, HTTPException, Request, Depends
 from pydantic import BaseModel
+from typing import Optional
 import uuid
 import datetime
 import json
@@ -22,6 +23,9 @@ router = APIRouter(prefix="/scenarios", tags=["scenarios"])
 
 class TriggerRequest(BaseModel):
     scenario_id: str
+    disruption_type: Optional[str] = None
+    target_entity_id: Optional[str] = None
+    severity: Optional[int] = None
 
 
 class ReplayRequest(BaseModel):
@@ -46,20 +50,30 @@ def get_db_connection():
 
 @router.get("")
 async def list_scenarios():
-    """List persisted SCOF scenarios from PostgreSQL."""
+    """List persisted SCOF scenarios with their disruption context from PostgreSQL."""
     with get_db_connection() as conn:
         with conn.cursor() as cur:
             cur.execute(
                 """
                 SELECT
-                    scenario_id,
-                    run_id,
-                    name,
-                    description,
-                    random_seed,
-                    created_at
-                FROM scof.scenarios
-                ORDER BY created_at, scenario_id
+                    s.scenario_id,
+                    s.run_id,
+                    s.name,
+                    s.description,
+                    s.random_seed,
+                    s.created_at,
+                    d.disruption_type,
+                    d.target_entity_id,
+                    d.severity
+                FROM scof.scenarios s
+                LEFT JOIN LATERAL (
+                    SELECT disruption_type, target_entity_id, severity
+                    FROM scof.disruption_events de
+                    WHERE de.scenario_id = s.scenario_id
+                    ORDER BY de.created_at, de.id
+                    LIMIT 1
+                ) d ON true
+                ORDER BY s.created_at, s.scenario_id
                 """
             )
 
@@ -74,6 +88,9 @@ async def list_scenarios():
                 "description": row[3],
                 "random_seed": row[4],
                 "created_at": row[5].isoformat() if row[5] else None,
+                "disruption_type": row[6] or "none",
+                "target_entity": row[7] or "global",
+                "severity": row[8] or 1,
             }
             for row in rows
         ]
@@ -155,10 +172,10 @@ async def trigger_scenario(
             "scenario_id": scenario_id,
             "run_id": run_id,
             "disruption_id": disruption_id,
-            "disruption_type": disruption_type,
+            "disruption_type": req.disruption_type or disruption_type,
             "target_entity_type": target_entity_type,
-            "target_entity_id": target_entity_id,
-            "severity": severity,
+            "target_entity_id": req.target_entity_id or target_entity_id,
+            "severity": req.severity or severity,
             "start_date": start_date.isoformat() if start_date else None,
             "end_date": end_date.isoformat() if end_date else None,
         }
@@ -167,6 +184,10 @@ async def trigger_scenario(
         context = {
             "scenario_id": scenario_id,
             "run_id": run_id,
+            "disruption_type": req.disruption_type or "none",
+            "target_entity_type": "global",
+            "target_entity_id": req.target_entity_id or "global",
+            "severity": req.severity or 1,
         }
 
     trace_id = request.state.trace_id

@@ -11,13 +11,31 @@ interface ScenarioItem {
   severity: number;
 }
 
+const DISRUPTION_TYPE_OPTIONS = [
+  { value: "supplier_delay", label: "supplier_delay (Tier-1 Semiconductor Supplier Delay)" },
+  { value: "demand_spike", label: "demand_spike (Consumer Electronics Demand Surge)" },
+  { value: "transport_failure", label: "transport_failure (Cross-Border Route Blockage)" },
+  { value: "adverse_weather", label: "adverse_weather (Severe Weather Logistics Delay)" },
+  { value: "none", label: "none (Nominal Baseline Operations)" },
+];
+
+const TARGET_ENTITY_OPTIONS = [
+  { value: "sup-01", label: "sup-01 (Pacific Semi - Tier 1 Supplier)" },
+  { value: "sup-02", label: "sup-02 (Global Silicon - Tier 1 Supplier)" },
+  { value: "sup-03", label: "sup-03 (Apex Microdevices - Alternate Supplier)" },
+  { value: "mfg-01", label: "mfg-01 (Shenzhen Assembly Hub)" },
+  { value: "wh-01", label: "wh-01 (Frankfurt Regional Distribution Center)" },
+  { value: "route-sup-01-wh-01", label: "route-sup-01-wh-01 (Primary Freight Shipping Lane)" },
+  { value: "global", label: "global (Global Supply Chain Network)" },
+];
+
 const DEFAULT_SCENARIOS: ScenarioItem[] = [
   {
     scenario_id: "scen-01",
     name: "Baseline Nominal Operations",
     disruption_type: "none",
     target_entity: "global",
-    description: "Standard operating environment with predictable supply & demand.",
+    description: "Standard operating environment with predictable supply and demand.",
     severity: 1,
   },
   {
@@ -25,7 +43,7 @@ const DEFAULT_SCENARIOS: ScenarioItem[] = [
     name: "Tier-1 Semiconductor Supplier Delay",
     disruption_type: "supplier_delay",
     target_entity: "sup-01",
-    description: "5-day component delivery delay from Global Silicon triggering inventory alerts.",
+    description: "5-day component delivery delay from Pacific Semi triggering inventory and supplier arbitration.",
     severity: 4,
   },
   {
@@ -38,17 +56,19 @@ const DEFAULT_SCENARIOS: ScenarioItem[] = [
   },
   {
     scenario_id: "scen-04",
-    name: "Cross-Border Logistics Port Congestion",
+    name: "Cross-Border Logistics Route Failure",
     disruption_type: "transport_failure",
-    target_entity: "mfg-01",
+    target_entity: "route-sup-01-wh-01",
     description: "Customs blockage and freight route delay along primary shipping lane.",
-    severity: 4,
+    severity: 5,
   },
 ];
 
 export const ScenariosView: React.FC = () => {
   const [scenarios, setScenarios] = useState<ScenarioItem[]>(DEFAULT_SCENARIOS);
   const [selectedScenario, setSelectedScenario] = useState<ScenarioItem>(DEFAULT_SCENARIOS[1]);
+  const [customDisruptionType, setCustomDisruptionType] = useState<string>("supplier_delay");
+  const [customTarget, setCustomTarget] = useState<string>("sup-01");
   const [severity, setSeverity] = useState<number>(4);
   const [isTriggering, setIsTriggering] = useState<boolean>(false);
   const [triggerResult, setTriggerResult] = useState<{
@@ -62,8 +82,35 @@ export const ScenariosView: React.FC = () => {
     apiClient
       .getScenarios()
       .then((res: any) => {
-        if (mounted && res && Array.isArray(res.scenarios)) {
-          setScenarios(res.scenarios);
+        if (mounted && res && Array.isArray(res.scenarios) && res.scenarios.length > 0) {
+          // Merge API results with rich scenario definitions
+          const merged = res.scenarios.map((apiScen: any) => {
+            const def = DEFAULT_SCENARIOS.find((d) => d.scenario_id === apiScen.scenario_id);
+            return {
+              scenario_id: apiScen.scenario_id,
+              name: def?.name || apiScen.name || apiScen.scenario_id,
+              disruption_type: apiScen.disruption_type || def?.disruption_type || "none",
+              target_entity: apiScen.target_entity || def?.target_entity || "global",
+              description: apiScen.description || def?.description || "",
+              severity: apiScen.severity || def?.severity || 3,
+            };
+          });
+
+          // Ensure all default catalog scenarios are visible
+          DEFAULT_SCENARIOS.forEach((def) => {
+            if (!merged.some((m: ScenarioItem) => m.scenario_id === def.scenario_id)) {
+              merged.push(def);
+            }
+          });
+
+          setScenarios(merged);
+
+          // Default selection to scen-02 if available
+          const scen02 = merged.find((s: ScenarioItem) => s.scenario_id === "scen-02") || merged[0];
+          setSelectedScenario(scen02);
+          setCustomDisruptionType(scen02.disruption_type);
+          setCustomTarget(scen02.target_entity);
+          setSeverity(scen02.severity);
         }
       })
       .catch(() => {
@@ -74,13 +121,25 @@ export const ScenariosView: React.FC = () => {
     };
   }, []);
 
+  const handleSelectScenario = (scen: ScenarioItem) => {
+    setSelectedScenario(scen);
+    setCustomDisruptionType(scen.disruption_type);
+    setCustomTarget(scen.target_entity);
+    setSeverity(scen.severity || 3);
+  };
+
   const handleTrigger = async () => {
     if (!selectedScenario) return;
     setIsTriggering(true);
     setTriggerResult(null);
 
     try {
-      const res = await apiClient.triggerScenario(selectedScenario.scenario_id);
+      const res = await apiClient.triggerScenario(selectedScenario.scenario_id, {
+        disruption_type: customDisruptionType,
+        target_entity_id: customTarget,
+        severity: severity,
+      });
+
       setTriggerResult({
         event_id: res.event_id,
         trace_id: res.trace_id,
@@ -102,7 +161,7 @@ export const ScenariosView: React.FC = () => {
         <div className={styles.sectionHeader}>
           <span className={styles.sectionTitle}>Scenario Library</span>
           <span style={{ fontSize: "11px", color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}>
-            {scenarios.length} SCENARIOS
+            {scenarios.length} SCENARIOS AVAILABLE
           </span>
         </div>
 
@@ -111,10 +170,11 @@ export const ScenariosView: React.FC = () => {
             <thead>
               <tr>
                 <th>ID</th>
-                <th>Scenario Name</th>
+                <th>Scenario Title</th>
                 <th>Disruption Type</th>
-                <th>Target</th>
+                <th>Target Node</th>
                 <th>Severity</th>
+                <th style={{ textAlign: "right" }}>Action</th>
               </tr>
             </thead>
             <tbody>
@@ -124,10 +184,7 @@ export const ScenariosView: React.FC = () => {
                   <tr
                     key={scen.scenario_id}
                     className={`${styles.scenarioRow} ${isSelected ? styles.scenarioRowSelected : ""}`}
-                    onClick={() => {
-                      setSelectedScenario(scen);
-                      setSeverity(scen.severity || 3);
-                    }}
+                    onClick={() => handleSelectScenario(scen)}
                   >
                     <td className={styles.scenarioId}>{scen.scenario_id}</td>
                     <td style={{ fontWeight: 600, color: "var(--text-primary)" }}>{scen.name}</td>
@@ -138,6 +195,23 @@ export const ScenariosView: React.FC = () => {
                       {scen.target_entity}
                     </td>
                     <td style={{ fontFamily: "var(--font-mono)" }}>{scen.severity || 1} / 5</td>
+                    <td style={{ textAlign: "right" }}>
+                      {isSelected ? (
+                        <button className={styles.activeBtn} disabled>
+                          ACTIVE
+                        </button>
+                      ) : (
+                        <button
+                          className={styles.selectBtn}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleSelectScenario(scen);
+                          }}
+                        >
+                          Select
+                        </button>
+                      )}
+                    </td>
                   </tr>
                 );
               })}
@@ -153,47 +227,60 @@ export const ScenariosView: React.FC = () => {
             <span className={styles.sectionTitle}>Disruption Trigger Launcher</span>
           </div>
 
+          {/* Scenario Selector */}
           <div className={styles.formGroup}>
-            <label className={styles.label}>Selected Scenario</label>
+            <label className={styles.label}>Active Scenario</label>
             <select
               className={styles.select}
               value={selectedScenario.scenario_id}
               onChange={(e) => {
                 const found = scenarios.find((s) => s.scenario_id === e.target.value);
                 if (found) {
-                  setSelectedScenario(found);
-                  setSeverity(found.severity || 3);
+                  handleSelectScenario(found);
                 }
               }}
             >
               {scenarios.map((s) => (
                 <option key={s.scenario_id} value={s.scenario_id}>
-                  {s.scenario_id} - {s.name}
+                  [{s.scenario_id}] {s.name}
                 </option>
               ))}
             </select>
           </div>
 
+          {/* Disruption Type Selector */}
           <div className={styles.formGroup}>
             <label className={styles.label}>Disruption Type</label>
-            <input
-              type="text"
-              className={styles.input}
-              value={selectedScenario.disruption_type}
-              readOnly
-            />
+            <select
+              className={styles.select}
+              value={customDisruptionType}
+              onChange={(e) => setCustomDisruptionType(e.target.value)}
+            >
+              {DISRUPTION_TYPE_OPTIONS.map((opt) => (
+                <option key={opt.value} value={opt.value}>
+                  {opt.label}
+                </option>
+              ))}
+            </select>
           </div>
 
+          {/* Target Node Selector */}
           <div className={styles.formGroup}>
             <label className={styles.label}>Target Node</label>
-            <input
-              type="text"
-              className={styles.input}
-              value={selectedScenario.target_entity}
-              readOnly
-            />
+            <select
+              className={styles.select}
+              value={customTarget}
+              onChange={(e) => setCustomTarget(e.target.value)}
+            >
+              {TARGET_ENTITY_OPTIONS.map((opt) => (
+                <option key={opt.value} value={opt.value}>
+                  {opt.label}
+                </option>
+              ))}
+            </select>
           </div>
 
+          {/* Severity Level Slider */}
           <div className={styles.formGroup}>
             <label className={styles.label}>Severity Level</label>
             <div className={styles.sliderRow}>
@@ -205,16 +292,19 @@ export const ScenariosView: React.FC = () => {
                 onChange={(e) => setSeverity(Number(e.target.value))}
                 className={styles.slider}
               />
-              <span className={styles.sliderValue}>{severity}</span>
+              <span className={styles.sliderValue}>{severity} / 5</span>
             </div>
           </div>
 
+          {/* Explicit Trigger Button */}
           <button
             className={styles.triggerButton}
             onClick={handleTrigger}
             disabled={isTriggering}
           >
-            {isTriggering ? "Publishing to Kafka Bus..." : "Trigger Scenario Disruption"}
+            {isTriggering
+              ? "Publishing Disruption to Kafka Bus..."
+              : `Trigger Disruption: [${selectedScenario.scenario_id.toUpperCase()}] ${selectedScenario.name}`}
           </button>
         </div>
 

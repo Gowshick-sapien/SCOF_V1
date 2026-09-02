@@ -6,12 +6,14 @@ interface TopBarProps {
   currentViewLabel: string;
   isChatOpen: boolean;
   onToggleChat: () => void;
+  onOpenShortcuts?: () => void;
 }
 
 export const TopBar: React.FC<TopBarProps> = ({
   currentViewLabel,
   isChatOpen,
   onToggleChat,
+  onOpenShortcuts,
 }) => {
   const { state } = useConnection();
   const [timeStr, setTimeStr] = useState("");
@@ -56,11 +58,24 @@ export const TopBar: React.FC<TopBarProps> = ({
       <div className={styles.rightSection}>
         <div className={styles.clock}>{timeStr}</div>
 
+        {onOpenShortcuts && (
+          <button
+            className={styles.shortcutsBtn}
+            onClick={onOpenShortcuts}
+            title="Keyboard Shortcuts (Shift + ?)"
+            aria-label="Keyboard Shortcuts"
+          >
+            ?
+          </button>
+        )}
+
         <button
           className={`${styles.chatToggleBtn} ${isChatOpen ? styles.chatToggleBtnActive : ""}`}
           onClick={onToggleChat}
+          title="AI Assistant (Ctrl + K)"
         >
           <span>AI Assistant</span>
+          <span className={styles.keyBadge}>Ctrl+K</span>
         </button>
       </div>
     </header>

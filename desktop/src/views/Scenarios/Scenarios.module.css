@@ -1,7 +1,7 @@
 .container {
   padding: 24px;
   display: grid;
-  grid-template-columns: 1fr 420px;
+  grid-template-columns: 1fr 440px;
   gap: 24px;
   height: calc(100vh - var(--topbar-height));
   overflow: hidden;
@@ -61,6 +61,7 @@
   padding: 14px 16px;
   border-bottom: 1px solid var(--border-subtle);
   color: var(--text-secondary);
+  vertical-align: middle;
 }
 
 .scenarioRow {
@@ -74,7 +75,11 @@
 }
 
 .scenarioRowSelected {
-  background: rgba(56, 189, 248, 0.08);
+  background: rgba(56, 189, 248, 0.1);
+}
+
+.scenarioRowSelected td:first-child {
+  border-left: 3px solid var(--accent-cyan);
 }
 
 .scenarioId {
@@ -91,6 +96,37 @@
   font-size: 11px;
   font-family: var(--font-mono);
   color: var(--text-primary);
+  display: inline-block;
+}
+
+.selectBtn {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-default);
+  color: var(--text-secondary);
+  padding: 6px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.selectBtn:hover {
+  background: var(--bg-surface-hover);
+  border-color: var(--accent-cyan);
+  color: var(--accent-cyan);
+}
+
+.activeBtn {
+  background: rgba(56, 189, 248, 0.18);
+  border: 1px solid var(--accent-cyan);
+  color: var(--accent-cyan);
+  padding: 6px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 11px;
+  font-weight: 700;
+  cursor: default;
+  letter-spacing: 0.5px;
 }
 
 .launcherColumn {
@@ -107,7 +143,7 @@
   padding: 20px;
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 16px;
 }
 
 .formGroup {
@@ -121,6 +157,7 @@
   font-weight: 600;
   color: var(--text-muted);
   text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .input, .select {
@@ -130,10 +167,12 @@
   padding: 10px 14px;
   border-radius: var(--radius-md);
   font-size: 13px;
+  font-family: inherit;
 }
 
 .input:focus, .select:focus {
   border-color: var(--accent-cyan);
+  outline: none;
 }
 
 .sliderRow {
@@ -158,15 +197,20 @@
 .triggerButton {
   background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
   color: var(--text-inverse);
-  padding: 12px;
+  padding: 14px;
   border-radius: var(--radius-md);
   font-weight: 700;
-  font-size: 14px;
-  transition: opacity 0.15s ease;
+  font-size: 13px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  box-shadow: 0 2px 8px rgba(56, 189, 248, 0.25);
+  margin-top: 4px;
 }
 
 .triggerButton:hover {
-  opacity: 0.9;
+  opacity: 0.95;
+  box-shadow: 0 4px 14px rgba(56, 189, 248, 0.4);
 }
 
 .triggerButton:disabled {
@@ -178,7 +222,7 @@
   background: var(--bg-surface);
   border: 1px solid var(--border-default);
   border-radius: var(--radius-md);
-  padding: 14px;
+  padding: 14px 16px;
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -189,6 +233,7 @@
   font-weight: 700;
   color: var(--status-healthy);
   text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .statusItem {

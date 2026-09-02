@@ -90,10 +90,13 @@ export const ApiClient = {
   // Scenarios
   listScenarios: () => fetchApi<{ scenarios: Scenario[] }>("/scenarios"),
   getScenarios: () => fetchApi<{ scenarios: Scenario[] }>("/scenarios"),
-  triggerScenario: (scenarioId: string) => 
+  triggerScenario: (
+    scenarioId: string,
+    options?: { disruption_type?: string; target_entity_id?: string; severity?: number }
+  ) => 
     fetchApi<ScenarioTriggerResponse>("/scenarios/trigger", {
       method: "POST",
-      body: JSON.stringify({ scenario_id: scenarioId })
+      body: JSON.stringify({ scenario_id: scenarioId, ...options })
     }),
   replayScenario: (eventId: string) => 
     fetchApi<ScenarioReplayResponse>("/scenarios/replay", {

@@ -12,9 +12,13 @@
   "app": {
     "windows": [
       {
-        "title": "SCOF Operations Console",
-        "width": 800,
-        "height": 600
+        "title": "SCOF Operations Console -- Multi-Agent Supply Chain Control Room",
+        "width": 1440,
+        "height": 900,
+        "minWidth": 1080,
+        "minHeight": 720,
+        "center": true,
+        "resizable": true
       }
     ],
     "security": {

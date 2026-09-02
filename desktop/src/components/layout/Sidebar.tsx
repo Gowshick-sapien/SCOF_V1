@@ -18,17 +18,17 @@ interface SidebarProps {
 interface NavConfig {
   key: ViewKey;
   label: string;
-  badge?: string;
+  shortcut: string;
 }
 
 const NAV_ITEMS: NavConfig[] = [
-  { key: "operations", label: "Operations" },
-  { key: "decisions", label: "Decision Center" },
-  { key: "scenarios", label: "Scenarios" },
-  { key: "agents", label: "Agent Command" },
-  { key: "whatif", label: "What-If Lab" },
-  { key: "traces", label: "Reasoning Traces" },
-  { key: "evaluation", label: "Evaluation" },
+  { key: "operations", label: "Operations", shortcut: "Ctrl+1" },
+  { key: "decisions", label: "Decision Center", shortcut: "Ctrl+2" },
+  { key: "scenarios", label: "Scenarios", shortcut: "Ctrl+3" },
+  { key: "agents", label: "Agent Command", shortcut: "Ctrl+4" },
+  { key: "whatif", label: "What-If Lab", shortcut: "Ctrl+5" },
+  { key: "traces", label: "Reasoning Traces", shortcut: "Ctrl+6" },
+  { key: "evaluation", label: "Evaluation", shortcut: "Ctrl+7" },
 ];
 
 export const Sidebar: React.FC<SidebarProps> = ({ activeView, onSelectView }) => {
@@ -49,6 +49,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeView, onSelectView }) =>
               onClick={() => onSelectView(item.key)}
             >
               <span>{item.label}</span>
+              <span className={styles.shortcutBadge}>{item.shortcut}</span>
             </button>
           );
         })}
