@@ -1,46 +1,73 @@
 :root {
-  --bg-primary: #0a0e17;
-  --bg-surface: #111827;
-  --bg-surface-hover: #1e293b;
-  --bg-elevated: #1f293d;
-  --bg-card: #141c2e;
-  
-  --border-subtle: #1e293b;
-  --border-default: #334155;
-  --border-focus: #38bdf8;
-  
-  --text-primary: #f8fafc;
-  --text-secondary: #94a3b8;
-  --text-muted: #64748b;
-  --text-inverse: #0f172a;
-  
-  --accent-cyan: #38bdf8;
-  --accent-blue: #3b82f6;
-  --accent-green: #10b981;
-  --accent-amber: #f59e0b;
-  --accent-red: #ef4444;
-  --accent-purple: #8b5cf6;
-  
-  --status-healthy: #10b981;
-  --status-warning: #f59e0b;
-  --status-critical: #ef4444;
-  --status-offline: #64748b;
+  /* Apple HIG Dark Canvas & Surface Hierarchy */
+  --bg-primary: #0a0b0e;
+  --bg-surface: rgba(18, 20, 27, 0.78);
+  --bg-surface-hover: rgba(255, 255, 255, 0.05);
+  --bg-elevated: rgba(26, 29, 39, 0.75);
+  --bg-card: rgba(255, 255, 255, 0.032);
+  --bg-card-hover: rgba(255, 255, 255, 0.055);
+  --bg-sidebar: rgba(13, 15, 20, 0.82);
+  --bg-toolbar: rgba(15, 17, 23, 0.85);
 
-  --glow-cyan: 0 0 16px rgba(56, 189, 248, 0.25);
-  --glow-green: 0 0 16px rgba(16, 185, 129, 0.25);
-  --glow-amber: 0 0 16px rgba(245, 158, 11, 0.25);
-  --glow-red: 0 0 16px rgba(239, 68, 68, 0.25);
+  /* Apple Ultra-Thin Frosted Borders */
+  --border-subtle: rgba(255, 255, 255, 0.07);
+  --border-default: rgba(255, 255, 255, 0.12);
+  --border-focus: #0a84ff;
+  --border-active: rgba(10, 132, 255, 0.45);
 
-  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
+  /* Apple Typography Hierarchy */
+  --text-primary: #f5f5f7;
+  --text-secondary: #a1a1a6;
+  --text-muted: #6e6e73;
+  --text-inverse: #000000;
+
+  /* Official Apple HIG System Accents */
+  --apple-blue: #0a84ff;
+  --apple-cyan: #64d2ff;
+  --apple-green: #30d158;
+  --apple-orange: #ff9f0a;
+  --apple-red: #ff453a;
+  --apple-purple: #bf5af2;
+  --apple-indigo: #5e5ce6;
+
+  /* Aliases for backward compatibility */
+  --accent-cyan: #0a84ff;
+  --accent-blue: #0a84ff;
+  --accent-green: #30d158;
+  --accent-amber: #ff9f0a;
+  --accent-red: #ff453a;
+  --accent-purple: #bf5af2;
+
+  --status-healthy: #30d158;
+  --status-warning: #ff9f0a;
+  --status-critical: #ff453a;
+  --status-offline: #6e6e73;
+
+  /* macOS Soft Ambient Shadows */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.24);
+  --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.35);
+  --shadow-xl: 0 20px 48px rgba(0, 0, 0, 0.5);
+
+  /* Apple Typography Stack */
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", sans-serif;
+  --font-mono: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+
+  /* Apple Geometric Corner Radii */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 18px;
   --radius-full: 9999px;
-  
-  --sidebar-width: 240px;
-  --topbar-height: 56px;
+
+  /* Layout Constants */
+  --sidebar-width: 250px;
+  --topbar-height: 52px;
+
+  /* Apple Transitions */
+  --transition-fast: 0.12s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-normal: 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 * {
@@ -56,25 +83,27 @@ body {
   overflow: hidden;
   user-select: none;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  letter-spacing: -0.011em;
 }
 
-/* Custom Scrollbars */
+/* macOS Minimal Auto-Hiding Scrollbars */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--bg-surface);
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--border-default);
+  background: rgba(255, 255, 255, 0.16);
   border-radius: var(--radius-full);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--accent-cyan);
+  background: rgba(255, 255, 255, 0.28);
 }
 
 button {
@@ -82,9 +111,61 @@ button {
   cursor: pointer;
   border: none;
   outline: none;
+  background: transparent;
+  transition: all var(--transition-fast);
 }
 
-input, select, textarea {
+input, textarea {
   font-family: inherit;
   outline: none;
+  border: 1px solid var(--border-subtle);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-primary);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+}
+
+input:focus, textarea:focus {
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 3px rgba(10, 132, 255, 0.25);
+}
+
+/* Global Dark macOS Dropdown & Option Styling */
+select {
+  font-family: inherit;
+  outline: none;
+  background-color: #161922 !important;
+  color: #f5f5f7 !important;
+  border: 1px solid var(--border-default) !important;
+  border-radius: var(--radius-md) !important;
+  padding: 8px 30px 8px 12px !important;
+  font-size: 12px !important;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23a1a1a6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 10px center !important;
+  background-size: 12px !important;
+  cursor: pointer !important;
+  transition: all var(--transition-fast);
+}
+
+select:focus {
+  border-color: var(--apple-blue) !important;
+  box-shadow: 0 0 0 3px rgba(10, 132, 255, 0.25) !important;
+}
+
+select option, optgroup {
+  background-color: #1a1d26 !important;
+  color: #f5f5f7 !important;
+  padding: 10px 12px !important;
+  font-size: 12px !important;
+}
+
+select option:hover,
+select option:focus,
+select option:checked {
+  background-color: #0a84ff !important;
+  color: #ffffff !important;
 }

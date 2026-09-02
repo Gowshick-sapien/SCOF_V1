@@ -87,8 +87,8 @@ export const OperationsView: React.FC<OperationsViewProps> = ({ onSelectDecision
             <svg width="100%" height="100%" viewBox="0 0 680 340" preserveAspectRatio="xMidYMid meet">
               <defs>
                 <linearGradient id="routeGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="#38bdf8" stopOpacity="0.8" />
-                  <stop offset="100%" stopColor="#3b82f6" stopOpacity="0.8" />
+                  <stop offset="0%" stopColor="#0a84ff" stopOpacity="0.8" />
+                  <stop offset="100%" stopColor="#64d2ff" stopOpacity="0.8" />
                 </linearGradient>
                 <filter id="glow">
                   <feGaussianBlur stdDeviation="3" result="coloredBlur" />
@@ -100,49 +100,49 @@ export const OperationsView: React.FC<OperationsViewProps> = ({ onSelectDecision
               </defs>
 
               {/* Route lines */}
-              <path d="M 120 80 Q 240 120 340 160" stroke="#334155" strokeWidth="2" strokeDasharray="4 4" fill="none" />
-              <path d="M 120 180 Q 240 170 340 160" stroke="#38bdf8" strokeWidth="2.5" fill="none" filter="url(#glow)" />
-              <path d="M 120 280 Q 240 220 340 160" stroke="#334155" strokeWidth="2" strokeDasharray="4 4" fill="none" />
-              <path d="M 340 160 Q 440 140 540 110" stroke="#10b981" strokeWidth="2.5" fill="none" />
-              <path d="M 340 160 Q 440 190 540 230" stroke="#10b981" strokeWidth="2.5" fill="none" />
+              <path d="M 120 80 Q 240 120 340 160" stroke="rgba(255,255,255,0.12)" strokeWidth="1.5" strokeDasharray="4 4" fill="none" />
+              <path d="M 120 180 Q 240 170 340 160" stroke="#0a84ff" strokeWidth="2.5" fill="none" filter="url(#glow)" />
+              <path d="M 120 280 Q 240 220 340 160" stroke="rgba(255,255,255,0.12)" strokeWidth="1.5" strokeDasharray="4 4" fill="none" />
+              <path d="M 340 160 Q 440 140 540 110" stroke="#30d158" strokeWidth="2" fill="none" />
+              <path d="M 340 160 Q 440 190 540 230" stroke="#30d158" strokeWidth="2" fill="none" />
 
               {/* Tier 1 Suppliers */}
               <g transform="translate(120, 80)">
-                <circle r="16" fill="#1e293b" stroke="#64748b" strokeWidth="2" />
-                <circle r="6" fill="#64748b" />
-                <text x="-50" y="-22" fill="#94a3b8" fontSize="11" fontFamily="sans-serif">Global Silicon (sup-01)</text>
+                <circle r="15" fill="#141720" stroke="rgba(255,255,255,0.18)" strokeWidth="1.5" />
+                <circle r="5" fill="#6e6e73" />
+                <text x="-50" y="-22" fill="#a1a1a6" fontSize="11" fontFamily="-apple-system, sans-serif">Global Silicon (sup-01)</text>
               </g>
 
               <g transform="translate(120, 180)">
-                <circle r="18" fill="#1e293b" stroke="#38bdf8" strokeWidth="2.5" filter="url(#glow)" />
-                <circle r="7" fill="#38bdf8" />
-                <text x="-50" y="-24" fill="#38bdf8" fontWeight="bold" fontSize="11" fontFamily="sans-serif">Pacific Semi (sup-02)</text>
+                <circle r="16" fill="#141720" stroke="#0a84ff" strokeWidth="2" filter="url(#glow)" />
+                <circle r="6" fill="#0a84ff" />
+                <text x="-50" y="-24" fill="#0a84ff" fontWeight="600" fontSize="11" fontFamily="-apple-system, sans-serif">Pacific Semi (sup-02)</text>
               </g>
 
               <g transform="translate(120, 280)">
-                <circle r="16" fill="#1e293b" stroke="#64748b" strokeWidth="2" />
-                <circle r="6" fill="#64748b" />
-                <text x="-50" y="32" fill="#94a3b8" fontSize="11" fontFamily="sans-serif">Apex Micro (sup-03)</text>
+                <circle r="15" fill="#141720" stroke="rgba(255,255,255,0.18)" strokeWidth="1.5" />
+                <circle r="5" fill="#6e6e73" />
+                <text x="-50" y="30" fill="#a1a1a6" fontSize="11" fontFamily="-apple-system, sans-serif">Apex Micro (sup-03)</text>
               </g>
 
               {/* Central Assembly Hub */}
               <g transform="translate(340, 160)">
-                <rect x="-24" y="-24" width="48" height="48" rx="8" fill="#1f293d" stroke="#f59e0b" strokeWidth="2.5" />
-                <text x="0" y="5" fill="#f8fafc" fontSize="12" fontWeight="bold" textAnchor="middle" fontFamily="sans-serif">MFG-01</text>
-                <text x="0" y="40" fill="#fbbf24" fontSize="11" fontWeight="600" textAnchor="middle" fontFamily="sans-serif">Shenzhen Plant</text>
+                <rect x="-24" y="-24" width="48" height="48" rx="10" fill="#181b24" stroke="#ff9f0a" strokeWidth="2" />
+                <text x="0" y="5" fill="#f5f5f7" fontSize="12" fontWeight="600" textAnchor="middle" fontFamily="-apple-system, sans-serif">MFG-01</text>
+                <text x="0" y="38" fill="#ff9f0a" fontSize="11" fontWeight="500" textAnchor="middle" fontFamily="-apple-system, sans-serif">Shenzhen Plant</text>
               </g>
 
               {/* Distribution Hubs */}
               <g transform="translate(540, 110)">
-                <circle r="18" fill="#1e293b" stroke="#10b981" strokeWidth="2.5" />
-                <circle r="7" fill="#10b981" />
-                <text x="30" y="4" fill="#10b981" fontWeight="600" fontSize="11" fontFamily="sans-serif">WH-01 Frankfurt</text>
+                <circle r="16" fill="#141720" stroke="#30d158" strokeWidth="2" />
+                <circle r="6" fill="#30d158" />
+                <text x="28" y="4" fill="#30d158" fontWeight="500" fontSize="11" fontFamily="-apple-system, sans-serif">WH-01 Frankfurt</text>
               </g>
 
               <g transform="translate(540, 230)">
-                <circle r="18" fill="#1e293b" stroke="#10b981" strokeWidth="2.5" />
-                <circle r="7" fill="#10b981" />
-                <text x="30" y="4" fill="#10b981" fontWeight="600" fontSize="11" fontFamily="sans-serif">DC-02 Amsterdam</text>
+                <circle r="16" fill="#141720" stroke="#30d158" strokeWidth="2" />
+                <circle r="6" fill="#30d158" />
+                <text x="28" y="4" fill="#30d158" fontWeight="500" fontSize="11" fontFamily="-apple-system, sans-serif">DC-02 Amsterdam</text>
               </g>
             </svg>
           </div>

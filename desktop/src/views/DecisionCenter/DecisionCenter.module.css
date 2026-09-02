@@ -1,23 +1,28 @@
 .container {
-  padding: 24px;
+  padding: 20px 24px;
   display: grid;
   grid-template-columns: 360px 1fr;
-  gap: 24px;
+  gap: 20px;
   height: calc(100vh - var(--topbar-height));
   overflow: hidden;
+  user-select: none;
 }
 
+/* Apple Notes Master Sidebar */
 .leftColumn {
-  background-color: var(--bg-card);
+  background: var(--bg-card);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  box-shadow: var(--shadow-sm);
 }
 
 .columnHeader {
-  padding: 16px 20px;
+  padding: 14px 18px;
   border-bottom: 1px solid var(--border-subtle);
   display: flex;
   align-items: center;
@@ -25,43 +30,40 @@
 }
 
 .columnTitle {
-  font-size: 14px;
-  font-weight: 700;
+  font-size: 13px;
+  font-weight: 600;
   color: var(--text-primary);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: -0.01em;
 }
 
 .feedList {
-  padding: 12px;
+  padding: 10px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 6px;
   overflow-y: auto;
   flex: 1;
 }
 
 .feedCard {
-  background: var(--bg-surface);
-  border: 1px solid var(--border-subtle);
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid transparent;
   border-radius: var(--radius-md);
-  padding: 14px;
+  padding: 12px 14px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: all var(--transition-fast);
 }
 
 .feedCard:hover {
-  border-color: var(--border-default);
-  background: var(--bg-surface-hover);
+  background: rgba(255, 255, 255, 0.06);
 }
 
 .feedCardActive {
-  border-color: var(--accent-cyan);
-  background: rgba(56, 189, 248, 0.08);
-  box-shadow: var(--glow-cyan);
+  background: rgba(10, 132, 255, 0.14);
+  border-color: rgba(10, 132, 255, 0.35);
 }
 
 .feedCardHeader {
@@ -71,24 +73,24 @@
 }
 
 .scenarioTag {
-  font-size: 12px;
+  font-size: 11px;
   font-family: var(--font-mono);
-  font-weight: 700;
-  color: var(--accent-cyan);
+  font-weight: 600;
+  color: var(--apple-blue);
 }
 
 .confidenceBadge {
-  font-size: 11px;
+  font-size: 10px;
   font-family: var(--font-mono);
-  font-weight: 700;
-  padding: 2px 6px;
-  border-radius: var(--radius-sm);
-  background: rgba(56, 189, 248, 0.15);
-  color: var(--accent-cyan);
+  font-weight: 600;
+  padding: 2px 7px;
+  border-radius: var(--radius-full);
+  background: rgba(10, 132, 255, 0.15);
+  color: var(--apple-blue);
 }
 
 .recommendationSnippet {
-  font-size: 13px;
+  font-size: 12px;
   color: var(--text-secondary);
   line-height: 1.4;
   overflow: hidden;
@@ -101,20 +103,24 @@
 .feedCardFooter {
   display: flex;
   justify-content: space-between;
-  font-size: 11px;
+  font-size: 10px;
   color: var(--text-muted);
   font-family: var(--font-mono);
 }
 
+/* Apple Notes Detail Pane */
 .detailColumn {
-  background-color: var(--bg-card);
+  background: var(--bg-card);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
   display: flex;
   flex-direction: column;
   overflow-y: auto;
   padding: 24px;
-  gap: 24px;
+  gap: 20px;
+  box-shadow: var(--shadow-sm);
 }
 
 .emptyState {
@@ -123,14 +129,14 @@
   justify-content: center;
   height: 100%;
   color: var(--text-muted);
-  font-size: 14px;
+  font-size: 13px;
 }
 
 .detailHeader {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  padding-bottom: 20px;
+  padding-bottom: 18px;
   border-bottom: 1px solid var(--border-subtle);
 }
 
@@ -141,26 +147,27 @@
 }
 
 .detailTitle {
-  font-size: 20px;
-  font-weight: 800;
+  font-size: 18px;
+  font-weight: 600;
   color: var(--text-primary);
+  letter-spacing: -0.02em;
 }
 
 .decisionIdTag {
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 11px;
   color: var(--text-muted);
 }
 
 .metaGrid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
+  gap: 10px;
 }
 
 .metaItem {
-  background: var(--bg-surface);
-  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 10px 12px;
   border-radius: var(--radius-md);
   display: flex;
   flex-direction: column;
@@ -170,39 +177,40 @@
 
 .metaLabel {
   font-size: 10px;
-  font-weight: 700;
+  font-weight: 500;
   color: var(--text-muted);
   text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
 .metaValue {
-  font-size: 14px;
-  font-weight: 700;
+  font-size: 13px;
+  font-weight: 600;
   color: var(--text-primary);
   font-family: var(--font-mono);
 }
 
+/* Apple Callout Card */
 .winningBanner {
-  background: linear-gradient(135deg, rgba(56, 189, 248, 0.12), rgba(59, 130, 246, 0.08));
-  border: 1px solid rgba(56, 189, 248, 0.3);
+  background: linear-gradient(135deg, rgba(10, 132, 255, 0.12), rgba(100, 210, 255, 0.06));
+  border: 1px solid rgba(10, 132, 255, 0.3);
   border-radius: var(--radius-md);
-  padding: 18px 20px;
+  padding: 16px 18px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
 }
 
 .winningLabel {
   font-size: 11px;
-  font-weight: 700;
-  color: var(--accent-cyan);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  font-weight: 600;
+  color: var(--apple-blue);
+  letter-spacing: 0.03em;
 }
 
 .winningText {
-  font-size: 15px;
-  font-weight: 600;
+  font-size: 14px;
+  font-weight: 500;
   color: var(--text-primary);
   line-height: 1.45;
 }
@@ -210,40 +218,40 @@
 .section {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 12px;
 }
 
 .sectionTitle {
-  font-size: 14px;
-  font-weight: 700;
+  font-size: 13px;
+  font-weight: 600;
   color: var(--text-primary);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: -0.01em;
 }
 
+/* Apple Messages Style Meeting Log */
 .meetingLogTimeline {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
   position: relative;
-  padding-left: 20px;
+  padding-left: 18px;
 }
 
 .meetingLogTimeline::before {
   content: "";
   position: absolute;
-  left: 6px;
-  top: 8px;
-  bottom: 8px;
-  width: 2px;
-  background: var(--border-default);
+  left: 5px;
+  top: 6px;
+  bottom: 6px;
+  width: 1.5px;
+  background: var(--border-subtle);
 }
 
 .logEntry {
-  background: var(--bg-surface);
+  background: rgba(255, 255, 255, 0.03);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
-  padding: 12px 16px;
+  padding: 12px 14px;
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -253,19 +261,19 @@
 .logEntry::before {
   content: "";
   position: absolute;
-  left: -19px;
-  top: 16px;
-  width: 10px;
-  height: 10px;
+  left: -17px;
+  top: 15px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
-  background: var(--accent-cyan);
-  border: 2px solid var(--bg-card);
+  background: var(--apple-blue);
+  border: 2px solid var(--bg-primary);
 }
 
 .logSpeaker {
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--accent-cyan);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--apple-blue);
   display: flex;
   justify-content: space-between;
 }
@@ -277,22 +285,25 @@
 }
 
 .logContent {
-  font-size: 13px;
+  font-size: 12px;
   color: var(--text-secondary);
   line-height: 1.4;
 }
 
+/* Apple Primary Button */
 .traceButton {
-  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
-  color: var(--text-inverse);
-  padding: 10px 18px;
-  border-radius: var(--radius-md);
-  font-weight: 700;
-  font-size: 13px;
+  background: var(--apple-blue);
+  color: #ffffff;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  font-size: 12px;
   align-self: flex-start;
-  transition: opacity 0.15s ease;
+  transition: all var(--transition-fast);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 .traceButton:hover {
-  opacity: 0.9;
+  background: #0071e3;
+  box-shadow: 0 2px 8px rgba(10, 132, 255, 0.35);
 }

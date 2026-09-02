@@ -2,53 +2,56 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 8px 24px;
-  font-size: 12px;
-  font-weight: 600;
+  padding: 7px 20px;
+  font-size: 11px;
+  font-weight: 500;
   transition: all var(--transition-normal);
   z-index: 50;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  user-select: none;
 }
 
 .reconnecting {
-  background: linear-gradient(90deg, rgba(245, 158, 11, 0.18), rgba(245, 158, 11, 0.08));
-  border-bottom: 1px solid rgba(245, 158, 11, 0.4);
-  color: var(--accent-amber);
+  background: rgba(255, 159, 10, 0.12);
+  border-bottom: 1px solid rgba(255, 159, 10, 0.3);
+  color: var(--apple-orange);
 }
 
 .disconnected {
-  background: linear-gradient(90deg, rgba(239, 68, 68, 0.22), rgba(239, 68, 68, 0.1));
-  border-bottom: 1px solid rgba(239, 68, 68, 0.5);
-  color: var(--accent-red);
+  background: rgba(255, 69, 58, 0.14);
+  border-bottom: 1px solid rgba(255, 69, 58, 0.35);
+  color: var(--apple-red);
 }
 
 .left {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
 }
 
 .dot {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
   animation: pulse 1.5s infinite ease-in-out;
 }
 
 .dotReconnecting {
-  background-color: var(--accent-amber);
+  background-color: var(--apple-orange);
 }
 
 .dotDisconnected {
-  background-color: var(--accent-red);
+  background-color: var(--apple-red);
 }
 
 .retryText {
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 10px;
   opacity: 0.85;
 }
 
 @keyframes pulse {
   0%, 100% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.3); opacity: 0.5; }
+  50% { transform: scale(1.3); opacity: 0.4; }
 }

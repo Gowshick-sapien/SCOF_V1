@@ -28,28 +28,30 @@ export const TopBar: React.FC<TopBarProps> = ({
     return () => clearInterval(interval);
   }, []);
 
+  const getStatusColor = () => {
+    switch (state.overallStatus) {
+      case "Connected":
+        return "var(--status-healthy)";
+      case "Reconnecting":
+        return "var(--status-warning)";
+      default:
+        return "var(--status-critical)";
+    }
+  };
+
   return (
     <header className={styles.topbar}>
       <div className={styles.leftSection}>
         <h2 className={styles.viewTitle}>{currentViewLabel}</h2>
         <div className={styles.profileBadge}>
-          <span>PROFILE: MVP-ELECTRONICS</span>
+          <span>MVP-ELECTRONICS</span>
         </div>
-        <div style={{ fontSize: "12px", display: "flex", alignItems: "center", gap: "6px" }}>
+        <div className={styles.statusPill}>
           <span
-            style={{
-              width: "8px",
-              height: "8px",
-              borderRadius: "50%",
-              backgroundColor:
-                state.overallStatus === "Connected"
-                  ? "var(--status-healthy)"
-                  : state.overallStatus === "Reconnecting"
-                  ? "var(--status-warning)"
-                  : "var(--status-critical)",
-            }}
+            className={styles.statusDot}
+            style={{ backgroundColor: getStatusColor() }}
           />
-          <span style={{ color: "var(--text-muted)", fontSize: "11px", fontFamily: "var(--font-mono)" }}>
+          <span className={styles.statusLabel}>
             {state.overallStatus.toUpperCase()}
           </span>
         </div>
@@ -62,7 +64,7 @@ export const TopBar: React.FC<TopBarProps> = ({
           <button
             className={styles.shortcutsBtn}
             onClick={onOpenShortcuts}
-            title="Keyboard Shortcuts (Shift + ?)"
+            title="Shortcuts HUD (Shift + ?)"
             aria-label="Keyboard Shortcuts"
           >
             ?
@@ -74,8 +76,11 @@ export const TopBar: React.FC<TopBarProps> = ({
           onClick={onToggleChat}
           title="AI Assistant (Ctrl + K)"
         >
-          <span>AI Assistant</span>
-          <span className={styles.keyBadge}>Ctrl+K</span>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+          </svg>
+          <span>Intelligence</span>
+          <span className={styles.keyBadge}>⌘K</span>
         </button>
       </div>
     </header>

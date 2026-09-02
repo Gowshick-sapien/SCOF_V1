@@ -4,22 +4,25 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(5, 8, 16, 0.82);
-  backdrop-filter: blur(8px);
+  background-color: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(28px) saturate(190%);
+  -webkit-backdrop-filter: blur(28px) saturate(190%);
   z-index: 1000;
   display: flex;
   align-items: center;
   justify-content: center;
   animation: fadeIn 0.15s ease-out;
+  user-select: none;
 }
 
+/* macOS Spotlight / Command Palette Dialog */
 .modal {
-  background-color: var(--bg-surface);
-  border: 1px solid var(--border-subtle);
-  box-shadow: var(--shadow-xl), 0 0 30px rgba(56, 189, 248, 0.12);
-  border-radius: var(--radius-lg);
+  background: rgba(20, 23, 30, 0.92);
+  border: 1px solid var(--border-default);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.65), 0 0 1px rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-xl);
   width: 90%;
-  max-width: 580px;
+  max-width: 540px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -28,7 +31,7 @@
 
 .header {
   padding: 16px 20px;
-  background-color: var(--bg-card);
+  background: rgba(255, 255, 255, 0.02);
   border-bottom: 1px solid var(--border-subtle);
   display: flex;
   align-items: center;
@@ -37,33 +40,33 @@
 
 .title {
   margin: 0;
-  font-size: 15px;
-  font-weight: 700;
+  font-size: 13px;
+  font-weight: 600;
   color: var(--text-primary);
-  letter-spacing: 0.5px;
+  letter-spacing: -0.01em;
 }
 
 .closeButton {
-  background: none;
+  background: transparent;
   border: none;
   color: var(--text-muted);
-  font-size: 18px;
+  font-size: 15px;
   cursor: pointer;
-  padding: 4px 8px;
-  border-radius: var(--radius-sm);
+  padding: 2px 6px;
+  border-radius: var(--radius-xs);
   transition: all var(--transition-fast);
 }
 
 .closeButton:hover {
-  background-color: var(--bg-surface);
+  background-color: rgba(255, 255, 255, 0.08);
   color: var(--text-primary);
 }
 
 .content {
-  padding: 20px;
+  padding: 18px 20px;
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 16px;
 }
 
 .section {
@@ -73,17 +76,17 @@
 }
 
 .sectionHeading {
-  font-size: 11px;
-  font-weight: 700;
+  font-size: 10px;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 1px;
-  color: var(--accent-cyan);
+  letter-spacing: 0.04em;
+  color: var(--apple-blue);
 }
 
 .shortcutGrid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 10px;
+  gap: 8px;
 }
 
 .shortcutItem {
@@ -91,34 +94,35 @@
   align-items: center;
   justify-content: space-between;
   padding: 8px 12px;
-  background-color: var(--bg-card);
+  background: rgba(255, 255, 255, 0.03);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
-  font-size: 13px;
+  font-size: 12px;
 }
 
 .label {
   color: var(--text-secondary);
 }
 
+/* Apple Keycaps */
 .kbd {
   display: inline-block;
-  padding: 2px 6px;
+  padding: 2px 7px;
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 600;
-  color: var(--accent-cyan);
-  background-color: var(--bg-surface);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-sm);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: var(--radius-xs);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.15);
 }
 
 .footer {
   padding: 12px 20px;
-  background-color: var(--bg-card);
+  background: rgba(255, 255, 255, 0.02);
   border-top: 1px solid var(--border-subtle);
-  font-size: 12px;
+  font-size: 11px;
   color: var(--text-muted);
   text-align: right;
 }
