@@ -320,6 +320,25 @@ services:
     volumes:
       - ./profiles:/app/profiles:ro
 
+  evaluation:
+    build:
+      context: .
+      dockerfile: services/evaluation/Dockerfile
+    container_name: scof-evaluation
+    depends_on:
+      api:
+        condition: service_started
+      observability:
+        condition: service_started
+    environment:
+      - API_GATEWAY_URL=http://api:8000
+      - COORDINATOR_URL=http://coordinator:8010
+      - CONSENSUS_URL=http://consensus:8020
+      - OBSERVABILITY_URL=http://observability:8030
+      - EVALUATION_PORT=8040
+    ports:
+      - "8040:8040"
+
 volumes:
   postgres_data:
   neo4j_data:
