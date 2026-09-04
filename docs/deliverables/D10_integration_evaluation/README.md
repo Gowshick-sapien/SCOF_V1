@@ -38,7 +38,7 @@ Completion of Deliverable 10 marks **official completion of the SCOF MVP**, deli
 | **D10.1** | Full Loop Autonomous Wiring Verification | Automated pipeline execution script & audit log | Completed & Verified |
 | **D10.2** | Evaluation Harness Engine & Service | `services/evaluation/` implementation & REST API | Completed & Verified |
 | **D10.3** | Comparative Baseline Implementation | Baseline scoring functions & benchmark suites | Completed & Verified |
-| **D10.4** | Automated Benchmark Execution & Data Collection | Scenario evaluation run over synthetic test cases | Pending |
+| **D10.4** | Automated Multi-Scenario Benchmark Suite & Desktop Sync | Multi-scenario benchmark runner & desktop sync | Completed & Verified |
 | **D10.5** | Research Question Synthesis & Final MVP Acceptance | Comprehensive results report (RQ1–RQ4) | Pending |
 
 ---

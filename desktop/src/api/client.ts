@@ -9,8 +9,9 @@ import {
   DecisionTrace,
   WhatIfRunResponse,
   WhatIfResult,
-  Benchmark,
   Calibration,
+  BenchmarkSummaryResponse,
+  CategoryBenchmarkResponse,
   ChatResponse,
   ActiveProfile,
   HealthResponse,
@@ -127,8 +128,14 @@ export const ApiClient = {
   getWhatIfResult: (whatIfId: string) => fetchApi<WhatIfResult>(`/whatif/${whatIfId}/result`),
 
   // Evaluation
-  getBenchmark: () => fetchApi<Benchmark>("/evaluation/benchmark"),
+  getBenchmark: (refresh?: boolean) => 
+    fetchApi<BenchmarkSummaryResponse>(`/evaluation/benchmark${refresh ? "?refresh=true" : ""}`),
   getCalibration: () => fetchApi<Calibration>("/evaluation/calibration"),
+  getCategoryMetrics: () => fetchApi<CategoryBenchmarkResponse>("/evaluation/categories"),
+  runEvaluation: (payload?: any) => fetchApi<BenchmarkSummaryResponse>("/evaluation/run", {
+    method: "POST",
+    body: JSON.stringify(payload || {})
+  }),
 
   // Chat
   queryChat: (query: string, limit?: number) => 

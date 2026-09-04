@@ -1,0 +1,626 @@
+[
+  {
+    "bundle": {
+      "bundle_id": "bnd-sup-001",
+      "scenario_id": "scen-sup-01",
+      "disruption_category": "SUPPLIER_DELAY",
+      "claims": {
+        "supplier_agent": {
+          "agent_id": "supplier_agent",
+          "recommendation": "Switch allocation to secondary certified supplier",
+          "confidence": 0.92,
+          "impact": "moderate"
+        },
+        "inventory_agent": {
+          "agent_id": "inventory_agent",
+          "recommendation": "Switch allocation to secondary certified supplier",
+          "confidence": 0.90,
+          "impact": "moderate"
+        },
+        "demand_agent": {
+          "agent_id": "demand_agent",
+          "recommendation": "Switch allocation to secondary certified supplier",
+          "confidence": 0.88,
+          "impact": "minor"
+        }
+      }
+    },
+    "ground_truth": {
+      "expected_recommendation": "Switch allocation to secondary certified supplier",
+      "expected_escalation_tier": "FAST_PATH",
+      "category": "SUPPLIER_DELAY",
+      "reasoning": "Unanimous agreement across agents for secondary supplier allocation."
+    }
+  },
+  {
+    "bundle": {
+      "bundle_id": "bnd-sup-002",
+      "scenario_id": "scen-sup-02",
+      "disruption_category": "SUPPLIER_DELAY",
+      "claims": {
+        "supplier_agent": {
+          "agent_id": "supplier_agent",
+          "recommendation": "Split order 60/40 between dual sources",
+          "confidence": 0.85,
+          "impact": "moderate"
+        },
+        "inventory_agent": {
+          "agent_id": "inventory_agent",
+          "recommendation": "Split order 60/40 between dual sources",
+          "confidence": 0.82,
+          "impact": "moderate"
+        },
+        "demand_agent": {
+          "agent_id": "demand_agent",
+          "recommendation": "Authorize expedited air freight from primary",
+          "confidence": 0.70,
+          "impact": "minor"
+        }
+      }
+    },
+    "ground_truth": {
+      "expected_recommendation": "Split order 60/40 between dual sources",
+      "expected_escalation_tier": "SLOW_PATH",
+      "category": "SUPPLIER_DELAY",
+      "reasoning": "Dual-sourcing consensus with slight demand agent divergence."
+    }
+  },
+  {
+    "bundle": {
+      "bundle_id": "bnd-sup-003",
+      "scenario_id": "scen-sup-03",
+      "disruption_category": "SUPPLIER_DELAY",
+      "claims": {
+        "supplier_agent": {
+          "agent_id": "supplier_agent",
+          "recommendation": "Trigger emergency vendor audit and activate Tier-3 reserve",
+          "confidence": 0.75,
+          "impact": "critical"
+        },
+        "inventory_agent": {
+          "agent_id": "inventory_agent",
+          "recommendation": "Trigger emergency vendor audit and activate Tier-3 reserve",
+          "confidence": 0.78,
+          "impact": "critical"
+        },
+        "transport_agent": {
+          "agent_id": "transport_agent",
+          "recommendation": "Halt inbound cross-docking until quality release",
+          "confidence": 0.65,
+          "impact": "high"
+        }
+      }
+    },
+    "ground_truth": {
+      "expected_recommendation": "Trigger emergency vendor audit and activate Tier-3 reserve",
+      "expected_escalation_tier": "HUMAN_ESCALATION",
+      "category": "SUPPLIER_DELAY",
+      "reasoning": "Critical yield contamination requiring executive procurement review."
+    }
+  },
+  {
+    "bundle": {
+      "bundle_id": "bnd-sup-004",
+      "scenario_id": "scen-sup-04",
+      "disruption_category": "SUPPLIER_DELAY",
+      "claims": {
+        "supplier_agent": {
+          "agent_id": "supplier_agent",
+          "recommendation": "Accept partial lot delivery with discounted terms",
+          "confidence": 0.94,
+          "impact": "minor"
+        },
+        "inventory_agent": {
+          "agent_id": "inventory_agent",
+          "recommendation": "Accept partial lot delivery with discounted terms",
+          "confidence": 0.91,
+          "impact": "minor"
+        },
+        "demand_agent": {
+          "agent_id": "demand_agent",
+          "recommendation": "Accept partial lot delivery with discounted terms",
+          "confidence": 0.89,
+          "impact": "minor"
+        }
+      }
+    },
+    "ground_truth": {
+      "expected_recommendation": "Accept partial lot delivery with discounted terms",
+      "expected_escalation_tier": "FAST_PATH",
+      "category": "SUPPLIER_DELAY",
+      "reasoning": "Minor delay resolved through standard partial shipment acceptance."
+    }
+  },
+  {
+    "bundle": {
+      "bundle_id": "bnd-sup-005",
+      "scenario_id": "scen-sup-05",
+      "disruption_category": "SUPPLIER_DELAY",
+      "claims": {
+        "supplier_agent": {
+          "agent_id": "supplier_agent",
+          "recommendation": "Renegotiate lead time buffer and reorder safety stock",
+          "confidence": 0.86,
+          "impact": "moderate"
+        },
+        "inventory_agent": {
+          "agent_id": "inventory_agent",
+          "recommendation": "Renegotiate lead time buffer and reorder safety stock",
+          "confidence": 0.84,
+          "impact": "moderate"
+        },
+        "transport_agent": {
+          "agent_id": "transport_agent",
+          "recommendation": "Renegotiate lead time buffer and reorder safety stock",
+          "confidence": 0.80,
+          "impact": "minor"
+        }
+      }
+    },
+    "ground_truth": {
+      "expected_recommendation": "Renegotiate lead time buffer and reorder safety stock",
+      "expected_escalation_tier": "FAST_PATH",
+      "category": "SUPPLIER_DELAY",
+      "reasoning": "Standard supplier capacity throttle mitigated via buffer adjustments."
+    }
+  },
+  {
+    "bundle": {
+      "bundle_id": "bnd-tra-001",
+      "scenario_id": "scen-tra-01",
+      "disruption_category": "TRANSPORTATION_FAILURE",
+      "claims": {
+        "transport_agent": {
+          "agent_id": "transport_agent",
+          "recommendation": "Divert shipment to secondary regional inland port",
+          "confidence": 0.93,
+          "impact": "moderate"
+        },
+        "inventory_agent": {
+          "agent_id": "inventory_agent",
+          "recommendation": "Divert shipment to secondary regional inland port",
+          "confidence": 0.89,
+          "impact": "moderate"
+        },
+        "demand_agent": {
+          "agent_id": "demand_agent",
+          "recommendation": "Divert shipment to secondary regional inland port",
+          "confidence": 0.85,
+          "impact": "minor"
+        }
+      }
+    },
+    "ground_truth": {
+      "expected_recommendation": "Divert shipment to secondary regional inland port",
+      "expected_escalation_tier": "FAST_PATH",
+      "category": "TRANSPORTATION_FAILURE",
+      "reasoning": "Port congestion mitigated cleanly through secondary hub routing."
+    }
+  },
+  {
+    "bundle": {
+      "bundle_id": "bnd-tra-002",
+      "scenario_id": "scen-tra-02",
+      "disruption_category": "TRANSPORTATION_FAILURE",
+      "claims": {
+        "transport_agent": {
+          "agent_id": "transport_agent",
+          "recommendation": "Switch modal transport from maritime to intermodal rail",
+          "confidence": 0.82,
+          "impact": "moderate"
+        },
+        "inventory_agent": {
+          "agent_id": "inventory_agent",
+          "recommendation": "Switch modal transport from maritime to intermodal rail",
+          "confidence": 0.79,
+          "impact": "moderate"
+        },
+        "supplier_agent": {
+          "agent_id": "supplier_agent",
+          "recommendation": "Hold shipment at factory warehouse",
+          "confidence": 0.72,
+          "impact": "minor"
+        }
+      }
+    },
+    "ground_truth": {
+      "expected_recommendation": "Switch modal transport from maritime to intermodal rail",
+      "expected_escalation_tier": "SLOW_PATH",
+      "category": "TRANSPORTATION_FAILURE",
+      "reasoning": "Intermodal diversion required to circumvent terminal carrier bottleneck."
+    }
+  },
+  {
+    "bundle": {
+      "bundle_id": "bnd-tra-003",
+      "scenario_id": "scen-tra-03",
+      "disruption_category": "TRANSPORTATION_FAILURE",
+      "claims": {
+        "transport_agent": {
+          "agent_id": "transport_agent",
+          "recommendation": "Engage priority air cargo charter for stranded modules",
+          "confidence": 0.76,
+          "impact": "critical"
+        },
+        "inventory_agent": {
+          "agent_id": "inventory_agent",
+          "recommendation": "Engage priority air cargo charter for stranded modules",
+          "confidence": 0.74,
+          "impact": "critical"
+        },
+        "demand_agent": {
+          "agent_id": "demand_agent",
+          "recommendation": "Throttle outbound customer promises by 30 percent",
+          "confidence": 0.68,
+          "impact": "high"
+        }
+      }
+    },
+    "ground_truth": {
+      "expected_recommendation": "Engage priority air cargo charter for stranded modules",
+      "expected_escalation_tier": "HUMAN_ESCALATION",
+      "category": "TRANSPORTATION_FAILURE",
+      "reasoning": "High-cost air charter chartering warrants human operations approval."
+    }
+  },
+  {
+    "bundle": {
+      "bundle_id": "bnd-tra-004",
+      "scenario_id": "scen-tra-04",
+      "disruption_category": "TRANSPORTATION_FAILURE",
+      "claims": {
+        "transport_agent": {
+          "agent_id": "transport_agent",
+          "recommendation": "Reroute long-haul ground fleet via alternate turnpike",
+          "confidence": 0.95,
+          "impact": "minor"
+        },
+        "inventory_agent": {
+          "agent_id": "inventory_agent",
+          "recommendation": "Reroute long-haul ground fleet via alternate turnpike",
+          "confidence": 0.91,
+          "impact": "minor"
+        }
+      }
+    },
+    "ground_truth": {
+      "expected_recommendation": "Reroute long-haul ground fleet via alternate turnpike",
+      "expected_escalation_tier": "FAST_PATH",
+      "category": "TRANSPORTATION_FAILURE",
+      "reasoning": "Highway maintenance closure resolved with immediate route bypass."
+    }
+  },
+  {
+    "bundle": {
+      "bundle_id": "bnd-tra-005",
+      "scenario_id": "scen-tra-05",
+      "disruption_category": "TRANSPORTATION_FAILURE",
+      "claims": {
+        "transport_agent": {
+          "agent_id": "transport_agent",
+          "recommendation": "Consolidate less-than-truckload into full truckload dispatch",
+          "confidence": 0.88,
+          "impact": "moderate"
+        },
+        "inventory_agent": {
+          "agent_id": "inventory_agent",
+          "recommendation": "Consolidate less-than-truckload into full truckload dispatch",
+          "confidence": 0.85,
+          "impact": "minor"
+        }
+      }
+    },
+    "ground_truth": {
+      "expected_recommendation": "Consolidate less-than-truckload into full truckload dispatch",
+      "expected_escalation_tier": "FAST_PATH",
+      "category": "TRANSPORTATION_FAILURE",
+      "reasoning": "Driver shortage mitigated by freight consolidation optimization."
+    }
+  },
+  {
+    "bundle": {
+      "bundle_id": "bnd-dem-001",
+      "scenario_id": "scen-dem-01",
+      "disruption_category": "DEMAND_SPIKE",
+      "claims": {
+        "demand_agent": {
+          "agent_id": "demand_agent",
+          "recommendation": "Allocate buffer safety inventory to top tier retail channels",
+          "confidence": 0.94,
+          "impact": "moderate"
+        },
+        "inventory_agent": {
+          "agent_id": "inventory_agent",
+          "recommendation": "Allocate buffer safety inventory to top tier retail channels",
+          "confidence": 0.91,
+          "impact": "moderate"
+        },
+        "supplier_agent": {
+          "agent_id": "supplier_agent",
+          "recommendation": "Allocate buffer safety inventory to top tier retail channels",
+          "confidence": 0.87,
+          "impact": "minor"
+        }
+      }
+    },
+    "ground_truth": {
+      "expected_recommendation": "Allocate buffer safety inventory to top tier retail channels",
+      "expected_escalation_tier": "FAST_PATH",
+      "category": "DEMAND_SPIKE",
+      "reasoning": "Flash sale surge mitigated by safety buffer release."
+    }
+  },
+  {
+    "bundle": {
+      "bundle_id": "bnd-dem-002",
+      "scenario_id": "scen-dem-02",
+      "disruption_category": "DEMAND_SPIKE",
+      "claims": {
+        "demand_agent": {
+          "agent_id": "demand_agent",
+          "recommendation": "Increase factory assembly overtime shifts by 25 percent",
+          "confidence": 0.85,
+          "impact": "moderate"
+        },
+        "inventory_agent": {
+          "agent_id": "inventory_agent",
+          "recommendation": "Increase factory assembly overtime shifts by 25 percent",
+          "confidence": 0.81,
+          "impact": "moderate"
+        },
+        "supplier_agent": {
+          "agent_id": "supplier_agent",
+          "recommendation": "Cap retail allocations to preserve distributor reserve",
+          "confidence": 0.74,
+          "impact": "moderate"
+        }
+      }
+    },
+    "ground_truth": {
+      "expected_recommendation": "Increase factory assembly overtime shifts by 25 percent",
+      "expected_escalation_tier": "SLOW_PATH",
+      "category": "DEMAND_SPIKE",
+      "reasoning": "Sustained order acceleration requires balancing manufacturing shifts."
+    }
+  },
+  {
+    "bundle": {
+      "bundle_id": "bnd-dem-003",
+      "scenario_id": "scen-dem-03",
+      "disruption_category": "DEMAND_SPIKE",
+      "claims": {
+        "demand_agent": {
+          "agent_id": "demand_agent",
+          "recommendation": "Implement quota rationing and escalate to commercial steering",
+          "confidence": 0.78,
+          "impact": "critical"
+        },
+        "inventory_agent": {
+          "agent_id": "inventory_agent",
+          "recommendation": "Implement quota rationing and escalate to commercial steering",
+          "confidence": 0.77,
+          "impact": "critical"
+        },
+        "transport_agent": {
+          "agent_id": "transport_agent",
+          "recommendation": "Declare force majeure on standard SLA commitments",
+          "confidence": 0.66,
+          "impact": "high"
+        }
+      }
+    },
+    "ground_truth": {
+      "expected_recommendation": "Implement quota rationing and escalate to commercial steering",
+      "expected_escalation_tier": "HUMAN_ESCALATION",
+      "category": "DEMAND_SPIKE",
+      "reasoning": "Unprecedented demand spike exceeding factory maximum throughput."
+    }
+  },
+  {
+    "bundle": {
+      "bundle_id": "bnd-dem-004",
+      "scenario_id": "scen-dem-04",
+      "disruption_category": "DEMAND_SPIKE",
+      "claims": {
+        "demand_agent": {
+          "agent_id": "demand_agent",
+          "recommendation": "Rebalance regional warehouse stock via cross-dock transfer",
+          "confidence": 0.95,
+          "impact": "minor"
+        },
+        "inventory_agent": {
+          "agent_id": "inventory_agent",
+          "recommendation": "Rebalance regional warehouse stock via cross-dock transfer",
+          "confidence": 0.92,
+          "impact": "minor"
+        }
+      }
+    },
+    "ground_truth": {
+      "expected_recommendation": "Rebalance regional warehouse stock via cross-dock transfer",
+      "expected_escalation_tier": "FAST_PATH",
+      "category": "DEMAND_SPIKE",
+      "reasoning": "Localized regional spike solved via adjacent warehouse lateral transfer."
+    }
+  },
+  {
+    "bundle": {
+      "bundle_id": "bnd-dem-005",
+      "scenario_id": "scen-dem-05",
+      "disruption_category": "DEMAND_SPIKE",
+      "claims": {
+        "demand_agent": {
+          "agent_id": "demand_agent",
+          "recommendation": "Expedite pre-packaged bundles to direct fulfillment centers",
+          "confidence": 0.89,
+          "impact": "minor"
+        },
+        "inventory_agent": {
+          "agent_id": "inventory_agent",
+          "recommendation": "Expedite pre-packaged bundles to direct fulfillment centers",
+          "confidence": 0.86,
+          "impact": "minor"
+        }
+      }
+    },
+    "ground_truth": {
+      "expected_recommendation": "Expedite pre-packaged bundles to direct fulfillment centers",
+      "expected_escalation_tier": "FAST_PATH",
+      "category": "DEMAND_SPIKE",
+      "reasoning": "E-commerce volume spike mitigated through direct fulfillment routing."
+    }
+  },
+  {
+    "bundle": {
+      "bundle_id": "bnd-wea-001",
+      "scenario_id": "scen-wea-01",
+      "disruption_category": "ADVERSE_WEATHER",
+      "claims": {
+        "transport_agent": {
+          "agent_id": "transport_agent",
+          "recommendation": "Pre-stage inventory at safe inland distribution facilities",
+          "confidence": 0.96,
+          "impact": "moderate"
+        },
+        "inventory_agent": {
+          "agent_id": "inventory_agent",
+          "recommendation": "Pre-stage inventory at safe inland distribution facilities",
+          "confidence": 0.92,
+          "impact": "moderate"
+        },
+        "supplier_agent": {
+          "agent_id": "supplier_agent",
+          "recommendation": "Pre-stage inventory at safe inland distribution facilities",
+          "confidence": 0.88,
+          "impact": "minor"
+        }
+      }
+    },
+    "ground_truth": {
+      "expected_recommendation": "Pre-stage inventory at safe inland distribution facilities",
+      "expected_escalation_tier": "FAST_PATH",
+      "category": "ADVERSE_WEATHER",
+      "reasoning": "Hurricane forecast allows proactive 72-hour pre-staging."
+    }
+  },
+  {
+    "bundle": {
+      "bundle_id": "bnd-wea-002",
+      "scenario_id": "scen-wea-02",
+      "disruption_category": "ADVERSE_WEATHER",
+      "claims": {
+        "transport_agent": {
+          "agent_id": "transport_agent",
+          "recommendation": "Switch sensitive temperature cargo to heated tractor-trailers",
+          "confidence": 0.87,
+          "impact": "moderate"
+        },
+        "inventory_agent": {
+          "agent_id": "inventory_agent",
+          "recommendation": "Switch sensitive temperature cargo to heated tractor-trailers",
+          "confidence": 0.83,
+          "impact": "moderate"
+        },
+        "demand_agent": {
+          "agent_id": "demand_agent",
+          "recommendation": "Delay dispatch by 48 hours until blizzard clears",
+          "confidence": 0.71,
+          "impact": "minor"
+        }
+      }
+    },
+    "ground_truth": {
+      "expected_recommendation": "Switch sensitive temperature cargo to heated tractor-trailers",
+      "expected_escalation_tier": "SLOW_PATH",
+      "category": "ADVERSE_WEATHER",
+      "reasoning": "Cold-snap blizzard requires climate-controlled transit equipment."
+    }
+  },
+  {
+    "bundle": {
+      "bundle_id": "bnd-wea-003",
+      "scenario_id": "scen-wea-03",
+      "disruption_category": "ADVERSE_WEATHER",
+      "claims": {
+        "transport_agent": {
+          "agent_id": "transport_agent",
+          "recommendation": "Halt all regional operations and activate disaster recovery site",
+          "confidence": 0.79,
+          "impact": "critical"
+        },
+        "inventory_agent": {
+          "agent_id": "inventory_agent",
+          "recommendation": "Halt all regional operations and activate disaster recovery site",
+          "confidence": 0.76,
+          "impact": "critical"
+        },
+        "supplier_agent": {
+          "agent_id": "supplier_agent",
+          "recommendation": "Emergency re-sourcing of all work-in-progress stock",
+          "confidence": 0.68,
+          "impact": "critical"
+        }
+      }
+    },
+    "ground_truth": {
+      "expected_recommendation": "Halt all regional operations and activate disaster recovery site",
+      "expected_escalation_tier": "HUMAN_ESCALATION",
+      "category": "ADVERSE_WEATHER",
+      "reasoning": "Catastrophic flood inundation requiring executive continuity execution."
+    }
+  },
+  {
+    "bundle": {
+      "bundle_id": "bnd-wea-004",
+      "scenario_id": "scen-wea-04",
+      "disruption_category": "ADVERSE_WEATHER",
+      "claims": {
+        "transport_agent": {
+          "agent_id": "transport_agent",
+          "recommendation": "Reroute transpacific freight away from active typhoon quadrant",
+          "confidence": 0.94,
+          "impact": "minor"
+        },
+        "inventory_agent": {
+          "agent_id": "inventory_agent",
+          "recommendation": "Reroute transpacific freight away from active typhoon quadrant",
+          "confidence": 0.90,
+          "impact": "minor"
+        }
+      }
+    },
+    "ground_truth": {
+      "expected_recommendation": "Reroute transpacific freight away from active typhoon quadrant",
+      "expected_escalation_tier": "FAST_PATH",
+      "category": "ADVERSE_WEATHER",
+      "reasoning": "Standard nautical diversion around tropical storm pathway."
+    }
+  },
+  {
+    "bundle": {
+      "bundle_id": "bnd-wea-005",
+      "scenario_id": "scen-wea-05",
+      "disruption_category": "ADVERSE_WEATHER",
+      "claims": {
+        "transport_agent": {
+          "agent_id": "transport_agent",
+          "recommendation": "Schedule nighttime transit runs to avoid peak daytime heatwave",
+          "confidence": 0.91,
+          "impact": "minor"
+        },
+        "inventory_agent": {
+          "agent_id": "inventory_agent",
+          "recommendation": "Schedule nighttime transit runs to avoid peak daytime heatwave",
+          "confidence": 0.88,
+          "impact": "minor"
+        }
+      }
+    },
+    "ground_truth": {
+      "expected_recommendation": "Schedule nighttime transit runs to avoid peak daytime heatwave",
+      "expected_escalation_tier": "FAST_PATH",
+      "category": "ADVERSE_WEATHER",
+      "reasoning": "Thermal protection for lithium components managed via nocturnal dispatch."
+    }
+  }
+]

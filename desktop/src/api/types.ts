@@ -115,6 +115,58 @@ export interface WhatIfResult {
   status: string;
 }
 
+export interface BenchmarkMetricRow {
+  method: string;
+  accuracy: number;
+  wcs_stability: number;
+  latency_ms: number;
+  human_escalation_pct: number;
+  cohens_kappa?: number;
+  stockout_reduction_pct?: number;
+  fill_rate_delta?: number;
+  sample_count?: number;
+}
+
+export interface CalibrationMetrics {
+  sample_count: number;
+  recommendation_kappa: number;
+  escalation_tier_kappa: number;
+  agreement_rate_mean: number;
+  fast_path_latency_p50_ms: number;
+  fast_path_latency_p90_ms: number;
+  slow_path_latency_p50_ms: number;
+  stockout_reduction_pct: number;
+  fill_rate_delta: number;
+}
+
+export interface BenchmarkSummaryResponse {
+  benchmark_results: BenchmarkMetricRow[];
+  calibration_metrics: CalibrationMetrics;
+  status: string;
+  eval_run_id: string;
+  dataset_name: string;
+  timestamp: string;
+}
+
+export interface CategoryMetricRow {
+  category: string;
+  scenario_count: number;
+  accuracy: number;
+  wcs_stability: number;
+  latency_p50_ms: number;
+  conflict_intensity: number;
+  fast_path_pct: number;
+  human_escalation_pct: number;
+}
+
+export interface CategoryBenchmarkResponse {
+  dataset_name: string;
+  total_scenarios: number;
+  categories: CategoryMetricRow[];
+  status: string;
+  timestamp: string;
+}
+
 export interface Benchmark {
   [key: string]: any;
 }

@@ -439,3 +439,140 @@ Response:
 | Single-Agent Vulnerability | Isolated greedy agent susceptible to local bias | Divergence detected on conflicting claims | **PASSED** |
 | Pytest Test Suite | 11 tests in `test_benchmark_runner.py` | 11 / 11 passed (37 / 37 cumulative) | **PASSED** |
 | REST Endpoints & API Gateway | `/benchmark/baselines`, `/benchmark/compare` on ports 8040 & 8000 | 200 OK across all endpoints | **PASSED** |
+
+---
+
+## Sub-Deliverable D10.4: Automated Multi-Scenario Benchmark Suite & Desktop Live Sync
+
+### Status: IMPLEMENTED, TESTED & ACCEPTED
+
+---
+
+## 12. Automated Test Suite Execution Evidence (`test_multi_scenario_suite.py`)
+
+Execution command:
+```powershell
+python -m pytest services/evaluation/tests/test_multi_scenario_suite.py -v
+```
+
+Test Results (3 / 3 passed):
+```text
+============================= test session starts =============================
+platform win32 -- Python 3.12.2, pytest-9.1.1, pluggy-1.6.0
+rootdir: D:\projects\SCOF_V1\SCOF
+configfile: pyproject.toml
+collected 3 items
+
+services/evaluation/tests/test_multi_scenario_suite.py::TestMultiScenarioSuiteStructure::test_resolve_suite_path PASSED [ 33%]
+services/evaluation/tests/test_multi_scenario_suite.py::TestMultiScenarioSuiteStructure::test_benchmark_suite_categories_distribution PASSED [ 66%]
+services/evaluation/tests/test_multi_scenario_suite.py::TestCategoryMetricsEvaluation::test_evaluate_category_breakdown PASSED [100%]
+
+============================== 3 passed in 0.18s ==============================
+```
+
+Cumulative Evaluation Suite Execution (`python -m pytest services/evaluation/tests/ -v`):
+* Total passed: **40 / 40 passed in 4.22s (100%)**.
+
+---
+
+## 13. Multi-Category Benchmark API Evidence (`GET /benchmark/categories`)
+
+Query (Port 8040 and Port 8000 Proxy):
+```powershell
+Invoke-RestMethod -Uri "http://localhost:8000/evaluation/categories" | ConvertTo-Json -Depth 4
+```
+
+Response:
+```json
+{
+  "dataset_name": "benchmark_suite.json",
+  "total_scenarios": 20,
+  "categories": [
+    {
+      "category": "SUPPLIER_DELAY",
+      "scenario_count": 5,
+      "accuracy": 1.0,
+      "wcs_stability": 0.885,
+      "latency_p50_ms": 335.0,
+      "conflict_intensity": 0.267,
+      "fast_path_pct": 60.0,
+      "human_escalation_pct": 0.0
+    },
+    {
+      "category": "TRANSPORTATION_FAILURE",
+      "scenario_count": 5,
+      "accuracy": 1.0,
+      "wcs_stability": 0.875,
+      "latency_p50_ms": 335.0,
+      "conflict_intensity": 0.267,
+      "fast_path_pct": 60.0,
+      "human_escalation_pct": 0.0
+    },
+    {
+      "category": "DEMAND_SPIKE",
+      "scenario_count": 5,
+      "accuracy": 1.0,
+      "wcs_stability": 0.881,
+      "latency_p50_ms": 335.0,
+      "conflict_intensity": 0.267,
+      "fast_path_pct": 60.0,
+      "human_escalation_pct": 0.0
+    },
+    {
+      "category": "ADVERSE_WEATHER",
+      "scenario_count": 5,
+      "accuracy": 1.0,
+      "wcs_stability": 0.88,
+      "latency_p50_ms": 335.0,
+      "conflict_intensity": 0.267,
+      "fast_path_pct": 60.0,
+      "human_escalation_pct": 0.0
+    }
+  ],
+  "status": "VALIDATED",
+  "timestamp": "2026-09-04T05:49:39.015883+00:00"
+}
+```
+
+---
+
+## 14. Desktop Operations Console Live Sync Evidence
+
+### 14.1. TypeScript Compilation & Production Bundle Audit
+```powershell
+cd desktop
+cmd /c npm run build
+```
+```text
+> desktop@0.1.0 build
+> tsc && vite build
+
+vite v7.3.6 building client environment for production...
+transforming...
+71 modules transformed.
+rendering chunks...
+dist/index.html                   0.42 kB │ gzip:  0.28 kB
+dist/assets/index-ClOpfgO0.css   48.03 kB │ gzip:  8.14 kB
+dist/assets/index-BcnSwYvv.js   280.98 kB │ gzip: 84.11 kB
+built in 1.22s
+```
+
+### 14.2. UI Live State Binding Features Verified
+1. **Dynamic Data Fetching**: On view mount (`useEffect`), `EvaluationView.tsx` executes parallel REST requests to `apiClient.getBenchmark()` and `apiClient.getCategoryMetrics()`, dynamically populating all tables without hardcoded constants.
+2. **Re-run Benchmark Trigger**: Interactive button triggers `apiClient.runEvaluation()`, showing a responsive `"Evaluating..."` state and automatically refreshing comparative numbers upon completion.
+3. **Category Breakdown Rendering**: Displays the 4-row category matrix (`SUPPLIER_DELAY`, `TRANSPORTATION_FAILURE`, `DEMAND_SPIKE`, `ADVERSE_WEATHER`) with live accuracy, stability, median latency, and conflict intensity ratings.
+4. **KPI Gauge Integration**: Displays live Inter-Agent Agreement Kappa ($1.000$), Fast-Path P90 ($330\text{ ms}$), and Stockout Risk Reduction ($42.0\%$).
+
+---
+
+## 15. D10.4 Verification Sign-Off Matrix
+
+| Item | Validation Criterion | Observed Result | Status |
+|---|---|---|---|
+| Multi-Scenario Dataset | 20 scenarios evenly balanced across 4 disruption domains | `benchmark_suite.json` verified | **PASSED** |
+| Category Metric Stratification | Accuracy, stability, latency, and conflict intensity per domain | 4 categories evaluated | **PASSED** |
+| Conflict Intensity Index (CII) | Measures cross-agent divergence complexity ($1.0 - \text{AR}$) | $\text{CII} = 0.267$ computed | **PASSED** |
+| Backend & API Gateway Proxies | `/benchmark/categories` on ports 8040 and 8000 | 200 OK with identical JSON | **PASSED** |
+| Desktop TypeScript Types | Typed interfaces in `types.ts` and `client.ts` | 0 type errors on `tsc` | **PASSED** |
+| Desktop Live Data Binding | Dynamic state replacing hardcoded constants in `EvaluationView` | Live render & re-run tested | **PASSED** |
+| Automated Pytest Suite | 3 tests in `test_multi_scenario_suite.py` | 3 / 3 passed (40 / 40 cumulative) | **PASSED** |

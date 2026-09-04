@@ -9,6 +9,8 @@ from .harness import (
     run_calibration_evaluation,
     evaluate_predictions,
     BenchmarkSummaryResponse,
+    CategoryBenchmarkResponse,
+    evaluate_category_breakdown,
     resolve_calibration_file_path,
 )
 from .benchmark_runner import (
@@ -203,4 +205,15 @@ async def compare_bundle(request: CompareBundleRequest):
         return result
     except Exception as e:
         logger.error(f"Bundle comparison failed: {e}", exc_info=True)
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/benchmark/categories", response_model=CategoryBenchmarkResponse)
+async def get_category_benchmark():
+    """Return category-stratified evaluation metrics across all 4 canonical disruption domains."""
+    try:
+        report = evaluate_category_breakdown()
+        return report
+    except Exception as e:
+        logger.error(f"Category benchmark failed: {e}", exc_info=True)
         raise HTTPException(status_code=500, detail=str(e))
