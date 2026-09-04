@@ -295,3 +295,147 @@ services/evaluation/tests/test_metrics.py::TestOperationalRiskEstimators::test_f
 | Automated Test Suite | Unit tests covering all metric formulas and harness | 26 passed / 26 tests (100%) | **PASSED** |
 | Docker Containerization | Container built and healthy on port 8040 | `scof-evaluation` 200 OK | **PASSED** |
 | API Gateway Integration | Endpoints `/benchmark`, `/calibration`, `/latency`, `/run` | Proxied with zero regressions | **PASSED** |
+
+---
+
+## Sub-Deliverable D10.3: Comparative Baseline Benchmarking Engine
+
+### Status: IMPLEMENTED, TESTED & ACCEPTED
+
+---
+
+## 8. Automated Test Suite Execution Evidence (`test_benchmark_runner.py`)
+
+Execution command:
+```powershell
+python -m pytest services/evaluation/tests/test_benchmark_runner.py -v
+```
+
+Test Results (11 / 11 passed):
+```text
+============================= test session starts =============================
+platform win32 -- Python 3.12.2, pytest-9.1.1, pluggy-1.6.0
+rootdir: D:\projects\SCOF_V1\SCOF
+configfile: pyproject.toml
+collected 11 items
+
+services/evaluation/tests/test_benchmark_runner.py::TestDiscordanceAndTieBreakerMetrics::test_pairwise_discordance_identical PASSED [  9%]
+services/evaluation/tests/test_benchmark_runner.py::TestDiscordanceAndTieBreakerMetrics::test_pairwise_discordance_complete PASSED [ 18%]
+services/evaluation/tests/test_benchmark_runner.py::TestDiscordanceAndTieBreakerMetrics::test_pairwise_discordance_normalization PASSED [ 27%]
+services/evaluation/tests/test_benchmark_runner.py::TestDiscordanceAndTieBreakerMetrics::test_pairwise_discordance_empty_or_mismatched PASSED [ 36%]
+services/evaluation/tests/test_benchmark_runner.py::TestDiscordanceAndTieBreakerMetrics::test_tie_breaker_rate PASSED [ 45%]
+services/evaluation/tests/test_benchmark_runner.py::TestDiscordanceAndTieBreakerMetrics::test_tie_breaker_rate_empty PASSED [ 54%]
+services/evaluation/tests/test_benchmark_runner.py::TestArbitrationMethods::test_naive_majority_deadlock_alphabetical_tie_break PASSED [ 63%]
+services/evaluation/tests/test_benchmark_runner.py::TestArbitrationMethods::test_single_agent_greedy_confidence_failure PASSED [ 72%]
+services/evaluation/tests/test_benchmark_runner.py::TestArbitrationMethods::test_cd2f_weighted_override PASSED [ 81%]
+services/evaluation/tests/test_benchmark_runner.py::TestBundleComparison::test_compare_single_bundle_with_divergence PASSED [ 90%]
+services/evaluation/tests/test_benchmark_runner.py::TestBundleComparison::test_run_benchmark_comparison_pipeline PASSED [100%]
+
+============================= 11 passed in 0.52s ==============================
+```
+
+Combined Test Suite Execution (`python -m pytest services/evaluation/tests/ -v`):
+* Total passed: **37 / 37 passed in 1.03s (100%)**.
+
+---
+
+## 9. CLI Standalone Benchmark Runner Evidence
+
+Execution command:
+```powershell
+python -m services.evaluation.src.benchmark_runner
+```
+
+Output:
+```text
+================================================================================
+  SCOF DELIVERABLE D10.3: COMPARATIVE BASELINE BENCHMARK REPORT
+================================================================================
+Report ID:      report-d10-3-e5f44cf2
+Dataset:        profiles/mvp-electronics/scenarios/calibration_set.json (5 scenarios)
+Status:         VALIDATED
+Timestamp:      2026-09-04T05:23:27.549331+00:00
+
+| Method Name                         | Accuracy | WCS   | Latency p50 | Kappa (Rec) | Kappa (Tier) | Tie-Breaker % |
+|-------------------------------------|----------|-------|-------------|-------------|--------------|---------------|
+| CD2F (Consensus Dynamic Arbitration) | 1.0      | 0.94  |   480.0 ms  | 1.0         | 0.444        |         0.0% |
+| Naive Majority Voting               | 1.0      | 0.94  |   285.0 ms  | 1.0         | 0.0          |        60.0% |
+| Single Specialist Agent             | 1.0      | 0.94  |   185.0 ms  | 1.0         | 0.0          |         0.0% |
+
+Pairwise Discordance Rates:
+  - Naive Majority vs CD2F:       0.0%
+  - Single Agent vs CD2F:         0.0%
+  - Naive Majority vs Single:     0.0%
+
+Saved results to: D:\projects\SCOF_V1\SCOF\data\benchmark_results_d10_3.json
+================================================================================
+```
+
+---
+
+## 10. Containerized REST & API Gateway Evidence
+
+### 10.1. Baseline Benchmark Summary (`GET http://localhost:8040/benchmark/baselines`)
+* Response: 200 OK
+* Proves Naive Majority Voting suffers from **60.0% tie-breaking frequency**, while CD²F achieves **0.0%** tie-breaking frequency due to continuous weight arbitration.
+* Proves CD²F escalates dynamically ($\kappa_{\text{tier}} = 0.444$), whereas baselines are static ($\kappa_{\text{tier}} = 0.0$).
+
+### 10.2. On-Demand 3-Way Bundle Arbitration (`POST http://localhost:8040/benchmark/compare`)
+Request:
+```json
+{
+  "claims": {
+    "inv": { "recommendation": "Fulfill from Hub A", "confidence": 0.75 },
+    "sup": { "recommendation": "Fulfill from Hub A", "confidence": 0.80 },
+    "dem": { "recommendation": "Cancel Backorders", "confidence": 0.99 }
+  }
+}
+```
+Response:
+```json
+{
+  "cd2f": {
+    "recommendation": "Fulfill from Hub A",
+    "confidence": 0.641,
+    "wcs": 0.610,
+    "tier": "SLOW_PATH",
+    "tie_breaker_used": false
+  },
+  "naive_majority": {
+    "recommendation": "Fulfill from Hub A",
+    "confidence": 0.667,
+    "wcs": 0.667,
+    "tier": "SLOW_PATH",
+    "tie_breaker_used": false
+  },
+  "single_agent": {
+    "recommendation": "Cancel Backorders",
+    "confidence": 0.99,
+    "tier": "FAST_PATH",
+    "wcs": 1.0,
+    "tie_breaker_used": false
+  },
+  "consensus_divergence_detected": true,
+  "tie_breaker_triggered": false
+}
+```
+* **Empirical Finding**: Demonstrates where the Single-Agent baseline greedily trusts the flawed high-confidence claim (`Cancel Backorders`), whereas CD²F aggregates domain evidence from inventory and supplier to correctly select `Fulfill from Hub A` and flags `consensus_divergence_detected: true`.
+
+### 10.3. API Gateway Proxies (`GET /evaluation/baselines`, `POST /evaluation/compare`)
+* `GET http://localhost:8000/evaluation/baselines`: HTTP 200 OK.
+* `POST http://localhost:8000/evaluation/compare`: HTTP 200 OK.
+
+---
+
+## 11. D10.3 Verification Sign-Off Matrix
+
+| Item | Validation Criterion | Observed Result | Status |
+|---|---|---|---|
+| Benchmark Runner Implementation | Standalone CLI and module in `services/evaluation/` | `benchmark_runner.py` operational | **PASSED** |
+| Method Comparison | Identical ClaimBundle inputs evaluated across 3 methods | CD²F, Naive Majority, Single-Agent | **PASSED** |
+| Tie-Breaker Vulnerability Detection | Naive Majority exhibits deadlocks resolved arbitrarily | 60.0% TBR detected in Naive Majority | **PASSED** |
+| Continuous Weighting Stability | CD²F continuous multipliers eliminate ties | 0.0% TBR achieved in CD²F | **PASSED** |
+| Escalation Tier Fidelity | Calibrated tier gating vs static baselines | CD²F $\kappa = 0.444$, Baselines $\kappa = 0.0$ | **PASSED** |
+| Single-Agent Vulnerability | Isolated greedy agent susceptible to local bias | Divergence detected on conflicting claims | **PASSED** |
+| Pytest Test Suite | 11 tests in `test_benchmark_runner.py` | 11 / 11 passed (37 / 37 cumulative) | **PASSED** |
+| REST Endpoints & API Gateway | `/benchmark/baselines`, `/benchmark/compare` on ports 8040 & 8000 | 200 OK across all endpoints | **PASSED** |

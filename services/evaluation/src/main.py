@@ -11,6 +11,12 @@ from .harness import (
     BenchmarkSummaryResponse,
     resolve_calibration_file_path,
 )
+from .benchmark_runner import (
+    run_benchmark_comparison,
+    compare_single_bundle,
+    BenchmarkComparisonReport,
+    SingleBundleComparisonResult,
+)
 
 logger = logging.getLogger("scof.evaluation")
 logging.basicConfig(level=logging.INFO)
@@ -164,3 +170,37 @@ async def get_latency_metrics():
             "sla_compliant": cal.get("slow_path_latency_p50_ms", 510.0) <= 2000.0,
         },
     }
+
+
+@app.get("/benchmark/baselines", response_model=BenchmarkComparisonReport)
+async def get_baseline_benchmark():
+    """Execute and return full comparative benchmark across CD2F and baselines."""
+    try:
+        report = run_benchmark_comparison()
+        return report
+    except Exception as e:
+        logger.error(f"Baseline benchmark failed: {e}", exc_info=True)
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+class CompareBundleRequest(BaseModel):
+    claims: Dict[str, Any]
+    ground_truth: Optional[Dict[str, Any]] = None
+    bundle_id: Optional[str] = None
+    scenario_id: Optional[str] = None
+
+
+@app.post("/benchmark/compare", response_model=SingleBundleComparisonResult)
+async def compare_bundle(request: CompareBundleRequest):
+    """Execute on-demand comparative arbitration across all three methods for an uploaded ClaimBundle."""
+    try:
+        result = compare_single_bundle(
+            claims=request.claims,
+            ground_truth=request.ground_truth,
+            bundle_id=request.bundle_id,
+            scenario_id=request.scenario_id,
+        )
+        return result
+    except Exception as e:
+        logger.error(f"Bundle comparison failed: {e}", exc_info=True)
+        raise HTTPException(status_code=500, detail=str(e))
