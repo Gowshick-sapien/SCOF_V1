@@ -19,6 +19,7 @@ KAFKA_CONSUMER_MAX_RETRIES = 3
 
 COORDINATOR_URL = os.getenv("COORDINATOR_URL", "http://localhost:8010")
 OBSERVABILITY_URL = os.getenv("OBSERVABILITY_URL", "http://localhost:8030")
+EVALUATION_URL = os.getenv("EVALUATION_URL", "http://localhost:8040")
 
 CORS_ORIGINS: List[str] = json.loads(os.getenv("CORS_ORIGINS", '["http://localhost:3000"]'))
 SCOF_PROFILE_PATH = os.getenv("SCOF_PROFILE_PATH", "../../profiles/mvp-electronics")

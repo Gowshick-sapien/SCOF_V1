@@ -33,13 +33,13 @@ Completion of Deliverable 10 marks **official completion of the SCOF MVP**, deli
 
 ## 3. Sub-Deliverable Roadmap for D10
 
-| Sub-Deliverable | Description | Planned Artifacts |
-|---|---|---|
-| **D10.1** | Full Loop Autonomous Wiring Verification | Automated pipeline execution script & audit log |
-| **D10.2** | Evaluation Harness Engine & Service | `services/evaluation/` implementation & REST API |
-| **D10.3** | Comparative Baseline Implementation | Baseline scoring functions & benchmark suites |
-| **D10.4** | Automated Benchmark Execution & Data Collection | Scenario evaluation run over synthetic test cases |
-| **D10.5** | Research Question Synthesis & Final MVP Acceptance | Comprehensive results report (RQ1–RQ4) |
+| Sub-Deliverable | Description | Planned Artifacts | Status |
+|---|---|---|---|
+| **D10.1** | Full Loop Autonomous Wiring Verification | Automated pipeline execution script & audit log | Completed & Verified |
+| **D10.2** | Evaluation Harness Engine & Service | `services/evaluation/` implementation & REST API | Completed & Verified |
+| **D10.3** | Comparative Baseline Implementation | Baseline scoring functions & benchmark suites | In Progress (Implementation Plan) |
+| **D10.4** | Automated Benchmark Execution & Data Collection | Scenario evaluation run over synthetic test cases | Pending |
+| **D10.5** | Research Question Synthesis & Final MVP Acceptance | Comprehensive results report (RQ1–RQ4) | Pending |
 
 ---
 

@@ -312,6 +312,7 @@ services:
       - KAFKA_BOOTSTRAP_SERVERS=kafka:29092
       - COORDINATOR_URL=http://coordinator:8010
       - OBSERVABILITY_URL=http://observability:8030
+      - EVALUATION_URL=http://evaluation:8040
       - SCOF_PROFILE_PATH=/app/profiles/mvp-electronics
       - API_PORT=8000
       - CORS_ORIGINS=["http://localhost:3000", "http://localhost:1420"]
@@ -336,8 +337,11 @@ services:
       - CONSENSUS_URL=http://consensus:8020
       - OBSERVABILITY_URL=http://observability:8030
       - EVALUATION_PORT=8040
+      - CALIBRATION_DATASET_PATH=/app/profiles/mvp-electronics/scenarios/calibration_set.json
     ports:
       - "8040:8040"
+    volumes:
+      - ./profiles:/app/profiles:ro
 
 volumes:
   postgres_data:
