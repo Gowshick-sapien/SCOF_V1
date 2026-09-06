@@ -1008,8 +1008,8 @@ The CORS origin for the Tauri webview will be added to the `.env` file during Ph
 | D06 | Consensus / Arbitration | Complete |
 | D07 | Observability | Complete |
 | D08 | Backend API and Real-Time Layer | Complete |
-| **D09** | **SCOF Desktop Operations Console** | **Next** |
-| D10 | Evaluation and Benchmarking | Pending |
+| **D09** | **SCOF Desktop Operations Console** | **Complete** |
+| D10 | Evaluation and Benchmarking | Complete (MVP Complete) |
 
 ---
 

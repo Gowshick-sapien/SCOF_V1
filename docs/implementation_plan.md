@@ -208,18 +208,18 @@ D10  D11 (Post-MVP stubs — not built, only interfaced)
 
 ## **Summary Table**
 
-| Deliverable | Independently testable output | Depends on | Profile Files Used |
-| ----- | ----- | ----- | ----- |
-| D1 | Queryable synthetic dataset + disruption events | — | `topology.yaml`, `disruptions.yaml` |
-| D2 | Queryable graph + vector store | D1 | `topology.yaml`, `data_bindings.yaml` |
-| D3 | Callable Demand + Inventory agent APIs | D1, D2 | `agents.yaml` |
-| D4 | Callable Supplier + Transportation agent APIs | D1, D2 | `agents.yaml` |
-| D5 | Full raw claim bundle via A2A/MCP orchestration | D3, D4 | `agents.yaml` |
-| D6 | Validated consensus decisions on fixture data | (standalone, tested against fixtures) | `consensus.yaml` |
-| D7 | Fully inspectable decision traces | D5, D6 | — |
-| D8 | Fully API-drivable pipeline | D1–D7 | `profile.yaml` |
-| D9 | Clickable desktop console demo | D8 | `dashboard.yaml` |
-| D10 | **MVP**: full loop + benchmark results | D1–D9 | `evaluation.yaml` |
-| D11 | Extension interface doc (no code) | D10 | — |
+| Deliverable | Independently testable output | Status | Depends on | Profile Files Used |
+| :--- | :--- | :--- | :--- | :--- |
+| **D1** | Queryable synthetic dataset + disruption events | **Completed** | — | `topology.yaml`, `disruptions.yaml` |
+| **D2** | Queryable graph + vector store | **Completed** | D1 | `topology.yaml`, `data_bindings.yaml` |
+| **D3** | Callable Demand + Inventory agent APIs | **Completed** | D1, D2 | `agents.yaml` |
+| **D4** | Callable Supplier + Transportation agent APIs | **Completed** | D1, D2 | `agents.yaml` |
+| **D5** | Full raw claim bundle via A2A/MCP orchestration | **Completed** | D3, D4 | `agents.yaml` |
+| **D6** | Validated consensus decisions on fixture data | **Completed** | (standalone, tested against fixtures) | `consensus.yaml` |
+| **D7** | Fully inspectable decision traces | **Completed** | D5, D6 | — |
+| **D8** | Fully API-drivable pipeline | **Completed** | D1–D7 | `profile.yaml` |
+| **D9** | Clickable desktop console demo | **Completed** | D8 | `dashboard.yaml` |
+| **D10** | **MVP**: full loop + benchmark results (RQ1–RQ4) | **Completed (MVP Complete)** | D1–D9 | `evaluation.yaml` |
+| **D11** | Extension interface doc (no code required for MVP) | **Post-MVP Roadmap** | D10 | — |
 
 

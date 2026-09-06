@@ -34,3 +34,12 @@ services/evaluation/results/*.csv
 .idea/
 .DS_Store
 Thumbs.db
+
+# Development & Agent Tooling
+.agents/
+.gemini/
+
+# Rust & Tauri Builds
+target/
+**/src-tauri/target/
+**/gen/schemas/
