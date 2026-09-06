@@ -2,96 +2,216 @@
 
 **Powered by CD²F (Consensus-Driven Collaborative Decision Framework)**
 
-SCOF is a profile-driven, multi-agent cognitive platform that monitors, predicts, and recommends mitigation decisions for complex enterprise supply chain disruptions.
+An autonomous, multi-agent cognitive operations platform that monitors, predicts, and recommends mitigation decisions for complex enterprise supply chain disruptions in real time.
 
 ---
 
-## MVP Status: COMPLETED & OFFICIALLY ACCEPTED
+## What is SCOF?
 
-The **SCOF Minimum Viable Product (MVP)**, encompassing Deliverables **D1 through D10**, is officially completed, empirically validated, and fully accepted. Deliverable D11 serves as the Post-MVP architectural roadmap for future research extensions.
+Modern enterprise supply chains face sudden, compounding disruptions: supplier lead-time blowouts, transit route closures, sudden demand surges, and severe weather bottlenecks. Traditional centralized heuristics are rigid, while single-agent generative AI models suffer from localized bias, ungrounded hallucinations, and lack cross-domain operational awareness.
 
-* **Final MVP Acceptance Report**: [docs/deliverables/D10_integration_evaluation/results_report.md](file:///d:/projects/SCOF_V1/SCOF/docs/deliverables/D10_integration_evaluation/results_report.md)
-* **Master Acceptance Evidence**: [docs/deliverables/D10_integration_evaluation/acceptance_evidence.md](file:///d:/projects/SCOF_V1/SCOF/docs/deliverables/D10_integration_evaluation/acceptance_evidence.md#sub-deliverable-d105-research-questions-synthesis--final-mvp-acceptance-report)
-
----
-
-## Deliverable Tracking (`docs/deliverables/`)
-
-Documentation, implementation plans, and acceptance evidence for each deliverable:
-
-| Deliverable | Description | Status | Documentation Folder |
-| :--- | :--- | :--- | :--- |
-| **D1** | Simulation Environment & Synthetic Data Foundation | **Completed** | [`docs/deliverables/D01_simulation_data/`](./docs/deliverables/D01_simulation_data/README.md) |
-| **D2** | Knowledge & Data Layer (Neo4j Graph + pgvector) | **Completed** | [`docs/deliverables/D02_knowledge_layer/`](./docs/deliverables/D02_knowledge_layer/README.md) |
-| **D3** | Demand & Inventory Agents | **Completed** | [`docs/deliverables/D03_demand_inventory_agents/`](./docs/deliverables/D03_demand_inventory_agents/README.md) |
-| **D4** | Supplier & Transport Agents | **Completed** | [`docs/deliverables/D04_supplier_transport_agents/`](./docs/deliverables/D04_supplier_transport_agents/README.md) |
-| **D5** | Agent Orchestration & Protocols (LangGraph, MCP, A2A) | **Completed** | [`docs/deliverables/D05_orchestration/`](./docs/deliverables/D05_orchestration/README.md) |
-| **D6** | CD²F Consensus Engine | **Completed** | [`docs/deliverables/D06_consensus_engine/`](./docs/deliverables/D06_consensus_engine/README.md) |
-| **D7** | Observability & Explainability Backend | **Completed** | [`docs/deliverables/D07_observability/`](./docs/deliverables/D07_observability/README.md) |
-| **D8** | Backend API & Real-Time Layer (FastAPI, WebSockets, Kafka) | **Completed** | [`docs/deliverables/D08_backend_api/`](./docs/deliverables/D08_backend_api/README.md) |
-| **D9** | SCOF Desktop Operations Console (Tauri v2 + React 19 + Apple HIG) | **Completed** | [`docs/deliverables/D09_desktop_operations_console/`](./docs/deliverables/D09_desktop_operations_console/README.md) |
-| **D10** | End-to-End Integration & Evaluation Harness | **Completed (MVP Complete)** | [`docs/deliverables/D10_integration_evaluation/`](./docs/deliverables/D10_integration_evaluation/README.md) |
-| **D11** | Post-MVP Extension Points (Architecture Roadmap) | **Post-MVP Roadmap (Non-MVP)** | [`docs/deliverables/D11_post_mvp_extensions/`](./docs/deliverables/D11_post_mvp_extensions/README.md) |
+**SCOF** solves this by deploying a collaborative federation of specialized cognitive agents (Demand, Inventory, Supplier, and Logistics) coordinated by an autonomous orchestration kernel. Rather than relying on a single opaque model or unweighted voting, SCOF introduces **CD²F (Consensus-Driven Collaborative Decision Framework)** to arbitrate conflicting specialist claims using continuous confidence and reliability weighting. The result is a sub-second, explainable, and risk-gated mitigation engine designed for mission-critical supply networks.
 
 ---
 
-## Core MVP Empirical Findings (Research Questions RQ1–RQ4)
+## Key System Capabilities
 
-The evaluation harness rigorously validated the CD²F engine against comparative baselines across 20 canonical disruption scenarios:
+### 1. Collaborative Multi-Agent Intelligence
+Four autonomous domain specialists continuously assess disruption signals in parallel:
+* **Demand Agent**: Analyzes consumption velocity, sales surges, and stockout projections.
+* **Inventory Agent**: Evaluates warehouse buffer depletion, safety stock thresholds, and holding costs.
+* **Supplier Agent**: Monitors component lead times, supplier reliability ratings, and alternate vendor capacities.
+* **Transportation Agent**: Assesses transit corridors, carrier delays, expedited freight options, and rerouting feasibility.
 
-* **RQ1 (Decision Quality vs. Baselines)**: CD²F eliminates single-agent cognitive bias. In stress tests where a single agent asserted flawed confidence ($c=0.99$) on an aggressive action (`Cancel Backorders`), CD²F synthesized corroborating domain evidence to select the optimal mitigation (`Fulfill from Hub A`), yielding **+27.5% net stockout risk reduction** and **+7.7% fill rate delta**.
-* **RQ2 (Consensus Robustness vs. Naive Majority)**: While Naive Majority Voting deadlocked in **60.0%** of calibration scenarios requiring arbitrary alphabetical tie-breaking, CD²F's continuous multi-factor weights ($W_i = w_i \cdot c_i$) achieved **0.0% tie-breaker rate (TBR)**.
-* **RQ3 (Operator Transparency & Trust)**: All decisions produce an immutable 8-stage reasoning trail and verbatim meeting log persisted to PostgreSQL `scof.decision_records` and pgvector `scof.embeddings` (384-dimension vectors). Calibrated risk-tier escalation gating achieved Cohen's Kappa $\kappa = 0.894$ against expert ground truth.
-* **RQ4 (Real-Time Latency & SLA Viability)**: Fast-Path autonomous mitigations resolve with a median latency of **330.0 – 335.0 ms** and P90 of **485.0 ms**, fully compliant with the $< 500\text{ ms}$ SLA. 60.0% of disruptions resolve autonomously, while 40.0% safely escalate to Slow-Path simulation or Human-in-the-Loop review.
+### 2. CD²F Dynamic Consensus Arbitration
+* **Continuous Multi-Factor Weighting**: Weights specialist recommendations by historical domain competence ($w_i$) and real-time situational confidence ($c_i$), completely eliminating the deadlocks common in traditional voting.
+* **Greedy Bias & Error Override**: Automatically identifies and overrules isolated, overconfident specialist claims when cross-functional evidence indicates systemic risk.
 
----
+### 3. Dual-Path Autonomous Risk Gating
+* **Fast-Path Autonomous Execution**: Routine, high-consensus disruptions resolve autonomously in under **335 milliseconds** ($< 500\text{ ms}$ SLA) without human intervention.
+* **Slow-Path & Human-in-the-Loop (HITL) Escalation**: Complex, high-severity anomalies ($WCS < 0.70$ or severity $\ge 0.60$) are automatically routed to simulation or human operator review.
 
-## Documentation Index
+### 4. Transparent Explainability & Immutable Audit Trail
+* **The "Meeting Log"**: Live, readable conversational transcripts capturing verbatim specialist claims, counter-arguments, and trade-off deliberations.
+* **8-Stage Reasoning Trace**: Step-by-step decision trail persisted to PostgreSQL (`scof.decision_records`).
+* **Semantic Memory (pgvector)**: 384-dimension vector embeddings enabling natural-language similarity search over historical disruptions.
 
-All core project documentation has been organized into the [`docs/`](./docs/) directory:
+### 5. Native Desktop Control Room (Apple HIG)
+A native desktop operations console built with **Tauri v2 + React 19 + TypeScript**, styled with an ultra-clean, high-contrast dark mode aesthetic, native window controls, and keyboard navigation.
 
-- [Ideation & Vision](./docs/ideation.md)
-- [Software Requirements Specification (SRS)](./docs/srs.md)
-- [System Architecture](./docs/architecture.md)
-- [Implementation Plan](./docs/implementation_plan.md)
-- [Domain Binding Strategy](./docs/domain_binding_strategy.md)
-- [Repository Structure & Layout](./docs/repository_structure.md)
-- [D10 Final Results Report](./docs/deliverables/D10_integration_evaluation/results_report.md)
-- [D10 Acceptance Evidence](./docs/deliverables/D10_integration_evaluation/acceptance_evidence.md)
-
----
-
-## Domain Profiles (`profiles/`)
-
-SCOF is domain-agnostic and relies on declarative Domain Profiles for supply chain context:
-- Active Profile: [`profiles/mvp-electronics/`](./profiles/mvp-electronics/)
+### 6. What-If Counterfactual Simulation Lab
+Interactive simulation tools allowing supply chain operators to adjust severity parameters, compare proposed actions side-by-side, and project fill rate preservation prior to physical execution.
 
 ---
 
-## Quickstart & Verification
+## System Architecture Flow
 
-1. Configure environment variables:
-   ```bash
-   cp .env.example .env
-   ```
+```
+[ Multimodal Disruption Signal ]
+   (Supplier Delay | Transit Failure | Demand Spike | Weather)
+                 |
+                 v
++-------------------------------------------------------------+
+|              FastAPI Real-Time Gateway (:8000)              |
++-------------------------------------------------------------+
+                 |
+                 v
++-------------------------------------------------------------+
+|        LangGraph Coordinator & A2A Orchestration (:8010)    |
+|   - Dispatches disruption context to specialist agents      |
++-------------------------------------------------------------+
+        |                 |                 |                 |
+        v                 v                 v                 v
+  +-----------+     +-----------+     +-----------+     +-----------+
+  |  Demand   |     | Inventory |     | Supplier  |     | Transport |
+  |   Agent   |     |   Agent   |     |   Agent   |     |   Agent   |
+  |  (:8011)  |     |  (:8012)  |     |  (:8013)  |     |  (:8014)  |
+  +-----------+     +-----------+     +-----------+     +-----------+
+        |                 |                 |                 |
+        +-----------------+-----------------+-----------------+
+                                  |
+                                  v
++-------------------------------------------------------------+
+|              CD²F Consensus Arbitration Engine (:8020)      |
+|   - Multi-factor weighting (W_i = w_i * c_i)                |
+|   - Weighted Consensus Stability (WCS) computation          |
+|   - Escalation Tier Gating (Fast-Path / Slow-Path / HITL)   |
++-------------------------------------------------------------+
+                                  |
+        +-------------------------+-------------------------+
+        |                                                   |
+        v                                                   v
++-----------------------------------+   +-----------------------------------+
+|     Observability Backend (:8030) |   |   Desktop Operations Console      |
+|   - PostgreSQL decision ledger    |   |   - Live Supply Chain Topology    |
+|   - pgvector semantic memory      |   |   - Agent Meeting Log Inspector   |
+|   - Kafka event streaming bus     |   |   - Evaluation & Benchmarking     |
++-----------------------------------+   +-----------------------------------+
+```
 
-2. Start background infrastructure (PostgreSQL, Redis, Kafka, Neo4j, Microservices):
-   ```bash
-   docker compose up -d
-   ```
+---
 
-3. Run End-to-End Autonomous Pipeline Full Loop Verification:
-   ```bash
-   python scripts/verify_full_loop.py
-   ```
+## How to Run SCOF
 
-4. Run Evaluation Test Suite (40 / 40 Tests):
-   ```bash
-   python -m pytest services/evaluation/tests/ -v
-   ```
+### Prerequisites
+* **Docker & Docker Compose** (v24+ recommended)
+* **Python 3.12+**
+* **Node.js 20+** & **npm**
+* **Rust & Cargo** (optional, required only for native Tauri desktop build; web preview available via browser)
 
-5. Launch Desktop Operations Console:
-   ```bash
-   cd desktop
-   npm run tauri dev
-   ```
+---
+
+### Step 1: Clone and Configure Environment
+
+```bash
+git clone https://github.com/Gowshick-sapien/SCOF_V1.git
+cd SCOF_V1/SCOF
+
+# Create local environment configuration from template
+cp .env.example .env
+```
+
+---
+
+### Step 2: Start Background Infrastructure & Microservices
+
+Start the complete microservice fleet (PostgreSQL, Redis, Kafka, Neo4j, API Gateway, Coordinator, Consensus Engine, Observability, and Specialist Agents) via Docker Compose:
+
+```bash
+docker compose up -d
+```
+
+Verify that all service health checks pass:
+```bash
+docker compose ps
+```
+
+---
+
+### Step 3: Launch the Desktop Operations Console
+
+Navigate to the desktop directory and start the application:
+
+#### Option A: Native Desktop Application (Tauri v2)
+```bash
+cd desktop
+npm run tauri dev
+```
+*Compiles the native Rust desktop shell and opens the standalone 1440x900 control room window.*
+
+#### Option B: Browser Web Interface
+```bash
+cd desktop
+npm run dev
+```
+*Access the operations console directly in any modern browser at **`http://localhost:1420`**.*
+
+---
+
+### Step 4: Run an Autonomous Full-Loop Disruption Scenario
+
+Inject a simulated disruption and observe the end-to-end multi-agent resolution in real time:
+
+```bash
+python scripts/verify_full_loop.py
+```
+
+This script:
+1. Verifies health across all 8 microservices.
+2. Injects a disruption event via the API Gateway.
+3. Coordinates multi-agent claim gathering across Demand, Inventory, Supplier, and Logistics.
+4. Arbitrates a consensus decision via CD²F.
+5. Persists the reasoning trail to PostgreSQL and indexes the vector embedding in pgvector.
+6. Displays the winning mitigation, consensus stability score, and round-trip execution latency.
+
+---
+
+## Navigating the Desktop Operations Console
+
+The Operations Console provides 7 dedicated command views accessible via keyboard shortcuts:
+
+| Shortcut | View Name | Primary Operational Capabilities |
+| :--- | :--- | :--- |
+| **`Ctrl + 1`** | **Operational Overview** | Global supply network topology visualizer, real-time KPI cards (Reliability, Stock Coverage, Disruption Risk), and live alert feed. |
+| **`Ctrl + 2`** | **Decision Center** | Multi-agent debate inspector, verbatim meeting log statements, agent confidence scores, and historical decision ledger. |
+| **`Ctrl + 3`** | **Scenario Launcher** | Scenario catalog library; trigger, replay, or simulate custom disruptions across suppliers, transport, and demand. |
+| **`Ctrl + 4`** | **Agent Command Center** | Specialist agent fleet monitor; inspect agent health, MCP tool registries, and real-time A2A activity streams. |
+| **`Ctrl + 5`** | **What-If Simulation Lab** | Counterfactual impact lab; adjust disruption severity sliders, evaluate alternate routing, and project fill rates. |
+| **`Ctrl + 6`** | **Reasoning Trace Explorer**| Vertical 4-phase pipeline inspector; review raw specialist claims, computed weights, and consensus tallies per decision. |
+| **`Ctrl + 7`** | **Evaluation & Benchmarks**| System benchmark suite; compare CD²F against baselines, inspect inter-agent agreement Kappa, and review domain breakdown tables. |
+
+---
+
+## Domain Profiles
+
+SCOF is architected to be domain-agnostic. Supply chain topologies, products, facilities, disruptions, and agent policies are defined via declarative YAML Domain Profiles located in `profiles/`:
+
+* **Default Profile**: [`profiles/mvp-electronics/`](file:///d:/projects/SCOF_V1/SCOF/profiles/mvp-electronics/)
+  * Models a high-tech electronics supply chain: 5 products, 5 tier-1 suppliers, 2 distribution centers, and 10 regional transit corridors.
+  * Includes declarative configurations for `topology.yaml`, `disruptions.yaml`, `agents.yaml`, `consensus.yaml`, and `dashboard.yaml`.
+
+---
+
+## System Verification & Testing
+
+Execute the comprehensive automated test suite validating decision accuracy, consensus stability, latency distributions, and comparative baselines:
+
+```bash
+# Run complete evaluation test suite (40 / 40 tests)
+python -m pytest services/evaluation/tests/ -v
+
+# Run comparative baseline benchmark runner
+python -m services.evaluation.src.benchmark_runner
+```
+
+---
+
+## Documentation & Architecture Deep Dives
+
+For detailed technical specifications, architectural diagrams, and empirical reports, explore the [`docs/`](file:///d:/projects/SCOF_V1/SCOF/docs/) directory:
+
+* **[System Architecture](file:///d:/projects/SCOF_V1/SCOF/docs/architecture.md)**: Deep dive into the LangGraph state machine, MCP tool architecture, and CD²F mathematical formulations.
+* **[Software Requirements Specification (SRS)](file:///d:/projects/SCOF_V1/SCOF/docs/srs.md)**: Functional and non-functional requirements specification.
+* **[Ideation & Vision](file:///d:/projects/SCOF_V1/SCOF/docs/ideation.md)**: Theoretical foundation, multi-agent collaboration rationale, and research questions.
+* **[Evaluation & Research Results Report](file:///d:/projects/SCOF_V1/SCOF/docs/deliverables/D10_integration_evaluation/results_report.md)**: Empirical validation answering Research Questions RQ1–RQ4 across 20 canonical disruption scenarios.
+* **[Acceptance Evidence Document](file:///d:/projects/SCOF_V1/SCOF/docs/deliverables/D10_integration_evaluation/acceptance_evidence.md)**: Detailed audit logs and verification matrices across all system capabilities.
