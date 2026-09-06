@@ -29,6 +29,22 @@ The platform is **domain-agnostic by design**: its engine (agent orchestration, 
 | **Incremental Isolation** | Each deliverable (D1–D10) is independently runnable and testable before being wired into the next stage. |
 | **Extensibility without Rearchitecture** | The A2A/MCP protocol layer and profile-driven configuration ensure new agents, data sources, and even new supply chain contexts are additive — not architectural rewrites. |
 
+### **1.3 Architecture Decision Records (ADRs)**
+
+All key architectural trade-offs, technology selections, and design rationales are formally documented as individual Architecture Decision Records in [`docs/adr/`](./adr/README.md):
+* [ADR 001: Orchestration Kernel Selection (LangGraph)](./adr/001_langgraph_orchestration_kernel.md)
+* [ADR 002: Message Streaming Bus Selection (Apache Kafka)](./adr/002_apache_kafka_event_streaming.md)
+* [ADR 003: Vector Database Selection (pgvector)](./adr/003_pgvector_for_semantic_memory.md)
+* [ADR 004: Consensus Arbitration Framework (CD²F)](./adr/004_cd2f_consensus_arbitration.md)
+* [ADR 005: Execution Routing Strategy (Dual-Path Gating)](./adr/005_dual_path_execution_routing.md)
+* [ADR 006: Protocol Standardization (MCP & A2A)](./adr/006_mcp_and_a2a_protocol_standardization.md)
+* [ADR 007: Knowledge Layer Architecture (Hybrid Neo4j + PostgreSQL)](./adr/007_hybrid_knowledge_layer_neo4j_postgres.md)
+* [ADR 008: Desktop Operations Console Architecture (Tauri v2 + React 19)](./adr/008_tauri_v2_desktop_operations_console.md)
+* [ADR 009: Domain Profile Architecture (Declarative YAML Profiles)](./adr/009_declarative_yaml_domain_profiles.md)
+* [ADR 010: Real-Time State Caching (Redis)](./adr/010_redis_realtime_state_caching.md)
+* [ADR 011: Empirical Evaluation Methodology (Cohen's Kappa)](./adr/011_empirical_evaluation_cohens_kappa.md)
+* [ADR 012: Service Fleet Packaging (Docker Compose Microservices)](./adr/012_containerized_polyglot_microservices.md)
+
 ---
 
 ## **2\. Domain Profile Architecture**
