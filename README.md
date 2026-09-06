@@ -34,7 +34,7 @@ Documentation, plans, and acceptance evidence for each deliverable stage:
 | **D7** | Observability & Explainability Backend | Completed | [`docs/deliverables/D07_observability/`](./docs/deliverables/D07_observability/README.md) |
 | **D8** | Backend API & Real-Time Layer (FastAPI, WebSockets, Kafka) | Completed | [`docs/deliverables/D08_backend_api/`](./docs/deliverables/D08_backend_api/README.md) |
 | **D9** | SCOF Desktop Operations Console (Tauri v2 + React 19 + Apple HIG) | Completed | [`docs/deliverables/D09_desktop_operations_console/`](./docs/deliverables/D09_desktop_operations_console/README.md) |
-| **D10** | End-to-End Integration & Evaluation Harness | Pending | [`docs/deliverables/D10_integration_evaluation/`](./docs/deliverables/D10_integration_evaluation/README.md) |
+| **D10** | End-to-End Integration & Evaluation Harness | Completed (MVP Complete) | [`docs/deliverables/D10_integration_evaluation/`](./docs/deliverables/D10_integration_evaluation/README.md) |
 | **D11** | Post-MVP Extension Points | Pending | [`docs/deliverables/D11_post_mvp_extensions/`](./docs/deliverables/D11_post_mvp_extensions/README.md) |
 
 ---

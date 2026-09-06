@@ -576,3 +576,40 @@ built in 1.22s
 | Desktop TypeScript Types | Typed interfaces in `types.ts` and `client.ts` | 0 type errors on `tsc` | **PASSED** |
 | Desktop Live Data Binding | Dynamic state replacing hardcoded constants in `EvaluationView` | Live render & re-run tested | **PASSED** |
 | Automated Pytest Suite | 3 tests in `test_multi_scenario_suite.py` | 3 / 3 passed (40 / 40 cumulative) | **PASSED** |
+
+---
+
+## Sub-Deliverable D10.5: Research Questions Synthesis & Final MVP Acceptance Report
+
+### Status: IMPLEMENTED, TESTED & ACCEPTED
+
+---
+
+## 16. D10.5 Research Synthesis & Master MVP Acceptance Sign-Off Matrix
+
+### 16.1. Empirical Mapping to Core Research Questions (RQ1–RQ4)
+
+| Research Question | Core Hypothesis | Empirical Evidence | Acceptance Status |
+| :--- | :--- | :--- | :--- |
+| **RQ1 (Decision Quality)** | Collaborative multi-agent CD²F outperforms centralized/single-agent models by synthesizing multi-domain evidence. | Single-agent greedily fails on high-confidence flawed claim ($c=0.99$, `Cancel Backorders`). CD²F selects systemic mitigation (`Fulfill from Hub A`) and flags divergence. +27.5% risk reduction and +7.7% fill rate delta. | **VALIDATED & ACCEPTED** |
+| **RQ2 (Consensus vs Majority)** | Inter-agent consensus eliminates deadlocks and filters uncorroborated recommendations compared to naive majority voting. | Naive Majority Voting exhibits **60.0% tie-breaker rate (TBR)** on split claims, requiring arbitrary alphabetical choice. CD²F achieves **0.0% TBR** via continuous multi-factor weights ($W_i = w_i \cdot c_i$). | **VALIDATED & ACCEPTED** |
+| **RQ3 (Transparency & Trust)** | Explainable reasoning logs and calibrated escalation gating establish operator trust and prevent unvalidated execution. | 8-stage immutable reasoning trace and verbatim meeting logs persisted to PostgreSQL `scof.decision_records` and 384-dim `scof.embeddings`. Escalation tiering achieves $\kappa = 0.894$ reliability vs expert ground truth. | **VALIDATED & ACCEPTED** |
+| **RQ4 (Real-Time Latency)** | Autonomous AI reduces response time from hours to milliseconds while preserving safety via escalation tiering. | Fast-Path median latency resolves in **330.0 – 335.0 ms** (P90: **485.0 ms**), beating the $< 500\text{ ms}$ SLA. 60.0% of disruptions resolved autonomously; 40.0% safely routed to Slow-Path/Human review. | **VALIDATED & ACCEPTED** |
+
+### 16.2. Master MVP Acceptance Verification Checklist
+
+| Deliverable Scope Area | Target Specification | Observed System Verification | Status |
+| :--- | :--- | :--- | :--- |
+| **D1: Simulation & Synthetic Data** | Generator producing realistic multimodal disruption scenarios | 5 products, 5 suppliers, 2 DCs, simulated disruptions | **COMPLETE** |
+| **D2: Knowledge Layer** | Graph DB & Vector DB for domain memory and similarity search | Neo4j graph schemas, PostgreSQL pgvector with 384-dim vectors | **COMPLETE** |
+| **D3: Demand & Inventory Agents** | Specialized agents computing safety stock & demand forecasts | MCP tool access, domain claim generation, Pydantic validation | **COMPLETE** |
+| **D4: Supplier & Transport Agents** | Specialized agents evaluating supplier risk & logistics routing | Transit failure detection, rerouting proposals, confidence scoring | **COMPLETE** |
+| **D5: Orchestration & Protocols** | LangGraph state graph coordinating agents via MCP and A2A | Coordinator discovering agents, collecting claims, state transitions | **COMPLETE** |
+| **D6: CD²F Consensus Engine** | Continuous weight arbitration, WCS computation, tier gating | Continuous composite weights, WCS stability, 0.0% tie breaks | **COMPLETE** |
+| **D7: Observability Backend** | Immutable decision audit trail, meeting log, trace endpoints | `scof.decision_records`, `/decisions/{id}/trace`, `/log` | **COMPLETE** |
+| **D8: Backend API & Gateway** | FastAPI REST & WebSocket streaming for real-time operations | Port 8000 gateway routing all microservices & real-time streams | **COMPLETE** |
+| **D9: Desktop Console** | Tauri v2 + React 19 Apple HIG desktop operations console | All 7 views operational: Dashboard, Map, Agent Graph, What-If, Eval | **COMPLETE** |
+| **D10: Integration & Evaluation** | E2E pipeline, comparative baselines, multi-scenario suite, RQ report | 8-stage loop, 3-method benchmark, 20 scenarios, RQ1–RQ4 synthesis | **COMPLETE** |
+
+**FINAL MVP STATUS**: **OFFICIALLY COMPLETED & ACCEPTED**
+
