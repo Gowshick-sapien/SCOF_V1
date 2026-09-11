@@ -1,11 +1,5 @@
 # ADR 010: Real-Time State Caching & WebSockets — Redis vs. Direct PostgreSQL Polling
 
-* **Status**: Accepted
-* **Date**: 2026-08-16
-* **Deciders**: SCOF Core Architecture Team, Real-Time Systems Leads
-* **Consulted**: Backend Engineers, Desktop Console Developers
-* **Informed**: All Platform Developers
-
 ---
 
 ## 1. Context and Problem Statement

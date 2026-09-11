@@ -1,11 +1,5 @@
 # ADR 002: Message Streaming Bus Selection — Apache Kafka vs. RabbitMQ and Redis Pub/Sub
 
-* **Status**: Accepted
-* **Date**: 2026-07-28
-* **Deciders**: SCOF Core Architecture Team
-* **Consulted**: Backend Infrastructure, Data Engineering Leads
-* **Informed**: All Platform Developers
-
 ---
 
 ## 1. Context and Problem Statement

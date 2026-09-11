@@ -1,11 +1,5 @@
 # ADR 005: Execution Routing Strategy — Dual-Path Gating (Fast-Path vs. Slow-Path / Human Escalation)
 
-* **Status**: Accepted
-* **Date**: 2026-08-10
-* **Deciders**: SCOF Core Architecture Team, Safety & Operations Leads
-* **Consulted**: Platform Engineers, Supply Chain Domain Experts
-* **Informed**: All Platform Developers
-
 ---
 
 ## 1. Context and Problem Statement

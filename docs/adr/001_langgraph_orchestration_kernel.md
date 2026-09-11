@@ -1,11 +1,5 @@
 # ADR 001: Orchestration Kernel Selection — LangGraph vs. CrewAI, AutoGen, and Semantic Kernel
 
-* **Status**: Accepted
-* **Date**: 2026-07-28
-* **Deciders**: SCOF Core Architecture Team
-* **Consulted**: Agent Engineering, Observability Leads
-* **Informed**: All Platform Developers
-
 ---
 
 ## 1. Context and Problem Statement

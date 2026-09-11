@@ -1,11 +1,5 @@
 # ADR 011: Empirical Evaluation Methodology — Cohen's Kappa & Ground Truth vs. Subjective LLM-as-a-Judge
 
-* **Status**: Accepted
-* **Date**: 2026-08-28
-* **Deciders**: SCOF Core Architecture Team, Evaluation Leads
-* **Consulted**: Research Scientists, Domain Specialists
-* **Informed**: All Platform Developers
-
 ---
 
 ## 1. Context and Problem Statement

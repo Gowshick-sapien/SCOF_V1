@@ -1,11 +1,5 @@
 # ADR 012: Service Fleet Packaging — Polyglot Containerized Microservices vs. Monolithic Deployment
 
-* **Status**: Accepted
-* **Date**: 2026-07-28
-* **Deciders**: SCOF Core Architecture Team, DevOps Leads
-* **Consulted**: Backend Developers, QA Engineers
-* **Informed**: All Platform Developers
-
 ---
 
 ## 1. Context and Problem Statement

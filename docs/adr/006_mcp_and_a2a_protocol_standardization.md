@@ -1,11 +1,5 @@
 # ADR 006: Protocol Standardization — Model Context Protocol (MCP) and Agent-to-Agent (A2A) vs. Proprietary REST/RPC
 
-* **Status**: Accepted
-* **Date**: 2026-08-04
-* **Deciders**: SCOF Core Architecture Team, Integration Leads
-* **Consulted**: Specialist Agent Engineers, Security Leads
-* **Informed**: All Platform Developers
-
 ---
 
 ## 1. Context and Problem Statement

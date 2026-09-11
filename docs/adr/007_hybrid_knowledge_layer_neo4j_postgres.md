@@ -1,11 +1,5 @@
 # ADR 007: Knowledge Layer Architecture — Hybrid Graph (Neo4j) + Relational/Vector (PostgreSQL) vs. Monolithic Store
 
-* **Status**: Accepted
-* **Date**: 2026-07-28
-* **Deciders**: SCOF Core Architecture Team, Data Architecture Leads
-* **Consulted**: ETL Engineers, Knowledge Graph Specialists
-* **Informed**: All Platform Developers
-
 ---
 
 ## 1. Context and Problem Statement

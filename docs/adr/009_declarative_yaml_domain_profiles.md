@@ -1,11 +1,5 @@
 # ADR 009: Domain Profile Architecture — Declarative YAML Profiles vs. Hardcoded Business Logic
 
-* **Status**: Accepted
-* **Date**: 2026-07-28
-* **Deciders**: SCOF Core Architecture Team, Domain Strategy Leads
-* **Consulted**: Platform Engineers, Supply Chain Consultants
-* **Informed**: All Platform Developers
-
 ---
 
 ## 1. Context and Problem Statement

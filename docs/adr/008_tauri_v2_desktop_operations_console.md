@@ -1,11 +1,5 @@
 # ADR 008: Desktop Client Architecture — Tauri v2 + React 19 + Apple HIG vs. Electron and Pure Web App
 
-* **Status**: Accepted
-* **Date**: 2026-08-16
-* **Deciders**: SCOF Core Architecture Team, Frontend Leads
-* **Consulted**: UI/UX Designers, System Operators
-* **Informed**: All Platform Developers
-
 ---
 
 ## 1. Context and Problem Statement

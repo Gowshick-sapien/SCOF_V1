@@ -1,11 +1,5 @@
 # ADR 004: Consensus Arbitration Framework — CD²F Dynamic Continuous Weighting vs. Majority Voting & LLM-as-a-Judge
 
-* **Status**: Accepted
-* **Date**: 2026-08-10
-* **Deciders**: SCOF Core Architecture Team, Research Leads
-* **Consulted**: Consensus Engine Developers, Evaluation Engineers
-* **Informed**: All Platform Developers
-
 ---
 
 ## 1. Context and Problem Statement
