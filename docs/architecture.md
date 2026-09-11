@@ -129,145 +129,150 @@ These platform components work identically across all profiles:
 ## **3\. High-Level Architecture**
 
 ```
-
-                              USER LAYER                                      
-                                                                              
-      
-                       Frontend Dashboard (D9)                              
-     React · Next.js · TypeScript · Tailwind CSS · D3/Recharts · Leaflet    
-                                                                            
-             
-      Operational    Supply Chain    AI Meeting    What-If          
-      Dashboard      Map (Leaflet)   Log View      Simulation       
-             
-             
-      Confidence &    Decision       Risk          Scenario         
-      Disagreement    Replay UI      Heatmap       Library          
-             
-                                             
-      Recommend.      AI Chat                                            
-      Timeline        (NL Q&A)                                           
-                                             
-      
-                                HTTP/REST + WebSocket                        
-
-                                
-
-                           API & REAL-TIME LAYER (D8)                         
-                                                                              
-      
-                         FastAPI Backend Service                            
-                                                                            
-     /scenarios/trigger   /whatif/run   /dashboard/state                     
-     /decisions/{id}/log  /decisions/{id}/trace  /decisions/{id}/replay      
-      
-                                                                            
-                                
-     WebSocket               Event Bus              REST               
-     (Live                   (Kafka /               Endpoints          
-      Push)                   RabbitMQ)                                
-                                
-
-                                
-
-                     OBSERVABILITY & EXPLAINABILITY LAYER (D7)                 
-                                                                              
-         
-    LangSmith /         Decision Trace      Judge Calibration          
-    Langfuse Tracing    Persistence         Metrics Logger             
-    (per-agent turn,    (Postgres/          (Cohen's kappa over        
-     token cost,         pgvector, keyed     time, queryable)          
-     latency)            per decision)                                 
-         
-
-                                
-
-                         CD²F CONSENSUS ENGINE (D6)                           
-                                                                              
-            
-                     Arbitration Pipeline                                    
-                                                                            
-     Structured Claims  Confidence-Weighted Voting  Decision          
-      (from all agents)    (stated confidence × rolling                     
-                            historical accuracy)                            
-            
-                                                                              
-      
-                   Escalation Tiering (profile-configurable)                 
-                                                                            
-      FAST PATH              SLOW PATH              HUMAN ESCALATION        
-                           
-       Single agent        Full CD²F            Low consensus        
-       High conf.       multi-agent       or high              
-       Low impact          discussion           impact               
-                           
-      
-                                                                              
-   Thresholds, impact scales, and escalation criteria read from               
-   consensus.yaml in the active Domain Profile.                               
-
-                                
-
-                  AGENT ORCHESTRATION & PROTOCOL LAYER (D5)                    
-                                                                              
-      
-                         LangGraph State Graph                              
-                                                                            
-                                                     
-                         COORDINATOR AGENT                                
-                         Discovers agents                                 
-                         via A2A Agent Cards                              
-                         (roster from                                     
-                          agents.yaml)                                    
-                                                     
-                                        
-               A2A             A2A             A2A                       
-                                                                         
-                  
-       DEMAND       INVENTORY      SUPPLIER     TRANSPORT         
-       AGENT         AGENT         AGENT         AGENT            
-       (D3)          (D3)          (D4)          (D4)             
-                  
-            MCP            MCP            MCP            MCP           
-                                                                       
-      Tools & Data    Tools & Data    Tools & Data    Tools & Data         
-      
-                                                                              
-   Agent set is determined by agents.yaml — adding/removing an agent is       
-   a profile configuration change, not a code change.                         
-
-                                
-
-                    DATA & KNOWLEDGE LAYER (D1 + D2)                          
-                                                                              
-            
-     PostgreSQL      pgvector          Neo4j           Redis        
-     (Operational    (Decision       (Knowledge      (Cache,        
-      DB: orders,     records,        Graph:          session,      
-      inventory,      evidence        supplier →      ephemeral     
-      suppliers,      embeddings,     product →       state)        
-      shipments)      AI Chat         warehouse                     
-                      retrieval)      → route)                      
-            
-                                                                              
-      
-             Synthetic Data & Disruption Generator (D1)                      
-     Reads topology.yaml and disruptions.yaml from the active profile       
-     to generate entities, relationships, and disruption events.            
-      
-                                                                              
-      
-                         ETL Pipeline (D2)                                   
-     Reads data_bindings.yaml to load D1 data into Neo4j + Postgres.        
-      
-                                                                              
-      
-                      DOMAIN PROFILE (active)                                
-     profiles/<profile-name>/                                                
-     topology.yaml · agents.yaml · disruptions.yaml · consensus.yaml        
-     data_bindings.yaml · evaluation.yaml · dashboard.yaml                  
-      
-
++====================================================================================================+
+|                                             USER LAYER                                             |
+|                                                                                                    |
+|  +----------------------------------------------------------------------------------------------+  |
+|  |                            Desktop Operations Console (D9)                                   |  |
+|  |            Tauri v2 · React 19 · TypeScript · Tailwind CSS · Recharts / D3 · Leaflet          |  |
+|  |                                                                                              |  |
+|  |  +----------------+  +----------------+  +----------------+  +----------------+              |  |
+|  |  |  Operational   |  |  Supply Chain  |  |   AI Meeting   |  |    What-If     |              |  |
+|  |  |   Dashboard    |  |  Map (Leaflet) |  |    Log View    |  |   Simulation   |              |  |
+|  |  +----------------+  +----------------+  +----------------+  +----------------+              |  |
+|  |  +----------------+  +----------------+  +----------------+  +----------------+              |  |
+|  |  |  Confidence &  |  |    Decision    |  |      Risk      |  |    Scenario    |              |  |
+|  |  |  Disagreement  |  |   Replay UI    |  |    Heatmap     |  |    Library     |              |  |
+|  |  +----------------+  +----------------+  +----------------+  +----------------+              |  |
+|  |  +----------------+  +----------------+                                                      |  |
+|  |  |   Recommend.   |  |    AI Chat     |                                                      |  |
+|  |  |    Timeline    |  |    (NL Q&A)    |                                                      |  |
+|  |  +----------------+  +----------------+                                                      |  |
+|  +----------------------------------------------------------------------------------------------+  |
++====================================================================================================+
+                                  │                                  ▲
+                                  │ HTTP/REST Request                │ WebSocket Live State /
+                                  │ (Trigger, Replay, State Query)   │ Push Updates
+                                  ▼                                  │
++====================================================================================================+
+|                                     API & REAL-TIME LAYER (D8)                                     |
+|                                                                                                    |
+|  +----------------------------------------------------------------------------------------------+  |
+|  |                                   FastAPI Backend Service                                    |  |
+|  |   /scenarios/trigger   /whatif/run   /dashboard/state                                        |  |
+|  |   /decisions/{id}/log  /decisions/{id}/trace  /decisions/{id}/replay                         |  |
+|  +----------------------------------------------------------------------------------------------+  |
+|            │                                    │                                    ▲             |
+|            ▼                                    ▼                                    │             |
+|  +--------------------+               +--------------------+               +--------------------+  |
+|  |  WebSocket         |               |  Event Bus         |               |  REST              |  |
+|  |  (Live Push)       |               |  (Apache Kafka)    |               |  Endpoints         |  |
+|  +--------------------+               +--------------------+               +--------------------+  |
++====================================================================================================+
+             │                                    │                                    ▲
+             │ Telemetry Push                     │ Disruption Ingestion               │ Decision Trace
+             ▼                                    ▼                                    │ Retrieval
++====================================================================================================+
+|                              OBSERVABILITY & EXPLAINABILITY LAYER (D7)                             |
+|                                                                                                    |
+|  +-------------------------+  +-------------------------------+  +-------------------------------+  |
+|  |  LangSmith Tracing      |  |  Decision Trace Persistence   |  |   Judge Calibration Metrics   |  |
+|  |  (per-agent turn spans, |  |  (Postgres / pgvector,        |  |   Logger (Cohen's kappa over  |  |
+|  |   token cost, latency)  |  |   keyed per decision)         |  |   time, queryable)            |  |
+|  +-------------------------+  +-------------------------------+  +-------------------------------+  |
++====================================================================================================+
+             ▲                                                                         │
+             │ Traces & Evaluation                                                     │ Calibration
+             │                                                                         ▼ Checks
++====================================================================================================+
+|                                     CD²F CONSENSUS ENGINE (D6)                                     |
+|                                                                                                    |
+|  +----------------------------------------------------------------------------------------------+  |
+|  |                                      Arbitration Pipeline                                    |  |
+|  |   Structured Claims         Confidence-Weighted Voting                  Final Decision       |  |
+|  |   (from all agents)  ───>  (stated confidence × rolling accuracy) ───> + Reasoning Trail     |  |
+|  +----------------------------------------------------------------------------------------------+  |
+|                                                 │                                                  |
+|                                                 ▼                                                  |
+|  +----------------------------------------------------------------------------------------------+  |
+|  |                          Escalation Tiering (profile-configurable)                           |  |
+|  |                                                                                              |  |
+|  |     FAST PATH                        SLOW PATH                        HUMAN ESCALATION       |  |
+|  |   +--------------------------+     +--------------------------+     +----------------------+ |  |
+|  |   | Single agent             |     | Full CD²F multi-agent    |     | Low consensus or     | |  |
+|  |   | High conf., Low impact   |     | discussion & arbitration |     | high impact          | |  |
+|  |   +--------------------------+     +--------------------------+     +----------------------+ |  |
+|  +----------------------------------------------------------------------------------------------+  |
+|  Thresholds, impact scales, and escalation criteria read from consensus.yaml in active profile.   |
++====================================================================================================+
+             ▲                                                                         │
+             │ Claims Output                                                           │ State / Event
+             │                                                                         ▼ Triggers
++====================================================================================================+
+|                             AGENT ORCHESTRATION & PROTOCOL LAYER (D5)                              |
+|                                                                                                    |
+|  +----------------------------------------------------------------------------------------------+  |
+|  |                                    LangGraph State Graph                                     |  |
+|  |                                                                                              |  |
+|  |                                  +-----------------------+                                   |  |
+|  |                                  |   COORDINATOR AGENT   |                                   |  |
+|  |                                  | Discovers agents via  |                                   |  |
+|  |                                  | A2A Cards (agents.yml)|                                   |  |
+|  |                                  +-----------------------+                                   |  |
+|  |                                              │                                               |  |
+|  |                        +---------------------+---------------------+                         |  |
+|  |                        │                     │                     │                         |  |
+|  |                    A2A │                 A2A │                 A2A │                 A2A     |  |
+|  |                        ▼                     ▼                     ▼                     ▼   |  |
+|  |              +-------------------+ +-------------------+ +-------------------+ +---------------+  |
+|  |              | DEMAND AGENT (D3) | |INVENTORY AGT (D3) | |SUPPLIER AGT (D4)  | |TRANSPORT (D4) |  |
+|  |              +-------------------+ +-------------------+ +-------------------+ +---------------+  |
+|  |                        │                     │                     │                     │   |  |
+|  |                    MCP │                 MCP │                 MCP │                 MCP │   |  |
+|  |                        ▼                     ▼                     ▼                     ▼   |  |
+|  |              +-------------------+ +-------------------+ +-------------------+ +---------------+  |
+|  |              |   Tools & Data    | |   Tools & Data    | |   Tools & Data    | | Tools & Data  |  |
+|  |              +-------------------+ +-------------------+ +-------------------+ +---------------+  |
+|  +----------------------------------------------------------------------------------------------+  |
+|  Agent set is determined by agents.yaml — adding/removing an agent is a profile configuration.     |
++====================================================================================================+
+                                  │                                  ▲
+                                  │ Direct Driver Access /           │ State Synchronization
+                                  │ MCP Tool Queries                 │
+                                  ▼                                  │
++====================================================================================================+
+|                                  DATA & KNOWLEDGE LAYER (D1 + D2)                                  |
+|                                                                                                    |
+|  +-------------------+  +-------------------+  +-------------------+  +--------------------------+  |
+|  | PostgreSQL        |  | pgvector          |  | Neo4j             |  | Redis                    |  |
+|  | (Operational DB:  |  | (Decision records,|  | (Knowledge Graph:  |  | (Cache, session,        |  |
+|  |  orders, inv,     |  |  evidence vectors,|  |  supplier -> prod  |  |  ephemeral state)        |  |
+|  |  suppliers, ship) |  |  AI Chat search)  |  |  -> wh -> route)  |  |                          |  |
+|  +-------------------+  +-------------------+  +-------------------+  +--------------------------+  |
+|            ▲                                              ▲                                        |
+|            │ Load ETL Data                                │ Load Graph Topology                    |
+|            +──────────────────────┬───────────────────────+                                        |
+|                                   │                                                                |
+|                     +---------------------------+                                                  |
+|                     |     ETL Pipeline (D2)     |                                                  |
+|                     | Reads data_bindings.yaml  |                                                  |
+|                     +---------------------------+                                                  |
+|                                   ▲                                                                |
+|                                   │ Generated Synthetic Data & Disruptions                         |
+|                     +-------------------------------------------+                                  |
+|                     | Synthetic Data & Disruption Generator(D1) |                                  |
+|                     | Reads topology.yaml and disruptions.yaml  |                                  |
+|                     +-------------------------------------------+                                  |
++====================================================================================================+
+                                  ▲
+                                  │ Declarative Specification (Loaded at Startup)
+                                  │
++====================================================================================================+
+|                                      DOMAIN PROFILE (active)                                       |
+|  profiles/<profile-name>/                                                                          |
+|  topology.yaml · agents.yaml · disruptions.yaml · consensus.yaml                                   |
+|  data_bindings.yaml · evaluation.yaml · dashboard.yaml                                             |
++====================================================================================================+
 ```
 
 ---
@@ -284,7 +289,7 @@ This is the foundation — all data exists and is queryable **before any agent c
 | ----- | ----- | ----- |
 | **Synthetic Data Generator** | Python scripts | Reads `topology.yaml` to generate entities matching the profile's declared manufacturers, products, suppliers, warehouses, DCs, and routes |
 | **Disruption Event Generator** | Python scripts | Reads `disruptions.yaml` to produce parameterized events matching the profile's declared disruption types, severity scales, and propagation rules |
-| **Infrastructure Containers** | Docker Compose | Provisions PostgreSQL, Redis, Kafka/RabbitMQ, Neo4j as standalone containers — no application logic |
+| **Infrastructure Containers** | Docker Compose | Provisions PostgreSQL, Redis, Apache Kafka, Neo4j as standalone containers — no application logic |
 
 #### **4.1.2 Knowledge & Data Stores (D2)**
 
@@ -346,19 +351,25 @@ Every agent, without exception, outputs this structure:
 Each agent accesses its tools and data through **MCP (Model Context Protocol)** servers — not direct database connections. The MCP server configurations are declared in the profile's `agents.yaml` and `data_bindings.yaml`:
 
 ```
-      MCP Protocol       
-  Agent           MCP Server          
-  (reads its                              (tools declared in  
-   config from                             agents.yaml)       
-   agents.yaml                                                
-  )                                                           
-                          
-                                                    
-                                         
-                                           Data Store           
-                                           (connection from     
-                                            data_bindings.yaml) 
-                                         
++---------------------------+                     +---------------------------+
+|       Specialist Agent    |                     |        MCP Server         |
+|                           |  <===============>  |                           |
+|  - Reads agent config     |      MCP Protocol   |  - Exposes domain tools   |
+|    from agents.yaml       |   (Stdio / SSE /    |    declared in agents.yaml|
+|  - Formulates queries     |    JSON-RPC 2.0)    |  - Enforces schema/auth   |
++---------------------------+                     +---------------------------+
+                                                                │
+                                                                │ Direct Driver /
+                                                                │ Connection Pool
+                                                                ▼
+                                                  +---------------------------+
+                                                  |        Data Store         |
+                                                  |                           |
+                                                  |  - PostgreSQL / Neo4j /   |
+                                                  |    Redis / File Stores    |
+                                                  |  - Connection mapped from |
+                                                  |    data_bindings.yaml     |
+                                                  +---------------------------+
 ```
 
 ---
@@ -467,7 +478,7 @@ Every agent turn and every consensus decision is **fully inspectable** before an
 
 #### **4.6.2 Event-Driven Architecture**
 
-The event bus (Kafka / RabbitMQ) **decouples** the simulation (D1) from the orchestration (D5):
+The event bus (Apache Kafka) **decouples** the simulation (D1) from the orchestration (D5):
 
 * Disruption events can be replayed without re-running the generator
 * Multiple consumers can subscribe to the same event stream
@@ -483,9 +494,9 @@ The event bus (Kafka / RabbitMQ) **decouples** the simulation (D1) from the orch
 
 ---
 
-### **4.7 Frontend Dashboard Layer (D9)**
+### **4.7 Desktop Operations Console Layer (D9)**
 
-Built against the stable D8 API. All views are data-driven from the observability layer (D7). Active views and display configuration (map bounds, entity labels, heatmap scales) are read from the profile's `dashboard.yaml`.
+Built against the stable D8 API as a native desktop application using Tauri v2, React 19, and TypeScript (per ADR 008). All views are data-driven from the observability layer (D7). Active views and display configuration (map bounds, entity labels, heatmap scales) are read from the profile's `dashboard.yaml`.
 
 #### **4.7.1 View Inventory**
 
@@ -497,63 +508,67 @@ Built against the stable D8 API. All views are data-driven from the observabilit
 
 ---
 
-## **5\. End-to-End Data Flow**
+## **5. End-to-End Data Flow**
 
 The complete data flow from disruption injection to human-visible decision:
 
 ```
-                        
-                         Domain       
-                         Profile        Loaded at startup
-                         (active)     
-                        
-                                configures all layers
-                               
-          
-    D1:           Event Bus         D5:         
-    Simulate  (Kafka /      Coordinator 
-    Disrupt.       RabbitMQ)        discovers   
-            agents via  
-                                        A2A         
-                                      
-                               
-                                A2A          A2A          A2A
-                                                         
-                                
-                           Agent      Agent      Agent    ...N agents
-                            (MCP)      (MCP)      (MCP)   (from profile)
-                                
-                                                      
-                              
-                                            Structured Claims
-                                           
-                                    
-                                      D6: CD²F    
-                                      Consensus     thresholds from
-                                      Engine           consensus.yaml
-                                    
-                                            Final Decision
-                                            + Reasoning Trail
-                                            + Escalation Tier
-                                           
-                                    
-                                      D7:         
-                                      Persist     
-                                      Trace       
-                                    
-                                           
-                                           
-                                    
-                                      D8: API +   
-                                      WebSocket   
-                                      push        
-                                    
-                                           
-                                           
-                                    
-                                      D9:           views configured by
-                                      Dashboard        dashboard.yaml
-                                    
++---------------------------------------------------------------------------------------+
+|                                DOMAIN PROFILE (active)                                |
+|        (topology.yaml, agents.yaml, disruptions.yaml, consensus.yaml, dashboard.yaml) |
++---------------------------------------------------------------------------------------+
+                   │                                                   │
+                   │ Configures Entities & Disruptions                 │ Configures Active Agents
+                   │ (topology.yaml, disruptions.yaml)                 │ (agents.yaml)
+                   ▼                                                   ▼
++-------------------------+                     +---------------------------------------+
+| D1: Simulate Disruption |                     | D5: Coordinator                       |
+| (Synthetic Generator)   |                     | (Discovers agents via A2A registry)   |
++-------------------------+                     +---------------------------------------+
+             │                                                      │
+             │ Publishes Disruption Event                           │ A2A Scenario
+             ▼                                                      │ Delegation
++-------------------------+                                         │
+| Event Bus               | ────────────────────────────────────────┼──────────┐
+| (Apache Kafka)          |                                         │          │
++-------------------------+                                         │          │
+                                                                    ▼          ▼
+                                                +---------------------------------------+
+                                                | Specialist Agents (MCP)               |
+                                                | Demand, Inventory, Supplier, Trans... |
+                                                | (...N agents configured from profile) |
+                                                +---------------------------------------+
+                                                                    │
+                                                                    │ Structured Claims
+                                                                    ▼
+                                                +---------------------------------------+
+                                                | D6: CD²F Consensus Engine             |
+                                                | (Arbitration, thresholds from         |
+                                                |  consensus.yaml)                      |
+                                                +---------------------------------------+
+                                                                    │
+                                                                    │ Final Decision +
+                                                                    │ Reasoning Trail + Tier
+                                                                    ▼
+                                                +---------------------------------------+
+                                                | D7: Persist Trace                     |
+                                                | (PostgreSQL + pgvector storage)       |
+                                                | (LangSmith Trace Lineage)             |
+                                                +---------------------------------------+
+                                                                    │
+                                                                    │ Telemetry & State Updates
+                                                                    ▼
+                                                +---------------------------------------+
+                                                | D8: API + WebSocket push              |
+                                                | (FastAPI Service + Live Streaming)    |
+                                                +---------------------------------------+
+                                                                    │
+                                                                    │ Real-time Push / REST
+                                                                    ▼
+                                                +---------------------------------------+
+                                                | D9: Desktop Operations Console        |
+                                                | (Tauri v2 + React 19, dashboard.yaml) |
+                                                +---------------------------------------+
 ```
 
 ---
@@ -569,11 +584,11 @@ All services run within a **single Docker Compose** environment for the MVP.
 | PostgreSQL + pgvector | `pgvector/pgvector:pg16` | `pgdata:/var/lib/postgresql/data` | 5432 |
 | Neo4j | `neo4j:5` | `neo4jdata:/data` | 7474, 7687 |
 | Redis | `redis:7-alpine` | `redisdata:/data` | 6379 |
-| Kafka | `confluentinc/cp-kafka:7` | `kafkadata:/var/lib/kafka/data` | 9092 |
+| Apache Kafka | `confluentinc/cp-kafka:7` | `kafkadata:/var/lib/kafka/data` | 9092 |
 | FastAPI Backend | `python:3.11-slim` | — | 8000 |
-| Next.js Frontend | `node:20-alpine` | — | 3000 |
+| Desktop Console (Vite UI Dev) | `node:20-alpine` | — | 3000 |
 | Each Agent | `python:3.11-slim` | — | 8010–8014 |
-| LangSmith/Langfuse | Vendor image | `tracedata:/data` | 4000 |
+| LangSmith Tracing | Vendor image / SDK | `tracedata:/data` | 4000 |
 
 ### **6.2 Profile Loading**
 
@@ -597,21 +612,21 @@ All services read their configuration from the profile path at startup.
 
 | Layer | Technologies |
 | ----- | ----- |
-| **Frontend** | React, TypeScript, Next.js, Tailwind CSS, D3.js / Recharts, Leaflet |
+| **Frontend / Desktop** | Tauri v2, React 19, TypeScript, Tailwind CSS, Recharts / D3.js, Leaflet |
 | **Backend API** | Python, FastAPI |
 | **Real-Time** | WebSockets (FastAPI) |
 | **Agent Orchestration** | LangGraph (state graph model) |
 | **Agent Protocols** | MCP (tool/data access), A2A (agent discovery/delegation) |
-| **Agent Observability** | LangSmith or Langfuse |
+| **Agent Observability** | LangSmith |
 | **ML / Forecasting** | PyTorch, Scikit-Learn, XGBoost, Prophet, LightGBM, Chronos-2 |
 | **Graph Database** | Neo4j (Cypher queries) |
 | **Vector Store** | pgvector on PostgreSQL |
 | **Operational Database** | PostgreSQL |
 | **Cache** | Redis |
-| **Message Broker** | Apache Kafka or RabbitMQ |
+| **Message Broker** | Apache Kafka |
 | **Containerization** | Docker, Docker Compose |
 | **Configuration** | Domain Profiles (YAML) |
-| **Deployment** | AWS, Azure, or local Docker |
+| **Deployment** | Docker Compose (Containerized Polyglot Microservices Fleet) |
 
 ---
 

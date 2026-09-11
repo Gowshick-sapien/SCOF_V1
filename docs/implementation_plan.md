@@ -6,17 +6,83 @@
 
 ## **Dependency Graph**
 
-D1 (Sim Data)  D2 (Knowledge Layer)  D3 (Demand+Inventory Agents)  
-                                         D4 (Supplier+Transport Agents)  
-                                          
-D3 \+ D4  D5 (Orchestration: LangGraph \+ MCP \+ A2A)  D6 (CD²F Consensus Engine)  
-                                                                      
-D6  D7 (Observability/Explainability)  D8 (Backend API \+ Realtime)  
-                                                                      
-D8  D9 (Desktop Operations Console)   
-D8 \+ D9  D10 (End-to-End Integration \+ Evaluation Harness) \= MVP COMPLETE
+```
+   +----------------------------------------------------+
+   |  D1: Simulation Environment & Synthetic Data       |
+   +----------------------------------------------------+
+                             │
+                             ▼
+   +----------------------------------------------------+
+   |  D2: Knowledge & Data Layer (Neo4j + PostgreSQL)   |
+   +----------------------------------------------------+
+                             │
+               +─────────────┴─────────────+
+               │                           │
+               ▼                           ▼
+   +-----------------------+   +-----------------------+
+   |  D3: Forecasting      |   |  D4: Reliability      |
+   |      Agents           |   |      Agents           |
+   |  (Demand + Inventory) |   | (Supplier + Transport)|
+   +-----------------------+   +-----------------------+
+               │                           │
+               +─────────────┬─────────────+
+                             │
+                             ▼
+   +----------------------------------------------------+
+   |  D5: Agent Orchestration (LangGraph + MCP + A2A)   |
+   +----------------------------------------------------+
+                             │
+                             ▼
+   +----------------------------------------------------+
+   |  D6: CD²F Consensus Engine (Voting + Arbitration)  |
+   +----------------------------------------------------+
+                             │
+                             ▼
+   +----------------------------------------------------+
+   |  D7: Observability & Explainability (Trace/Replay) |
+   +----------------------------------------------------+
+                             │
+                             ▼
+   +----------------------------------------------------+
+   |  D8: Backend API & Real-Time Layer (FastAPI + WS)  |
+   +----------------------------------------------------+
+                             │
+               +─────────────┴─────────────+
+               │                           │
+               ▼                           │
+   +-----------------------+               │
+   |  D9: Desktop Console  |               │
+   |      (Tauri + UI)     |               │
+   +-----------------------+               │
+               │                           │
+               +─────────────┬─────────────+
+                             │
+                             ▼
+   +----------------------------------------------------+
+   |  D10: End-to-End Integration & Evaluation Harness  |
+   |       (MVP COMPLETE)                               |
+   +----------------------------------------------------+
+                             │
+                             ▼
+   +----------------------------------------------------+
+   |  D11: Post-MVP Extension Points (Interface Stubs)  |
+   +----------------------------------------------------+
+```
 
-D10  D11 (Post-MVP stubs — not built, only interfaced)
+```
+D1 (Sim Data) ──> D2 (Knowledge Layer) ──> D3 (Demand + Inventory Agents)
+                                       ──> D4 (Supplier + Transport Agents)
+
+D3 + D4       ──> D5 (Orchestration: LangGraph + MCP + A2A) ──> D6 (CD²F Consensus Engine)
+
+D6            ──> D7 (Observability / Explainability) ──> D8 (Backend API + Realtime)
+
+D8            ──> D9 (Desktop Operations Console)
+
+D8 + D9       ──> D10 (End-to-End Integration + Evaluation Harness) = MVP COMPLETE
+
+D10           ──> D11 (Post-MVP stubs — not built, only interfaced)
+```
 
 ---
 

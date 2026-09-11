@@ -79,35 +79,48 @@ Each agent owns a clearly scoped set of responsibilities, publishes what it can 
 
 ## **9\. High-Level Workflow**
 
-Incoming Data (via MCP-connected sources)
-
-      ↓
-
-Agent Observations
-
-      ↓
-
-Individual Predictions (each with confidence \+ evidence \+ historical accuracy weight)
-
-      ↓
-
-Inter-Agent Discussion   ← this is the CD²F layer (Section 11–13), carried over A2A
-
-      ↓
-
-Conflict Resolution / Confidence-Weighted Arbitration
-
-      ↓
-
-Decision Recommendation
-
-      ↓
-
-Human Approval
-
-      ↓
-
-Continuous Monitoring  →  (loops back to Incoming Data)
+```
++------------------------------------------------------------------------------------+
+|                     Incoming Data (via MCP-connected sources)                      |
++------------------------------------------------------------------------------------+
+                                          │
+                                          ▼
++------------------------------------------------------------------------------------+
+|                                 Agent Observations                                 |
++------------------------------------------------------------------------------------+
+                                          │
+                                          ▼
++------------------------------------------------------------------------------------+
+| Individual Predictions (each with confidence + evidence + historical accuracy wt)  |
++------------------------------------------------------------------------------------+
+                                          │
+                                          ▼
++------------------------------------------------------------------------------------+
+|  Inter-Agent Discussion  <── (CD²F layer, Sections 11–13, carried over A2A)        |
++------------------------------------------------------------------------------------+
+                                          │
+                                          ▼
++------------------------------------------------------------------------------------+
+|               Conflict Resolution / Confidence-Weighted Arbitration                |
++------------------------------------------------------------------------------------+
+                                          │
+                                          ▼
++------------------------------------------------------------------------------------+
+|                              Decision Recommendation                               |
++------------------------------------------------------------------------------------+
+                                          │
+                                          ▼
++------------------------------------------------------------------------------------+
+|                                   Human Approval                                   |
++------------------------------------------------------------------------------------+
+                                          │
+                                          ▼
++------------------------------------------------------------------------------------+
+|                               Continuous Monitoring                                |
++------------------------------------------------------------------------------------+
+  │                                                                                ▲
+  └─────────────────────────── (loops back to Incoming Data) ──────────────────────┘
+```
 
 ## **10\. Agent Architecture**
 
@@ -255,39 +268,58 @@ If the Coordinator acts as a judge over agent claims, its arbitration should be 
 
 ## **16\. System Architecture**
 
-                       User Dashboard
-
-                              
-
-                      FastAPI Backend
-
-                              
-
-                    Coordinator AI Agent
-
-                    (discovers/delegates via A2A)
-
-    
-
-    Supplier \-- Inventory \-- Demand \-- Transport
-
-    Finance \-- Risk \-- Weather \-- Sustainability
-
-    
-
-   Each agent reaches tools/data via MCP:
-
-   Prediction Models \-- Optimization Models
-
-   Knowledge Graph (Neo4j \+ GNN) \-- Historical Database
-
-   Vector Store (pgvector) \-- External APIs \-- ERP Data
-
-    
-
-   Observability Layer (LangSmith / Langfuse)
-
-   traces every agent turn across the graph above
+```
++------------------------------------------------------------------------------------+
+|                                   USER DASHBOARD                                   |
+|         (Operations Console: Real-Time Map, AI Meeting Log, Replay, What-If)       |
++------------------------------------------------------------------------------------+
+                                          ▲
+                                          │ HTTP / REST & WebSocket Push
+                                          ▼
++------------------------------------------------------------------------------------+
+|                                  FASTAPI BACKEND                                   |
+|        (/scenarios/trigger, /whatif/run, /dashboard/state, /decisions/{id}...)     |
++------------------------------------------------------------------------------------+
+                                          ▲
+                                          │ Disruption Events / State Coordination
+                                          ▼
++------------------------------------------------------------------------------------+
+|                                COORDINATOR AI AGENT                                |
+|        (LangGraph State Machine: Orchestrates, Gathers Claims, Evaluates CD²F)     |
++------------------------------------------------------------------------------------+
+       │                                  │                                  │
+       │ A2A (Agent Card Discovery)       │ A2A Task Delegation              │ A2A Protocol
+       ▼                                  ▼                                  ▼
++------------------------------------------------------------------------------------+
+|                                  SPECIALIST AGENTS                                 |
+|                                                                                    |
+|     MVP Specialist Agents:                                                         |
+|     +------------------+  +------------------+  +---------------+  +-------------+ |
+|     |  Supplier Agent  |  | Inventory Agent  |  | Demand Agent  |  |  Transport  | |
+|     +------------------+  +------------------+  +---------------+  +-------------+ |
+|                                                                                    |
+|     Post-MVP Specialist Agents:                                                    |
+|     +------------------+  +------------------+  +---------------+  +-------------+ |
+|     |  Finance Agent   |  | Risk Agent (GNN) |  | Weather Agent |  | Sustainab.  | |
+|     +------------------+  +------------------+  +---------------+  +-------------+ |
++------------------------------------------------------------------------------------+
+       │                                  │                                  │
+       │ MCP Protocol Tool Access         │ MCP Protocol Queries             │ MCP Protocol
+       ▼                                  ▼                                  ▼
++------------------------------------------------------------------------------------+
+|                       TOOLS & DATA SOURCES (via MCP Servers)                       |
+|                                                                                    |
+|     Prediction Models             Optimization Models                              |
+|     Knowledge Graph (Neo4j + GNN) Historical Database (PostgreSQL)                 |
+|     Vector Store (pgvector)       External APIs / ERP Data                         |
++------------------------------------------------------------------------------------+
+       ▲                                                                     ▲
+       │                                                                     │
++====================================================================================+
+|                    OBSERVABILITY LAYER (LangSmith / Langfuse)                      |
+|                 Traces every agent turn across the graph above                     |
++====================================================================================+
+```
 
 ## **17\. Dataset Strategy**
 
