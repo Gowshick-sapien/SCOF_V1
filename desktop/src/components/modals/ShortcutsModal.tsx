@@ -15,7 +15,7 @@ export const ShortcutsModal: React.FC<ShortcutsModalProps> = ({ isOpen, onClose 
         <div className={styles.header}>
           <h3 className={styles.title}>Control Room Keyboard Shortcuts</h3>
           <button className={styles.closeButton} onClick={onClose} aria-label="Close">
-            ✕
+            ×
           </button>
         </div>
 

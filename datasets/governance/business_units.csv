@@ -1,0 +1,3 @@
+business_unit_id,legal_entity_id,bu_name,currency_id
+BU-RETAIL,LENT-001,Retail Supermarkets BU,INR
+BU-LOGISTICS,LENT-002,Logistics & Fulfillment BU,INR

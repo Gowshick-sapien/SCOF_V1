@@ -76,4 +76,4 @@ Attempting to run all of these systems in a single monolithic Python process cau
 
 * [ADR 001: Orchestration Kernel Selection](./001_langgraph_orchestration_kernel.md)
 * [ADR 008: Desktop Operations Console Architecture](./008_tauri_v2_desktop_operations_console.md)
-* [D8 Backend API Documentation](file:///d:/projects/SCOF_V1/SCOF/docs/deliverables/D08_backend_api/README.md)
+* [D8 Backend API Documentation](file:///d:/projects/SCOF_V1/SCOF/docs/v1_mvp/deliverables/D08_backend_api/README.md)

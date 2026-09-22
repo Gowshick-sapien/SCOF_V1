@@ -74,4 +74,4 @@ $$\text{Tier} = \begin{cases} \text{FAST\_PATH} & \text{if } \text{WCS} \ge 0.70
 
 * [ADR 004: Consensus Arbitration Framework](./004_cd2f_consensus_arbitration.md)
 * [ADR 011: Empirical Evaluation & Calibration](./011_empirical_evaluation_cohens_kappa.md)
-* [Research Results Report](file:///d:/projects/SCOF_V1/SCOF/docs/deliverables/D10_integration_evaluation/results_report.md)
+* [Research Results Report](file:///d:/projects/SCOF_V1/SCOF/docs/v1_mvp/deliverables/D10_integration_evaluation/results_report.md)

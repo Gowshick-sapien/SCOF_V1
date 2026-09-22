@@ -1,0 +1,33 @@
+Event_ID,Event_Name,Annual_Week,Category_Impact_Keywords,Lead_Time_Weeks,Demand_Multiplier
+EV-NYE-JAN,New Year's Day,1,"Beverage, Party, Snack, Bakery, Gift",2,3.0
+EV-LOHRI,Lohri,2,"Snack, Sweet, Apparel",1,1.5
+EV-MAKAR,Makar Sankranti / Pongal,3,"Sweet, Grocery, Apparel",2,2.5
+EV-REPUBLIC,Republic Day Sales,4,"Electronic, Appliance, Apparel, Furniture",1,3.5
+EV-VALENTINE,Valentine's Day,7,"Flower, Confectionery, Jewelry, Gift, Perfume",2,3.5
+EV-SHIVRATRI,Maha Shivratri,9,"Fruit, Dairy, Flower, Religious",1,1.8
+EV-HOLI,Holi,11,"Color, Sweet, Apparel, Skincare",2,4.0
+EV-FY-END,Financial Year End,13,"Office, Computing, Stationery",3,2.0
+EV-UGADI,Ugadi / Gudi Padwa,15,"Apparel, Sweet, Grocery, Decor",2,2.5
+EV-BAISAKHI,Baisakhi,15,"Apparel, Sweet",1,1.5
+EV-SUMMER-START,Summer Peak / Heatwave,17,"Appliance, Beverage, Sunscreen, Apparel",2,3.0
+EV-AKSHAYA,Akshaya Tritiya,19,"Jewelry, Luxury",2,5.0
+EV-MOTHERS,Mother's Day,19,"Gift, Jewelry, Flower, Apparel",1,2.0
+EV-SUMMER-VACAY,Summer Travel Season,21,"Luggage, Travel, Swimwear",3,2.5
+EV-MONSOON,Monsoon Onset,24,"Rainwear, Umbrella, Footwear, Soup",1,4.0
+EV-FATHERS,Father's Day,25,"Gift, Electronic, Apparel",1,1.8
+EV-BTS,Back to School / College,27,"Stationery, Bag, Computing, Uniform",3,4.0
+EV-PRIME,Prime Day / Mid-Year Sales,29,"Electronic, Appliance, Computing",1,3.5
+EV-INDEPENDENCE,Independence Day Sales,33,"Electronic, Apparel, Appliance",2,3.0
+EV-RAKHI,Raksha Bandhan,34,"Sweet, Gift, Apparel, Chocolate",2,3.5
+EV-ONAM,Onam,35,"Apparel, Sweet, Grocery, Electronic",3,3.0
+EV-JANMASHTAMI,Janmashtami,35,"Dairy, Sweet, Religious",1,2.0
+EV-GANESH,Ganesh Chaturthi,36,"Sweet, Decor, Fruit, Religious",2,3.5
+EV-NAVRATRI,Navratri / Garba,40,"Apparel, Cosmetic, Jewelry, Footwear",3,3.5
+EV-DUSSEHRA,Dussehra,41,"Sweet, Electronic, Automobile",2,3.0
+EV-KARWA,Karwa Chauth,42,"Cosmetic, Jewelry, Apparel",1,2.5
+EV-DIWALI,Diwali,44,"Sweet, Gift, Electronic, Decor, Lighting, Jewelry, Apparel",4,6.0
+EV-WINTER,Winter Onset,45,"Apparel, Appliance, Skincare",2,3.0
+EV-WEDDING,Winter Wedding Season,46,"Jewelry, Apparel, Gift, Furniture",4,3.5
+EV-BLACKFRI,Black Friday / Cyber Monday,47,"Electronic, Computing, Appliance, Premium",1,4.5
+EV-CHRISTMAS,Christmas,51,"Toy, Bakery, Decor, Gift, Beverage",4,3.5
+EV-NYE-DEC,New Year's Eve,52,"Beverage, Snack, Party, Apparel",2,3.0

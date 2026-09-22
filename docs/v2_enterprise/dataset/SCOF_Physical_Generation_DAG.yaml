@@ -1,0 +1,487 @@
+# SCOF Physical Generation DAG Specification
+# Machine-readable topological dependency contract for synthetic ecosystem generation
+# Version: 1.0.0 (Post-Freeze Phase 2 Contract)
+
+version: "1.0.0"
+metadata:
+  ecosystem: "SCOF Enterprise Cognitive Twin"
+  authoritative_registry: "SCOF_Entity_Realization_Map.md"
+  tiers: 8
+  rng_seed_base: 42
+
+generator_nodes:
+  # ---------------------------------------------------------------------------
+  # TIER 0: PLATFORM FOUNDATIONS
+  # ---------------------------------------------------------------------------
+  - generator_node: "GEN_T0_REF"
+    name: "Reference Dimensions Generator"
+    scheduling_tier: 0
+    depends_on: []
+    storage_format: "SQL"
+    generator_class: "generators.foundations.FoundationsGenerator"
+    cardinality_driver: "standards_iso_unece"
+    rng_namespace: "scof.foundations.reference"
+    canonical_entities:
+      - "Currency"
+      - "Unit_of_Measure"
+      - "Payment_Terms"
+      - "Incoterm"
+
+  - generator_node: "GEN_T0_TIME"
+    name: "Dual Calendar & Time Generator"
+    scheduling_tier: 0
+    depends_on: []
+    storage_format: "SQL"
+    generator_class: "generators.foundations.FoundationsGenerator"
+    cardinality_driver: "calendar_horizon_3yr"
+    rng_namespace: "scof.foundations.time"
+    canonical_entities:
+      - "Calendar"
+      - "Calendar_Year"
+      - "Month"
+      - "Week"
+      - "Calendar_Date"
+      - "Fiscal_Calendar"
+      - "Fiscal_Year"
+      - "Fiscal_Quarter"
+      - "Fiscal_Period"
+
+  - generator_node: "GEN_T0_GEO"
+    name: "Geospatial & Administrative Hierarchy Generator"
+    scheduling_tier: 0
+    depends_on:
+      - "GEN_T0_REF"
+    storage_format: "SQL"
+    generator_class: "generators.foundations.FoundationsGenerator"
+    cardinality_driver: "administrative_geography"
+    rng_namespace: "scof.foundations.geography"
+    canonical_entities:
+      - "Country"
+      - "Zone_Macro_Region"
+      - "State_Province"
+      - "District"
+      - "City"
+      - "Postal_Area"
+      - "Location"
+
+  - generator_node: "GEN_T0_PARTY"
+    name: "Party & Identity Master Generator"
+    scheduling_tier: 0
+    depends_on:
+      - "GEN_T0_GEO"
+    storage_format: "SQL"
+    generator_class: "generators.foundations.FoundationsGenerator"
+    cardinality_driver: "enterprise_actor_scale"
+    rng_namespace: "scof.foundations.party"
+    canonical_entities:
+      - "Party"
+      - "Person"
+      - "Organization"
+      - "Identity"
+      - "Contact_Point"
+      - "Tax_Identity"
+      - "Party_Role_Assignment"
+
+  - generator_node: "GEN_T0_HOLIDAY"
+    name: "Holiday & Calendar Observances Generator"
+    scheduling_tier: 0
+    depends_on:
+      - "GEN_T0_TIME"
+      - "GEN_T0_GEO"
+    storage_format: "SQL"
+    generator_class: "generators.foundations.FoundationsGenerator"
+    cardinality_driver: "statutory_holiday_calendar"
+    rng_namespace: "scof.foundations.holidays"
+    canonical_entities:
+      - "Holiday_Instance"
+
+  # ---------------------------------------------------------------------------
+  # TIER 1: ENTERPRISE & COMMERCIAL MASTERS
+  # ---------------------------------------------------------------------------
+  - generator_node: "GEN_T1_ENT"
+    name: "Enterprise & Legal Structure Generator"
+    scheduling_tier: 1
+    depends_on:
+      - "GEN_T0_PARTY"
+      - "GEN_T0_GEO"
+      - "GEN_T0_REF"
+    storage_format: "SQL"
+    generator_class: "generators.governance.GovernanceGenerator"
+    cardinality_driver: "corporate_org_chart"
+    rng_namespace: "scof.enterprise.structure"
+    canonical_entities:
+      - "Enterprise"
+      - "Legal_Entity"
+      - "Business_Unit"
+      - "Division"
+      - "Organizational_Department"
+      - "Cost_Center"
+      - "Profit_Center"
+
+  - generator_node: "GEN_T1_FAC"
+    name: "Physical Facility Master Generator"
+    scheduling_tier: 1
+    depends_on:
+      - "GEN_T0_GEO"
+      - "GEN_T1_ENT"
+    storage_format: "SQL"
+    generator_class: "generators.network.NetworkGenerator"
+    cardinality_driver: "network_facilities"
+    rng_namespace: "scof.network.facilities"
+    canonical_entities:
+      - "Facility"
+      - "Store"
+      - "Warehouse"
+      - "Production_Site"
+      - "Office"
+
+  - generator_node: "GEN_T1_MERCH"
+    name: "Merchandise Hierarchy Master Generator"
+    scheduling_tier: 1
+    depends_on:
+      - "GEN_T0_REF"
+      - "GEN_T1_ENT"
+    storage_format: "CSV"
+    generator_class: "generators.merchandise.MerchandiseGenerator"
+    cardinality_driver: "v2_sku_catalog_49616"
+    rng_namespace: "scof.merchandise.catalog"
+    canonical_entities:
+      - "Brand"
+      - "Merchandise_Department"
+      - "Category"
+      - "Subcategory"
+      - "Product_Family"
+      - "Product"
+      - "SKU"
+      - "Batch"
+      - "Lot"
+
+  - generator_node: "GEN_T1_PROF"
+    name: "Role Profiles & Workforce Generator"
+    scheduling_tier: 1
+    depends_on:
+      - "GEN_T0_PARTY"
+      - "GEN_T1_FAC"
+    storage_format: "SQL"
+    generator_class: "generators.sourcing.SourcingGenerator"
+    cardinality_driver: "partner_workforce_scale"
+    rng_namespace: "scof.sourcing.profiles"
+    canonical_entities:
+      - "Supplier_Profile"
+      - "Customer_Segment"
+      - "Customer_Profile"
+      - "Carrier_Profile"
+      - "Workforce_Role"
+      - "Employee_Profile"
+
+  # ---------------------------------------------------------------------------
+  # TIER 2: PHYSICAL NETWORK & SOURCING TOPOLOGY
+  # ---------------------------------------------------------------------------
+  - generator_node: "GEN_T2_SWM"
+    name: "Store-Warehouse Network Topology Generator"
+    scheduling_tier: 2
+    depends_on:
+      - "GEN_T1_FAC"
+    storage_format: "CSV"
+    generator_class: "generators.network.NetworkGenerator"
+    cardinality_driver: "store_warehouse_links"
+    rng_namespace: "scof.network.servicing"
+    canonical_entities:
+      - "Store_Warehouse_Map"
+
+  - generator_node: "GEN_T2_SSM"
+    name: "Supplier-SKU Sourcing Matrix Generator"
+    scheduling_tier: 2
+    depends_on:
+      - "GEN_T1_MERCH"
+      - "GEN_T1_PROF"
+    storage_format: "CSV"
+    generator_class: "generators.sourcing.SourcingGenerator"
+    cardinality_driver: "v2_sourcing_matrix_99232"
+    rng_namespace: "scof.sourcing.matrix"
+    canonical_entities:
+      - "Supplier_SKU_Map"
+
+  - generator_node: "GEN_T2_SSA"
+    name: "Store-SKU Assortment Generator"
+    scheduling_tier: 2
+    depends_on:
+      - "GEN_T1_FAC"
+      - "GEN_T1_MERCH"
+    storage_format: "CSV"
+    generator_class: "generators.merchandise.MerchandiseGenerator"
+    cardinality_driver: "v2_assortment_346238"
+    rng_namespace: "scof.merchandise.assortment"
+    canonical_entities:
+      - "Store_SKU_Assortment"
+
+  - generator_node: "GEN_T2_LANE"
+    name: "Transport Lane & Route Generator"
+    scheduling_tier: 2
+    depends_on:
+      - "GEN_T1_FAC"
+      - "GEN_T1_PROF"
+    storage_format: "SQL"
+    generator_class: "generators.network.NetworkGenerator"
+    cardinality_driver: "inter_facility_lanes"
+    rng_namespace: "scof.network.transport"
+    canonical_entities:
+      - "Transport_Lane"
+
+  - generator_node: "GEN_T2_AST"
+    name: "Physical Assets & Equipment Generator"
+    scheduling_tier: 2
+    depends_on:
+      - "GEN_T1_FAC"
+    storage_format: "SQL"
+    generator_class: "generators.network.NetworkGenerator"
+    cardinality_driver: "facility_assets"
+    rng_namespace: "scof.network.assets"
+    canonical_entities:
+      - "Asset_Category"
+      - "Physical_Asset"
+
+  # ---------------------------------------------------------------------------
+  # TIER 3: COMMERCIAL POLICIES & CONTRACTS
+  # ---------------------------------------------------------------------------
+  - generator_node: "GEN_T3_CONT"
+    name: "Commercial Contracts & SLAs Generator"
+    scheduling_tier: 3
+    depends_on:
+      - "GEN_T1_PROF"
+      - "GEN_T2_SSM"
+    storage_format: "SQL"
+    generator_class: "generators.sourcing.SourcingGenerator"
+    cardinality_driver: "vendor_carrier_contracts"
+    rng_namespace: "scof.contracts.agreements"
+    canonical_entities:
+      - "Contract"
+
+  - generator_node: "GEN_T3_PRC"
+    name: "Price Lists & Multi-Week Price History Generator"
+    scheduling_tier: 3
+    depends_on:
+      - "GEN_T0_TIME"
+      - "GEN_T2_SSA"
+      - "GEN_T2_SSM"
+    storage_format: "Parquet"
+    generator_class: "generators.merchandise.MerchandiseGenerator"
+    cardinality_driver: "v2_price_records_2580032"
+    rng_namespace: "scof.pricing.records"
+    canonical_entities:
+      - "Price_List"
+      - "Price_Record"
+
+  # ---------------------------------------------------------------------------
+  # TIER 4: EXOGENOUS SIGNALS & DEMAND EVENTS
+  # ---------------------------------------------------------------------------
+  - generator_node: "GEN_T4_EVT"
+    name: "Festival, Cultural & Calendar Event Generator"
+    scheduling_tier: 4
+    depends_on:
+      - "GEN_T0_TIME"
+      - "GEN_T0_GEO"
+      - "GEN_T1_MERCH"
+    storage_format: "CSV"
+    generator_class: "generators.demand.DemandGenerator"
+    cardinality_driver: "v2_event_universe_174"
+    rng_namespace: "scof.events.exogenous"
+    canonical_entities:
+      - "Event"
+      - "Event_Instance"
+      - "Event_Impact"
+      - "Event_Interaction"
+      - "Regional_Event_Weight"
+
+  - generator_node: "GEN_T4_WEA"
+    name: "Weekly Weather Observations Generator"
+    scheduling_tier: 4
+    depends_on:
+      - "GEN_T0_TIME"
+      - "GEN_T0_GEO"
+    storage_format: "SQL"
+    generator_class: "generators.demand.DemandGenerator"
+    cardinality_driver: "zone_weeks_weather"
+    rng_namespace: "scof.weather.observations"
+    canonical_entities:
+      - "Weather_Observation"
+
+  # ---------------------------------------------------------------------------
+  # TIER 5: TRANSACTION ENGINES
+  # ---------------------------------------------------------------------------
+  - generator_node: "GEN_T5_COMMERCE"
+    name: "Omnichannel Commerce & POS Transaction Engine"
+    scheduling_tier: 5
+    depends_on:
+      - "GEN_T0_TIME"
+      - "GEN_T1_FAC"
+      - "GEN_T1_PROF"
+      - "GEN_T2_SSA"
+      - "GEN_T3_PRC"
+      - "GEN_T4_EVT"
+    storage_format: "Parquet"
+    generator_class: "generators.commerce.CommerceGenerator"
+    cardinality_driver: "retail_transactions"
+    rng_namespace: "scof.commerce.transactions"
+    canonical_entities:
+      - "Sales_Channel"
+      - "Customer_Session"
+      - "Cart"
+      - "Basket"
+      - "Basket_Line"
+      - "Sales_Transaction"
+      - "Sales_Line"
+
+  - generator_node: "GEN_T5_PROCURE"
+    name: "Procurement & Purchase Order Engine"
+    scheduling_tier: 5
+    depends_on:
+      - "GEN_T0_TIME"
+      - "GEN_T1_FAC"
+      - "GEN_T2_SSM"
+      - "GEN_T3_CONT"
+    storage_format: "Parquet"
+    generator_class: "generators.procurement.ProcurementGenerator"
+    cardinality_driver: "vendor_replenishment_orders"
+    rng_namespace: "scof.procurement.orders"
+    canonical_entities:
+      - "Purchase_Order"
+      - "PO_Line"
+
+  - generator_node: "GEN_T5_LOGISTICS"
+    name: "Logistics, Transport & Shipment Engine"
+    scheduling_tier: 5
+    depends_on:
+      - "GEN_T2_LANE"
+      - "GEN_T5_PROCURE"
+    storage_format: "Parquet"
+    generator_class: "generators.network.NetworkGenerator"
+    cardinality_driver: "inbound_linehaul_shipments"
+    rng_namespace: "scof.logistics.shipments"
+    canonical_entities:
+      - "Shipment"
+      - "Shipment_Line"
+
+  # ---------------------------------------------------------------------------
+  # TIER 6: OPERATIONAL STATE & INVENTORY CONSERVATION
+  # ---------------------------------------------------------------------------
+  - generator_node: "GEN_T6_RECEIVING"
+    name: "Goods Receiving & Putaway Engine"
+    scheduling_tier: 6
+    depends_on:
+      - "GEN_T5_PROCURE"
+      - "GEN_T5_LOGISTICS"
+    storage_format: "Parquet"
+    generator_class: "generators.inventory.InventoryGenerator"
+    cardinality_driver: "po_fulfillment_receipts"
+    rng_namespace: "scof.inventory.receiving"
+    canonical_entities:
+      - "Goods_Receipt"
+      - "Goods_Receipt_Line"
+
+  - generator_node: "GEN_T6_INVENTORY"
+    name: "Inventory State & Physical Conservation Engine"
+    scheduling_tier: 6
+    depends_on:
+      - "GEN_T2_SSA"
+      - "GEN_T5_COMMERCE"
+      - "GEN_T6_RECEIVING"
+    storage_format: "Parquet"
+    generator_class: "generators.inventory.InventoryGenerator"
+    cardinality_driver: "facility_sku_stock_balances"
+    rng_namespace: "scof.inventory.positions"
+    canonical_entities:
+      - "Inventory_Position"
+
+  # ---------------------------------------------------------------------------
+  # TIER 7: FINANCIAL LEDGERS & GOVERNANCE (STRICT INTERNAL DAG)
+  # ---------------------------------------------------------------------------
+  - generator_node: "GEN_T7_SUPP_INVOICE"
+    name: "Supplier Invoicing Engine"
+    scheduling_tier: 7
+    depends_on:
+      - "GEN_T5_PROCURE"
+      - "GEN_T6_RECEIVING"
+    storage_format: "Parquet"
+    generator_class: "generators.finance.FinanceGenerator"
+    cardinality_driver: "vendor_payable_invoices"
+    rng_namespace: "scof.finance.supplier_invoices"
+    canonical_entities:
+      - "Invoice"
+      - "Supplier_Invoice"
+      - "Supplier_Invoice_Line"
+
+  - generator_node: "GEN_T7_CUST_INVOICE"
+    name: "Customer Billing & Receivable Invoicing Engine"
+    scheduling_tier: 7
+    depends_on:
+      - "GEN_T5_COMMERCE"
+    storage_format: "Parquet"
+    generator_class: "generators.finance.FinanceGenerator"
+    cardinality_driver: "customer_sales_invoices"
+    rng_namespace: "scof.finance.customer_invoices"
+    canonical_entities:
+      - "Customer_Invoice"
+
+  - generator_node: "GEN_T7_THREE_WAY_MATCH"
+    name: "Three-Way Match Verification Engine"
+    scheduling_tier: 7
+    depends_on:
+      - "GEN_T5_PROCURE"
+      - "GEN_T6_RECEIVING"
+      - "GEN_T7_SUPP_INVOICE"
+    storage_format: "Parquet"
+    generator_class: "generators.finance.FinanceGenerator"
+    cardinality_driver: "three_way_match_records"
+    rng_namespace: "scof.finance.three_way_match"
+    canonical_entities:
+      - "Three_Way_Match_Record"
+
+  - generator_node: "GEN_T7_PAYMENT"
+    name: "Settlement & Payment Engine"
+    scheduling_tier: 7
+    depends_on:
+      - "GEN_T7_THREE_WAY_MATCH"
+      - "GEN_T7_CUST_INVOICE"
+    storage_format: "Parquet"
+    generator_class: "generators.finance.FinanceGenerator"
+    cardinality_driver: "disbursements_and_collections"
+    rng_namespace: "scof.finance.payments"
+    canonical_entities:
+      - "Payment"
+      - "Payment_Allocation"
+
+  - generator_node: "GEN_T7_GL_LEDGER"
+    name: "Double-Entry General Ledger Postings Engine"
+    scheduling_tier: 7
+    depends_on:
+      - "GEN_T1_ENT"
+      - "GEN_T7_PAYMENT"
+    storage_format: "Parquet"
+    generator_class: "generators.finance.FinanceGenerator"
+    cardinality_driver: "financial_journal_postings"
+    rng_namespace: "scof.finance.general_ledger"
+    canonical_entities:
+      - "Chart_Of_Accounts"
+      - "GL_Account"
+      - "Journal_Entry"
+      - "Journal_Line"
+
+  - generator_node: "GEN_T7_SIMULATION_TRUTH"
+    name: "V2 Ground Truth & Causal Demand Simulation Engine"
+    scheduling_tier: 7
+    depends_on:
+      - "GEN_T0_TIME"
+      - "GEN_T2_SSA"
+      - "GEN_T3_PRC"
+      - "GEN_T4_EVT"
+      - "GEN_T4_WEA"
+      - "GEN_T6_INVENTORY"
+    storage_format: "Parquet"
+    generator_class: "generators.demand.DemandGenerator"
+    cardinality_driver: "v2_demand_observations_18004376"
+    rng_namespace: "scof.demand.simulation_ground_truth"
+    canonical_entities:
+      - "Demand_Observation"
+      - "Event_Attribution"
+      - "Lifecycle_Status_Event"

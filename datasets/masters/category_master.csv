@@ -1,0 +1,68 @@
+CATEGORY_ID,DEPARTMENT_ID,CATEGORY_NAME
+CAT-001,DEP-APP,Apparel — Children
+CAT-002,DEP-APP,Apparel — Men
+CAT-003,DEP-APP,Apparel — Women
+CAT-004,DEP-SPO,Art & Decorative Goods
+CAT-005,DEP-HAR,Automotive
+CAT-006,DEP-HEA,Baby & Maternity
+CAT-007,DEP-LIF,Bags & Luggage
+CAT-008,DEP-FRE,Bakery & Confectionery
+CAT-009,DEP-HEA,Beauty & Cosmetics
+CAT-010,DEP-FNB,Beverages
+CAT-011,DEP-SPO,Bicycles & Personal Mobility
+CAT-012,DEP-TOY,Books
+CAT-013,DEP-LIF,Collectibles & Specialty Merchandise
+CAT-014,DEP-ELE,Computing & Mobile
+CAT-015,DEP-ELE,Consumer Electronics
+CAT-016,DEP-FRE,Dairy & Refrigerated Products
+CAT-017,DEP-SER,Digital Non-Physical Retail Items
+CAT-018,DEP-ELE,Electrical & Lighting
+CAT-019,DEP-SER,Entertainment Experience Businesses
+CAT-020,DEP-TOY,Entertainment & Media
+CAT-021,DEP-APP,Fashion Accessories
+CAT-022,DEP-LIF,Festival & Seasonal
+CAT-023,DEP-LIF,Flowers & Floral Products
+CAT-024,DEP-FNB,Food & Beverage Outlets Within The Complex
+CAT-025,DEP-APP,Footwear
+CAT-026,DEP-FRE,Fresh Produce
+CAT-027,DEP-FRE,Frozen & Ready-To-Eat
+CAT-028,DEP-HOM,Furniture
+CAT-029,DEP-TOY,Games & Puzzles
+CAT-030,DEP-HOM,Garden & Outdoor Living
+CAT-031,DEP-LIF,Gifts & Lifestyle
+CAT-032,DEP-GRO,Grocery & Food Staples
+CAT-033,DEP-HAR,Hardware & Home Improvement
+CAT-034,DEP-HEA,"Health, Wellness & Pharmacy"
+CAT-035,DEP-SPO,"Hobbies, Arts & Crafts"
+CAT-036,DEP-ELE,Home Appliances
+CAT-037,DEP-HOM,Home Furnishings & Decor
+CAT-038,DEP-GRO,Household Cleaning
+CAT-039,DEP-APP,Jewellery
+CAT-040,DEP-HOM,Kitchen & Dining
+CAT-041,DEP-FRE,"Meat, Seafood & Protein"
+CAT-042,DEP-SPO,Musical Instruments
+CAT-043,DEP-SER,Office & Business Consumables
+CAT-044,DEP-SER,Packaging & Shipping Supplies
+CAT-045,DEP-HAR,Painting & Decoration Materials
+CAT-046,DEP-GRO,"Paper, Disposable & Consumable Household Goods"
+CAT-047,DEP-LIF,Party & Celebration
+CAT-048,DEP-HEA,Personal Care
+CAT-049,DEP-LIF,Pets & Pet Supplies
+CAT-050,DEP-HAR,Plumbing & Building Supplies
+CAT-051,DEP-LIF,Premium & Luxury Goods
+CAT-052,DEP-SER,Regulated Controlled Merchandise
+CAT-053,DEP-LIF,Religious & Cultural Products
+CAT-054,DEP-HAR,Safety & Security
+CAT-055,DEP-SER,Services Sold Through The Retail Complex
+CAT-056,DEP-SPO,"Sewing, Textile & Craft Supplies"
+CAT-057,DEP-HOM,Sleep & Wellness Lifestyle
+CAT-058,DEP-ELE,Smart Home & Connected Devices
+CAT-059,DEP-FNB,Snacks
+CAT-060,DEP-HAR,Solar & Sustainability Products
+CAT-061,DEP-SER,Specialized Accessibility Assistive Goods
+CAT-062,DEP-SER,Specialty Professional Light-Commercial Goods
+CAT-063,DEP-SPO,Sports & Fitness
+CAT-064,DEP-TOY,Stationery & Office Supplies
+CAT-065,DEP-TOY,Toys
+CAT-066,DEP-LIF,Travel Products
+CAT-067,DEP-APP,Watches & Timepieces

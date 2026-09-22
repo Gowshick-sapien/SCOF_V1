@@ -1,45 +1,93 @@
-# Python
+# ==============================================================================
+# Python & Build Caches
+# ==============================================================================
 __pycache__/
 *.py[cod]
 *$py.class
-.venv/
-venv/
 *.egg-info/
 dist/
 build/
 .pytest_cache/
 .ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
 
-# Node / Frontend
+# Virtual Environments
+.venv/
+venv/
+ENV/
+env/
+
+# ==============================================================================
+# Node.js & Desktop Frontend (Tauri / React)
+# ==============================================================================
 node_modules/
 .next/
 out/
-
-# Environment & Config
-.env
-.env.local
-docker-compose.override.yml
-
-# Data & Models
-*.pt
-*.pth
-*.pkl
-*.joblib
-*.sqlite3
-services/evaluation/results/*.json
-services/evaluation/results/*.csv
-
-# IDE & OS
-.vscode/
-.idea/
-.DS_Store
-Thumbs.db
-
-# Development & Agent Tooling
-.agents/
-.gemini/
+desktop/dist/
+desktop/node_modules/
 
 # Rust & Tauri Builds
 target/
 **/src-tauri/target/
 **/gen/schemas/
+
+# ==============================================================================
+# Environment & Local Secrets
+# ==============================================================================
+.env
+.env.local
+.env.*.local
+docker-compose.override.yml
+
+# ==============================================================================
+# Runtime Logs & Diagnostics
+# ==============================================================================
+*.log
+logs/
+*.tmp
+*.swp
+*~
+
+# ==============================================================================
+# IDE & Operating System Artifacts
+# ==============================================================================
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Development & Agent Tooling
+.agents/
+.gemini/
+
+# ==============================================================================
+# Model Weights & Runtime Results
+# ==============================================================================
+*.pt
+*.pth
+*.pkl
+*.joblib
+services/evaluation/results/*.json
+services/evaluation/results/*.csv
+
+# ==============================================================================
+# Archive & Historical Scratch Files
+# ==============================================================================
+archive/
+
+# ==============================================================================
+# Tier 2 Heavy Materialized Datasets & Databases (> 100 MB GitHub Limit)
+# ==============================================================================
+# SQLite binary database (558 MB - rebuilt locally or fetched via bootstrap)
+datasets/*.db
+datasets/*.db-journal
+
+# Giant uncompressed time-series simulation dump (1.97 GB)
+datasets/weekly_demand_history_v2.csv
+
+# Derived Neo4j LOAD CSV materialized export files (430 MB)
+datasets/neo4j_graph/

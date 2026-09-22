@@ -1,0 +1,5 @@
+sales_channel_id,channel_name,channel_type
+CHAN-POS-STORE,In-Store Physical POS,POS
+CHAN-ECOM-WEB,Web E-Commerce Storefront,WEB
+CHAN-ECOM-APP,Mobile E-Commerce App,APP
+CHAN-B2B-DIRECT,B2B Direct Institutional Sales,B2B

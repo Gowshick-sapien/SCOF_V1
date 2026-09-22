@@ -58,7 +58,7 @@ LangGraph models agent coordination as a formal **StateGraph** (a directed cycli
 
 ## 6. Implementation & Compliance Notes
 
-* Implemented in [services/coordinator/src/graph.py](file:///d:/projects/SCOF_V1/SCOF/services/coordinator/src/graph.py) and [services/coordinator/src/nodes.py](file:///d:/projects/SCOF_V1/SCOF/services/coordinator/src/nodes.py).
+* Implemented in [services/coordinator/src/orchestrator.py](file:///d:/projects/SCOF_V1/SCOF/services/coordinator/src/orchestrator.py) and [services/coordinator/src/state.py](file:///d:/projects/SCOF_V1/SCOF/services/coordinator/src/state.py).
 * State definition: `CoordinatorState` typed dictionary tracking disruption metadata, agent claims, meeting logs, and escalation status.
 * Verified via `python scripts/verify_d5.py` and `python scripts/verify_full_loop.py`.
 
@@ -68,4 +68,4 @@ LangGraph models agent coordination as a formal **StateGraph** (a directed cycli
 
 * [ADR 004: Consensus Arbitration Framework](./004_cd2f_consensus_arbitration.md)
 * [ADR 006: Protocol Standardization (MCP & A2A)](./006_mcp_and_a2a_protocol_standardization.md)
-* [System Architecture Document](file:///d:/projects/SCOF_V1/SCOF/docs/architecture.md)
+* [System Architecture Document](file:///d:/projects/SCOF_V1/SCOF/docs/v1_mvp/architecture.md)

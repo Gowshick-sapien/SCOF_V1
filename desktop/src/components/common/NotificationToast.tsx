@@ -83,7 +83,7 @@ export const NotificationToast: React.FC<NotificationToastProps> = ({ onSelectDe
                 onClick={() => handleDismiss(toast.id)}
                 aria-label="Dismiss"
               >
-                ✕
+                ×
               </button>
             </div>
 

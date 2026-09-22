@@ -1,0 +1,1978 @@
+EVENT_ID_1,EVENT_ID_2,INTERACTION_TYPE,INTERACTION_CAP,DESCRIPTION
+EV001,EV003,AMPLIFICATION,4.5,New Year Shopping & Gifting + Winter Peak / Cold Wave
+EV001,EV004,AMPLIFICATION,5.0,New Year Shopping & Gifting + Lohri
+EV001,EV005,AMPLIFICATION,5.0,New Year Shopping & Gifting + Bhogi
+EV001,EV006,AMPLIFICATION,5.0,New Year Shopping & Gifting + Makar Sankranti
+EV001,EV007,AMPLIFICATION,5.0,New Year Shopping & Gifting + Pongal
+EV001,EV008,AMPLIFICATION,5.0,New Year Shopping & Gifting + Mattu Pongal
+EV001,EV009,AMPLIFICATION,5.0,New Year Shopping & Gifting + Vasant Panchami / Basant Panchami
+EV001,EV016,AMPLIFICATION,4.0,New Year Shopping & Gifting + Wedding Season — Winter Peak II
+EV001,EV017,AMPLIFICATION,4.0,New Year Shopping & Gifting + Exam Preparation Cycle
+EV001,EV153,AMPLIFICATION,5.0,New Year Shopping & Gifting + Makaravilakku / Sabarimala Pilgrimage Season
+EV001,EV154,AMPLIFICATION,5.0,New Year Shopping & Gifting + Thaipusam
+EV001,EV155,AMPLIFICATION,5.0,New Year Shopping & Gifting + Magh Bihu / Bhogali Bihu
+EV001,EV171,AMPLIFICATION,4.5,New Year Shopping & Gifting + Winter Transition — Southern India
+EV002,EV003,AMPLIFICATION,4.5,New Year Clearance Sales + Winter Peak / Cold Wave
+EV002,EV004,AMPLIFICATION,5.0,New Year Clearance Sales + Lohri
+EV002,EV005,AMPLIFICATION,5.0,New Year Clearance Sales + Bhogi
+EV002,EV006,AMPLIFICATION,5.0,New Year Clearance Sales + Makar Sankranti
+EV002,EV007,AMPLIFICATION,5.0,New Year Clearance Sales + Pongal
+EV002,EV008,AMPLIFICATION,5.0,New Year Clearance Sales + Mattu Pongal
+EV002,EV009,AMPLIFICATION,5.0,New Year Clearance Sales + Vasant Panchami / Basant Panchami
+EV002,EV016,AMPLIFICATION,4.0,New Year Clearance Sales + Wedding Season — Winter Peak II
+EV002,EV017,AMPLIFICATION,4.0,New Year Clearance Sales + Exam Preparation Cycle
+EV002,EV018,AMPLIFICATION,4.5,New Year Clearance Sales + Spring Transition
+EV002,EV019,AMPLIFICATION,5.0,New Year Clearance Sales + Holi Preparation
+EV002,EV021,AMPLIFICATION,5.0,New Year Clearance Sales + Holi
+EV002,EV030,AMPLIFICATION,4.0,New Year Clearance Sales + Tax-Saving Purchase Cycle
+EV002,EV145,AMPLIFICATION,4.0,New Year Clearance Sales + Academic New Year Preparation
+EV002,EV146,AMPLIFICATION,4.0,New Year Clearance Sales + School Admissions Cycle
+EV002,EV153,AMPLIFICATION,5.0,New Year Clearance Sales + Makaravilakku / Sabarimala Pilgrimage Season
+EV002,EV154,AMPLIFICATION,5.0,New Year Clearance Sales + Thaipusam
+EV002,EV155,AMPLIFICATION,5.0,New Year Clearance Sales + Magh Bihu / Bhogali Bihu
+EV002,EV162,AMPLIFICATION,5.0,New Year Clearance Sales + Goa Carnival / Pre-Lent Tourism
+EV002,EV170,AMPLIFICATION,4.0,New Year Clearance Sales + Wedding Retail Inventory Build-Up — Summer
+EV002,EV171,AMPLIFICATION,4.5,New Year Clearance Sales + Winter Transition — Southern India
+EV003,EV004,ATTENUATION,3.5,Winter Peak / Cold Wave + Lohri
+EV003,EV005,ATTENUATION,3.5,Winter Peak / Cold Wave + Bhogi
+EV003,EV006,ATTENUATION,3.5,Winter Peak / Cold Wave + Makar Sankranti
+EV003,EV007,ATTENUATION,3.5,Winter Peak / Cold Wave + Pongal
+EV003,EV008,ATTENUATION,3.5,Winter Peak / Cold Wave + Mattu Pongal
+EV003,EV009,ATTENUATION,3.5,Winter Peak / Cold Wave + Vasant Panchami / Basant Panchami
+EV003,EV011,AMPLIFICATION,4.5,Winter Peak / Cold Wave + Republic Day E-commerce Sale
+EV003,EV012,AMPLIFICATION,4.5,Winter Peak / Cold Wave + Valentine's Week
+EV003,EV013,AMPLIFICATION,4.5,Winter Peak / Cold Wave + Valentine's Day
+EV003,EV015,AMPLIFICATION,4.5,Winter Peak / Cold Wave + Winter Clearance / End of Season Sale
+EV003,EV016,ATTENUATION,3.5,Winter Peak / Cold Wave + Wedding Season — Winter Peak II
+EV003,EV017,ATTENUATION,3.5,Winter Peak / Cold Wave + Exam Preparation Cycle
+EV003,EV019,ATTENUATION,3.5,Winter Peak / Cold Wave + Holi Preparation
+EV003,EV020,ATTENUATION,3.5,Winter Peak / Cold Wave + Holika Dahan
+EV003,EV021,ATTENUATION,3.5,Winter Peak / Cold Wave + Holi
+EV003,EV029,ATTENUATION,3.5,Winter Peak / Cold Wave + Financial Year-End Shopping
+EV003,EV030,ATTENUATION,3.5,Winter Peak / Cold Wave + Tax-Saving Purchase Cycle
+EV003,EV145,ATTENUATION,3.5,Winter Peak / Cold Wave + Academic New Year Preparation
+EV003,EV146,ATTENUATION,3.5,Winter Peak / Cold Wave + School Admissions Cycle
+EV003,EV153,ATTENUATION,3.5,Winter Peak / Cold Wave + Makaravilakku / Sabarimala Pilgrimage Season
+EV003,EV154,ATTENUATION,3.5,Winter Peak / Cold Wave + Thaipusam
+EV003,EV155,ATTENUATION,3.5,Winter Peak / Cold Wave + Magh Bihu / Bhogali Bihu
+EV003,EV162,ATTENUATION,3.5,Winter Peak / Cold Wave + Goa Carnival / Pre-Lent Tourism
+EV003,EV170,ATTENUATION,3.5,Winter Peak / Cold Wave + Wedding Retail Inventory Build-Up — Summer
+EV003,EV172,AMPLIFICATION,4.5,Winter Peak / Cold Wave + Valentine's Pre-Season Demand Build
+EV004,EV005,SATURATION,4.0,Lohri + Bhogi
+EV004,EV006,SATURATION,4.0,Lohri + Makar Sankranti
+EV004,EV007,SATURATION,4.0,Lohri + Pongal
+EV004,EV008,SATURATION,4.0,Lohri + Mattu Pongal
+EV004,EV009,SATURATION,4.0,Lohri + Vasant Panchami / Basant Panchami
+EV004,EV011,AMPLIFICATION,5.0,Lohri + Republic Day E-commerce Sale
+EV004,EV012,AMPLIFICATION,5.0,Lohri + Valentine's Week
+EV004,EV015,AMPLIFICATION,5.0,Lohri + Winter Clearance / End of Season Sale
+EV004,EV153,SATURATION,4.0,Lohri + Makaravilakku / Sabarimala Pilgrimage Season
+EV004,EV154,SATURATION,4.0,Lohri + Thaipusam
+EV004,EV155,SATURATION,4.0,Lohri + Magh Bihu / Bhogali Bihu
+EV004,EV171,ATTENUATION,3.5,Lohri + Winter Transition — Southern India
+EV004,EV172,AMPLIFICATION,5.0,Lohri + Valentine's Pre-Season Demand Build
+EV005,EV006,SATURATION,4.0,Bhogi + Makar Sankranti
+EV005,EV007,SATURATION,4.0,Bhogi + Pongal
+EV005,EV008,SATURATION,4.0,Bhogi + Mattu Pongal
+EV005,EV009,SATURATION,4.0,Bhogi + Vasant Panchami / Basant Panchami
+EV005,EV011,AMPLIFICATION,5.0,Bhogi + Republic Day E-commerce Sale
+EV005,EV012,AMPLIFICATION,5.0,Bhogi + Valentine's Week
+EV005,EV015,AMPLIFICATION,5.0,Bhogi + Winter Clearance / End of Season Sale
+EV005,EV153,SATURATION,4.0,Bhogi + Makaravilakku / Sabarimala Pilgrimage Season
+EV005,EV154,SATURATION,4.0,Bhogi + Thaipusam
+EV005,EV155,SATURATION,4.0,Bhogi + Magh Bihu / Bhogali Bihu
+EV005,EV171,ATTENUATION,3.5,Bhogi + Winter Transition — Southern India
+EV005,EV172,AMPLIFICATION,5.0,Bhogi + Valentine's Pre-Season Demand Build
+EV006,EV007,SATURATION,4.0,Makar Sankranti + Pongal
+EV006,EV008,SATURATION,4.0,Makar Sankranti + Mattu Pongal
+EV006,EV009,SATURATION,4.0,Makar Sankranti + Vasant Panchami / Basant Panchami
+EV006,EV011,AMPLIFICATION,5.0,Makar Sankranti + Republic Day E-commerce Sale
+EV006,EV012,AMPLIFICATION,5.0,Makar Sankranti + Valentine's Week
+EV006,EV013,AMPLIFICATION,5.0,Makar Sankranti + Valentine's Day
+EV006,EV015,AMPLIFICATION,5.0,Makar Sankranti + Winter Clearance / End of Season Sale
+EV006,EV153,SATURATION,4.0,Makar Sankranti + Makaravilakku / Sabarimala Pilgrimage Season
+EV006,EV154,SATURATION,4.0,Makar Sankranti + Thaipusam
+EV006,EV155,SATURATION,4.0,Makar Sankranti + Magh Bihu / Bhogali Bihu
+EV006,EV162,SATURATION,4.0,Makar Sankranti + Goa Carnival / Pre-Lent Tourism
+EV006,EV171,ATTENUATION,3.5,Makar Sankranti + Winter Transition — Southern India
+EV006,EV172,AMPLIFICATION,5.0,Makar Sankranti + Valentine's Pre-Season Demand Build
+EV007,EV008,SATURATION,4.0,Pongal + Mattu Pongal
+EV007,EV009,SATURATION,4.0,Pongal + Vasant Panchami / Basant Panchami
+EV007,EV011,AMPLIFICATION,5.0,Pongal + Republic Day E-commerce Sale
+EV007,EV012,AMPLIFICATION,5.0,Pongal + Valentine's Week
+EV007,EV013,AMPLIFICATION,5.0,Pongal + Valentine's Day
+EV007,EV015,AMPLIFICATION,5.0,Pongal + Winter Clearance / End of Season Sale
+EV007,EV019,SATURATION,4.0,Pongal + Holi Preparation
+EV007,EV153,SATURATION,4.0,Pongal + Makaravilakku / Sabarimala Pilgrimage Season
+EV007,EV154,SATURATION,4.0,Pongal + Thaipusam
+EV007,EV155,SATURATION,4.0,Pongal + Magh Bihu / Bhogali Bihu
+EV007,EV162,SATURATION,4.0,Pongal + Goa Carnival / Pre-Lent Tourism
+EV007,EV171,ATTENUATION,3.5,Pongal + Winter Transition — Southern India
+EV007,EV172,AMPLIFICATION,5.0,Pongal + Valentine's Pre-Season Demand Build
+EV008,EV009,SATURATION,4.0,Mattu Pongal + Vasant Panchami / Basant Panchami
+EV008,EV011,AMPLIFICATION,5.0,Mattu Pongal + Republic Day E-commerce Sale
+EV008,EV012,AMPLIFICATION,5.0,Mattu Pongal + Valentine's Week
+EV008,EV013,AMPLIFICATION,5.0,Mattu Pongal + Valentine's Day
+EV008,EV015,AMPLIFICATION,5.0,Mattu Pongal + Winter Clearance / End of Season Sale
+EV008,EV153,SATURATION,4.0,Mattu Pongal + Makaravilakku / Sabarimala Pilgrimage Season
+EV008,EV154,SATURATION,4.0,Mattu Pongal + Thaipusam
+EV008,EV155,SATURATION,4.0,Mattu Pongal + Magh Bihu / Bhogali Bihu
+EV008,EV162,SATURATION,4.0,Mattu Pongal + Goa Carnival / Pre-Lent Tourism
+EV008,EV171,ATTENUATION,3.5,Mattu Pongal + Winter Transition — Southern India
+EV008,EV172,AMPLIFICATION,5.0,Mattu Pongal + Valentine's Pre-Season Demand Build
+EV009,EV011,AMPLIFICATION,5.0,Vasant Panchami / Basant Panchami + Republic Day E-commerce Sale
+EV009,EV012,AMPLIFICATION,5.0,Vasant Panchami / Basant Panchami + Valentine's Week
+EV009,EV013,AMPLIFICATION,5.0,Vasant Panchami / Basant Panchami + Valentine's Day
+EV009,EV015,AMPLIFICATION,5.0,Vasant Panchami / Basant Panchami + Winter Clearance / End of Season Sale
+EV009,EV019,SATURATION,4.0,Vasant Panchami / Basant Panchami + Holi Preparation
+EV009,EV153,SATURATION,4.0,Vasant Panchami / Basant Panchami + Makaravilakku / Sabarimala Pilgrimage Season
+EV009,EV154,SATURATION,4.0,Vasant Panchami / Basant Panchami + Thaipusam
+EV009,EV155,SATURATION,4.0,Vasant Panchami / Basant Panchami + Magh Bihu / Bhogali Bihu
+EV009,EV162,SATURATION,4.0,Vasant Panchami / Basant Panchami + Goa Carnival / Pre-Lent Tourism
+EV009,EV171,ATTENUATION,3.5,Vasant Panchami / Basant Panchami + Winter Transition — Southern India
+EV009,EV172,AMPLIFICATION,5.0,Vasant Panchami / Basant Panchami + Valentine's Pre-Season Demand Build
+EV011,EV016,AMPLIFICATION,4.0,Republic Day E-commerce Sale + Wedding Season — Winter Peak II
+EV011,EV017,AMPLIFICATION,4.0,Republic Day E-commerce Sale + Exam Preparation Cycle
+EV011,EV018,AMPLIFICATION,4.5,Republic Day E-commerce Sale + Spring Transition
+EV011,EV019,AMPLIFICATION,5.0,Republic Day E-commerce Sale + Holi Preparation
+EV011,EV021,AMPLIFICATION,5.0,Republic Day E-commerce Sale + Holi
+EV011,EV030,AMPLIFICATION,4.0,Republic Day E-commerce Sale + Tax-Saving Purchase Cycle
+EV011,EV145,AMPLIFICATION,4.0,Republic Day E-commerce Sale + Academic New Year Preparation
+EV011,EV146,AMPLIFICATION,4.0,Republic Day E-commerce Sale + School Admissions Cycle
+EV011,EV153,AMPLIFICATION,5.0,Republic Day E-commerce Sale + Makaravilakku / Sabarimala Pilgrimage Season
+EV011,EV154,AMPLIFICATION,5.0,Republic Day E-commerce Sale + Thaipusam
+EV011,EV155,AMPLIFICATION,5.0,Republic Day E-commerce Sale + Magh Bihu / Bhogali Bihu
+EV011,EV162,AMPLIFICATION,5.0,Republic Day E-commerce Sale + Goa Carnival / Pre-Lent Tourism
+EV011,EV170,AMPLIFICATION,4.0,Republic Day E-commerce Sale + Wedding Retail Inventory Build-Up — Summer
+EV011,EV171,AMPLIFICATION,4.5,Republic Day E-commerce Sale + Winter Transition — Southern India
+EV012,EV016,AMPLIFICATION,4.0,Valentine's Week + Wedding Season — Winter Peak II
+EV012,EV017,AMPLIFICATION,4.0,Valentine's Week + Exam Preparation Cycle
+EV012,EV018,AMPLIFICATION,4.5,Valentine's Week + Spring Transition
+EV012,EV019,AMPLIFICATION,5.0,Valentine's Week + Holi Preparation
+EV012,EV020,AMPLIFICATION,5.0,Valentine's Week + Holika Dahan
+EV012,EV021,AMPLIFICATION,5.0,Valentine's Week + Holi
+EV012,EV029,AMPLIFICATION,4.0,Valentine's Week + Financial Year-End Shopping
+EV012,EV030,AMPLIFICATION,4.0,Valentine's Week + Tax-Saving Purchase Cycle
+EV012,EV145,AMPLIFICATION,4.0,Valentine's Week + Academic New Year Preparation
+EV012,EV146,AMPLIFICATION,4.0,Valentine's Week + School Admissions Cycle
+EV012,EV153,AMPLIFICATION,5.0,Valentine's Week + Makaravilakku / Sabarimala Pilgrimage Season
+EV012,EV154,AMPLIFICATION,5.0,Valentine's Week + Thaipusam
+EV012,EV155,AMPLIFICATION,5.0,Valentine's Week + Magh Bihu / Bhogali Bihu
+EV012,EV162,AMPLIFICATION,5.0,Valentine's Week + Goa Carnival / Pre-Lent Tourism
+EV012,EV170,AMPLIFICATION,4.0,Valentine's Week + Wedding Retail Inventory Build-Up — Summer
+EV012,EV171,AMPLIFICATION,4.5,Valentine's Week + Winter Transition — Southern India
+EV013,EV016,AMPLIFICATION,4.0,Valentine's Day + Wedding Season — Winter Peak II
+EV013,EV017,AMPLIFICATION,4.0,Valentine's Day + Exam Preparation Cycle
+EV013,EV018,AMPLIFICATION,4.5,Valentine's Day + Spring Transition
+EV013,EV019,AMPLIFICATION,5.0,Valentine's Day + Holi Preparation
+EV013,EV020,AMPLIFICATION,5.0,Valentine's Day + Holika Dahan
+EV013,EV021,AMPLIFICATION,5.0,Valentine's Day + Holi
+EV013,EV029,AMPLIFICATION,4.0,Valentine's Day + Financial Year-End Shopping
+EV013,EV030,AMPLIFICATION,4.0,Valentine's Day + Tax-Saving Purchase Cycle
+EV013,EV145,AMPLIFICATION,4.0,Valentine's Day + Academic New Year Preparation
+EV013,EV146,AMPLIFICATION,4.0,Valentine's Day + School Admissions Cycle
+EV013,EV153,AMPLIFICATION,5.0,Valentine's Day + Makaravilakku / Sabarimala Pilgrimage Season
+EV013,EV154,AMPLIFICATION,5.0,Valentine's Day + Thaipusam
+EV013,EV155,AMPLIFICATION,5.0,Valentine's Day + Magh Bihu / Bhogali Bihu
+EV013,EV162,AMPLIFICATION,5.0,Valentine's Day + Goa Carnival / Pre-Lent Tourism
+EV013,EV170,AMPLIFICATION,4.0,Valentine's Day + Wedding Retail Inventory Build-Up — Summer
+EV013,EV171,AMPLIFICATION,4.5,Valentine's Day + Winter Transition — Southern India
+EV015,EV016,AMPLIFICATION,4.0,Winter Clearance / End of Season Sale + Wedding Season — Winter Peak II
+EV015,EV017,AMPLIFICATION,4.0,Winter Clearance / End of Season Sale + Exam Preparation Cycle
+EV015,EV018,AMPLIFICATION,4.5,Winter Clearance / End of Season Sale + Spring Transition
+EV015,EV019,AMPLIFICATION,5.0,Winter Clearance / End of Season Sale + Holi Preparation
+EV015,EV020,AMPLIFICATION,5.0,Winter Clearance / End of Season Sale + Holika Dahan
+EV015,EV021,AMPLIFICATION,5.0,Winter Clearance / End of Season Sale + Holi
+EV015,EV024,AMPLIFICATION,5.0,Winter Clearance / End of Season Sale + Ugadi
+EV015,EV025,AMPLIFICATION,5.0,Winter Clearance / End of Season Sale + Gudi Padwa
+EV015,EV029,AMPLIFICATION,4.0,Winter Clearance / End of Season Sale + Financial Year-End Shopping
+EV015,EV030,AMPLIFICATION,4.0,Winter Clearance / End of Season Sale + Tax-Saving Purchase Cycle
+EV015,EV031,AMPLIFICATION,5.0,Winter Clearance / End of Season Sale + Baisakhi
+EV015,EV032,AMPLIFICATION,5.0,Winter Clearance / End of Season Sale + Tamil Puthandu
+EV015,EV033,AMPLIFICATION,5.0,Winter Clearance / End of Season Sale + Vishu
+EV015,EV034,AMPLIFICATION,5.0,Winter Clearance / End of Season Sale + Poila Boishakh
+EV015,EV035,AMPLIFICATION,5.0,Winter Clearance / End of Season Sale + Rongali / Bohag Bihu
+EV015,EV036,AMPLIFICATION,5.0,Winter Clearance / End of Season Sale + Maha Vishuba Sankranti
+EV015,EV039,AMPLIFICATION,4.5,Winter Clearance / End of Season Sale + Summer Onset
+EV015,EV040,AMPLIFICATION,5.0,Winter Clearance / End of Season Sale + Akshaya Tritiya
+EV015,EV041,AMPLIFICATION,4.5,Winter Clearance / End of Season Sale + Peak Summer / Heatwave
+EV015,EV043,AMPLIFICATION,4.0,Winter Clearance / End of Season Sale + Summer Vacation Planning
+EV015,EV046,AMPLIFICATION,4.5,Winter Clearance / End of Season Sale + Peak Summer Cooling Demand
+EV015,EV050,AMPLIFICATION,4.0,Winter Clearance / End of Season Sale + Wedding Season — Summer Peak
+EV015,EV051,AMPLIFICATION,4.0,Winter Clearance / End of Season Sale + Exam Season / School Year-End
+EV015,EV133,AMPLIFICATION,4.5,Winter Clearance / End of Season Sale + Extreme Heatwave Alert
+EV015,EV145,AMPLIFICATION,4.0,Winter Clearance / End of Season Sale + Academic New Year Preparation
+EV015,EV146,AMPLIFICATION,4.0,Winter Clearance / End of Season Sale + School Admissions Cycle
+EV015,EV148,AMPLIFICATION,4.0,Winter Clearance / End of Season Sale + Summer Vacation Peak
+EV015,EV153,AMPLIFICATION,5.0,Winter Clearance / End of Season Sale + Makaravilakku / Sabarimala Pilgrimage Season
+EV015,EV154,AMPLIFICATION,5.0,Winter Clearance / End of Season Sale + Thaipusam
+EV015,EV155,AMPLIFICATION,5.0,Winter Clearance / End of Season Sale + Magh Bihu / Bhogali Bihu
+EV015,EV156,AMPLIFICATION,5.0,Winter Clearance / End of Season Sale + Vaisakhi Gurdwara / Community Celebration
+EV015,EV162,AMPLIFICATION,5.0,Winter Clearance / End of Season Sale + Goa Carnival / Pre-Lent Tourism
+EV015,EV170,AMPLIFICATION,4.0,Winter Clearance / End of Season Sale + Wedding Retail Inventory Build-Up — Summer
+EV015,EV171,AMPLIFICATION,4.5,Winter Clearance / End of Season Sale + Winter Transition — Southern India
+EV015,EV173,AMPLIFICATION,5.0,Winter Clearance / End of Season Sale + Bihu / Regional New Year Travel & Gifting Build
+EV016,EV018,ATTENUATION,3.5,Wedding Season — Winter Peak II + Spring Transition
+EV016,EV039,ATTENUATION,3.5,Wedding Season — Winter Peak II + Summer Onset
+EV016,EV041,ATTENUATION,3.5,Wedding Season — Winter Peak II + Peak Summer / Heatwave
+EV016,EV133,ATTENUATION,3.5,Wedding Season — Winter Peak II + Extreme Heatwave Alert
+EV016,EV171,ATTENUATION,3.5,Wedding Season — Winter Peak II + Winter Transition — Southern India
+EV016,EV172,AMPLIFICATION,4.0,Wedding Season — Winter Peak II + Valentine's Pre-Season Demand Build
+EV017,EV018,ATTENUATION,3.5,Exam Preparation Cycle + Spring Transition
+EV017,EV039,ATTENUATION,3.5,Exam Preparation Cycle + Summer Onset
+EV017,EV041,ATTENUATION,3.5,Exam Preparation Cycle + Peak Summer / Heatwave
+EV017,EV046,ATTENUATION,3.5,Exam Preparation Cycle + Peak Summer Cooling Demand
+EV017,EV133,ATTENUATION,3.5,Exam Preparation Cycle + Extreme Heatwave Alert
+EV017,EV171,ATTENUATION,3.5,Exam Preparation Cycle + Winter Transition — Southern India
+EV017,EV172,AMPLIFICATION,4.0,Exam Preparation Cycle + Valentine's Pre-Season Demand Build
+EV018,EV019,ATTENUATION,3.5,Spring Transition + Holi Preparation
+EV018,EV020,ATTENUATION,3.5,Spring Transition + Holika Dahan
+EV018,EV021,ATTENUATION,3.5,Spring Transition + Holi
+EV018,EV024,ATTENUATION,3.5,Spring Transition + Ugadi
+EV018,EV025,ATTENUATION,3.5,Spring Transition + Gudi Padwa
+EV018,EV029,ATTENUATION,3.5,Spring Transition + Financial Year-End Shopping
+EV018,EV030,ATTENUATION,3.5,Spring Transition + Tax-Saving Purchase Cycle
+EV018,EV031,ATTENUATION,3.5,Spring Transition + Baisakhi
+EV018,EV032,ATTENUATION,3.5,Spring Transition + Tamil Puthandu
+EV018,EV033,ATTENUATION,3.5,Spring Transition + Vishu
+EV018,EV034,ATTENUATION,3.5,Spring Transition + Poila Boishakh
+EV018,EV035,ATTENUATION,3.5,Spring Transition + Rongali / Bohag Bihu
+EV018,EV036,ATTENUATION,3.5,Spring Transition + Maha Vishuba Sankranti
+EV018,EV040,ATTENUATION,3.5,Spring Transition + Akshaya Tritiya
+EV018,EV043,ATTENUATION,3.5,Spring Transition + Summer Vacation Planning
+EV018,EV050,ATTENUATION,3.5,Spring Transition + Wedding Season — Summer Peak
+EV018,EV051,ATTENUATION,3.5,Spring Transition + Exam Season / School Year-End
+EV018,EV145,ATTENUATION,3.5,Spring Transition + Academic New Year Preparation
+EV018,EV146,ATTENUATION,3.5,Spring Transition + School Admissions Cycle
+EV018,EV148,ATTENUATION,3.5,Spring Transition + Summer Vacation Peak
+EV018,EV153,ATTENUATION,3.5,Spring Transition + Makaravilakku / Sabarimala Pilgrimage Season
+EV018,EV154,ATTENUATION,3.5,Spring Transition + Thaipusam
+EV018,EV156,ATTENUATION,3.5,Spring Transition + Vaisakhi Gurdwara / Community Celebration
+EV018,EV162,ATTENUATION,3.5,Spring Transition + Goa Carnival / Pre-Lent Tourism
+EV018,EV170,ATTENUATION,3.5,Spring Transition + Wedding Retail Inventory Build-Up — Summer
+EV018,EV172,AMPLIFICATION,4.5,Spring Transition + Valentine's Pre-Season Demand Build
+EV018,EV173,ATTENUATION,3.5,Spring Transition + Bihu / Regional New Year Travel & Gifting Build
+EV019,EV020,SATURATION,4.0,Holi Preparation + Holika Dahan
+EV019,EV021,SATURATION,4.0,Holi Preparation + Holi
+EV019,EV024,SATURATION,4.0,Holi Preparation + Ugadi
+EV019,EV025,SATURATION,4.0,Holi Preparation + Gudi Padwa
+EV019,EV031,SATURATION,4.0,Holi Preparation + Baisakhi
+EV019,EV032,SATURATION,4.0,Holi Preparation + Tamil Puthandu
+EV019,EV033,SATURATION,4.0,Holi Preparation + Vishu
+EV019,EV034,SATURATION,4.0,Holi Preparation + Poila Boishakh
+EV019,EV035,SATURATION,4.0,Holi Preparation + Rongali / Bohag Bihu
+EV019,EV039,ATTENUATION,3.5,Holi Preparation + Summer Onset
+EV019,EV133,ATTENUATION,3.5,Holi Preparation + Extreme Heatwave Alert
+EV019,EV153,SATURATION,4.0,Holi Preparation + Makaravilakku / Sabarimala Pilgrimage Season
+EV019,EV154,SATURATION,4.0,Holi Preparation + Thaipusam
+EV019,EV162,SATURATION,4.0,Holi Preparation + Goa Carnival / Pre-Lent Tourism
+EV019,EV171,ATTENUATION,3.5,Holi Preparation + Winter Transition — Southern India
+EV019,EV172,AMPLIFICATION,5.0,Holi Preparation + Valentine's Pre-Season Demand Build
+EV020,EV021,SATURATION,4.0,Holika Dahan + Holi
+EV020,EV024,SATURATION,4.0,Holika Dahan + Ugadi
+EV020,EV025,SATURATION,4.0,Holika Dahan + Gudi Padwa
+EV020,EV031,SATURATION,4.0,Holika Dahan + Baisakhi
+EV020,EV032,SATURATION,4.0,Holika Dahan + Tamil Puthandu
+EV020,EV033,SATURATION,4.0,Holika Dahan + Vishu
+EV020,EV034,SATURATION,4.0,Holika Dahan + Poila Boishakh
+EV020,EV035,SATURATION,4.0,Holika Dahan + Rongali / Bohag Bihu
+EV020,EV039,ATTENUATION,3.5,Holika Dahan + Summer Onset
+EV020,EV133,ATTENUATION,3.5,Holika Dahan + Extreme Heatwave Alert
+EV020,EV153,SATURATION,4.0,Holika Dahan + Makaravilakku / Sabarimala Pilgrimage Season
+EV020,EV162,SATURATION,4.0,Holika Dahan + Goa Carnival / Pre-Lent Tourism
+EV020,EV171,ATTENUATION,3.5,Holika Dahan + Winter Transition — Southern India
+EV020,EV172,AMPLIFICATION,5.0,Holika Dahan + Valentine's Pre-Season Demand Build
+EV021,EV024,SATURATION,4.0,Holi + Ugadi
+EV021,EV025,SATURATION,4.0,Holi + Gudi Padwa
+EV021,EV031,SATURATION,4.0,Holi + Baisakhi
+EV021,EV032,SATURATION,4.0,Holi + Tamil Puthandu
+EV021,EV033,SATURATION,4.0,Holi + Vishu
+EV021,EV034,SATURATION,4.0,Holi + Poila Boishakh
+EV021,EV035,SATURATION,4.0,Holi + Rongali / Bohag Bihu
+EV021,EV039,ATTENUATION,3.5,Holi + Summer Onset
+EV021,EV133,ATTENUATION,3.5,Holi + Extreme Heatwave Alert
+EV021,EV153,SATURATION,4.0,Holi + Makaravilakku / Sabarimala Pilgrimage Season
+EV021,EV162,SATURATION,4.0,Holi + Goa Carnival / Pre-Lent Tourism
+EV021,EV171,ATTENUATION,3.5,Holi + Winter Transition — Southern India
+EV021,EV172,AMPLIFICATION,5.0,Holi + Valentine's Pre-Season Demand Build
+EV024,EV025,SATURATION,4.0,Ugadi + Gudi Padwa
+EV024,EV031,SATURATION,4.0,Ugadi + Baisakhi
+EV024,EV032,SATURATION,4.0,Ugadi + Tamil Puthandu
+EV024,EV033,SATURATION,4.0,Ugadi + Vishu
+EV024,EV034,SATURATION,4.0,Ugadi + Poila Boishakh
+EV024,EV035,SATURATION,4.0,Ugadi + Rongali / Bohag Bihu
+EV024,EV036,SATURATION,4.0,Ugadi + Maha Vishuba Sankranti
+EV024,EV039,ATTENUATION,3.5,Ugadi + Summer Onset
+EV024,EV040,SATURATION,4.0,Ugadi + Akshaya Tritiya
+EV024,EV041,ATTENUATION,3.5,Ugadi + Peak Summer / Heatwave
+EV024,EV046,ATTENUATION,3.5,Ugadi + Peak Summer Cooling Demand
+EV024,EV133,ATTENUATION,3.5,Ugadi + Extreme Heatwave Alert
+EV024,EV156,SATURATION,4.0,Ugadi + Vaisakhi Gurdwara / Community Celebration
+EV024,EV162,SATURATION,4.0,Ugadi + Goa Carnival / Pre-Lent Tourism
+EV024,EV171,ATTENUATION,3.5,Ugadi + Winter Transition — Southern India
+EV024,EV173,SATURATION,4.0,Ugadi + Bihu / Regional New Year Travel & Gifting Build
+EV025,EV031,SATURATION,4.0,Gudi Padwa + Baisakhi
+EV025,EV032,SATURATION,4.0,Gudi Padwa + Tamil Puthandu
+EV025,EV033,SATURATION,4.0,Gudi Padwa + Vishu
+EV025,EV034,SATURATION,4.0,Gudi Padwa + Poila Boishakh
+EV025,EV035,SATURATION,4.0,Gudi Padwa + Rongali / Bohag Bihu
+EV025,EV036,SATURATION,4.0,Gudi Padwa + Maha Vishuba Sankranti
+EV025,EV039,ATTENUATION,3.5,Gudi Padwa + Summer Onset
+EV025,EV040,SATURATION,4.0,Gudi Padwa + Akshaya Tritiya
+EV025,EV041,ATTENUATION,3.5,Gudi Padwa + Peak Summer / Heatwave
+EV025,EV046,ATTENUATION,3.5,Gudi Padwa + Peak Summer Cooling Demand
+EV025,EV133,ATTENUATION,3.5,Gudi Padwa + Extreme Heatwave Alert
+EV025,EV156,SATURATION,4.0,Gudi Padwa + Vaisakhi Gurdwara / Community Celebration
+EV025,EV162,SATURATION,4.0,Gudi Padwa + Goa Carnival / Pre-Lent Tourism
+EV025,EV171,ATTENUATION,3.5,Gudi Padwa + Winter Transition — Southern India
+EV025,EV173,SATURATION,4.0,Gudi Padwa + Bihu / Regional New Year Travel & Gifting Build
+EV029,EV039,ATTENUATION,3.5,Financial Year-End Shopping + Summer Onset
+EV029,EV041,ATTENUATION,3.5,Financial Year-End Shopping + Peak Summer / Heatwave
+EV029,EV045,AMPLIFICATION,4.0,Financial Year-End Shopping + Mother's Day
+EV029,EV046,ATTENUATION,3.5,Financial Year-End Shopping + Peak Summer Cooling Demand
+EV029,EV047,ATTENUATION,3.5,Financial Year-End Shopping + Summer Beverage Peak
+EV029,EV133,ATTENUATION,3.5,Financial Year-End Shopping + Extreme Heatwave Alert
+EV029,EV171,ATTENUATION,3.5,Financial Year-End Shopping + Winter Transition — Southern India
+EV029,EV172,AMPLIFICATION,4.0,Financial Year-End Shopping + Valentine's Pre-Season Demand Build
+EV030,EV039,ATTENUATION,3.5,Tax-Saving Purchase Cycle + Summer Onset
+EV030,EV041,ATTENUATION,3.5,Tax-Saving Purchase Cycle + Peak Summer / Heatwave
+EV030,EV045,AMPLIFICATION,4.0,Tax-Saving Purchase Cycle + Mother's Day
+EV030,EV046,ATTENUATION,3.5,Tax-Saving Purchase Cycle + Peak Summer Cooling Demand
+EV030,EV047,ATTENUATION,3.5,Tax-Saving Purchase Cycle + Summer Beverage Peak
+EV030,EV133,ATTENUATION,3.5,Tax-Saving Purchase Cycle + Extreme Heatwave Alert
+EV030,EV171,ATTENUATION,3.5,Tax-Saving Purchase Cycle + Winter Transition — Southern India
+EV030,EV172,AMPLIFICATION,4.0,Tax-Saving Purchase Cycle + Valentine's Pre-Season Demand Build
+EV031,EV032,SATURATION,4.0,Baisakhi + Tamil Puthandu
+EV031,EV033,SATURATION,4.0,Baisakhi + Vishu
+EV031,EV034,SATURATION,4.0,Baisakhi + Poila Boishakh
+EV031,EV035,SATURATION,4.0,Baisakhi + Rongali / Bohag Bihu
+EV031,EV036,SATURATION,4.0,Baisakhi + Maha Vishuba Sankranti
+EV031,EV039,ATTENUATION,3.5,Baisakhi + Summer Onset
+EV031,EV040,SATURATION,4.0,Baisakhi + Akshaya Tritiya
+EV031,EV041,ATTENUATION,3.5,Baisakhi + Peak Summer / Heatwave
+EV031,EV045,AMPLIFICATION,5.0,Baisakhi + Mother's Day
+EV031,EV046,ATTENUATION,3.5,Baisakhi + Peak Summer Cooling Demand
+EV031,EV047,ATTENUATION,3.5,Baisakhi + Summer Beverage Peak
+EV031,EV133,ATTENUATION,3.5,Baisakhi + Extreme Heatwave Alert
+EV031,EV156,SATURATION,4.0,Baisakhi + Vaisakhi Gurdwara / Community Celebration
+EV031,EV157,SATURATION,4.0,Baisakhi + Thrissur Pooram
+EV031,EV173,SATURATION,4.0,Baisakhi + Bihu / Regional New Year Travel & Gifting Build
+EV032,EV033,SATURATION,4.0,Tamil Puthandu + Vishu
+EV032,EV034,SATURATION,4.0,Tamil Puthandu + Poila Boishakh
+EV032,EV035,SATURATION,4.0,Tamil Puthandu + Rongali / Bohag Bihu
+EV032,EV036,SATURATION,4.0,Tamil Puthandu + Maha Vishuba Sankranti
+EV032,EV039,ATTENUATION,3.5,Tamil Puthandu + Summer Onset
+EV032,EV040,SATURATION,4.0,Tamil Puthandu + Akshaya Tritiya
+EV032,EV041,ATTENUATION,3.5,Tamil Puthandu + Peak Summer / Heatwave
+EV032,EV045,AMPLIFICATION,5.0,Tamil Puthandu + Mother's Day
+EV032,EV046,ATTENUATION,3.5,Tamil Puthandu + Peak Summer Cooling Demand
+EV032,EV047,ATTENUATION,3.5,Tamil Puthandu + Summer Beverage Peak
+EV032,EV133,ATTENUATION,3.5,Tamil Puthandu + Extreme Heatwave Alert
+EV032,EV156,SATURATION,4.0,Tamil Puthandu + Vaisakhi Gurdwara / Community Celebration
+EV032,EV157,SATURATION,4.0,Tamil Puthandu + Thrissur Pooram
+EV032,EV173,SATURATION,4.0,Tamil Puthandu + Bihu / Regional New Year Travel & Gifting Build
+EV033,EV034,SATURATION,4.0,Vishu + Poila Boishakh
+EV033,EV035,SATURATION,4.0,Vishu + Rongali / Bohag Bihu
+EV033,EV036,SATURATION,4.0,Vishu + Maha Vishuba Sankranti
+EV033,EV039,ATTENUATION,3.5,Vishu + Summer Onset
+EV033,EV040,SATURATION,4.0,Vishu + Akshaya Tritiya
+EV033,EV041,ATTENUATION,3.5,Vishu + Peak Summer / Heatwave
+EV033,EV045,AMPLIFICATION,5.0,Vishu + Mother's Day
+EV033,EV046,ATTENUATION,3.5,Vishu + Peak Summer Cooling Demand
+EV033,EV047,ATTENUATION,3.5,Vishu + Summer Beverage Peak
+EV033,EV133,ATTENUATION,3.5,Vishu + Extreme Heatwave Alert
+EV033,EV156,SATURATION,4.0,Vishu + Vaisakhi Gurdwara / Community Celebration
+EV033,EV157,SATURATION,4.0,Vishu + Thrissur Pooram
+EV033,EV173,SATURATION,4.0,Vishu + Bihu / Regional New Year Travel & Gifting Build
+EV034,EV035,SATURATION,4.0,Poila Boishakh + Rongali / Bohag Bihu
+EV034,EV036,SATURATION,4.0,Poila Boishakh + Maha Vishuba Sankranti
+EV034,EV039,ATTENUATION,3.5,Poila Boishakh + Summer Onset
+EV034,EV040,SATURATION,4.0,Poila Boishakh + Akshaya Tritiya
+EV034,EV041,ATTENUATION,3.5,Poila Boishakh + Peak Summer / Heatwave
+EV034,EV045,AMPLIFICATION,5.0,Poila Boishakh + Mother's Day
+EV034,EV046,ATTENUATION,3.5,Poila Boishakh + Peak Summer Cooling Demand
+EV034,EV047,ATTENUATION,3.5,Poila Boishakh + Summer Beverage Peak
+EV034,EV133,ATTENUATION,3.5,Poila Boishakh + Extreme Heatwave Alert
+EV034,EV156,SATURATION,4.0,Poila Boishakh + Vaisakhi Gurdwara / Community Celebration
+EV034,EV157,SATURATION,4.0,Poila Boishakh + Thrissur Pooram
+EV034,EV173,SATURATION,4.0,Poila Boishakh + Bihu / Regional New Year Travel & Gifting Build
+EV035,EV036,SATURATION,4.0,Rongali / Bohag Bihu + Maha Vishuba Sankranti
+EV035,EV039,ATTENUATION,3.5,Rongali / Bohag Bihu + Summer Onset
+EV035,EV040,SATURATION,4.0,Rongali / Bohag Bihu + Akshaya Tritiya
+EV035,EV041,ATTENUATION,3.5,Rongali / Bohag Bihu + Peak Summer / Heatwave
+EV035,EV045,AMPLIFICATION,5.0,Rongali / Bohag Bihu + Mother's Day
+EV035,EV046,ATTENUATION,3.5,Rongali / Bohag Bihu + Peak Summer Cooling Demand
+EV035,EV047,ATTENUATION,3.5,Rongali / Bohag Bihu + Summer Beverage Peak
+EV035,EV048,ATTENUATION,3.5,Rongali / Bohag Bihu + Pre-Monsoon Home Preparation
+EV035,EV133,ATTENUATION,3.5,Rongali / Bohag Bihu + Extreme Heatwave Alert
+EV035,EV156,SATURATION,4.0,Rongali / Bohag Bihu + Vaisakhi Gurdwara / Community Celebration
+EV035,EV157,SATURATION,4.0,Rongali / Bohag Bihu + Thrissur Pooram
+EV035,EV173,SATURATION,4.0,Rongali / Bohag Bihu + Bihu / Regional New Year Travel & Gifting Build
+EV036,EV039,ATTENUATION,3.5,Maha Vishuba Sankranti + Summer Onset
+EV036,EV040,SATURATION,4.0,Maha Vishuba Sankranti + Akshaya Tritiya
+EV036,EV041,ATTENUATION,3.5,Maha Vishuba Sankranti + Peak Summer / Heatwave
+EV036,EV045,AMPLIFICATION,5.0,Maha Vishuba Sankranti + Mother's Day
+EV036,EV046,ATTENUATION,3.5,Maha Vishuba Sankranti + Peak Summer Cooling Demand
+EV036,EV047,ATTENUATION,3.5,Maha Vishuba Sankranti + Summer Beverage Peak
+EV036,EV133,ATTENUATION,3.5,Maha Vishuba Sankranti + Extreme Heatwave Alert
+EV036,EV156,SATURATION,4.0,Maha Vishuba Sankranti + Vaisakhi Gurdwara / Community Celebration
+EV036,EV157,SATURATION,4.0,Maha Vishuba Sankranti + Thrissur Pooram
+EV036,EV173,SATURATION,4.0,Maha Vishuba Sankranti + Bihu / Regional New Year Travel & Gifting Build
+EV039,EV040,ATTENUATION,3.5,Summer Onset + Akshaya Tritiya
+EV039,EV043,ATTENUATION,3.5,Summer Onset + Summer Vacation Planning
+EV039,EV045,AMPLIFICATION,4.5,Summer Onset + Mother's Day
+EV039,EV050,ATTENUATION,3.5,Summer Onset + Wedding Season — Summer Peak
+EV039,EV051,ATTENUATION,3.5,Summer Onset + Exam Season / School Year-End
+EV039,EV054,ATTENUATION,3.5,Summer Onset + School Reopening Preparation
+EV039,EV055,ATTENUATION,3.5,Summer Onset + Back-to-School Shopping Peak
+EV039,EV056,ATTENUATION,3.5,Summer Onset + College Reopening Cycle
+EV039,EV057,AMPLIFICATION,4.5,Summer Onset + Father's Day
+EV039,EV058,AMPLIFICATION,4.5,Summer Onset + Summer End-of-Season Sale
+EV039,EV060,AMPLIFICATION,4.5,Summer Onset + World Environment Day
+EV039,EV145,ATTENUATION,3.5,Summer Onset + Academic New Year Preparation
+EV039,EV146,ATTENUATION,3.5,Summer Onset + School Admissions Cycle
+EV039,EV147,ATTENUATION,3.5,Summer Onset + College Admissions Cycle
+EV039,EV148,ATTENUATION,3.5,Summer Onset + Summer Vacation Peak
+EV039,EV156,ATTENUATION,3.5,Summer Onset + Vaisakhi Gurdwara / Community Celebration
+EV039,EV157,ATTENUATION,3.5,Summer Onset + Thrissur Pooram
+EV039,EV170,ATTENUATION,3.5,Summer Onset + Wedding Retail Inventory Build-Up — Summer
+EV039,EV173,ATTENUATION,3.5,Summer Onset + Bihu / Regional New Year Travel & Gifting Build
+EV040,EV041,ATTENUATION,3.5,Akshaya Tritiya + Peak Summer / Heatwave
+EV040,EV045,AMPLIFICATION,5.0,Akshaya Tritiya + Mother's Day
+EV040,EV046,ATTENUATION,3.5,Akshaya Tritiya + Peak Summer Cooling Demand
+EV040,EV047,ATTENUATION,3.5,Akshaya Tritiya + Summer Beverage Peak
+EV040,EV048,ATTENUATION,3.5,Akshaya Tritiya + Pre-Monsoon Home Preparation
+EV040,EV060,AMPLIFICATION,5.0,Akshaya Tritiya + World Environment Day
+EV040,EV133,ATTENUATION,3.5,Akshaya Tritiya + Extreme Heatwave Alert
+EV040,EV156,SATURATION,4.0,Akshaya Tritiya + Vaisakhi Gurdwara / Community Celebration
+EV040,EV157,SATURATION,4.0,Akshaya Tritiya + Thrissur Pooram
+EV040,EV173,SATURATION,4.0,Akshaya Tritiya + Bihu / Regional New Year Travel & Gifting Build
+EV041,EV043,ATTENUATION,3.5,Peak Summer / Heatwave + Summer Vacation Planning
+EV041,EV045,AMPLIFICATION,4.5,Peak Summer / Heatwave + Mother's Day
+EV041,EV050,ATTENUATION,3.5,Peak Summer / Heatwave + Wedding Season — Summer Peak
+EV041,EV051,ATTENUATION,3.5,Peak Summer / Heatwave + Exam Season / School Year-End
+EV041,EV054,ATTENUATION,3.5,Peak Summer / Heatwave + School Reopening Preparation
+EV041,EV055,ATTENUATION,3.5,Peak Summer / Heatwave + Back-to-School Shopping Peak
+EV041,EV056,ATTENUATION,3.5,Peak Summer / Heatwave + College Reopening Cycle
+EV041,EV057,AMPLIFICATION,4.5,Peak Summer / Heatwave + Father's Day
+EV041,EV058,AMPLIFICATION,4.5,Peak Summer / Heatwave + Summer End-of-Season Sale
+EV041,EV059,AMPLIFICATION,4.5,Peak Summer / Heatwave + International Yoga Day
+EV041,EV060,AMPLIFICATION,4.5,Peak Summer / Heatwave + World Environment Day
+EV041,EV074,AMPLIFICATION,4.5,Peak Summer / Heatwave + Onam Mega Shopping Season
+EV041,EV145,ATTENUATION,3.5,Peak Summer / Heatwave + Academic New Year Preparation
+EV041,EV146,ATTENUATION,3.5,Peak Summer / Heatwave + School Admissions Cycle
+EV041,EV147,ATTENUATION,3.5,Peak Summer / Heatwave + College Admissions Cycle
+EV041,EV148,ATTENUATION,3.5,Peak Summer / Heatwave + Summer Vacation Peak
+EV041,EV156,ATTENUATION,3.5,Peak Summer / Heatwave + Vaisakhi Gurdwara / Community Celebration
+EV041,EV157,ATTENUATION,3.5,Peak Summer / Heatwave + Thrissur Pooram
+EV041,EV158,ATTENUATION,3.5,Peak Summer / Heatwave + Jagannath Snana Yatra
+EV041,EV159,ATTENUATION,3.5,Peak Summer / Heatwave + Bonalu
+EV041,EV170,ATTENUATION,3.5,Peak Summer / Heatwave + Wedding Retail Inventory Build-Up — Summer
+EV041,EV173,ATTENUATION,3.5,Peak Summer / Heatwave + Bihu / Regional New Year Travel & Gifting Build
+EV041,EV174,ATTENUATION,3.5,Peak Summer / Heatwave + Pre-College / Hostel Setup Season
+EV043,EV045,AMPLIFICATION,4.0,Summer Vacation Planning + Mother's Day
+EV043,EV046,ATTENUATION,3.5,Summer Vacation Planning + Peak Summer Cooling Demand
+EV043,EV047,ATTENUATION,3.5,Summer Vacation Planning + Summer Beverage Peak
+EV043,EV048,ATTENUATION,3.5,Summer Vacation Planning + Pre-Monsoon Home Preparation
+EV043,EV052,ATTENUATION,3.5,Summer Vacation Planning + Southwest Monsoon Onset — Kerala
+EV043,EV053,ATTENUATION,3.5,Summer Vacation Planning + Monsoon Expansion — West/South
+EV043,EV057,AMPLIFICATION,4.0,Summer Vacation Planning + Father's Day
+EV043,EV058,AMPLIFICATION,4.0,Summer Vacation Planning + Summer End-of-Season Sale
+EV043,EV059,AMPLIFICATION,4.0,Summer Vacation Planning + International Yoga Day
+EV043,EV060,AMPLIFICATION,4.0,Summer Vacation Planning + World Environment Day
+EV043,EV061,ATTENUATION,3.5,Summer Vacation Planning + Monsoon Expansion — North India
+EV043,EV062,ATTENUATION,3.5,Summer Vacation Planning + Peak Monsoon
+EV043,EV067,ATTENUATION,3.5,Summer Vacation Planning + Monsoon Home Hygiene Cycle
+EV043,EV074,AMPLIFICATION,4.0,Summer Vacation Planning + Onam Mega Shopping Season
+EV043,EV133,ATTENUATION,3.5,Summer Vacation Planning + Extreme Heatwave Alert
+EV043,EV134,ATTENUATION,3.5,Summer Vacation Planning + Severe Rain / Flood Risk
+EV043,EV165,ATTENUATION,3.5,Summer Vacation Planning + Mosquito Season Demand Peak
+EV043,EV166,ATTENUATION,3.5,Summer Vacation Planning + Rainwear Replacement / Mid-Monsoon Restock
+EV045,EV046,AMPLIFICATION,4.5,Mother's Day + Peak Summer Cooling Demand
+EV045,EV047,AMPLIFICATION,4.5,Mother's Day + Summer Beverage Peak
+EV045,EV048,AMPLIFICATION,4.5,Mother's Day + Pre-Monsoon Home Preparation
+EV045,EV050,AMPLIFICATION,4.0,Mother's Day + Wedding Season — Summer Peak
+EV045,EV051,AMPLIFICATION,4.0,Mother's Day + Exam Season / School Year-End
+EV045,EV054,AMPLIFICATION,4.0,Mother's Day + School Reopening Preparation
+EV045,EV055,AMPLIFICATION,4.0,Mother's Day + Back-to-School Shopping Peak
+EV045,EV056,AMPLIFICATION,4.0,Mother's Day + College Reopening Cycle
+EV045,EV133,AMPLIFICATION,4.5,Mother's Day + Extreme Heatwave Alert
+EV045,EV145,AMPLIFICATION,4.0,Mother's Day + Academic New Year Preparation
+EV045,EV146,AMPLIFICATION,4.0,Mother's Day + School Admissions Cycle
+EV045,EV147,AMPLIFICATION,4.0,Mother's Day + College Admissions Cycle
+EV045,EV148,AMPLIFICATION,4.0,Mother's Day + Summer Vacation Peak
+EV045,EV156,AMPLIFICATION,5.0,Mother's Day + Vaisakhi Gurdwara / Community Celebration
+EV045,EV157,AMPLIFICATION,5.0,Mother's Day + Thrissur Pooram
+EV045,EV170,AMPLIFICATION,4.0,Mother's Day + Wedding Retail Inventory Build-Up — Summer
+EV045,EV173,AMPLIFICATION,5.0,Mother's Day + Bihu / Regional New Year Travel & Gifting Build
+EV046,EV050,ATTENUATION,3.5,Peak Summer Cooling Demand + Wedding Season — Summer Peak
+EV046,EV051,ATTENUATION,3.5,Peak Summer Cooling Demand + Exam Season / School Year-End
+EV046,EV054,ATTENUATION,3.5,Peak Summer Cooling Demand + School Reopening Preparation
+EV046,EV055,ATTENUATION,3.5,Peak Summer Cooling Demand + Back-to-School Shopping Peak
+EV046,EV056,ATTENUATION,3.5,Peak Summer Cooling Demand + College Reopening Cycle
+EV046,EV057,AMPLIFICATION,4.5,Peak Summer Cooling Demand + Father's Day
+EV046,EV058,AMPLIFICATION,4.5,Peak Summer Cooling Demand + Summer End-of-Season Sale
+EV046,EV059,AMPLIFICATION,4.5,Peak Summer Cooling Demand + International Yoga Day
+EV046,EV060,AMPLIFICATION,4.5,Peak Summer Cooling Demand + World Environment Day
+EV046,EV074,AMPLIFICATION,4.5,Peak Summer Cooling Demand + Onam Mega Shopping Season
+EV046,EV145,ATTENUATION,3.5,Peak Summer Cooling Demand + Academic New Year Preparation
+EV046,EV146,ATTENUATION,3.5,Peak Summer Cooling Demand + School Admissions Cycle
+EV046,EV147,ATTENUATION,3.5,Peak Summer Cooling Demand + College Admissions Cycle
+EV046,EV148,ATTENUATION,3.5,Peak Summer Cooling Demand + Summer Vacation Peak
+EV046,EV156,ATTENUATION,3.5,Peak Summer Cooling Demand + Vaisakhi Gurdwara / Community Celebration
+EV046,EV157,ATTENUATION,3.5,Peak Summer Cooling Demand + Thrissur Pooram
+EV046,EV158,ATTENUATION,3.5,Peak Summer Cooling Demand + Jagannath Snana Yatra
+EV046,EV159,ATTENUATION,3.5,Peak Summer Cooling Demand + Bonalu
+EV046,EV170,ATTENUATION,3.5,Peak Summer Cooling Demand + Wedding Retail Inventory Build-Up — Summer
+EV046,EV173,ATTENUATION,3.5,Peak Summer Cooling Demand + Bihu / Regional New Year Travel & Gifting Build
+EV046,EV174,ATTENUATION,3.5,Peak Summer Cooling Demand + Pre-College / Hostel Setup Season
+EV047,EV050,ATTENUATION,3.5,Summer Beverage Peak + Wedding Season — Summer Peak
+EV047,EV051,ATTENUATION,3.5,Summer Beverage Peak + Exam Season / School Year-End
+EV047,EV054,ATTENUATION,3.5,Summer Beverage Peak + School Reopening Preparation
+EV047,EV055,ATTENUATION,3.5,Summer Beverage Peak + Back-to-School Shopping Peak
+EV047,EV056,ATTENUATION,3.5,Summer Beverage Peak + College Reopening Cycle
+EV047,EV057,AMPLIFICATION,4.5,Summer Beverage Peak + Father's Day
+EV047,EV058,AMPLIFICATION,4.5,Summer Beverage Peak + Summer End-of-Season Sale
+EV047,EV059,AMPLIFICATION,4.5,Summer Beverage Peak + International Yoga Day
+EV047,EV060,AMPLIFICATION,4.5,Summer Beverage Peak + World Environment Day
+EV047,EV063,ATTENUATION,3.5,Summer Beverage Peak + Ratha Yatra
+EV047,EV074,AMPLIFICATION,4.5,Summer Beverage Peak + Onam Mega Shopping Season
+EV047,EV145,ATTENUATION,3.5,Summer Beverage Peak + Academic New Year Preparation
+EV047,EV146,ATTENUATION,3.5,Summer Beverage Peak + School Admissions Cycle
+EV047,EV147,ATTENUATION,3.5,Summer Beverage Peak + College Admissions Cycle
+EV047,EV148,ATTENUATION,3.5,Summer Beverage Peak + Summer Vacation Peak
+EV047,EV149,ATTENUATION,3.5,Summer Beverage Peak + Back-to-Work / Post-Vacation Demand
+EV047,EV156,ATTENUATION,3.5,Summer Beverage Peak + Vaisakhi Gurdwara / Community Celebration
+EV047,EV157,ATTENUATION,3.5,Summer Beverage Peak + Thrissur Pooram
+EV047,EV158,ATTENUATION,3.5,Summer Beverage Peak + Jagannath Snana Yatra
+EV047,EV159,ATTENUATION,3.5,Summer Beverage Peak + Bonalu
+EV047,EV170,ATTENUATION,3.5,Summer Beverage Peak + Wedding Retail Inventory Build-Up — Summer
+EV047,EV173,ATTENUATION,3.5,Summer Beverage Peak + Bihu / Regional New Year Travel & Gifting Build
+EV047,EV174,ATTENUATION,3.5,Summer Beverage Peak + Pre-College / Hostel Setup Season
+EV048,EV050,ATTENUATION,3.5,Pre-Monsoon Home Preparation + Wedding Season — Summer Peak
+EV048,EV051,ATTENUATION,3.5,Pre-Monsoon Home Preparation + Exam Season / School Year-End
+EV048,EV054,ATTENUATION,3.5,Pre-Monsoon Home Preparation + School Reopening Preparation
+EV048,EV055,ATTENUATION,3.5,Pre-Monsoon Home Preparation + Back-to-School Shopping Peak
+EV048,EV056,ATTENUATION,3.5,Pre-Monsoon Home Preparation + College Reopening Cycle
+EV048,EV057,AMPLIFICATION,4.5,Pre-Monsoon Home Preparation + Father's Day
+EV048,EV058,AMPLIFICATION,4.5,Pre-Monsoon Home Preparation + Summer End-of-Season Sale
+EV048,EV059,AMPLIFICATION,4.5,Pre-Monsoon Home Preparation + International Yoga Day
+EV048,EV060,AMPLIFICATION,4.5,Pre-Monsoon Home Preparation + World Environment Day
+EV048,EV063,ATTENUATION,3.5,Pre-Monsoon Home Preparation + Ratha Yatra
+EV048,EV074,AMPLIFICATION,4.5,Pre-Monsoon Home Preparation + Onam Mega Shopping Season
+EV048,EV145,ATTENUATION,3.5,Pre-Monsoon Home Preparation + Academic New Year Preparation
+EV048,EV146,ATTENUATION,3.5,Pre-Monsoon Home Preparation + School Admissions Cycle
+EV048,EV147,ATTENUATION,3.5,Pre-Monsoon Home Preparation + College Admissions Cycle
+EV048,EV148,ATTENUATION,3.5,Pre-Monsoon Home Preparation + Summer Vacation Peak
+EV048,EV149,ATTENUATION,3.5,Pre-Monsoon Home Preparation + Back-to-Work / Post-Vacation Demand
+EV048,EV157,ATTENUATION,3.5,Pre-Monsoon Home Preparation + Thrissur Pooram
+EV048,EV158,ATTENUATION,3.5,Pre-Monsoon Home Preparation + Jagannath Snana Yatra
+EV048,EV159,ATTENUATION,3.5,Pre-Monsoon Home Preparation + Bonalu
+EV048,EV170,ATTENUATION,3.5,Pre-Monsoon Home Preparation + Wedding Retail Inventory Build-Up — Summer
+EV048,EV173,ATTENUATION,3.5,Pre-Monsoon Home Preparation + Bihu / Regional New Year Travel & Gifting Build
+EV048,EV174,ATTENUATION,3.5,Pre-Monsoon Home Preparation + Pre-College / Hostel Setup Season
+EV050,EV052,ATTENUATION,3.5,Wedding Season — Summer Peak + Southwest Monsoon Onset — Kerala
+EV050,EV053,ATTENUATION,3.5,Wedding Season — Summer Peak + Monsoon Expansion — West/South
+EV050,EV057,AMPLIFICATION,4.0,Wedding Season — Summer Peak + Father's Day
+EV050,EV058,AMPLIFICATION,4.0,Wedding Season — Summer Peak + Summer End-of-Season Sale
+EV050,EV059,AMPLIFICATION,4.0,Wedding Season — Summer Peak + International Yoga Day
+EV050,EV060,AMPLIFICATION,4.0,Wedding Season — Summer Peak + World Environment Day
+EV050,EV061,ATTENUATION,3.5,Wedding Season — Summer Peak + Monsoon Expansion — North India
+EV050,EV062,ATTENUATION,3.5,Wedding Season — Summer Peak + Peak Monsoon
+EV050,EV067,ATTENUATION,3.5,Wedding Season — Summer Peak + Monsoon Home Hygiene Cycle
+EV050,EV074,AMPLIFICATION,4.0,Wedding Season — Summer Peak + Onam Mega Shopping Season
+EV050,EV133,ATTENUATION,3.5,Wedding Season — Summer Peak + Extreme Heatwave Alert
+EV050,EV134,ATTENUATION,3.5,Wedding Season — Summer Peak + Severe Rain / Flood Risk
+EV050,EV165,ATTENUATION,3.5,Wedding Season — Summer Peak + Mosquito Season Demand Peak
+EV051,EV052,ATTENUATION,3.5,Exam Season / School Year-End + Southwest Monsoon Onset — Kerala
+EV051,EV053,ATTENUATION,3.5,Exam Season / School Year-End + Monsoon Expansion — West/South
+EV051,EV057,AMPLIFICATION,4.0,Exam Season / School Year-End + Father's Day
+EV051,EV058,AMPLIFICATION,4.0,Exam Season / School Year-End + Summer End-of-Season Sale
+EV051,EV059,AMPLIFICATION,4.0,Exam Season / School Year-End + International Yoga Day
+EV051,EV060,AMPLIFICATION,4.0,Exam Season / School Year-End + World Environment Day
+EV051,EV061,ATTENUATION,3.5,Exam Season / School Year-End + Monsoon Expansion — North India
+EV051,EV062,ATTENUATION,3.5,Exam Season / School Year-End + Peak Monsoon
+EV051,EV067,ATTENUATION,3.5,Exam Season / School Year-End + Monsoon Home Hygiene Cycle
+EV051,EV074,AMPLIFICATION,4.0,Exam Season / School Year-End + Onam Mega Shopping Season
+EV051,EV133,ATTENUATION,3.5,Exam Season / School Year-End + Extreme Heatwave Alert
+EV051,EV134,ATTENUATION,3.5,Exam Season / School Year-End + Severe Rain / Flood Risk
+EV051,EV165,ATTENUATION,3.5,Exam Season / School Year-End + Mosquito Season Demand Peak
+EV052,EV054,ATTENUATION,3.5,Southwest Monsoon Onset — Kerala + School Reopening Preparation
+EV052,EV055,ATTENUATION,3.5,Southwest Monsoon Onset — Kerala + Back-to-School Shopping Peak
+EV052,EV056,ATTENUATION,3.5,Southwest Monsoon Onset — Kerala + College Reopening Cycle
+EV052,EV057,AMPLIFICATION,4.5,Southwest Monsoon Onset — Kerala + Father's Day
+EV052,EV058,AMPLIFICATION,4.5,Southwest Monsoon Onset — Kerala + Summer End-of-Season Sale
+EV052,EV059,AMPLIFICATION,4.5,Southwest Monsoon Onset — Kerala + International Yoga Day
+EV052,EV060,AMPLIFICATION,4.5,Southwest Monsoon Onset — Kerala + World Environment Day
+EV052,EV074,AMPLIFICATION,4.5,Southwest Monsoon Onset — Kerala + Onam Mega Shopping Season
+EV052,EV146,ATTENUATION,3.5,Southwest Monsoon Onset — Kerala + School Admissions Cycle
+EV052,EV147,ATTENUATION,3.5,Southwest Monsoon Onset — Kerala + College Admissions Cycle
+EV052,EV148,ATTENUATION,3.5,Southwest Monsoon Onset — Kerala + Summer Vacation Peak
+EV052,EV158,ATTENUATION,3.5,Southwest Monsoon Onset — Kerala + Jagannath Snana Yatra
+EV052,EV159,ATTENUATION,3.5,Southwest Monsoon Onset — Kerala + Bonalu
+EV052,EV170,ATTENUATION,3.5,Southwest Monsoon Onset — Kerala + Wedding Retail Inventory Build-Up — Summer
+EV052,EV174,ATTENUATION,3.5,Southwest Monsoon Onset — Kerala + Pre-College / Hostel Setup Season
+EV053,EV054,ATTENUATION,3.5,Monsoon Expansion — West/South + School Reopening Preparation
+EV053,EV055,ATTENUATION,3.5,Monsoon Expansion — West/South + Back-to-School Shopping Peak
+EV053,EV056,ATTENUATION,3.5,Monsoon Expansion — West/South + College Reopening Cycle
+EV053,EV057,AMPLIFICATION,4.5,Monsoon Expansion — West/South + Father's Day
+EV053,EV058,AMPLIFICATION,4.5,Monsoon Expansion — West/South + Summer End-of-Season Sale
+EV053,EV059,AMPLIFICATION,4.5,Monsoon Expansion — West/South + International Yoga Day
+EV053,EV060,AMPLIFICATION,4.5,Monsoon Expansion — West/South + World Environment Day
+EV053,EV063,ATTENUATION,3.5,Monsoon Expansion — West/South + Ratha Yatra
+EV053,EV064,ATTENUATION,3.5,Monsoon Expansion — West/South + Guru Purnima
+EV053,EV068,AMPLIFICATION,4.5,Monsoon Expansion — West/South + Friendship Day
+EV053,EV073,ATTENUATION,3.5,Monsoon Expansion — West/South + Onam
+EV053,EV074,AMPLIFICATION,4.5,Monsoon Expansion — West/South + Onam Mega Shopping Season
+EV053,EV146,ATTENUATION,3.5,Monsoon Expansion — West/South + School Admissions Cycle
+EV053,EV147,ATTENUATION,3.5,Monsoon Expansion — West/South + College Admissions Cycle
+EV053,EV148,ATTENUATION,3.5,Monsoon Expansion — West/South + Summer Vacation Peak
+EV053,EV149,ATTENUATION,3.5,Monsoon Expansion — West/South + Back-to-Work / Post-Vacation Demand
+EV053,EV158,ATTENUATION,3.5,Monsoon Expansion — West/South + Jagannath Snana Yatra
+EV053,EV159,ATTENUATION,3.5,Monsoon Expansion — West/South + Bonalu
+EV053,EV167,AMPLIFICATION,4.5,Monsoon Expansion — West/South + Festive Inventory Build-Up
+EV053,EV170,ATTENUATION,3.5,Monsoon Expansion — West/South + Wedding Retail Inventory Build-Up — Summer
+EV053,EV174,ATTENUATION,3.5,Monsoon Expansion — West/South + Pre-College / Hostel Setup Season
+EV054,EV057,AMPLIFICATION,4.0,School Reopening Preparation + Father's Day
+EV054,EV058,AMPLIFICATION,4.0,School Reopening Preparation + Summer End-of-Season Sale
+EV054,EV059,AMPLIFICATION,4.0,School Reopening Preparation + International Yoga Day
+EV054,EV060,AMPLIFICATION,4.0,School Reopening Preparation + World Environment Day
+EV054,EV061,ATTENUATION,3.5,School Reopening Preparation + Monsoon Expansion — North India
+EV054,EV062,ATTENUATION,3.5,School Reopening Preparation + Peak Monsoon
+EV054,EV067,ATTENUATION,3.5,School Reopening Preparation + Monsoon Home Hygiene Cycle
+EV054,EV074,AMPLIFICATION,4.0,School Reopening Preparation + Onam Mega Shopping Season
+EV054,EV133,ATTENUATION,3.5,School Reopening Preparation + Extreme Heatwave Alert
+EV054,EV134,ATTENUATION,3.5,School Reopening Preparation + Severe Rain / Flood Risk
+EV054,EV165,ATTENUATION,3.5,School Reopening Preparation + Mosquito Season Demand Peak
+EV054,EV166,ATTENUATION,3.5,School Reopening Preparation + Rainwear Replacement / Mid-Monsoon Restock
+EV055,EV057,AMPLIFICATION,4.0,Back-to-School Shopping Peak + Father's Day
+EV055,EV058,AMPLIFICATION,4.0,Back-to-School Shopping Peak + Summer End-of-Season Sale
+EV055,EV059,AMPLIFICATION,4.0,Back-to-School Shopping Peak + International Yoga Day
+EV055,EV060,AMPLIFICATION,4.0,Back-to-School Shopping Peak + World Environment Day
+EV055,EV061,ATTENUATION,3.5,Back-to-School Shopping Peak + Monsoon Expansion — North India
+EV055,EV062,ATTENUATION,3.5,Back-to-School Shopping Peak + Peak Monsoon
+EV055,EV067,ATTENUATION,3.5,Back-to-School Shopping Peak + Monsoon Home Hygiene Cycle
+EV055,EV074,AMPLIFICATION,4.0,Back-to-School Shopping Peak + Onam Mega Shopping Season
+EV055,EV133,ATTENUATION,3.5,Back-to-School Shopping Peak + Extreme Heatwave Alert
+EV055,EV134,ATTENUATION,3.5,Back-to-School Shopping Peak + Severe Rain / Flood Risk
+EV055,EV165,ATTENUATION,3.5,Back-to-School Shopping Peak + Mosquito Season Demand Peak
+EV055,EV166,ATTENUATION,3.5,Back-to-School Shopping Peak + Rainwear Replacement / Mid-Monsoon Restock
+EV056,EV057,AMPLIFICATION,4.0,College Reopening Cycle + Father's Day
+EV056,EV058,AMPLIFICATION,4.0,College Reopening Cycle + Summer End-of-Season Sale
+EV056,EV059,AMPLIFICATION,4.0,College Reopening Cycle + International Yoga Day
+EV056,EV060,AMPLIFICATION,4.0,College Reopening Cycle + World Environment Day
+EV056,EV061,ATTENUATION,3.5,College Reopening Cycle + Monsoon Expansion — North India
+EV056,EV062,ATTENUATION,3.5,College Reopening Cycle + Peak Monsoon
+EV056,EV067,ATTENUATION,3.5,College Reopening Cycle + Monsoon Home Hygiene Cycle
+EV056,EV068,AMPLIFICATION,4.0,College Reopening Cycle + Friendship Day
+EV056,EV074,AMPLIFICATION,4.0,College Reopening Cycle + Onam Mega Shopping Season
+EV056,EV076,AMPLIFICATION,4.0,College Reopening Cycle + Independence Day E-commerce Sale
+EV056,EV133,ATTENUATION,3.5,College Reopening Cycle + Extreme Heatwave Alert
+EV056,EV134,ATTENUATION,3.5,College Reopening Cycle + Severe Rain / Flood Risk
+EV056,EV165,ATTENUATION,3.5,College Reopening Cycle + Mosquito Season Demand Peak
+EV056,EV166,ATTENUATION,3.5,College Reopening Cycle + Rainwear Replacement / Mid-Monsoon Restock
+EV056,EV167,AMPLIFICATION,4.0,College Reopening Cycle + Festive Inventory Build-Up
+EV057,EV061,AMPLIFICATION,4.5,Father's Day + Monsoon Expansion — North India
+EV057,EV062,AMPLIFICATION,4.5,Father's Day + Peak Monsoon
+EV057,EV063,AMPLIFICATION,5.0,Father's Day + Ratha Yatra
+EV057,EV067,AMPLIFICATION,4.5,Father's Day + Monsoon Home Hygiene Cycle
+EV057,EV133,AMPLIFICATION,4.5,Father's Day + Extreme Heatwave Alert
+EV057,EV134,AMPLIFICATION,4.5,Father's Day + Severe Rain / Flood Risk
+EV057,EV146,AMPLIFICATION,4.0,Father's Day + School Admissions Cycle
+EV057,EV147,AMPLIFICATION,4.0,Father's Day + College Admissions Cycle
+EV057,EV148,AMPLIFICATION,4.0,Father's Day + Summer Vacation Peak
+EV057,EV149,AMPLIFICATION,4.0,Father's Day + Back-to-Work / Post-Vacation Demand
+EV057,EV158,AMPLIFICATION,5.0,Father's Day + Jagannath Snana Yatra
+EV057,EV159,AMPLIFICATION,5.0,Father's Day + Bonalu
+EV057,EV165,AMPLIFICATION,4.5,Father's Day + Mosquito Season Demand Peak
+EV057,EV170,AMPLIFICATION,4.0,Father's Day + Wedding Retail Inventory Build-Up — Summer
+EV057,EV174,AMPLIFICATION,4.0,Father's Day + Pre-College / Hostel Setup Season
+EV058,EV061,AMPLIFICATION,4.5,Summer End-of-Season Sale + Monsoon Expansion — North India
+EV058,EV062,AMPLIFICATION,4.5,Summer End-of-Season Sale + Peak Monsoon
+EV058,EV063,AMPLIFICATION,5.0,Summer End-of-Season Sale + Ratha Yatra
+EV058,EV064,AMPLIFICATION,5.0,Summer End-of-Season Sale + Guru Purnima
+EV058,EV067,AMPLIFICATION,4.5,Summer End-of-Season Sale + Monsoon Home Hygiene Cycle
+EV058,EV070,AMPLIFICATION,5.0,Summer End-of-Season Sale + Hariyali Teej
+EV058,EV072,AMPLIFICATION,5.0,Summer End-of-Season Sale + Raksha Bandhan
+EV058,EV073,AMPLIFICATION,5.0,Summer End-of-Season Sale + Onam
+EV058,EV133,AMPLIFICATION,4.5,Summer End-of-Season Sale + Extreme Heatwave Alert
+EV058,EV134,AMPLIFICATION,4.5,Summer End-of-Season Sale + Severe Rain / Flood Risk
+EV058,EV146,AMPLIFICATION,4.0,Summer End-of-Season Sale + School Admissions Cycle
+EV058,EV147,AMPLIFICATION,4.0,Summer End-of-Season Sale + College Admissions Cycle
+EV058,EV148,AMPLIFICATION,4.0,Summer End-of-Season Sale + Summer Vacation Peak
+EV058,EV149,AMPLIFICATION,4.0,Summer End-of-Season Sale + Back-to-Work / Post-Vacation Demand
+EV058,EV158,AMPLIFICATION,5.0,Summer End-of-Season Sale + Jagannath Snana Yatra
+EV058,EV159,AMPLIFICATION,5.0,Summer End-of-Season Sale + Bonalu
+EV058,EV165,AMPLIFICATION,4.5,Summer End-of-Season Sale + Mosquito Season Demand Peak
+EV058,EV166,AMPLIFICATION,4.5,Summer End-of-Season Sale + Rainwear Replacement / Mid-Monsoon Restock
+EV058,EV168,AMPLIFICATION,4.0,Summer End-of-Season Sale + Diwali Pre-Stocking for Retailers
+EV058,EV170,AMPLIFICATION,4.0,Summer End-of-Season Sale + Wedding Retail Inventory Build-Up — Summer
+EV058,EV174,AMPLIFICATION,4.0,Summer End-of-Season Sale + Pre-College / Hostel Setup Season
+EV059,EV061,AMPLIFICATION,4.5,International Yoga Day + Monsoon Expansion — North India
+EV059,EV062,AMPLIFICATION,4.5,International Yoga Day + Peak Monsoon
+EV059,EV063,AMPLIFICATION,5.0,International Yoga Day + Ratha Yatra
+EV059,EV067,AMPLIFICATION,4.5,International Yoga Day + Monsoon Home Hygiene Cycle
+EV059,EV133,AMPLIFICATION,4.5,International Yoga Day + Extreme Heatwave Alert
+EV059,EV134,AMPLIFICATION,4.5,International Yoga Day + Severe Rain / Flood Risk
+EV059,EV146,AMPLIFICATION,4.0,International Yoga Day + School Admissions Cycle
+EV059,EV147,AMPLIFICATION,4.0,International Yoga Day + College Admissions Cycle
+EV059,EV148,AMPLIFICATION,4.0,International Yoga Day + Summer Vacation Peak
+EV059,EV149,AMPLIFICATION,4.0,International Yoga Day + Back-to-Work / Post-Vacation Demand
+EV059,EV158,AMPLIFICATION,5.0,International Yoga Day + Jagannath Snana Yatra
+EV059,EV159,AMPLIFICATION,5.0,International Yoga Day + Bonalu
+EV059,EV165,AMPLIFICATION,4.5,International Yoga Day + Mosquito Season Demand Peak
+EV059,EV170,AMPLIFICATION,4.0,International Yoga Day + Wedding Retail Inventory Build-Up — Summer
+EV059,EV174,AMPLIFICATION,4.0,International Yoga Day + Pre-College / Hostel Setup Season
+EV060,EV061,AMPLIFICATION,4.5,World Environment Day + Monsoon Expansion — North India
+EV060,EV133,AMPLIFICATION,4.5,World Environment Day + Extreme Heatwave Alert
+EV060,EV134,AMPLIFICATION,4.5,World Environment Day + Severe Rain / Flood Risk
+EV060,EV145,AMPLIFICATION,4.0,World Environment Day + Academic New Year Preparation
+EV060,EV146,AMPLIFICATION,4.0,World Environment Day + School Admissions Cycle
+EV060,EV147,AMPLIFICATION,4.0,World Environment Day + College Admissions Cycle
+EV060,EV148,AMPLIFICATION,4.0,World Environment Day + Summer Vacation Peak
+EV060,EV158,AMPLIFICATION,5.0,World Environment Day + Jagannath Snana Yatra
+EV060,EV165,AMPLIFICATION,4.5,World Environment Day + Mosquito Season Demand Peak
+EV060,EV170,AMPLIFICATION,4.0,World Environment Day + Wedding Retail Inventory Build-Up — Summer
+EV061,EV063,ATTENUATION,3.5,Monsoon Expansion — North India + Ratha Yatra
+EV061,EV064,ATTENUATION,3.5,Monsoon Expansion — North India + Guru Purnima
+EV061,EV068,AMPLIFICATION,4.5,Monsoon Expansion — North India + Friendship Day
+EV061,EV069,ATTENUATION,3.5,Monsoon Expansion — North India + Nag Panchami
+EV061,EV070,ATTENUATION,3.5,Monsoon Expansion — North India + Hariyali Teej
+EV061,EV072,ATTENUATION,3.5,Monsoon Expansion — North India + Raksha Bandhan
+EV061,EV073,ATTENUATION,3.5,Monsoon Expansion — North India + Onam
+EV061,EV074,AMPLIFICATION,4.5,Monsoon Expansion — North India + Onam Mega Shopping Season
+EV061,EV076,AMPLIFICATION,4.5,Monsoon Expansion — North India + Independence Day E-commerce Sale
+EV061,EV081,ATTENUATION,3.5,Monsoon Expansion — North India + Ganesh Chaturthi
+EV061,EV086,AMPLIFICATION,4.5,Monsoon Expansion — North India + Festive Home Makeover Pre-Season
+EV061,EV097,AMPLIFICATION,4.5,Monsoon Expansion — North India + Festive Apparel Peak
+EV061,EV098,AMPLIFICATION,4.5,Monsoon Expansion — North India + Festive Jewellery Peak
+EV061,EV147,ATTENUATION,3.5,Monsoon Expansion — North India + College Admissions Cycle
+EV061,EV148,ATTENUATION,3.5,Monsoon Expansion — North India + Summer Vacation Peak
+EV061,EV149,ATTENUATION,3.5,Monsoon Expansion — North India + Back-to-Work / Post-Vacation Demand
+EV061,EV158,ATTENUATION,3.5,Monsoon Expansion — North India + Jagannath Snana Yatra
+EV061,EV159,ATTENUATION,3.5,Monsoon Expansion — North India + Bonalu
+EV061,EV167,AMPLIFICATION,4.5,Monsoon Expansion — North India + Festive Inventory Build-Up
+EV061,EV168,ATTENUATION,3.5,Monsoon Expansion — North India + Diwali Pre-Stocking for Retailers
+EV061,EV169,ATTENUATION,3.5,Monsoon Expansion — North India + Wedding Retail Inventory Build-Up — Winter
+EV061,EV170,ATTENUATION,3.5,Monsoon Expansion — North India + Wedding Retail Inventory Build-Up — Summer
+EV061,EV174,ATTENUATION,3.5,Monsoon Expansion — North India + Pre-College / Hostel Setup Season
+EV062,EV063,ATTENUATION,3.5,Peak Monsoon + Ratha Yatra
+EV062,EV064,ATTENUATION,3.5,Peak Monsoon + Guru Purnima
+EV062,EV068,AMPLIFICATION,4.5,Peak Monsoon + Friendship Day
+EV062,EV069,ATTENUATION,3.5,Peak Monsoon + Nag Panchami
+EV062,EV070,ATTENUATION,3.5,Peak Monsoon + Hariyali Teej
+EV062,EV072,ATTENUATION,3.5,Peak Monsoon + Raksha Bandhan
+EV062,EV073,ATTENUATION,3.5,Peak Monsoon + Onam
+EV062,EV074,AMPLIFICATION,4.5,Peak Monsoon + Onam Mega Shopping Season
+EV062,EV076,AMPLIFICATION,4.5,Peak Monsoon + Independence Day E-commerce Sale
+EV062,EV080,ATTENUATION,3.5,Peak Monsoon + Dahi Handi
+EV062,EV081,ATTENUATION,3.5,Peak Monsoon + Ganesh Chaturthi
+EV062,EV086,AMPLIFICATION,4.5,Peak Monsoon + Festive Home Makeover Pre-Season
+EV062,EV087,AMPLIFICATION,4.5,Peak Monsoon + Festive Preview Sales
+EV062,EV097,AMPLIFICATION,4.5,Peak Monsoon + Festive Apparel Peak
+EV062,EV098,AMPLIFICATION,4.5,Peak Monsoon + Festive Jewellery Peak
+EV062,EV110,AMPLIFICATION,4.5,Peak Monsoon + Diwali Corporate Gifting
+EV062,EV147,ATTENUATION,3.5,Peak Monsoon + College Admissions Cycle
+EV062,EV148,ATTENUATION,3.5,Peak Monsoon + Summer Vacation Peak
+EV062,EV149,ATTENUATION,3.5,Peak Monsoon + Back-to-Work / Post-Vacation Demand
+EV062,EV150,ATTENUATION,3.5,Peak Monsoon + Corporate Festive Procurement
+EV062,EV158,ATTENUATION,3.5,Peak Monsoon + Jagannath Snana Yatra
+EV062,EV159,ATTENUATION,3.5,Peak Monsoon + Bonalu
+EV062,EV160,ATTENUATION,3.5,Peak Monsoon + Bathukamma Pre-Season
+EV062,EV167,AMPLIFICATION,4.5,Peak Monsoon + Festive Inventory Build-Up
+EV062,EV168,ATTENUATION,3.5,Peak Monsoon + Diwali Pre-Stocking for Retailers
+EV062,EV169,ATTENUATION,3.5,Peak Monsoon + Wedding Retail Inventory Build-Up — Winter
+EV062,EV170,ATTENUATION,3.5,Peak Monsoon + Wedding Retail Inventory Build-Up — Summer
+EV062,EV174,ATTENUATION,3.5,Peak Monsoon + Pre-College / Hostel Setup Season
+EV063,EV064,SATURATION,4.0,Ratha Yatra + Guru Purnima
+EV063,EV067,ATTENUATION,3.5,Ratha Yatra + Monsoon Home Hygiene Cycle
+EV063,EV068,AMPLIFICATION,5.0,Ratha Yatra + Friendship Day
+EV063,EV070,SATURATION,4.0,Ratha Yatra + Hariyali Teej
+EV063,EV072,SATURATION,4.0,Ratha Yatra + Raksha Bandhan
+EV063,EV073,SATURATION,4.0,Ratha Yatra + Onam
+EV063,EV074,AMPLIFICATION,5.0,Ratha Yatra + Onam Mega Shopping Season
+EV063,EV076,AMPLIFICATION,5.0,Ratha Yatra + Independence Day E-commerce Sale
+EV063,EV133,ATTENUATION,3.5,Ratha Yatra + Extreme Heatwave Alert
+EV063,EV134,ATTENUATION,3.5,Ratha Yatra + Severe Rain / Flood Risk
+EV063,EV158,SATURATION,4.0,Ratha Yatra + Jagannath Snana Yatra
+EV063,EV159,SATURATION,4.0,Ratha Yatra + Bonalu
+EV063,EV165,ATTENUATION,3.5,Ratha Yatra + Mosquito Season Demand Peak
+EV063,EV166,ATTENUATION,3.5,Ratha Yatra + Rainwear Replacement / Mid-Monsoon Restock
+EV063,EV167,AMPLIFICATION,5.0,Ratha Yatra + Festive Inventory Build-Up
+EV064,EV067,ATTENUATION,3.5,Guru Purnima + Monsoon Home Hygiene Cycle
+EV064,EV068,AMPLIFICATION,5.0,Guru Purnima + Friendship Day
+EV064,EV069,SATURATION,4.0,Guru Purnima + Nag Panchami
+EV064,EV070,SATURATION,4.0,Guru Purnima + Hariyali Teej
+EV064,EV072,SATURATION,4.0,Guru Purnima + Raksha Bandhan
+EV064,EV073,SATURATION,4.0,Guru Purnima + Onam
+EV064,EV074,AMPLIFICATION,5.0,Guru Purnima + Onam Mega Shopping Season
+EV064,EV076,AMPLIFICATION,5.0,Guru Purnima + Independence Day E-commerce Sale
+EV064,EV081,SATURATION,4.0,Guru Purnima + Ganesh Chaturthi
+EV064,EV134,ATTENUATION,3.5,Guru Purnima + Severe Rain / Flood Risk
+EV064,EV159,SATURATION,4.0,Guru Purnima + Bonalu
+EV064,EV165,ATTENUATION,3.5,Guru Purnima + Mosquito Season Demand Peak
+EV064,EV166,ATTENUATION,3.5,Guru Purnima + Rainwear Replacement / Mid-Monsoon Restock
+EV064,EV167,AMPLIFICATION,5.0,Guru Purnima + Festive Inventory Build-Up
+EV067,EV068,AMPLIFICATION,4.5,Monsoon Home Hygiene Cycle + Friendship Day
+EV067,EV069,ATTENUATION,3.5,Monsoon Home Hygiene Cycle + Nag Panchami
+EV067,EV070,ATTENUATION,3.5,Monsoon Home Hygiene Cycle + Hariyali Teej
+EV067,EV072,ATTENUATION,3.5,Monsoon Home Hygiene Cycle + Raksha Bandhan
+EV067,EV073,ATTENUATION,3.5,Monsoon Home Hygiene Cycle + Onam
+EV067,EV074,AMPLIFICATION,4.5,Monsoon Home Hygiene Cycle + Onam Mega Shopping Season
+EV067,EV076,AMPLIFICATION,4.5,Monsoon Home Hygiene Cycle + Independence Day E-commerce Sale
+EV067,EV080,ATTENUATION,3.5,Monsoon Home Hygiene Cycle + Dahi Handi
+EV067,EV081,ATTENUATION,3.5,Monsoon Home Hygiene Cycle + Ganesh Chaturthi
+EV067,EV083,ATTENUATION,3.5,Monsoon Home Hygiene Cycle + Hartalika Teej
+EV067,EV086,AMPLIFICATION,4.5,Monsoon Home Hygiene Cycle + Festive Home Makeover Pre-Season
+EV067,EV087,AMPLIFICATION,4.5,Monsoon Home Hygiene Cycle + Festive Preview Sales
+EV067,EV088,AMPLIFICATION,4.5,Monsoon Home Hygiene Cycle + Big Billion Days / Major Festive Sale Window
+EV067,EV089,AMPLIFICATION,4.5,Monsoon Home Hygiene Cycle + Great Indian Festival / Major Festive Sale Window
+EV067,EV091,ATTENUATION,3.5,Monsoon Home Hygiene Cycle + Durga Puja
+EV067,EV092,ATTENUATION,3.5,Monsoon Home Hygiene Cycle + Garba / Dandiya Season
+EV067,EV097,AMPLIFICATION,4.5,Monsoon Home Hygiene Cycle + Festive Apparel Peak
+EV067,EV098,AMPLIFICATION,4.5,Monsoon Home Hygiene Cycle + Festive Jewellery Peak
+EV067,EV099,AMPLIFICATION,4.5,Monsoon Home Hygiene Cycle + Festive Electronics Pre-Diwali
+EV067,EV101,ATTENUATION,3.5,Monsoon Home Hygiene Cycle + Diwali Gifting Pre-Season
+EV067,EV110,AMPLIFICATION,4.5,Monsoon Home Hygiene Cycle + Diwali Corporate Gifting
+EV067,EV147,ATTENUATION,3.5,Monsoon Home Hygiene Cycle + College Admissions Cycle
+EV067,EV148,ATTENUATION,3.5,Monsoon Home Hygiene Cycle + Summer Vacation Peak
+EV067,EV149,ATTENUATION,3.5,Monsoon Home Hygiene Cycle + Back-to-Work / Post-Vacation Demand
+EV067,EV150,ATTENUATION,3.5,Monsoon Home Hygiene Cycle + Corporate Festive Procurement
+EV067,EV158,ATTENUATION,3.5,Monsoon Home Hygiene Cycle + Jagannath Snana Yatra
+EV067,EV159,ATTENUATION,3.5,Monsoon Home Hygiene Cycle + Bonalu
+EV067,EV160,ATTENUATION,3.5,Monsoon Home Hygiene Cycle + Bathukamma Pre-Season
+EV067,EV167,AMPLIFICATION,4.5,Monsoon Home Hygiene Cycle + Festive Inventory Build-Up
+EV067,EV168,ATTENUATION,3.5,Monsoon Home Hygiene Cycle + Diwali Pre-Stocking for Retailers
+EV067,EV169,ATTENUATION,3.5,Monsoon Home Hygiene Cycle + Wedding Retail Inventory Build-Up — Winter
+EV067,EV170,ATTENUATION,3.5,Monsoon Home Hygiene Cycle + Wedding Retail Inventory Build-Up — Summer
+EV067,EV174,ATTENUATION,3.5,Monsoon Home Hygiene Cycle + Pre-College / Hostel Setup Season
+EV068,EV069,AMPLIFICATION,5.0,Friendship Day + Nag Panchami
+EV068,EV070,AMPLIFICATION,5.0,Friendship Day + Hariyali Teej
+EV068,EV072,AMPLIFICATION,5.0,Friendship Day + Raksha Bandhan
+EV068,EV073,AMPLIFICATION,5.0,Friendship Day + Onam
+EV068,EV081,AMPLIFICATION,5.0,Friendship Day + Ganesh Chaturthi
+EV068,EV134,AMPLIFICATION,4.5,Friendship Day + Severe Rain / Flood Risk
+EV068,EV147,AMPLIFICATION,4.0,Friendship Day + College Admissions Cycle
+EV068,EV149,AMPLIFICATION,4.0,Friendship Day + Back-to-Work / Post-Vacation Demand
+EV068,EV159,AMPLIFICATION,5.0,Friendship Day + Bonalu
+EV068,EV165,AMPLIFICATION,4.5,Friendship Day + Mosquito Season Demand Peak
+EV068,EV166,AMPLIFICATION,4.5,Friendship Day + Rainwear Replacement / Mid-Monsoon Restock
+EV068,EV168,AMPLIFICATION,4.0,Friendship Day + Diwali Pre-Stocking for Retailers
+EV068,EV169,AMPLIFICATION,4.0,Friendship Day + Wedding Retail Inventory Build-Up — Winter
+EV068,EV174,AMPLIFICATION,4.0,Friendship Day + Pre-College / Hostel Setup Season
+EV069,EV070,SATURATION,4.0,Nag Panchami + Hariyali Teej
+EV069,EV072,SATURATION,4.0,Nag Panchami + Raksha Bandhan
+EV069,EV073,SATURATION,4.0,Nag Panchami + Onam
+EV069,EV074,AMPLIFICATION,5.0,Nag Panchami + Onam Mega Shopping Season
+EV069,EV076,AMPLIFICATION,5.0,Nag Panchami + Independence Day E-commerce Sale
+EV069,EV080,SATURATION,4.0,Nag Panchami + Dahi Handi
+EV069,EV081,SATURATION,4.0,Nag Panchami + Ganesh Chaturthi
+EV069,EV086,AMPLIFICATION,5.0,Nag Panchami + Festive Home Makeover Pre-Season
+EV069,EV087,AMPLIFICATION,5.0,Nag Panchami + Festive Preview Sales
+EV069,EV097,AMPLIFICATION,5.0,Nag Panchami + Festive Apparel Peak
+EV069,EV098,AMPLIFICATION,5.0,Nag Panchami + Festive Jewellery Peak
+EV069,EV134,ATTENUATION,3.5,Nag Panchami + Severe Rain / Flood Risk
+EV069,EV159,SATURATION,4.0,Nag Panchami + Bonalu
+EV069,EV165,ATTENUATION,3.5,Nag Panchami + Mosquito Season Demand Peak
+EV069,EV166,ATTENUATION,3.5,Nag Panchami + Rainwear Replacement / Mid-Monsoon Restock
+EV069,EV167,AMPLIFICATION,5.0,Nag Panchami + Festive Inventory Build-Up
+EV070,EV072,SATURATION,4.0,Hariyali Teej + Raksha Bandhan
+EV070,EV073,SATURATION,4.0,Hariyali Teej + Onam
+EV070,EV074,AMPLIFICATION,5.0,Hariyali Teej + Onam Mega Shopping Season
+EV070,EV076,AMPLIFICATION,5.0,Hariyali Teej + Independence Day E-commerce Sale
+EV070,EV080,SATURATION,4.0,Hariyali Teej + Dahi Handi
+EV070,EV081,SATURATION,4.0,Hariyali Teej + Ganesh Chaturthi
+EV070,EV086,AMPLIFICATION,5.0,Hariyali Teej + Festive Home Makeover Pre-Season
+EV070,EV087,AMPLIFICATION,5.0,Hariyali Teej + Festive Preview Sales
+EV070,EV097,AMPLIFICATION,5.0,Hariyali Teej + Festive Apparel Peak
+EV070,EV098,AMPLIFICATION,5.0,Hariyali Teej + Festive Jewellery Peak
+EV070,EV134,ATTENUATION,3.5,Hariyali Teej + Severe Rain / Flood Risk
+EV070,EV159,SATURATION,4.0,Hariyali Teej + Bonalu
+EV070,EV165,ATTENUATION,3.5,Hariyali Teej + Mosquito Season Demand Peak
+EV070,EV166,ATTENUATION,3.5,Hariyali Teej + Rainwear Replacement / Mid-Monsoon Restock
+EV070,EV167,AMPLIFICATION,5.0,Hariyali Teej + Festive Inventory Build-Up
+EV072,EV073,SATURATION,4.0,Raksha Bandhan + Onam
+EV072,EV074,AMPLIFICATION,5.0,Raksha Bandhan + Onam Mega Shopping Season
+EV072,EV076,AMPLIFICATION,5.0,Raksha Bandhan + Independence Day E-commerce Sale
+EV072,EV080,SATURATION,4.0,Raksha Bandhan + Dahi Handi
+EV072,EV081,SATURATION,4.0,Raksha Bandhan + Ganesh Chaturthi
+EV072,EV083,SATURATION,4.0,Raksha Bandhan + Hartalika Teej
+EV072,EV086,AMPLIFICATION,5.0,Raksha Bandhan + Festive Home Makeover Pre-Season
+EV072,EV087,AMPLIFICATION,5.0,Raksha Bandhan + Festive Preview Sales
+EV072,EV088,AMPLIFICATION,5.0,Raksha Bandhan + Big Billion Days / Major Festive Sale Window
+EV072,EV089,AMPLIFICATION,5.0,Raksha Bandhan + Great Indian Festival / Major Festive Sale Window
+EV072,EV091,SATURATION,4.0,Raksha Bandhan + Durga Puja
+EV072,EV092,SATURATION,4.0,Raksha Bandhan + Garba / Dandiya Season
+EV072,EV097,AMPLIFICATION,5.0,Raksha Bandhan + Festive Apparel Peak
+EV072,EV098,AMPLIFICATION,5.0,Raksha Bandhan + Festive Jewellery Peak
+EV072,EV099,AMPLIFICATION,5.0,Raksha Bandhan + Festive Electronics Pre-Diwali
+EV072,EV101,SATURATION,4.0,Raksha Bandhan + Diwali Gifting Pre-Season
+EV072,EV110,AMPLIFICATION,5.0,Raksha Bandhan + Diwali Corporate Gifting
+EV072,EV134,ATTENUATION,3.5,Raksha Bandhan + Severe Rain / Flood Risk
+EV072,EV135,ATTENUATION,3.5,Raksha Bandhan + Monsoon Withdrawal / Post-Monsoon
+EV072,EV159,SATURATION,4.0,Raksha Bandhan + Bonalu
+EV072,EV160,SATURATION,4.0,Raksha Bandhan + Bathukamma Pre-Season
+EV072,EV165,ATTENUATION,3.5,Raksha Bandhan + Mosquito Season Demand Peak
+EV072,EV166,ATTENUATION,3.5,Raksha Bandhan + Rainwear Replacement / Mid-Monsoon Restock
+EV072,EV167,AMPLIFICATION,5.0,Raksha Bandhan + Festive Inventory Build-Up
+EV073,EV074,AMPLIFICATION,5.0,Onam + Onam Mega Shopping Season
+EV073,EV076,AMPLIFICATION,5.0,Onam + Independence Day E-commerce Sale
+EV073,EV080,SATURATION,4.0,Onam + Dahi Handi
+EV073,EV081,SATURATION,4.0,Onam + Ganesh Chaturthi
+EV073,EV082,SATURATION,4.0,Onam + Ganesh Visarjan
+EV073,EV083,SATURATION,4.0,Onam + Hartalika Teej
+EV073,EV086,AMPLIFICATION,5.0,Onam + Festive Home Makeover Pre-Season
+EV073,EV087,AMPLIFICATION,5.0,Onam + Festive Preview Sales
+EV073,EV088,AMPLIFICATION,5.0,Onam + Big Billion Days / Major Festive Sale Window
+EV073,EV089,AMPLIFICATION,5.0,Onam + Great Indian Festival / Major Festive Sale Window
+EV073,EV091,SATURATION,4.0,Onam + Durga Puja
+EV073,EV092,SATURATION,4.0,Onam + Garba / Dandiya Season
+EV073,EV095,SATURATION,4.0,Onam + Mysuru Dasara
+EV073,EV096,SATURATION,4.0,Onam + Dussehra / Vijayadashami
+EV073,EV097,AMPLIFICATION,5.0,Onam + Festive Apparel Peak
+EV073,EV098,AMPLIFICATION,5.0,Onam + Festive Jewellery Peak
+EV073,EV099,AMPLIFICATION,5.0,Onam + Festive Electronics Pre-Diwali
+EV073,EV100,SATURATION,4.0,Onam + Diwali Home-Cleaning Cycle
+EV073,EV101,SATURATION,4.0,Onam + Diwali Gifting Pre-Season
+EV073,EV102,SATURATION,4.0,Onam + Diwali Lighting Pre-Season
+EV073,EV106,SATURATION,4.0,Onam + Diwali / Lakshmi Puja
+EV073,EV109,AMPLIFICATION,5.0,Onam + Diwali Gifting Peak
+EV073,EV110,AMPLIFICATION,5.0,Onam + Diwali Corporate Gifting
+EV073,EV134,ATTENUATION,3.5,Onam + Severe Rain / Flood Risk
+EV073,EV135,ATTENUATION,3.5,Onam + Monsoon Withdrawal / Post-Monsoon
+EV073,EV136,ATTENUATION,3.5,Onam + Post-Monsoon Pest/Humidity Cycle
+EV073,EV159,SATURATION,4.0,Onam + Bonalu
+EV073,EV160,SATURATION,4.0,Onam + Bathukamma Pre-Season
+EV073,EV165,ATTENUATION,3.5,Onam + Mosquito Season Demand Peak
+EV073,EV166,ATTENUATION,3.5,Onam + Rainwear Replacement / Mid-Monsoon Restock
+EV073,EV167,AMPLIFICATION,5.0,Onam + Festive Inventory Build-Up
+EV074,EV080,AMPLIFICATION,5.0,Onam Mega Shopping Season + Dahi Handi
+EV074,EV081,AMPLIFICATION,5.0,Onam Mega Shopping Season + Ganesh Chaturthi
+EV074,EV082,AMPLIFICATION,5.0,Onam Mega Shopping Season + Ganesh Visarjan
+EV074,EV083,AMPLIFICATION,5.0,Onam Mega Shopping Season + Hartalika Teej
+EV074,EV091,AMPLIFICATION,5.0,Onam Mega Shopping Season + Durga Puja
+EV074,EV092,AMPLIFICATION,5.0,Onam Mega Shopping Season + Garba / Dandiya Season
+EV074,EV095,AMPLIFICATION,5.0,Onam Mega Shopping Season + Mysuru Dasara
+EV074,EV096,AMPLIFICATION,5.0,Onam Mega Shopping Season + Dussehra / Vijayadashami
+EV074,EV100,AMPLIFICATION,5.0,Onam Mega Shopping Season + Diwali Home-Cleaning Cycle
+EV074,EV101,AMPLIFICATION,5.0,Onam Mega Shopping Season + Diwali Gifting Pre-Season
+EV074,EV102,AMPLIFICATION,5.0,Onam Mega Shopping Season + Diwali Lighting Pre-Season
+EV074,EV106,AMPLIFICATION,5.0,Onam Mega Shopping Season + Diwali / Lakshmi Puja
+EV074,EV115,AMPLIFICATION,4.0,Onam Mega Shopping Season + Wedding Season — Winter Restart
+EV074,EV133,AMPLIFICATION,4.5,Onam Mega Shopping Season + Extreme Heatwave Alert
+EV074,EV134,AMPLIFICATION,4.5,Onam Mega Shopping Season + Severe Rain / Flood Risk
+EV074,EV135,AMPLIFICATION,4.5,Onam Mega Shopping Season + Monsoon Withdrawal / Post-Monsoon
+EV074,EV136,AMPLIFICATION,4.5,Onam Mega Shopping Season + Post-Monsoon Pest/Humidity Cycle
+EV074,EV147,AMPLIFICATION,4.0,Onam Mega Shopping Season + College Admissions Cycle
+EV074,EV148,AMPLIFICATION,4.0,Onam Mega Shopping Season + Summer Vacation Peak
+EV074,EV149,AMPLIFICATION,4.0,Onam Mega Shopping Season + Back-to-Work / Post-Vacation Demand
+EV074,EV150,AMPLIFICATION,4.0,Onam Mega Shopping Season + Corporate Festive Procurement
+EV074,EV158,AMPLIFICATION,5.0,Onam Mega Shopping Season + Jagannath Snana Yatra
+EV074,EV159,AMPLIFICATION,5.0,Onam Mega Shopping Season + Bonalu
+EV074,EV160,AMPLIFICATION,5.0,Onam Mega Shopping Season + Bathukamma Pre-Season
+EV074,EV165,AMPLIFICATION,4.5,Onam Mega Shopping Season + Mosquito Season Demand Peak
+EV074,EV166,AMPLIFICATION,4.5,Onam Mega Shopping Season + Rainwear Replacement / Mid-Monsoon Restock
+EV074,EV168,AMPLIFICATION,4.0,Onam Mega Shopping Season + Diwali Pre-Stocking for Retailers
+EV074,EV169,AMPLIFICATION,4.0,Onam Mega Shopping Season + Wedding Retail Inventory Build-Up — Winter
+EV074,EV170,AMPLIFICATION,4.0,Onam Mega Shopping Season + Wedding Retail Inventory Build-Up — Summer
+EV074,EV174,AMPLIFICATION,4.0,Onam Mega Shopping Season + Pre-College / Hostel Setup Season
+EV076,EV080,AMPLIFICATION,5.0,Independence Day E-commerce Sale + Dahi Handi
+EV076,EV081,AMPLIFICATION,5.0,Independence Day E-commerce Sale + Ganesh Chaturthi
+EV076,EV083,AMPLIFICATION,5.0,Independence Day E-commerce Sale + Hartalika Teej
+EV076,EV091,AMPLIFICATION,5.0,Independence Day E-commerce Sale + Durga Puja
+EV076,EV092,AMPLIFICATION,5.0,Independence Day E-commerce Sale + Garba / Dandiya Season
+EV076,EV101,AMPLIFICATION,5.0,Independence Day E-commerce Sale + Diwali Gifting Pre-Season
+EV076,EV134,AMPLIFICATION,4.5,Independence Day E-commerce Sale + Severe Rain / Flood Risk
+EV076,EV135,AMPLIFICATION,4.5,Independence Day E-commerce Sale + Monsoon Withdrawal / Post-Monsoon
+EV076,EV147,AMPLIFICATION,4.0,Independence Day E-commerce Sale + College Admissions Cycle
+EV076,EV149,AMPLIFICATION,4.0,Independence Day E-commerce Sale + Back-to-Work / Post-Vacation Demand
+EV076,EV150,AMPLIFICATION,4.0,Independence Day E-commerce Sale + Corporate Festive Procurement
+EV076,EV159,AMPLIFICATION,5.0,Independence Day E-commerce Sale + Bonalu
+EV076,EV160,AMPLIFICATION,5.0,Independence Day E-commerce Sale + Bathukamma Pre-Season
+EV076,EV165,AMPLIFICATION,4.5,Independence Day E-commerce Sale + Mosquito Season Demand Peak
+EV076,EV166,AMPLIFICATION,4.5,Independence Day E-commerce Sale + Rainwear Replacement / Mid-Monsoon Restock
+EV076,EV168,AMPLIFICATION,4.0,Independence Day E-commerce Sale + Diwali Pre-Stocking for Retailers
+EV076,EV169,AMPLIFICATION,4.0,Independence Day E-commerce Sale + Wedding Retail Inventory Build-Up — Winter
+EV076,EV174,AMPLIFICATION,4.0,Independence Day E-commerce Sale + Pre-College / Hostel Setup Season
+EV080,EV081,SATURATION,4.0,Dahi Handi + Ganesh Chaturthi
+EV080,EV083,SATURATION,4.0,Dahi Handi + Hartalika Teej
+EV080,EV086,AMPLIFICATION,5.0,Dahi Handi + Festive Home Makeover Pre-Season
+EV080,EV087,AMPLIFICATION,5.0,Dahi Handi + Festive Preview Sales
+EV080,EV088,AMPLIFICATION,5.0,Dahi Handi + Big Billion Days / Major Festive Sale Window
+EV080,EV089,AMPLIFICATION,5.0,Dahi Handi + Great Indian Festival / Major Festive Sale Window
+EV080,EV091,SATURATION,4.0,Dahi Handi + Durga Puja
+EV080,EV092,SATURATION,4.0,Dahi Handi + Garba / Dandiya Season
+EV080,EV097,AMPLIFICATION,5.0,Dahi Handi + Festive Apparel Peak
+EV080,EV098,AMPLIFICATION,5.0,Dahi Handi + Festive Jewellery Peak
+EV080,EV099,AMPLIFICATION,5.0,Dahi Handi + Festive Electronics Pre-Diwali
+EV080,EV100,SATURATION,4.0,Dahi Handi + Diwali Home-Cleaning Cycle
+EV080,EV101,SATURATION,4.0,Dahi Handi + Diwali Gifting Pre-Season
+EV080,EV106,SATURATION,4.0,Dahi Handi + Diwali / Lakshmi Puja
+EV080,EV109,AMPLIFICATION,5.0,Dahi Handi + Diwali Gifting Peak
+EV080,EV110,AMPLIFICATION,5.0,Dahi Handi + Diwali Corporate Gifting
+EV080,EV134,ATTENUATION,3.5,Dahi Handi + Severe Rain / Flood Risk
+EV080,EV135,ATTENUATION,3.5,Dahi Handi + Monsoon Withdrawal / Post-Monsoon
+EV080,EV136,ATTENUATION,3.5,Dahi Handi + Post-Monsoon Pest/Humidity Cycle
+EV080,EV160,SATURATION,4.0,Dahi Handi + Bathukamma Pre-Season
+EV080,EV165,ATTENUATION,3.5,Dahi Handi + Mosquito Season Demand Peak
+EV080,EV166,ATTENUATION,3.5,Dahi Handi + Rainwear Replacement / Mid-Monsoon Restock
+EV080,EV167,AMPLIFICATION,5.0,Dahi Handi + Festive Inventory Build-Up
+EV081,EV082,SATURATION,4.0,Ganesh Chaturthi + Ganesh Visarjan
+EV081,EV083,SATURATION,4.0,Ganesh Chaturthi + Hartalika Teej
+EV081,EV086,AMPLIFICATION,5.0,Ganesh Chaturthi + Festive Home Makeover Pre-Season
+EV081,EV087,AMPLIFICATION,5.0,Ganesh Chaturthi + Festive Preview Sales
+EV081,EV088,AMPLIFICATION,5.0,Ganesh Chaturthi + Big Billion Days / Major Festive Sale Window
+EV081,EV089,AMPLIFICATION,5.0,Ganesh Chaturthi + Great Indian Festival / Major Festive Sale Window
+EV081,EV091,SATURATION,4.0,Ganesh Chaturthi + Durga Puja
+EV081,EV092,SATURATION,4.0,Ganesh Chaturthi + Garba / Dandiya Season
+EV081,EV095,SATURATION,4.0,Ganesh Chaturthi + Mysuru Dasara
+EV081,EV096,SATURATION,4.0,Ganesh Chaturthi + Dussehra / Vijayadashami
+EV081,EV097,AMPLIFICATION,5.0,Ganesh Chaturthi + Festive Apparel Peak
+EV081,EV098,AMPLIFICATION,5.0,Ganesh Chaturthi + Festive Jewellery Peak
+EV081,EV099,AMPLIFICATION,5.0,Ganesh Chaturthi + Festive Electronics Pre-Diwali
+EV081,EV100,SATURATION,4.0,Ganesh Chaturthi + Diwali Home-Cleaning Cycle
+EV081,EV101,SATURATION,4.0,Ganesh Chaturthi + Diwali Gifting Pre-Season
+EV081,EV102,SATURATION,4.0,Ganesh Chaturthi + Diwali Lighting Pre-Season
+EV081,EV103,SATURATION,4.0,Ganesh Chaturthi + Karwa Chauth
+EV081,EV104,SATURATION,4.0,Ganesh Chaturthi + Dhanteras
+EV081,EV106,SATURATION,4.0,Ganesh Chaturthi + Diwali / Lakshmi Puja
+EV081,EV109,AMPLIFICATION,5.0,Ganesh Chaturthi + Diwali Gifting Peak
+EV081,EV110,AMPLIFICATION,5.0,Ganesh Chaturthi + Diwali Corporate Gifting
+EV081,EV134,ATTENUATION,3.5,Ganesh Chaturthi + Severe Rain / Flood Risk
+EV081,EV135,ATTENUATION,3.5,Ganesh Chaturthi + Monsoon Withdrawal / Post-Monsoon
+EV081,EV136,ATTENUATION,3.5,Ganesh Chaturthi + Post-Monsoon Pest/Humidity Cycle
+EV081,EV159,SATURATION,4.0,Ganesh Chaturthi + Bonalu
+EV081,EV160,SATURATION,4.0,Ganesh Chaturthi + Bathukamma Pre-Season
+EV081,EV165,ATTENUATION,3.5,Ganesh Chaturthi + Mosquito Season Demand Peak
+EV081,EV166,ATTENUATION,3.5,Ganesh Chaturthi + Rainwear Replacement / Mid-Monsoon Restock
+EV081,EV167,AMPLIFICATION,5.0,Ganesh Chaturthi + Festive Inventory Build-Up
+EV082,EV083,SATURATION,4.0,Ganesh Visarjan + Hartalika Teej
+EV082,EV086,AMPLIFICATION,5.0,Ganesh Visarjan + Festive Home Makeover Pre-Season
+EV082,EV087,AMPLIFICATION,5.0,Ganesh Visarjan + Festive Preview Sales
+EV082,EV088,AMPLIFICATION,5.0,Ganesh Visarjan + Big Billion Days / Major Festive Sale Window
+EV082,EV089,AMPLIFICATION,5.0,Ganesh Visarjan + Great Indian Festival / Major Festive Sale Window
+EV082,EV091,SATURATION,4.0,Ganesh Visarjan + Durga Puja
+EV082,EV092,SATURATION,4.0,Ganesh Visarjan + Garba / Dandiya Season
+EV082,EV095,SATURATION,4.0,Ganesh Visarjan + Mysuru Dasara
+EV082,EV096,SATURATION,4.0,Ganesh Visarjan + Dussehra / Vijayadashami
+EV082,EV097,AMPLIFICATION,5.0,Ganesh Visarjan + Festive Apparel Peak
+EV082,EV098,AMPLIFICATION,5.0,Ganesh Visarjan + Festive Jewellery Peak
+EV082,EV099,AMPLIFICATION,5.0,Ganesh Visarjan + Festive Electronics Pre-Diwali
+EV082,EV100,SATURATION,4.0,Ganesh Visarjan + Diwali Home-Cleaning Cycle
+EV082,EV101,SATURATION,4.0,Ganesh Visarjan + Diwali Gifting Pre-Season
+EV082,EV102,SATURATION,4.0,Ganesh Visarjan + Diwali Lighting Pre-Season
+EV082,EV104,SATURATION,4.0,Ganesh Visarjan + Dhanteras
+EV082,EV106,SATURATION,4.0,Ganesh Visarjan + Diwali / Lakshmi Puja
+EV082,EV109,AMPLIFICATION,5.0,Ganesh Visarjan + Diwali Gifting Peak
+EV082,EV110,AMPLIFICATION,5.0,Ganesh Visarjan + Diwali Corporate Gifting
+EV082,EV134,ATTENUATION,3.5,Ganesh Visarjan + Severe Rain / Flood Risk
+EV082,EV135,ATTENUATION,3.5,Ganesh Visarjan + Monsoon Withdrawal / Post-Monsoon
+EV082,EV136,ATTENUATION,3.5,Ganesh Visarjan + Post-Monsoon Pest/Humidity Cycle
+EV082,EV160,SATURATION,4.0,Ganesh Visarjan + Bathukamma Pre-Season
+EV082,EV165,ATTENUATION,3.5,Ganesh Visarjan + Mosquito Season Demand Peak
+EV082,EV167,AMPLIFICATION,5.0,Ganesh Visarjan + Festive Inventory Build-Up
+EV083,EV086,AMPLIFICATION,5.0,Hartalika Teej + Festive Home Makeover Pre-Season
+EV083,EV087,AMPLIFICATION,5.0,Hartalika Teej + Festive Preview Sales
+EV083,EV088,AMPLIFICATION,5.0,Hartalika Teej + Big Billion Days / Major Festive Sale Window
+EV083,EV089,AMPLIFICATION,5.0,Hartalika Teej + Great Indian Festival / Major Festive Sale Window
+EV083,EV091,SATURATION,4.0,Hartalika Teej + Durga Puja
+EV083,EV092,SATURATION,4.0,Hartalika Teej + Garba / Dandiya Season
+EV083,EV095,SATURATION,4.0,Hartalika Teej + Mysuru Dasara
+EV083,EV096,SATURATION,4.0,Hartalika Teej + Dussehra / Vijayadashami
+EV083,EV097,AMPLIFICATION,5.0,Hartalika Teej + Festive Apparel Peak
+EV083,EV098,AMPLIFICATION,5.0,Hartalika Teej + Festive Jewellery Peak
+EV083,EV099,AMPLIFICATION,5.0,Hartalika Teej + Festive Electronics Pre-Diwali
+EV083,EV100,SATURATION,4.0,Hartalika Teej + Diwali Home-Cleaning Cycle
+EV083,EV101,SATURATION,4.0,Hartalika Teej + Diwali Gifting Pre-Season
+EV083,EV102,SATURATION,4.0,Hartalika Teej + Diwali Lighting Pre-Season
+EV083,EV104,SATURATION,4.0,Hartalika Teej + Dhanteras
+EV083,EV106,SATURATION,4.0,Hartalika Teej + Diwali / Lakshmi Puja
+EV083,EV109,AMPLIFICATION,5.0,Hartalika Teej + Diwali Gifting Peak
+EV083,EV110,AMPLIFICATION,5.0,Hartalika Teej + Diwali Corporate Gifting
+EV083,EV134,ATTENUATION,3.5,Hartalika Teej + Severe Rain / Flood Risk
+EV083,EV135,ATTENUATION,3.5,Hartalika Teej + Monsoon Withdrawal / Post-Monsoon
+EV083,EV136,ATTENUATION,3.5,Hartalika Teej + Post-Monsoon Pest/Humidity Cycle
+EV083,EV160,SATURATION,4.0,Hartalika Teej + Bathukamma Pre-Season
+EV083,EV165,ATTENUATION,3.5,Hartalika Teej + Mosquito Season Demand Peak
+EV083,EV167,AMPLIFICATION,5.0,Hartalika Teej + Festive Inventory Build-Up
+EV086,EV091,AMPLIFICATION,5.0,Festive Home Makeover Pre-Season + Durga Puja
+EV086,EV092,AMPLIFICATION,5.0,Festive Home Makeover Pre-Season + Garba / Dandiya Season
+EV086,EV095,AMPLIFICATION,5.0,Festive Home Makeover Pre-Season + Mysuru Dasara
+EV086,EV096,AMPLIFICATION,5.0,Festive Home Makeover Pre-Season + Dussehra / Vijayadashami
+EV086,EV100,AMPLIFICATION,5.0,Festive Home Makeover Pre-Season + Diwali Home-Cleaning Cycle
+EV086,EV101,AMPLIFICATION,5.0,Festive Home Makeover Pre-Season + Diwali Gifting Pre-Season
+EV086,EV102,AMPLIFICATION,5.0,Festive Home Makeover Pre-Season + Diwali Lighting Pre-Season
+EV086,EV103,AMPLIFICATION,5.0,Festive Home Makeover Pre-Season + Karwa Chauth
+EV086,EV104,AMPLIFICATION,5.0,Festive Home Makeover Pre-Season + Dhanteras
+EV086,EV105,AMPLIFICATION,5.0,Festive Home Makeover Pre-Season + Naraka Chaturdashi
+EV086,EV106,AMPLIFICATION,5.0,Festive Home Makeover Pre-Season + Diwali / Lakshmi Puja
+EV086,EV107,AMPLIFICATION,5.0,Festive Home Makeover Pre-Season + Govardhan Puja / Annakut
+EV086,EV108,AMPLIFICATION,5.0,Festive Home Makeover Pre-Season + Bhai Dooj
+EV086,EV111,AMPLIFICATION,5.0,Festive Home Makeover Pre-Season + Chhath Puja
+EV086,EV113,AMPLIFICATION,5.0,Festive Home Makeover Pre-Season + Kartika Purnima / Dev Deepawali
+EV086,EV115,AMPLIFICATION,4.0,Festive Home Makeover Pre-Season + Wedding Season — Winter Restart
+EV086,EV122,AMPLIFICATION,4.5,Festive Home Makeover Pre-Season + Winter Onset — North India
+EV086,EV127,AMPLIFICATION,4.0,Festive Home Makeover Pre-Season + Christmas-New Year Travel Peak
+EV086,EV131,AMPLIFICATION,4.0,Festive Home Makeover Pre-Season + Winter Wedding Peak
+EV086,EV132,AMPLIFICATION,4.0,Festive Home Makeover Pre-Season + Financial Year Planning / Corporate Budget Buying
+EV086,EV134,AMPLIFICATION,4.5,Festive Home Makeover Pre-Season + Severe Rain / Flood Risk
+EV086,EV135,AMPLIFICATION,4.5,Festive Home Makeover Pre-Season + Monsoon Withdrawal / Post-Monsoon
+EV086,EV136,AMPLIFICATION,4.5,Festive Home Makeover Pre-Season + Post-Monsoon Pest/Humidity Cycle
+EV086,EV147,AMPLIFICATION,4.0,Festive Home Makeover Pre-Season + College Admissions Cycle
+EV086,EV149,AMPLIFICATION,4.0,Festive Home Makeover Pre-Season + Back-to-Work / Post-Vacation Demand
+EV086,EV150,AMPLIFICATION,4.0,Festive Home Makeover Pre-Season + Corporate Festive Procurement
+EV086,EV151,AMPLIFICATION,4.0,Festive Home Makeover Pre-Season + Post-Festival Restock / Consumption Normalization
+EV086,EV160,AMPLIFICATION,5.0,Festive Home Makeover Pre-Season + Bathukamma Pre-Season
+EV086,EV161,AMPLIFICATION,5.0,Festive Home Makeover Pre-Season + Hornbill / Northeast Cultural Tourism Season
+EV086,EV165,AMPLIFICATION,4.5,Festive Home Makeover Pre-Season + Mosquito Season Demand Peak
+EV086,EV166,AMPLIFICATION,4.5,Festive Home Makeover Pre-Season + Rainwear Replacement / Mid-Monsoon Restock
+EV086,EV168,AMPLIFICATION,4.0,Festive Home Makeover Pre-Season + Diwali Pre-Stocking for Retailers
+EV086,EV169,AMPLIFICATION,4.0,Festive Home Makeover Pre-Season + Wedding Retail Inventory Build-Up — Winter
+EV086,EV174,AMPLIFICATION,4.0,Festive Home Makeover Pre-Season + Pre-College / Hostel Setup Season
+EV087,EV091,AMPLIFICATION,5.0,Festive Preview Sales + Durga Puja
+EV087,EV092,AMPLIFICATION,5.0,Festive Preview Sales + Garba / Dandiya Season
+EV087,EV095,AMPLIFICATION,5.0,Festive Preview Sales + Mysuru Dasara
+EV087,EV096,AMPLIFICATION,5.0,Festive Preview Sales + Dussehra / Vijayadashami
+EV087,EV100,AMPLIFICATION,5.0,Festive Preview Sales + Diwali Home-Cleaning Cycle
+EV087,EV101,AMPLIFICATION,5.0,Festive Preview Sales + Diwali Gifting Pre-Season
+EV087,EV102,AMPLIFICATION,5.0,Festive Preview Sales + Diwali Lighting Pre-Season
+EV087,EV103,AMPLIFICATION,5.0,Festive Preview Sales + Karwa Chauth
+EV087,EV104,AMPLIFICATION,5.0,Festive Preview Sales + Dhanteras
+EV087,EV105,AMPLIFICATION,5.0,Festive Preview Sales + Naraka Chaturdashi
+EV087,EV106,AMPLIFICATION,5.0,Festive Preview Sales + Diwali / Lakshmi Puja
+EV087,EV107,AMPLIFICATION,5.0,Festive Preview Sales + Govardhan Puja / Annakut
+EV087,EV108,AMPLIFICATION,5.0,Festive Preview Sales + Bhai Dooj
+EV087,EV111,AMPLIFICATION,5.0,Festive Preview Sales + Chhath Puja
+EV087,EV115,AMPLIFICATION,4.0,Festive Preview Sales + Wedding Season — Winter Restart
+EV087,EV122,AMPLIFICATION,4.5,Festive Preview Sales + Winter Onset — North India
+EV087,EV131,AMPLIFICATION,4.0,Festive Preview Sales + Winter Wedding Peak
+EV087,EV134,AMPLIFICATION,4.5,Festive Preview Sales + Severe Rain / Flood Risk
+EV087,EV135,AMPLIFICATION,4.5,Festive Preview Sales + Monsoon Withdrawal / Post-Monsoon
+EV087,EV136,AMPLIFICATION,4.5,Festive Preview Sales + Post-Monsoon Pest/Humidity Cycle
+EV087,EV147,AMPLIFICATION,4.0,Festive Preview Sales + College Admissions Cycle
+EV087,EV149,AMPLIFICATION,4.0,Festive Preview Sales + Back-to-Work / Post-Vacation Demand
+EV087,EV150,AMPLIFICATION,4.0,Festive Preview Sales + Corporate Festive Procurement
+EV087,EV160,AMPLIFICATION,5.0,Festive Preview Sales + Bathukamma Pre-Season
+EV087,EV165,AMPLIFICATION,4.5,Festive Preview Sales + Mosquito Season Demand Peak
+EV087,EV166,AMPLIFICATION,4.5,Festive Preview Sales + Rainwear Replacement / Mid-Monsoon Restock
+EV087,EV168,AMPLIFICATION,4.0,Festive Preview Sales + Diwali Pre-Stocking for Retailers
+EV087,EV169,AMPLIFICATION,4.0,Festive Preview Sales + Wedding Retail Inventory Build-Up — Winter
+EV087,EV174,AMPLIFICATION,4.0,Festive Preview Sales + Pre-College / Hostel Setup Season
+EV088,EV091,AMPLIFICATION,5.0,Big Billion Days / Major Festive Sale Window + Durga Puja
+EV088,EV092,AMPLIFICATION,5.0,Big Billion Days / Major Festive Sale Window + Garba / Dandiya Season
+EV088,EV095,AMPLIFICATION,5.0,Big Billion Days / Major Festive Sale Window + Mysuru Dasara
+EV088,EV096,AMPLIFICATION,5.0,Big Billion Days / Major Festive Sale Window + Dussehra / Vijayadashami
+EV088,EV100,AMPLIFICATION,5.0,Big Billion Days / Major Festive Sale Window + Diwali Home-Cleaning Cycle
+EV088,EV101,AMPLIFICATION,5.0,Big Billion Days / Major Festive Sale Window + Diwali Gifting Pre-Season
+EV088,EV102,AMPLIFICATION,5.0,Big Billion Days / Major Festive Sale Window + Diwali Lighting Pre-Season
+EV088,EV103,AMPLIFICATION,5.0,Big Billion Days / Major Festive Sale Window + Karwa Chauth
+EV088,EV104,AMPLIFICATION,5.0,Big Billion Days / Major Festive Sale Window + Dhanteras
+EV088,EV105,AMPLIFICATION,5.0,Big Billion Days / Major Festive Sale Window + Naraka Chaturdashi
+EV088,EV106,AMPLIFICATION,5.0,Big Billion Days / Major Festive Sale Window + Diwali / Lakshmi Puja
+EV088,EV107,AMPLIFICATION,5.0,Big Billion Days / Major Festive Sale Window + Govardhan Puja / Annakut
+EV088,EV108,AMPLIFICATION,5.0,Big Billion Days / Major Festive Sale Window + Bhai Dooj
+EV088,EV111,AMPLIFICATION,5.0,Big Billion Days / Major Festive Sale Window + Chhath Puja
+EV088,EV115,AMPLIFICATION,4.0,Big Billion Days / Major Festive Sale Window + Wedding Season — Winter Restart
+EV088,EV122,AMPLIFICATION,4.5,Big Billion Days / Major Festive Sale Window + Winter Onset — North India
+EV088,EV131,AMPLIFICATION,4.0,Big Billion Days / Major Festive Sale Window + Winter Wedding Peak
+EV088,EV134,AMPLIFICATION,4.5,Big Billion Days / Major Festive Sale Window + Severe Rain / Flood Risk
+EV088,EV135,AMPLIFICATION,4.5,Big Billion Days / Major Festive Sale Window + Monsoon Withdrawal / Post-Monsoon
+EV088,EV136,AMPLIFICATION,4.5,Big Billion Days / Major Festive Sale Window + Post-Monsoon Pest/Humidity Cycle
+EV088,EV150,AMPLIFICATION,4.0,Big Billion Days / Major Festive Sale Window + Corporate Festive Procurement
+EV088,EV160,AMPLIFICATION,5.0,Big Billion Days / Major Festive Sale Window + Bathukamma Pre-Season
+EV088,EV165,AMPLIFICATION,4.5,Big Billion Days / Major Festive Sale Window + Mosquito Season Demand Peak
+EV088,EV168,AMPLIFICATION,4.0,Big Billion Days / Major Festive Sale Window + Diwali Pre-Stocking for Retailers
+EV088,EV169,AMPLIFICATION,4.0,Big Billion Days / Major Festive Sale Window + Wedding Retail Inventory Build-Up — Winter
+EV088,EV174,AMPLIFICATION,4.0,Big Billion Days / Major Festive Sale Window + Pre-College / Hostel Setup Season
+EV089,EV091,AMPLIFICATION,5.0,Great Indian Festival / Major Festive Sale Window + Durga Puja
+EV089,EV092,AMPLIFICATION,5.0,Great Indian Festival / Major Festive Sale Window + Garba / Dandiya Season
+EV089,EV095,AMPLIFICATION,5.0,Great Indian Festival / Major Festive Sale Window + Mysuru Dasara
+EV089,EV096,AMPLIFICATION,5.0,Great Indian Festival / Major Festive Sale Window + Dussehra / Vijayadashami
+EV089,EV100,AMPLIFICATION,5.0,Great Indian Festival / Major Festive Sale Window + Diwali Home-Cleaning Cycle
+EV089,EV101,AMPLIFICATION,5.0,Great Indian Festival / Major Festive Sale Window + Diwali Gifting Pre-Season
+EV089,EV102,AMPLIFICATION,5.0,Great Indian Festival / Major Festive Sale Window + Diwali Lighting Pre-Season
+EV089,EV103,AMPLIFICATION,5.0,Great Indian Festival / Major Festive Sale Window + Karwa Chauth
+EV089,EV104,AMPLIFICATION,5.0,Great Indian Festival / Major Festive Sale Window + Dhanteras
+EV089,EV105,AMPLIFICATION,5.0,Great Indian Festival / Major Festive Sale Window + Naraka Chaturdashi
+EV089,EV106,AMPLIFICATION,5.0,Great Indian Festival / Major Festive Sale Window + Diwali / Lakshmi Puja
+EV089,EV107,AMPLIFICATION,5.0,Great Indian Festival / Major Festive Sale Window + Govardhan Puja / Annakut
+EV089,EV108,AMPLIFICATION,5.0,Great Indian Festival / Major Festive Sale Window + Bhai Dooj
+EV089,EV111,AMPLIFICATION,5.0,Great Indian Festival / Major Festive Sale Window + Chhath Puja
+EV089,EV115,AMPLIFICATION,4.0,Great Indian Festival / Major Festive Sale Window + Wedding Season — Winter Restart
+EV089,EV122,AMPLIFICATION,4.5,Great Indian Festival / Major Festive Sale Window + Winter Onset — North India
+EV089,EV131,AMPLIFICATION,4.0,Great Indian Festival / Major Festive Sale Window + Winter Wedding Peak
+EV089,EV134,AMPLIFICATION,4.5,Great Indian Festival / Major Festive Sale Window + Severe Rain / Flood Risk
+EV089,EV135,AMPLIFICATION,4.5,Great Indian Festival / Major Festive Sale Window + Monsoon Withdrawal / Post-Monsoon
+EV089,EV136,AMPLIFICATION,4.5,Great Indian Festival / Major Festive Sale Window + Post-Monsoon Pest/Humidity Cycle
+EV089,EV150,AMPLIFICATION,4.0,Great Indian Festival / Major Festive Sale Window + Corporate Festive Procurement
+EV089,EV160,AMPLIFICATION,5.0,Great Indian Festival / Major Festive Sale Window + Bathukamma Pre-Season
+EV089,EV165,AMPLIFICATION,4.5,Great Indian Festival / Major Festive Sale Window + Mosquito Season Demand Peak
+EV089,EV168,AMPLIFICATION,4.0,Great Indian Festival / Major Festive Sale Window + Diwali Pre-Stocking for Retailers
+EV089,EV169,AMPLIFICATION,4.0,Great Indian Festival / Major Festive Sale Window + Wedding Retail Inventory Build-Up — Winter
+EV089,EV174,AMPLIFICATION,4.0,Great Indian Festival / Major Festive Sale Window + Pre-College / Hostel Setup Season
+EV091,EV092,SATURATION,4.0,Durga Puja + Garba / Dandiya Season
+EV091,EV095,SATURATION,4.0,Durga Puja + Mysuru Dasara
+EV091,EV096,SATURATION,4.0,Durga Puja + Dussehra / Vijayadashami
+EV091,EV097,AMPLIFICATION,5.0,Durga Puja + Festive Apparel Peak
+EV091,EV098,AMPLIFICATION,5.0,Durga Puja + Festive Jewellery Peak
+EV091,EV099,AMPLIFICATION,5.0,Durga Puja + Festive Electronics Pre-Diwali
+EV091,EV100,SATURATION,4.0,Durga Puja + Diwali Home-Cleaning Cycle
+EV091,EV101,SATURATION,4.0,Durga Puja + Diwali Gifting Pre-Season
+EV091,EV102,SATURATION,4.0,Durga Puja + Diwali Lighting Pre-Season
+EV091,EV103,SATURATION,4.0,Durga Puja + Karwa Chauth
+EV091,EV104,SATURATION,4.0,Durga Puja + Dhanteras
+EV091,EV105,SATURATION,4.0,Durga Puja + Naraka Chaturdashi
+EV091,EV106,SATURATION,4.0,Durga Puja + Diwali / Lakshmi Puja
+EV091,EV107,SATURATION,4.0,Durga Puja + Govardhan Puja / Annakut
+EV091,EV108,SATURATION,4.0,Durga Puja + Bhai Dooj
+EV091,EV109,AMPLIFICATION,5.0,Durga Puja + Diwali Gifting Peak
+EV091,EV110,AMPLIFICATION,5.0,Durga Puja + Diwali Corporate Gifting
+EV091,EV111,SATURATION,4.0,Durga Puja + Chhath Puja
+EV091,EV114,AMPLIFICATION,5.0,Durga Puja + Children's Day
+EV091,EV116,AMPLIFICATION,5.0,Durga Puja + 11.11 Shopping Festival
+EV091,EV117,AMPLIFICATION,5.0,Durga Puja + Black Friday
+EV091,EV118,AMPLIFICATION,5.0,Durga Puja + Black Friday Consumer Electronics
+EV091,EV119,AMPLIFICATION,5.0,Durga Puja + Black Friday Fashion Sales
+EV091,EV120,AMPLIFICATION,5.0,Durga Puja + Post-Diwali Clearance
+EV091,EV122,ATTENUATION,3.5,Durga Puja + Winter Onset — North India
+EV091,EV134,ATTENUATION,3.5,Durga Puja + Severe Rain / Flood Risk
+EV091,EV135,ATTENUATION,3.5,Durga Puja + Monsoon Withdrawal / Post-Monsoon
+EV091,EV136,ATTENUATION,3.5,Durga Puja + Post-Monsoon Pest/Humidity Cycle
+EV091,EV152,AMPLIFICATION,5.0,Durga Puja + Pre-Christmas Home & Party Preparation
+EV091,EV160,SATURATION,4.0,Durga Puja + Bathukamma Pre-Season
+EV091,EV161,SATURATION,4.0,Durga Puja + Hornbill / Northeast Cultural Tourism Season
+EV091,EV165,ATTENUATION,3.5,Durga Puja + Mosquito Season Demand Peak
+EV091,EV167,AMPLIFICATION,5.0,Durga Puja + Festive Inventory Build-Up
+EV092,EV095,SATURATION,4.0,Garba / Dandiya Season + Mysuru Dasara
+EV092,EV096,SATURATION,4.0,Garba / Dandiya Season + Dussehra / Vijayadashami
+EV092,EV097,AMPLIFICATION,5.0,Garba / Dandiya Season + Festive Apparel Peak
+EV092,EV098,AMPLIFICATION,5.0,Garba / Dandiya Season + Festive Jewellery Peak
+EV092,EV099,AMPLIFICATION,5.0,Garba / Dandiya Season + Festive Electronics Pre-Diwali
+EV092,EV100,SATURATION,4.0,Garba / Dandiya Season + Diwali Home-Cleaning Cycle
+EV092,EV101,SATURATION,4.0,Garba / Dandiya Season + Diwali Gifting Pre-Season
+EV092,EV102,SATURATION,4.0,Garba / Dandiya Season + Diwali Lighting Pre-Season
+EV092,EV103,SATURATION,4.0,Garba / Dandiya Season + Karwa Chauth
+EV092,EV104,SATURATION,4.0,Garba / Dandiya Season + Dhanteras
+EV092,EV105,SATURATION,4.0,Garba / Dandiya Season + Naraka Chaturdashi
+EV092,EV106,SATURATION,4.0,Garba / Dandiya Season + Diwali / Lakshmi Puja
+EV092,EV108,SATURATION,4.0,Garba / Dandiya Season + Bhai Dooj
+EV092,EV109,AMPLIFICATION,5.0,Garba / Dandiya Season + Diwali Gifting Peak
+EV092,EV110,AMPLIFICATION,5.0,Garba / Dandiya Season + Diwali Corporate Gifting
+EV092,EV111,SATURATION,4.0,Garba / Dandiya Season + Chhath Puja
+EV092,EV116,AMPLIFICATION,5.0,Garba / Dandiya Season + 11.11 Shopping Festival
+EV092,EV120,AMPLIFICATION,5.0,Garba / Dandiya Season + Post-Diwali Clearance
+EV092,EV122,ATTENUATION,3.5,Garba / Dandiya Season + Winter Onset — North India
+EV092,EV134,ATTENUATION,3.5,Garba / Dandiya Season + Severe Rain / Flood Risk
+EV092,EV135,ATTENUATION,3.5,Garba / Dandiya Season + Monsoon Withdrawal / Post-Monsoon
+EV092,EV136,ATTENUATION,3.5,Garba / Dandiya Season + Post-Monsoon Pest/Humidity Cycle
+EV092,EV160,SATURATION,4.0,Garba / Dandiya Season + Bathukamma Pre-Season
+EV092,EV165,ATTENUATION,3.5,Garba / Dandiya Season + Mosquito Season Demand Peak
+EV092,EV167,AMPLIFICATION,5.0,Garba / Dandiya Season + Festive Inventory Build-Up
+EV095,EV096,SATURATION,4.0,Mysuru Dasara + Dussehra / Vijayadashami
+EV095,EV097,AMPLIFICATION,5.0,Mysuru Dasara + Festive Apparel Peak
+EV095,EV098,AMPLIFICATION,5.0,Mysuru Dasara + Festive Jewellery Peak
+EV095,EV099,AMPLIFICATION,5.0,Mysuru Dasara + Festive Electronics Pre-Diwali
+EV095,EV100,SATURATION,4.0,Mysuru Dasara + Diwali Home-Cleaning Cycle
+EV095,EV101,SATURATION,4.0,Mysuru Dasara + Diwali Gifting Pre-Season
+EV095,EV102,SATURATION,4.0,Mysuru Dasara + Diwali Lighting Pre-Season
+EV095,EV103,SATURATION,4.0,Mysuru Dasara + Karwa Chauth
+EV095,EV104,SATURATION,4.0,Mysuru Dasara + Dhanteras
+EV095,EV105,SATURATION,4.0,Mysuru Dasara + Naraka Chaturdashi
+EV095,EV106,SATURATION,4.0,Mysuru Dasara + Diwali / Lakshmi Puja
+EV095,EV107,SATURATION,4.0,Mysuru Dasara + Govardhan Puja / Annakut
+EV095,EV108,SATURATION,4.0,Mysuru Dasara + Bhai Dooj
+EV095,EV109,AMPLIFICATION,5.0,Mysuru Dasara + Diwali Gifting Peak
+EV095,EV110,AMPLIFICATION,5.0,Mysuru Dasara + Diwali Corporate Gifting
+EV095,EV111,SATURATION,4.0,Mysuru Dasara + Chhath Puja
+EV095,EV114,AMPLIFICATION,5.0,Mysuru Dasara + Children's Day
+EV095,EV116,AMPLIFICATION,5.0,Mysuru Dasara + 11.11 Shopping Festival
+EV095,EV117,AMPLIFICATION,5.0,Mysuru Dasara + Black Friday
+EV095,EV118,AMPLIFICATION,5.0,Mysuru Dasara + Black Friday Consumer Electronics
+EV095,EV119,AMPLIFICATION,5.0,Mysuru Dasara + Black Friday Fashion Sales
+EV095,EV120,AMPLIFICATION,5.0,Mysuru Dasara + Post-Diwali Clearance
+EV095,EV122,ATTENUATION,3.5,Mysuru Dasara + Winter Onset — North India
+EV095,EV134,ATTENUATION,3.5,Mysuru Dasara + Severe Rain / Flood Risk
+EV095,EV135,ATTENUATION,3.5,Mysuru Dasara + Monsoon Withdrawal / Post-Monsoon
+EV095,EV136,ATTENUATION,3.5,Mysuru Dasara + Post-Monsoon Pest/Humidity Cycle
+EV095,EV160,SATURATION,4.0,Mysuru Dasara + Bathukamma Pre-Season
+EV095,EV165,ATTENUATION,3.5,Mysuru Dasara + Mosquito Season Demand Peak
+EV095,EV167,AMPLIFICATION,5.0,Mysuru Dasara + Festive Inventory Build-Up
+EV096,EV097,AMPLIFICATION,5.0,Dussehra / Vijayadashami + Festive Apparel Peak
+EV096,EV098,AMPLIFICATION,5.0,Dussehra / Vijayadashami + Festive Jewellery Peak
+EV096,EV099,AMPLIFICATION,5.0,Dussehra / Vijayadashami + Festive Electronics Pre-Diwali
+EV096,EV100,SATURATION,4.0,Dussehra / Vijayadashami + Diwali Home-Cleaning Cycle
+EV096,EV101,SATURATION,4.0,Dussehra / Vijayadashami + Diwali Gifting Pre-Season
+EV096,EV102,SATURATION,4.0,Dussehra / Vijayadashami + Diwali Lighting Pre-Season
+EV096,EV103,SATURATION,4.0,Dussehra / Vijayadashami + Karwa Chauth
+EV096,EV104,SATURATION,4.0,Dussehra / Vijayadashami + Dhanteras
+EV096,EV105,SATURATION,4.0,Dussehra / Vijayadashami + Naraka Chaturdashi
+EV096,EV106,SATURATION,4.0,Dussehra / Vijayadashami + Diwali / Lakshmi Puja
+EV096,EV107,SATURATION,4.0,Dussehra / Vijayadashami + Govardhan Puja / Annakut
+EV096,EV108,SATURATION,4.0,Dussehra / Vijayadashami + Bhai Dooj
+EV096,EV109,AMPLIFICATION,5.0,Dussehra / Vijayadashami + Diwali Gifting Peak
+EV096,EV110,AMPLIFICATION,5.0,Dussehra / Vijayadashami + Diwali Corporate Gifting
+EV096,EV111,SATURATION,4.0,Dussehra / Vijayadashami + Chhath Puja
+EV096,EV114,AMPLIFICATION,5.0,Dussehra / Vijayadashami + Children's Day
+EV096,EV116,AMPLIFICATION,5.0,Dussehra / Vijayadashami + 11.11 Shopping Festival
+EV096,EV117,AMPLIFICATION,5.0,Dussehra / Vijayadashami + Black Friday
+EV096,EV118,AMPLIFICATION,5.0,Dussehra / Vijayadashami + Black Friday Consumer Electronics
+EV096,EV119,AMPLIFICATION,5.0,Dussehra / Vijayadashami + Black Friday Fashion Sales
+EV096,EV120,AMPLIFICATION,5.0,Dussehra / Vijayadashami + Post-Diwali Clearance
+EV096,EV122,ATTENUATION,3.5,Dussehra / Vijayadashami + Winter Onset — North India
+EV096,EV134,ATTENUATION,3.5,Dussehra / Vijayadashami + Severe Rain / Flood Risk
+EV096,EV135,ATTENUATION,3.5,Dussehra / Vijayadashami + Monsoon Withdrawal / Post-Monsoon
+EV096,EV136,ATTENUATION,3.5,Dussehra / Vijayadashami + Post-Monsoon Pest/Humidity Cycle
+EV096,EV152,AMPLIFICATION,5.0,Dussehra / Vijayadashami + Pre-Christmas Home & Party Preparation
+EV096,EV160,SATURATION,4.0,Dussehra / Vijayadashami + Bathukamma Pre-Season
+EV096,EV161,SATURATION,4.0,Dussehra / Vijayadashami + Hornbill / Northeast Cultural Tourism Season
+EV096,EV165,ATTENUATION,3.5,Dussehra / Vijayadashami + Mosquito Season Demand Peak
+EV096,EV167,AMPLIFICATION,5.0,Dussehra / Vijayadashami + Festive Inventory Build-Up
+EV097,EV100,AMPLIFICATION,5.0,Festive Apparel Peak + Diwali Home-Cleaning Cycle
+EV097,EV101,AMPLIFICATION,5.0,Festive Apparel Peak + Diwali Gifting Pre-Season
+EV097,EV102,AMPLIFICATION,5.0,Festive Apparel Peak + Diwali Lighting Pre-Season
+EV097,EV103,AMPLIFICATION,5.0,Festive Apparel Peak + Karwa Chauth
+EV097,EV104,AMPLIFICATION,5.0,Festive Apparel Peak + Dhanteras
+EV097,EV105,AMPLIFICATION,5.0,Festive Apparel Peak + Naraka Chaturdashi
+EV097,EV106,AMPLIFICATION,5.0,Festive Apparel Peak + Diwali / Lakshmi Puja
+EV097,EV107,AMPLIFICATION,5.0,Festive Apparel Peak + Govardhan Puja / Annakut
+EV097,EV108,AMPLIFICATION,5.0,Festive Apparel Peak + Bhai Dooj
+EV097,EV111,AMPLIFICATION,5.0,Festive Apparel Peak + Chhath Puja
+EV097,EV113,AMPLIFICATION,5.0,Festive Apparel Peak + Kartika Purnima / Dev Deepawali
+EV097,EV115,AMPLIFICATION,4.0,Festive Apparel Peak + Wedding Season — Winter Restart
+EV097,EV122,AMPLIFICATION,4.5,Festive Apparel Peak + Winter Onset — North India
+EV097,EV127,AMPLIFICATION,4.0,Festive Apparel Peak + Christmas-New Year Travel Peak
+EV097,EV131,AMPLIFICATION,4.0,Festive Apparel Peak + Winter Wedding Peak
+EV097,EV132,AMPLIFICATION,4.0,Festive Apparel Peak + Financial Year Planning / Corporate Budget Buying
+EV097,EV134,AMPLIFICATION,4.5,Festive Apparel Peak + Severe Rain / Flood Risk
+EV097,EV135,AMPLIFICATION,4.5,Festive Apparel Peak + Monsoon Withdrawal / Post-Monsoon
+EV097,EV136,AMPLIFICATION,4.5,Festive Apparel Peak + Post-Monsoon Pest/Humidity Cycle
+EV097,EV147,AMPLIFICATION,4.0,Festive Apparel Peak + College Admissions Cycle
+EV097,EV149,AMPLIFICATION,4.0,Festive Apparel Peak + Back-to-Work / Post-Vacation Demand
+EV097,EV150,AMPLIFICATION,4.0,Festive Apparel Peak + Corporate Festive Procurement
+EV097,EV151,AMPLIFICATION,4.0,Festive Apparel Peak + Post-Festival Restock / Consumption Normalization
+EV097,EV160,AMPLIFICATION,5.0,Festive Apparel Peak + Bathukamma Pre-Season
+EV097,EV161,AMPLIFICATION,5.0,Festive Apparel Peak + Hornbill / Northeast Cultural Tourism Season
+EV097,EV165,AMPLIFICATION,4.5,Festive Apparel Peak + Mosquito Season Demand Peak
+EV097,EV166,AMPLIFICATION,4.5,Festive Apparel Peak + Rainwear Replacement / Mid-Monsoon Restock
+EV097,EV168,AMPLIFICATION,4.0,Festive Apparel Peak + Diwali Pre-Stocking for Retailers
+EV097,EV169,AMPLIFICATION,4.0,Festive Apparel Peak + Wedding Retail Inventory Build-Up — Winter
+EV097,EV174,AMPLIFICATION,4.0,Festive Apparel Peak + Pre-College / Hostel Setup Season
+EV098,EV100,AMPLIFICATION,5.0,Festive Jewellery Peak + Diwali Home-Cleaning Cycle
+EV098,EV101,AMPLIFICATION,5.0,Festive Jewellery Peak + Diwali Gifting Pre-Season
+EV098,EV102,AMPLIFICATION,5.0,Festive Jewellery Peak + Diwali Lighting Pre-Season
+EV098,EV103,AMPLIFICATION,5.0,Festive Jewellery Peak + Karwa Chauth
+EV098,EV104,AMPLIFICATION,5.0,Festive Jewellery Peak + Dhanteras
+EV098,EV105,AMPLIFICATION,5.0,Festive Jewellery Peak + Naraka Chaturdashi
+EV098,EV106,AMPLIFICATION,5.0,Festive Jewellery Peak + Diwali / Lakshmi Puja
+EV098,EV107,AMPLIFICATION,5.0,Festive Jewellery Peak + Govardhan Puja / Annakut
+EV098,EV108,AMPLIFICATION,5.0,Festive Jewellery Peak + Bhai Dooj
+EV098,EV111,AMPLIFICATION,5.0,Festive Jewellery Peak + Chhath Puja
+EV098,EV113,AMPLIFICATION,5.0,Festive Jewellery Peak + Kartika Purnima / Dev Deepawali
+EV098,EV115,AMPLIFICATION,4.0,Festive Jewellery Peak + Wedding Season — Winter Restart
+EV098,EV122,AMPLIFICATION,4.5,Festive Jewellery Peak + Winter Onset — North India
+EV098,EV127,AMPLIFICATION,4.0,Festive Jewellery Peak + Christmas-New Year Travel Peak
+EV098,EV131,AMPLIFICATION,4.0,Festive Jewellery Peak + Winter Wedding Peak
+EV098,EV132,AMPLIFICATION,4.0,Festive Jewellery Peak + Financial Year Planning / Corporate Budget Buying
+EV098,EV134,AMPLIFICATION,4.5,Festive Jewellery Peak + Severe Rain / Flood Risk
+EV098,EV135,AMPLIFICATION,4.5,Festive Jewellery Peak + Monsoon Withdrawal / Post-Monsoon
+EV098,EV136,AMPLIFICATION,4.5,Festive Jewellery Peak + Post-Monsoon Pest/Humidity Cycle
+EV098,EV147,AMPLIFICATION,4.0,Festive Jewellery Peak + College Admissions Cycle
+EV098,EV149,AMPLIFICATION,4.0,Festive Jewellery Peak + Back-to-Work / Post-Vacation Demand
+EV098,EV150,AMPLIFICATION,4.0,Festive Jewellery Peak + Corporate Festive Procurement
+EV098,EV151,AMPLIFICATION,4.0,Festive Jewellery Peak + Post-Festival Restock / Consumption Normalization
+EV098,EV160,AMPLIFICATION,5.0,Festive Jewellery Peak + Bathukamma Pre-Season
+EV098,EV161,AMPLIFICATION,5.0,Festive Jewellery Peak + Hornbill / Northeast Cultural Tourism Season
+EV098,EV165,AMPLIFICATION,4.5,Festive Jewellery Peak + Mosquito Season Demand Peak
+EV098,EV166,AMPLIFICATION,4.5,Festive Jewellery Peak + Rainwear Replacement / Mid-Monsoon Restock
+EV098,EV168,AMPLIFICATION,4.0,Festive Jewellery Peak + Diwali Pre-Stocking for Retailers
+EV098,EV169,AMPLIFICATION,4.0,Festive Jewellery Peak + Wedding Retail Inventory Build-Up — Winter
+EV098,EV174,AMPLIFICATION,4.0,Festive Jewellery Peak + Pre-College / Hostel Setup Season
+EV099,EV100,AMPLIFICATION,5.0,Festive Electronics Pre-Diwali + Diwali Home-Cleaning Cycle
+EV099,EV101,AMPLIFICATION,5.0,Festive Electronics Pre-Diwali + Diwali Gifting Pre-Season
+EV099,EV102,AMPLIFICATION,5.0,Festive Electronics Pre-Diwali + Diwali Lighting Pre-Season
+EV099,EV103,AMPLIFICATION,5.0,Festive Electronics Pre-Diwali + Karwa Chauth
+EV099,EV104,AMPLIFICATION,5.0,Festive Electronics Pre-Diwali + Dhanteras
+EV099,EV105,AMPLIFICATION,5.0,Festive Electronics Pre-Diwali + Naraka Chaturdashi
+EV099,EV106,AMPLIFICATION,5.0,Festive Electronics Pre-Diwali + Diwali / Lakshmi Puja
+EV099,EV107,AMPLIFICATION,5.0,Festive Electronics Pre-Diwali + Govardhan Puja / Annakut
+EV099,EV108,AMPLIFICATION,5.0,Festive Electronics Pre-Diwali + Bhai Dooj
+EV099,EV111,AMPLIFICATION,5.0,Festive Electronics Pre-Diwali + Chhath Puja
+EV099,EV113,AMPLIFICATION,5.0,Festive Electronics Pre-Diwali + Kartika Purnima / Dev Deepawali
+EV099,EV115,AMPLIFICATION,4.0,Festive Electronics Pre-Diwali + Wedding Season — Winter Restart
+EV099,EV122,AMPLIFICATION,4.5,Festive Electronics Pre-Diwali + Winter Onset — North India
+EV099,EV127,AMPLIFICATION,4.0,Festive Electronics Pre-Diwali + Christmas-New Year Travel Peak
+EV099,EV131,AMPLIFICATION,4.0,Festive Electronics Pre-Diwali + Winter Wedding Peak
+EV099,EV132,AMPLIFICATION,4.0,Festive Electronics Pre-Diwali + Financial Year Planning / Corporate Budget Buying
+EV099,EV134,AMPLIFICATION,4.5,Festive Electronics Pre-Diwali + Severe Rain / Flood Risk
+EV099,EV135,AMPLIFICATION,4.5,Festive Electronics Pre-Diwali + Monsoon Withdrawal / Post-Monsoon
+EV099,EV136,AMPLIFICATION,4.5,Festive Electronics Pre-Diwali + Post-Monsoon Pest/Humidity Cycle
+EV099,EV150,AMPLIFICATION,4.0,Festive Electronics Pre-Diwali + Corporate Festive Procurement
+EV099,EV151,AMPLIFICATION,4.0,Festive Electronics Pre-Diwali + Post-Festival Restock / Consumption Normalization
+EV099,EV160,AMPLIFICATION,5.0,Festive Electronics Pre-Diwali + Bathukamma Pre-Season
+EV099,EV161,AMPLIFICATION,5.0,Festive Electronics Pre-Diwali + Hornbill / Northeast Cultural Tourism Season
+EV099,EV165,AMPLIFICATION,4.5,Festive Electronics Pre-Diwali + Mosquito Season Demand Peak
+EV099,EV168,AMPLIFICATION,4.0,Festive Electronics Pre-Diwali + Diwali Pre-Stocking for Retailers
+EV099,EV169,AMPLIFICATION,4.0,Festive Electronics Pre-Diwali + Wedding Retail Inventory Build-Up — Winter
+EV099,EV174,AMPLIFICATION,4.0,Festive Electronics Pre-Diwali + Pre-College / Hostel Setup Season
+EV100,EV101,SATURATION,4.0,Diwali Home-Cleaning Cycle + Diwali Gifting Pre-Season
+EV100,EV102,SATURATION,4.0,Diwali Home-Cleaning Cycle + Diwali Lighting Pre-Season
+EV100,EV103,SATURATION,4.0,Diwali Home-Cleaning Cycle + Karwa Chauth
+EV100,EV104,SATURATION,4.0,Diwali Home-Cleaning Cycle + Dhanteras
+EV100,EV105,SATURATION,4.0,Diwali Home-Cleaning Cycle + Naraka Chaturdashi
+EV100,EV106,SATURATION,4.0,Diwali Home-Cleaning Cycle + Diwali / Lakshmi Puja
+EV100,EV107,SATURATION,4.0,Diwali Home-Cleaning Cycle + Govardhan Puja / Annakut
+EV100,EV108,SATURATION,4.0,Diwali Home-Cleaning Cycle + Bhai Dooj
+EV100,EV109,AMPLIFICATION,5.0,Diwali Home-Cleaning Cycle + Diwali Gifting Peak
+EV100,EV110,AMPLIFICATION,5.0,Diwali Home-Cleaning Cycle + Diwali Corporate Gifting
+EV100,EV111,SATURATION,4.0,Diwali Home-Cleaning Cycle + Chhath Puja
+EV100,EV113,SATURATION,4.0,Diwali Home-Cleaning Cycle + Kartika Purnima / Dev Deepawali
+EV100,EV114,AMPLIFICATION,5.0,Diwali Home-Cleaning Cycle + Children's Day
+EV100,EV116,AMPLIFICATION,5.0,Diwali Home-Cleaning Cycle + 11.11 Shopping Festival
+EV100,EV117,AMPLIFICATION,5.0,Diwali Home-Cleaning Cycle + Black Friday
+EV100,EV118,AMPLIFICATION,5.0,Diwali Home-Cleaning Cycle + Black Friday Consumer Electronics
+EV100,EV119,AMPLIFICATION,5.0,Diwali Home-Cleaning Cycle + Black Friday Fashion Sales
+EV100,EV120,AMPLIFICATION,5.0,Diwali Home-Cleaning Cycle + Post-Diwali Clearance
+EV100,EV121,AMPLIFICATION,5.0,Diwali Home-Cleaning Cycle + Cyber Monday
+EV100,EV122,ATTENUATION,3.5,Diwali Home-Cleaning Cycle + Winter Onset — North India
+EV100,EV124,AMPLIFICATION,5.0,Diwali Home-Cleaning Cycle + Secret Santa / Corporate Gifting
+EV100,EV125,AMPLIFICATION,5.0,Diwali Home-Cleaning Cycle + Christmas Holiday Kids Demand
+EV100,EV130,AMPLIFICATION,5.0,Diwali Home-Cleaning Cycle + Year-End Clearance Sale
+EV100,EV134,ATTENUATION,3.5,Diwali Home-Cleaning Cycle + Severe Rain / Flood Risk
+EV100,EV135,ATTENUATION,3.5,Diwali Home-Cleaning Cycle + Monsoon Withdrawal / Post-Monsoon
+EV100,EV136,ATTENUATION,3.5,Diwali Home-Cleaning Cycle + Post-Monsoon Pest/Humidity Cycle
+EV100,EV152,AMPLIFICATION,5.0,Diwali Home-Cleaning Cycle + Pre-Christmas Home & Party Preparation
+EV100,EV160,SATURATION,4.0,Diwali Home-Cleaning Cycle + Bathukamma Pre-Season
+EV100,EV161,SATURATION,4.0,Diwali Home-Cleaning Cycle + Hornbill / Northeast Cultural Tourism Season
+EV100,EV165,ATTENUATION,3.5,Diwali Home-Cleaning Cycle + Mosquito Season Demand Peak
+EV100,EV167,AMPLIFICATION,5.0,Diwali Home-Cleaning Cycle + Festive Inventory Build-Up
+EV101,EV102,SATURATION,4.0,Diwali Gifting Pre-Season + Diwali Lighting Pre-Season
+EV101,EV103,SATURATION,4.0,Diwali Gifting Pre-Season + Karwa Chauth
+EV101,EV104,SATURATION,4.0,Diwali Gifting Pre-Season + Dhanteras
+EV101,EV105,SATURATION,4.0,Diwali Gifting Pre-Season + Naraka Chaturdashi
+EV101,EV106,SATURATION,4.0,Diwali Gifting Pre-Season + Diwali / Lakshmi Puja
+EV101,EV107,SATURATION,4.0,Diwali Gifting Pre-Season + Govardhan Puja / Annakut
+EV101,EV108,SATURATION,4.0,Diwali Gifting Pre-Season + Bhai Dooj
+EV101,EV109,AMPLIFICATION,5.0,Diwali Gifting Pre-Season + Diwali Gifting Peak
+EV101,EV110,AMPLIFICATION,5.0,Diwali Gifting Pre-Season + Diwali Corporate Gifting
+EV101,EV111,SATURATION,4.0,Diwali Gifting Pre-Season + Chhath Puja
+EV101,EV113,SATURATION,4.0,Diwali Gifting Pre-Season + Kartika Purnima / Dev Deepawali
+EV101,EV114,AMPLIFICATION,5.0,Diwali Gifting Pre-Season + Children's Day
+EV101,EV116,AMPLIFICATION,5.0,Diwali Gifting Pre-Season + 11.11 Shopping Festival
+EV101,EV117,AMPLIFICATION,5.0,Diwali Gifting Pre-Season + Black Friday
+EV101,EV118,AMPLIFICATION,5.0,Diwali Gifting Pre-Season + Black Friday Consumer Electronics
+EV101,EV119,AMPLIFICATION,5.0,Diwali Gifting Pre-Season + Black Friday Fashion Sales
+EV101,EV120,AMPLIFICATION,5.0,Diwali Gifting Pre-Season + Post-Diwali Clearance
+EV101,EV121,AMPLIFICATION,5.0,Diwali Gifting Pre-Season + Cyber Monday
+EV101,EV122,ATTENUATION,3.5,Diwali Gifting Pre-Season + Winter Onset — North India
+EV101,EV124,AMPLIFICATION,5.0,Diwali Gifting Pre-Season + Secret Santa / Corporate Gifting
+EV101,EV125,AMPLIFICATION,5.0,Diwali Gifting Pre-Season + Christmas Holiday Kids Demand
+EV101,EV130,AMPLIFICATION,5.0,Diwali Gifting Pre-Season + Year-End Clearance Sale
+EV101,EV134,ATTENUATION,3.5,Diwali Gifting Pre-Season + Severe Rain / Flood Risk
+EV101,EV135,ATTENUATION,3.5,Diwali Gifting Pre-Season + Monsoon Withdrawal / Post-Monsoon
+EV101,EV136,ATTENUATION,3.5,Diwali Gifting Pre-Season + Post-Monsoon Pest/Humidity Cycle
+EV101,EV152,AMPLIFICATION,5.0,Diwali Gifting Pre-Season + Pre-Christmas Home & Party Preparation
+EV101,EV160,SATURATION,4.0,Diwali Gifting Pre-Season + Bathukamma Pre-Season
+EV101,EV161,SATURATION,4.0,Diwali Gifting Pre-Season + Hornbill / Northeast Cultural Tourism Season
+EV101,EV165,ATTENUATION,3.5,Diwali Gifting Pre-Season + Mosquito Season Demand Peak
+EV101,EV167,AMPLIFICATION,5.0,Diwali Gifting Pre-Season + Festive Inventory Build-Up
+EV102,EV103,SATURATION,4.0,Diwali Lighting Pre-Season + Karwa Chauth
+EV102,EV104,SATURATION,4.0,Diwali Lighting Pre-Season + Dhanteras
+EV102,EV105,SATURATION,4.0,Diwali Lighting Pre-Season + Naraka Chaturdashi
+EV102,EV106,SATURATION,4.0,Diwali Lighting Pre-Season + Diwali / Lakshmi Puja
+EV102,EV107,SATURATION,4.0,Diwali Lighting Pre-Season + Govardhan Puja / Annakut
+EV102,EV108,SATURATION,4.0,Diwali Lighting Pre-Season + Bhai Dooj
+EV102,EV109,AMPLIFICATION,5.0,Diwali Lighting Pre-Season + Diwali Gifting Peak
+EV102,EV110,AMPLIFICATION,5.0,Diwali Lighting Pre-Season + Diwali Corporate Gifting
+EV102,EV111,SATURATION,4.0,Diwali Lighting Pre-Season + Chhath Puja
+EV102,EV113,SATURATION,4.0,Diwali Lighting Pre-Season + Kartika Purnima / Dev Deepawali
+EV102,EV114,AMPLIFICATION,5.0,Diwali Lighting Pre-Season + Children's Day
+EV102,EV116,AMPLIFICATION,5.0,Diwali Lighting Pre-Season + 11.11 Shopping Festival
+EV102,EV117,AMPLIFICATION,5.0,Diwali Lighting Pre-Season + Black Friday
+EV102,EV118,AMPLIFICATION,5.0,Diwali Lighting Pre-Season + Black Friday Consumer Electronics
+EV102,EV119,AMPLIFICATION,5.0,Diwali Lighting Pre-Season + Black Friday Fashion Sales
+EV102,EV120,AMPLIFICATION,5.0,Diwali Lighting Pre-Season + Post-Diwali Clearance
+EV102,EV121,AMPLIFICATION,5.0,Diwali Lighting Pre-Season + Cyber Monday
+EV102,EV122,ATTENUATION,3.5,Diwali Lighting Pre-Season + Winter Onset — North India
+EV102,EV124,AMPLIFICATION,5.0,Diwali Lighting Pre-Season + Secret Santa / Corporate Gifting
+EV102,EV125,AMPLIFICATION,5.0,Diwali Lighting Pre-Season + Christmas Holiday Kids Demand
+EV102,EV130,AMPLIFICATION,5.0,Diwali Lighting Pre-Season + Year-End Clearance Sale
+EV102,EV134,ATTENUATION,3.5,Diwali Lighting Pre-Season + Severe Rain / Flood Risk
+EV102,EV135,ATTENUATION,3.5,Diwali Lighting Pre-Season + Monsoon Withdrawal / Post-Monsoon
+EV102,EV136,ATTENUATION,3.5,Diwali Lighting Pre-Season + Post-Monsoon Pest/Humidity Cycle
+EV102,EV152,AMPLIFICATION,5.0,Diwali Lighting Pre-Season + Pre-Christmas Home & Party Preparation
+EV102,EV160,SATURATION,4.0,Diwali Lighting Pre-Season + Bathukamma Pre-Season
+EV102,EV161,SATURATION,4.0,Diwali Lighting Pre-Season + Hornbill / Northeast Cultural Tourism Season
+EV102,EV165,ATTENUATION,3.5,Diwali Lighting Pre-Season + Mosquito Season Demand Peak
+EV102,EV167,AMPLIFICATION,5.0,Diwali Lighting Pre-Season + Festive Inventory Build-Up
+EV103,EV104,SATURATION,4.0,Karwa Chauth + Dhanteras
+EV103,EV105,SATURATION,4.0,Karwa Chauth + Naraka Chaturdashi
+EV103,EV106,SATURATION,4.0,Karwa Chauth + Diwali / Lakshmi Puja
+EV103,EV107,SATURATION,4.0,Karwa Chauth + Govardhan Puja / Annakut
+EV103,EV108,SATURATION,4.0,Karwa Chauth + Bhai Dooj
+EV103,EV109,AMPLIFICATION,5.0,Karwa Chauth + Diwali Gifting Peak
+EV103,EV110,AMPLIFICATION,5.0,Karwa Chauth + Diwali Corporate Gifting
+EV103,EV111,SATURATION,4.0,Karwa Chauth + Chhath Puja
+EV103,EV114,AMPLIFICATION,5.0,Karwa Chauth + Children's Day
+EV103,EV116,AMPLIFICATION,5.0,Karwa Chauth + 11.11 Shopping Festival
+EV103,EV117,AMPLIFICATION,5.0,Karwa Chauth + Black Friday
+EV103,EV118,AMPLIFICATION,5.0,Karwa Chauth + Black Friday Consumer Electronics
+EV103,EV119,AMPLIFICATION,5.0,Karwa Chauth + Black Friday Fashion Sales
+EV103,EV120,AMPLIFICATION,5.0,Karwa Chauth + Post-Diwali Clearance
+EV103,EV122,ATTENUATION,3.5,Karwa Chauth + Winter Onset — North India
+EV103,EV135,ATTENUATION,3.5,Karwa Chauth + Monsoon Withdrawal / Post-Monsoon
+EV103,EV136,ATTENUATION,3.5,Karwa Chauth + Post-Monsoon Pest/Humidity Cycle
+EV103,EV152,AMPLIFICATION,5.0,Karwa Chauth + Pre-Christmas Home & Party Preparation
+EV103,EV160,SATURATION,4.0,Karwa Chauth + Bathukamma Pre-Season
+EV103,EV161,SATURATION,4.0,Karwa Chauth + Hornbill / Northeast Cultural Tourism Season
+EV103,EV167,AMPLIFICATION,5.0,Karwa Chauth + Festive Inventory Build-Up
+EV104,EV105,SATURATION,4.0,Dhanteras + Naraka Chaturdashi
+EV104,EV106,SATURATION,4.0,Dhanteras + Diwali / Lakshmi Puja
+EV104,EV107,SATURATION,4.0,Dhanteras + Govardhan Puja / Annakut
+EV104,EV108,SATURATION,4.0,Dhanteras + Bhai Dooj
+EV104,EV109,AMPLIFICATION,5.0,Dhanteras + Diwali Gifting Peak
+EV104,EV110,AMPLIFICATION,5.0,Dhanteras + Diwali Corporate Gifting
+EV104,EV111,SATURATION,4.0,Dhanteras + Chhath Puja
+EV104,EV113,SATURATION,4.0,Dhanteras + Kartika Purnima / Dev Deepawali
+EV104,EV114,AMPLIFICATION,5.0,Dhanteras + Children's Day
+EV104,EV116,AMPLIFICATION,5.0,Dhanteras + 11.11 Shopping Festival
+EV104,EV117,AMPLIFICATION,5.0,Dhanteras + Black Friday
+EV104,EV118,AMPLIFICATION,5.0,Dhanteras + Black Friday Consumer Electronics
+EV104,EV119,AMPLIFICATION,5.0,Dhanteras + Black Friday Fashion Sales
+EV104,EV120,AMPLIFICATION,5.0,Dhanteras + Post-Diwali Clearance
+EV104,EV121,AMPLIFICATION,5.0,Dhanteras + Cyber Monday
+EV104,EV122,ATTENUATION,3.5,Dhanteras + Winter Onset — North India
+EV104,EV124,AMPLIFICATION,5.0,Dhanteras + Secret Santa / Corporate Gifting
+EV104,EV125,AMPLIFICATION,5.0,Dhanteras + Christmas Holiday Kids Demand
+EV104,EV130,AMPLIFICATION,5.0,Dhanteras + Year-End Clearance Sale
+EV104,EV134,ATTENUATION,3.5,Dhanteras + Severe Rain / Flood Risk
+EV104,EV135,ATTENUATION,3.5,Dhanteras + Monsoon Withdrawal / Post-Monsoon
+EV104,EV136,ATTENUATION,3.5,Dhanteras + Post-Monsoon Pest/Humidity Cycle
+EV104,EV152,AMPLIFICATION,5.0,Dhanteras + Pre-Christmas Home & Party Preparation
+EV104,EV160,SATURATION,4.0,Dhanteras + Bathukamma Pre-Season
+EV104,EV161,SATURATION,4.0,Dhanteras + Hornbill / Northeast Cultural Tourism Season
+EV104,EV167,AMPLIFICATION,5.0,Dhanteras + Festive Inventory Build-Up
+EV105,EV106,SATURATION,4.0,Naraka Chaturdashi + Diwali / Lakshmi Puja
+EV105,EV107,SATURATION,4.0,Naraka Chaturdashi + Govardhan Puja / Annakut
+EV105,EV108,SATURATION,4.0,Naraka Chaturdashi + Bhai Dooj
+EV105,EV109,AMPLIFICATION,5.0,Naraka Chaturdashi + Diwali Gifting Peak
+EV105,EV110,AMPLIFICATION,5.0,Naraka Chaturdashi + Diwali Corporate Gifting
+EV105,EV111,SATURATION,4.0,Naraka Chaturdashi + Chhath Puja
+EV105,EV113,SATURATION,4.0,Naraka Chaturdashi + Kartika Purnima / Dev Deepawali
+EV105,EV114,AMPLIFICATION,5.0,Naraka Chaturdashi + Children's Day
+EV105,EV116,AMPLIFICATION,5.0,Naraka Chaturdashi + 11.11 Shopping Festival
+EV105,EV117,AMPLIFICATION,5.0,Naraka Chaturdashi + Black Friday
+EV105,EV118,AMPLIFICATION,5.0,Naraka Chaturdashi + Black Friday Consumer Electronics
+EV105,EV119,AMPLIFICATION,5.0,Naraka Chaturdashi + Black Friday Fashion Sales
+EV105,EV120,AMPLIFICATION,5.0,Naraka Chaturdashi + Post-Diwali Clearance
+EV105,EV121,AMPLIFICATION,5.0,Naraka Chaturdashi + Cyber Monday
+EV105,EV122,ATTENUATION,3.5,Naraka Chaturdashi + Winter Onset — North India
+EV105,EV124,AMPLIFICATION,5.0,Naraka Chaturdashi + Secret Santa / Corporate Gifting
+EV105,EV125,AMPLIFICATION,5.0,Naraka Chaturdashi + Christmas Holiday Kids Demand
+EV105,EV135,ATTENUATION,3.5,Naraka Chaturdashi + Monsoon Withdrawal / Post-Monsoon
+EV105,EV136,ATTENUATION,3.5,Naraka Chaturdashi + Post-Monsoon Pest/Humidity Cycle
+EV105,EV152,AMPLIFICATION,5.0,Naraka Chaturdashi + Pre-Christmas Home & Party Preparation
+EV105,EV160,SATURATION,4.0,Naraka Chaturdashi + Bathukamma Pre-Season
+EV105,EV161,SATURATION,4.0,Naraka Chaturdashi + Hornbill / Northeast Cultural Tourism Season
+EV105,EV167,AMPLIFICATION,5.0,Naraka Chaturdashi + Festive Inventory Build-Up
+EV106,EV107,SATURATION,4.0,Diwali / Lakshmi Puja + Govardhan Puja / Annakut
+EV106,EV108,SATURATION,4.0,Diwali / Lakshmi Puja + Bhai Dooj
+EV106,EV109,AMPLIFICATION,5.0,Diwali / Lakshmi Puja + Diwali Gifting Peak
+EV106,EV110,AMPLIFICATION,5.0,Diwali / Lakshmi Puja + Diwali Corporate Gifting
+EV106,EV111,SATURATION,4.0,Diwali / Lakshmi Puja + Chhath Puja
+EV106,EV113,SATURATION,4.0,Diwali / Lakshmi Puja + Kartika Purnima / Dev Deepawali
+EV106,EV114,AMPLIFICATION,5.0,Diwali / Lakshmi Puja + Children's Day
+EV106,EV116,AMPLIFICATION,5.0,Diwali / Lakshmi Puja + 11.11 Shopping Festival
+EV106,EV117,AMPLIFICATION,5.0,Diwali / Lakshmi Puja + Black Friday
+EV106,EV118,AMPLIFICATION,5.0,Diwali / Lakshmi Puja + Black Friday Consumer Electronics
+EV106,EV119,AMPLIFICATION,5.0,Diwali / Lakshmi Puja + Black Friday Fashion Sales
+EV106,EV120,AMPLIFICATION,5.0,Diwali / Lakshmi Puja + Post-Diwali Clearance
+EV106,EV121,AMPLIFICATION,5.0,Diwali / Lakshmi Puja + Cyber Monday
+EV106,EV122,ATTENUATION,3.5,Diwali / Lakshmi Puja + Winter Onset — North India
+EV106,EV124,AMPLIFICATION,5.0,Diwali / Lakshmi Puja + Secret Santa / Corporate Gifting
+EV106,EV125,AMPLIFICATION,5.0,Diwali / Lakshmi Puja + Christmas Holiday Kids Demand
+EV106,EV130,AMPLIFICATION,5.0,Diwali / Lakshmi Puja + Year-End Clearance Sale
+EV106,EV134,ATTENUATION,3.5,Diwali / Lakshmi Puja + Severe Rain / Flood Risk
+EV106,EV135,ATTENUATION,3.5,Diwali / Lakshmi Puja + Monsoon Withdrawal / Post-Monsoon
+EV106,EV136,ATTENUATION,3.5,Diwali / Lakshmi Puja + Post-Monsoon Pest/Humidity Cycle
+EV106,EV152,AMPLIFICATION,5.0,Diwali / Lakshmi Puja + Pre-Christmas Home & Party Preparation
+EV106,EV160,SATURATION,4.0,Diwali / Lakshmi Puja + Bathukamma Pre-Season
+EV106,EV161,SATURATION,4.0,Diwali / Lakshmi Puja + Hornbill / Northeast Cultural Tourism Season
+EV106,EV165,ATTENUATION,3.5,Diwali / Lakshmi Puja + Mosquito Season Demand Peak
+EV106,EV167,AMPLIFICATION,5.0,Diwali / Lakshmi Puja + Festive Inventory Build-Up
+EV107,EV108,SATURATION,4.0,Govardhan Puja / Annakut + Bhai Dooj
+EV107,EV109,AMPLIFICATION,5.0,Govardhan Puja / Annakut + Diwali Gifting Peak
+EV107,EV110,AMPLIFICATION,5.0,Govardhan Puja / Annakut + Diwali Corporate Gifting
+EV107,EV111,SATURATION,4.0,Govardhan Puja / Annakut + Chhath Puja
+EV107,EV113,SATURATION,4.0,Govardhan Puja / Annakut + Kartika Purnima / Dev Deepawali
+EV107,EV114,AMPLIFICATION,5.0,Govardhan Puja / Annakut + Children's Day
+EV107,EV116,AMPLIFICATION,5.0,Govardhan Puja / Annakut + 11.11 Shopping Festival
+EV107,EV117,AMPLIFICATION,5.0,Govardhan Puja / Annakut + Black Friday
+EV107,EV118,AMPLIFICATION,5.0,Govardhan Puja / Annakut + Black Friday Consumer Electronics
+EV107,EV119,AMPLIFICATION,5.0,Govardhan Puja / Annakut + Black Friday Fashion Sales
+EV107,EV120,AMPLIFICATION,5.0,Govardhan Puja / Annakut + Post-Diwali Clearance
+EV107,EV121,AMPLIFICATION,5.0,Govardhan Puja / Annakut + Cyber Monday
+EV107,EV122,ATTENUATION,3.5,Govardhan Puja / Annakut + Winter Onset — North India
+EV107,EV124,AMPLIFICATION,5.0,Govardhan Puja / Annakut + Secret Santa / Corporate Gifting
+EV107,EV125,AMPLIFICATION,5.0,Govardhan Puja / Annakut + Christmas Holiday Kids Demand
+EV107,EV130,AMPLIFICATION,5.0,Govardhan Puja / Annakut + Year-End Clearance Sale
+EV107,EV135,ATTENUATION,3.5,Govardhan Puja / Annakut + Monsoon Withdrawal / Post-Monsoon
+EV107,EV136,ATTENUATION,3.5,Govardhan Puja / Annakut + Post-Monsoon Pest/Humidity Cycle
+EV107,EV152,AMPLIFICATION,5.0,Govardhan Puja / Annakut + Pre-Christmas Home & Party Preparation
+EV107,EV161,SATURATION,4.0,Govardhan Puja / Annakut + Hornbill / Northeast Cultural Tourism Season
+EV107,EV167,AMPLIFICATION,5.0,Govardhan Puja / Annakut + Festive Inventory Build-Up
+EV108,EV109,AMPLIFICATION,5.0,Bhai Dooj + Diwali Gifting Peak
+EV108,EV110,AMPLIFICATION,5.0,Bhai Dooj + Diwali Corporate Gifting
+EV108,EV111,SATURATION,4.0,Bhai Dooj + Chhath Puja
+EV108,EV113,SATURATION,4.0,Bhai Dooj + Kartika Purnima / Dev Deepawali
+EV108,EV114,AMPLIFICATION,5.0,Bhai Dooj + Children's Day
+EV108,EV116,AMPLIFICATION,5.0,Bhai Dooj + 11.11 Shopping Festival
+EV108,EV117,AMPLIFICATION,5.0,Bhai Dooj + Black Friday
+EV108,EV118,AMPLIFICATION,5.0,Bhai Dooj + Black Friday Consumer Electronics
+EV108,EV119,AMPLIFICATION,5.0,Bhai Dooj + Black Friday Fashion Sales
+EV108,EV120,AMPLIFICATION,5.0,Bhai Dooj + Post-Diwali Clearance
+EV108,EV121,AMPLIFICATION,5.0,Bhai Dooj + Cyber Monday
+EV108,EV122,ATTENUATION,3.5,Bhai Dooj + Winter Onset — North India
+EV108,EV124,AMPLIFICATION,5.0,Bhai Dooj + Secret Santa / Corporate Gifting
+EV108,EV125,AMPLIFICATION,5.0,Bhai Dooj + Christmas Holiday Kids Demand
+EV108,EV130,AMPLIFICATION,5.0,Bhai Dooj + Year-End Clearance Sale
+EV108,EV135,ATTENUATION,3.5,Bhai Dooj + Monsoon Withdrawal / Post-Monsoon
+EV108,EV136,ATTENUATION,3.5,Bhai Dooj + Post-Monsoon Pest/Humidity Cycle
+EV108,EV152,AMPLIFICATION,5.0,Bhai Dooj + Pre-Christmas Home & Party Preparation
+EV108,EV160,SATURATION,4.0,Bhai Dooj + Bathukamma Pre-Season
+EV108,EV161,SATURATION,4.0,Bhai Dooj + Hornbill / Northeast Cultural Tourism Season
+EV108,EV167,AMPLIFICATION,5.0,Bhai Dooj + Festive Inventory Build-Up
+EV109,EV111,AMPLIFICATION,5.0,Diwali Gifting Peak + Chhath Puja
+EV109,EV113,AMPLIFICATION,5.0,Diwali Gifting Peak + Kartika Purnima / Dev Deepawali
+EV109,EV115,AMPLIFICATION,4.0,Diwali Gifting Peak + Wedding Season — Winter Restart
+EV109,EV122,AMPLIFICATION,4.5,Diwali Gifting Peak + Winter Onset — North India
+EV109,EV127,AMPLIFICATION,4.0,Diwali Gifting Peak + Christmas-New Year Travel Peak
+EV109,EV131,AMPLIFICATION,4.0,Diwali Gifting Peak + Winter Wedding Peak
+EV109,EV132,AMPLIFICATION,4.0,Diwali Gifting Peak + Financial Year Planning / Corporate Budget Buying
+EV109,EV134,AMPLIFICATION,4.5,Diwali Gifting Peak + Severe Rain / Flood Risk
+EV109,EV135,AMPLIFICATION,4.5,Diwali Gifting Peak + Monsoon Withdrawal / Post-Monsoon
+EV109,EV136,AMPLIFICATION,4.5,Diwali Gifting Peak + Post-Monsoon Pest/Humidity Cycle
+EV109,EV150,AMPLIFICATION,4.0,Diwali Gifting Peak + Corporate Festive Procurement
+EV109,EV151,AMPLIFICATION,4.0,Diwali Gifting Peak + Post-Festival Restock / Consumption Normalization
+EV109,EV160,AMPLIFICATION,5.0,Diwali Gifting Peak + Bathukamma Pre-Season
+EV109,EV161,AMPLIFICATION,5.0,Diwali Gifting Peak + Hornbill / Northeast Cultural Tourism Season
+EV109,EV165,AMPLIFICATION,4.5,Diwali Gifting Peak + Mosquito Season Demand Peak
+EV109,EV168,AMPLIFICATION,4.0,Diwali Gifting Peak + Diwali Pre-Stocking for Retailers
+EV109,EV169,AMPLIFICATION,4.0,Diwali Gifting Peak + Wedding Retail Inventory Build-Up — Winter
+EV109,EV174,AMPLIFICATION,4.0,Diwali Gifting Peak + Pre-College / Hostel Setup Season
+EV110,EV111,AMPLIFICATION,5.0,Diwali Corporate Gifting + Chhath Puja
+EV110,EV113,AMPLIFICATION,5.0,Diwali Corporate Gifting + Kartika Purnima / Dev Deepawali
+EV110,EV115,AMPLIFICATION,4.0,Diwali Corporate Gifting + Wedding Season — Winter Restart
+EV110,EV122,AMPLIFICATION,4.5,Diwali Corporate Gifting + Winter Onset — North India
+EV110,EV127,AMPLIFICATION,4.0,Diwali Corporate Gifting + Christmas-New Year Travel Peak
+EV110,EV131,AMPLIFICATION,4.0,Diwali Corporate Gifting + Winter Wedding Peak
+EV110,EV132,AMPLIFICATION,4.0,Diwali Corporate Gifting + Financial Year Planning / Corporate Budget Buying
+EV110,EV134,AMPLIFICATION,4.5,Diwali Corporate Gifting + Severe Rain / Flood Risk
+EV110,EV135,AMPLIFICATION,4.5,Diwali Corporate Gifting + Monsoon Withdrawal / Post-Monsoon
+EV110,EV136,AMPLIFICATION,4.5,Diwali Corporate Gifting + Post-Monsoon Pest/Humidity Cycle
+EV110,EV150,AMPLIFICATION,4.0,Diwali Corporate Gifting + Corporate Festive Procurement
+EV110,EV151,AMPLIFICATION,4.0,Diwali Corporate Gifting + Post-Festival Restock / Consumption Normalization
+EV110,EV160,AMPLIFICATION,5.0,Diwali Corporate Gifting + Bathukamma Pre-Season
+EV110,EV161,AMPLIFICATION,5.0,Diwali Corporate Gifting + Hornbill / Northeast Cultural Tourism Season
+EV110,EV165,AMPLIFICATION,4.5,Diwali Corporate Gifting + Mosquito Season Demand Peak
+EV110,EV166,AMPLIFICATION,4.5,Diwali Corporate Gifting + Rainwear Replacement / Mid-Monsoon Restock
+EV110,EV168,AMPLIFICATION,4.0,Diwali Corporate Gifting + Diwali Pre-Stocking for Retailers
+EV110,EV169,AMPLIFICATION,4.0,Diwali Corporate Gifting + Wedding Retail Inventory Build-Up — Winter
+EV110,EV174,AMPLIFICATION,4.0,Diwali Corporate Gifting + Pre-College / Hostel Setup Season
+EV111,EV113,SATURATION,4.0,Chhath Puja + Kartika Purnima / Dev Deepawali
+EV111,EV114,AMPLIFICATION,5.0,Chhath Puja + Children's Day
+EV111,EV116,AMPLIFICATION,5.0,Chhath Puja + 11.11 Shopping Festival
+EV111,EV117,AMPLIFICATION,5.0,Chhath Puja + Black Friday
+EV111,EV118,AMPLIFICATION,5.0,Chhath Puja + Black Friday Consumer Electronics
+EV111,EV119,AMPLIFICATION,5.0,Chhath Puja + Black Friday Fashion Sales
+EV111,EV120,AMPLIFICATION,5.0,Chhath Puja + Post-Diwali Clearance
+EV111,EV121,AMPLIFICATION,5.0,Chhath Puja + Cyber Monday
+EV111,EV122,ATTENUATION,3.5,Chhath Puja + Winter Onset — North India
+EV111,EV124,AMPLIFICATION,5.0,Chhath Puja + Secret Santa / Corporate Gifting
+EV111,EV125,AMPLIFICATION,5.0,Chhath Puja + Christmas Holiday Kids Demand
+EV111,EV130,AMPLIFICATION,5.0,Chhath Puja + Year-End Clearance Sale
+EV111,EV135,ATTENUATION,3.5,Chhath Puja + Monsoon Withdrawal / Post-Monsoon
+EV111,EV136,ATTENUATION,3.5,Chhath Puja + Post-Monsoon Pest/Humidity Cycle
+EV111,EV152,AMPLIFICATION,5.0,Chhath Puja + Pre-Christmas Home & Party Preparation
+EV111,EV160,SATURATION,4.0,Chhath Puja + Bathukamma Pre-Season
+EV111,EV161,SATURATION,4.0,Chhath Puja + Hornbill / Northeast Cultural Tourism Season
+EV111,EV167,AMPLIFICATION,5.0,Chhath Puja + Festive Inventory Build-Up
+EV113,EV114,AMPLIFICATION,5.0,Kartika Purnima / Dev Deepawali + Children's Day
+EV113,EV116,AMPLIFICATION,5.0,Kartika Purnima / Dev Deepawali + 11.11 Shopping Festival
+EV113,EV117,AMPLIFICATION,5.0,Kartika Purnima / Dev Deepawali + Black Friday
+EV113,EV118,AMPLIFICATION,5.0,Kartika Purnima / Dev Deepawali + Black Friday Consumer Electronics
+EV113,EV119,AMPLIFICATION,5.0,Kartika Purnima / Dev Deepawali + Black Friday Fashion Sales
+EV113,EV120,AMPLIFICATION,5.0,Kartika Purnima / Dev Deepawali + Post-Diwali Clearance
+EV113,EV121,AMPLIFICATION,5.0,Kartika Purnima / Dev Deepawali + Cyber Monday
+EV113,EV122,ATTENUATION,3.5,Kartika Purnima / Dev Deepawali + Winter Onset — North India
+EV113,EV124,AMPLIFICATION,5.0,Kartika Purnima / Dev Deepawali + Secret Santa / Corporate Gifting
+EV113,EV125,AMPLIFICATION,5.0,Kartika Purnima / Dev Deepawali + Christmas Holiday Kids Demand
+EV113,EV128,AMPLIFICATION,5.0,Kartika Purnima / Dev Deepawali + New Year Party Pre-Season
+EV113,EV130,AMPLIFICATION,5.0,Kartika Purnima / Dev Deepawali + Year-End Clearance Sale
+EV113,EV136,ATTENUATION,3.5,Kartika Purnima / Dev Deepawali + Post-Monsoon Pest/Humidity Cycle
+EV113,EV152,AMPLIFICATION,5.0,Kartika Purnima / Dev Deepawali + Pre-Christmas Home & Party Preparation
+EV113,EV161,SATURATION,4.0,Kartika Purnima / Dev Deepawali + Hornbill / Northeast Cultural Tourism Season
+EV113,EV167,AMPLIFICATION,5.0,Kartika Purnima / Dev Deepawali + Festive Inventory Build-Up
+EV114,EV115,AMPLIFICATION,4.0,Children's Day + Wedding Season — Winter Restart
+EV114,EV122,AMPLIFICATION,4.5,Children's Day + Winter Onset — North India
+EV114,EV127,AMPLIFICATION,4.0,Children's Day + Christmas-New Year Travel Peak
+EV114,EV131,AMPLIFICATION,4.0,Children's Day + Winter Wedding Peak
+EV114,EV132,AMPLIFICATION,4.0,Children's Day + Financial Year Planning / Corporate Budget Buying
+EV114,EV135,AMPLIFICATION,4.5,Children's Day + Monsoon Withdrawal / Post-Monsoon
+EV114,EV136,AMPLIFICATION,4.5,Children's Day + Post-Monsoon Pest/Humidity Cycle
+EV114,EV150,AMPLIFICATION,4.0,Children's Day + Corporate Festive Procurement
+EV114,EV151,AMPLIFICATION,4.0,Children's Day + Post-Festival Restock / Consumption Normalization
+EV114,EV161,AMPLIFICATION,5.0,Children's Day + Hornbill / Northeast Cultural Tourism Season
+EV114,EV168,AMPLIFICATION,4.0,Children's Day + Diwali Pre-Stocking for Retailers
+EV114,EV169,AMPLIFICATION,4.0,Children's Day + Wedding Retail Inventory Build-Up — Winter
+EV115,EV116,AMPLIFICATION,4.0,Wedding Season — Winter Restart + 11.11 Shopping Festival
+EV115,EV117,AMPLIFICATION,4.0,Wedding Season — Winter Restart + Black Friday
+EV115,EV118,AMPLIFICATION,4.0,Wedding Season — Winter Restart + Black Friday Consumer Electronics
+EV115,EV119,AMPLIFICATION,4.0,Wedding Season — Winter Restart + Black Friday Fashion Sales
+EV115,EV120,AMPLIFICATION,4.0,Wedding Season — Winter Restart + Post-Diwali Clearance
+EV115,EV121,AMPLIFICATION,4.0,Wedding Season — Winter Restart + Cyber Monday
+EV115,EV122,ATTENUATION,3.5,Wedding Season — Winter Restart + Winter Onset — North India
+EV115,EV124,AMPLIFICATION,4.0,Wedding Season — Winter Restart + Secret Santa / Corporate Gifting
+EV115,EV125,AMPLIFICATION,4.0,Wedding Season — Winter Restart + Christmas Holiday Kids Demand
+EV115,EV128,AMPLIFICATION,4.0,Wedding Season — Winter Restart + New Year Party Pre-Season
+EV115,EV129,AMPLIFICATION,4.0,Wedding Season — Winter Restart + New Year's Eve
+EV115,EV130,AMPLIFICATION,4.0,Wedding Season — Winter Restart + Year-End Clearance Sale
+EV115,EV134,ATTENUATION,3.5,Wedding Season — Winter Restart + Severe Rain / Flood Risk
+EV115,EV135,ATTENUATION,3.5,Wedding Season — Winter Restart + Monsoon Withdrawal / Post-Monsoon
+EV115,EV136,ATTENUATION,3.5,Wedding Season — Winter Restart + Post-Monsoon Pest/Humidity Cycle
+EV115,EV152,AMPLIFICATION,4.0,Wedding Season — Winter Restart + Pre-Christmas Home & Party Preparation
+EV115,EV165,ATTENUATION,3.5,Wedding Season — Winter Restart + Mosquito Season Demand Peak
+EV115,EV167,AMPLIFICATION,4.0,Wedding Season — Winter Restart + Festive Inventory Build-Up
+EV116,EV122,AMPLIFICATION,4.5,11.11 Shopping Festival + Winter Onset — North India
+EV116,EV127,AMPLIFICATION,4.0,11.11 Shopping Festival + Christmas-New Year Travel Peak
+EV116,EV131,AMPLIFICATION,4.0,11.11 Shopping Festival + Winter Wedding Peak
+EV116,EV132,AMPLIFICATION,4.0,11.11 Shopping Festival + Financial Year Planning / Corporate Budget Buying
+EV116,EV135,AMPLIFICATION,4.5,11.11 Shopping Festival + Monsoon Withdrawal / Post-Monsoon
+EV116,EV136,AMPLIFICATION,4.5,11.11 Shopping Festival + Post-Monsoon Pest/Humidity Cycle
+EV116,EV150,AMPLIFICATION,4.0,11.11 Shopping Festival + Corporate Festive Procurement
+EV116,EV151,AMPLIFICATION,4.0,11.11 Shopping Festival + Post-Festival Restock / Consumption Normalization
+EV116,EV160,AMPLIFICATION,5.0,11.11 Shopping Festival + Bathukamma Pre-Season
+EV116,EV161,AMPLIFICATION,5.0,11.11 Shopping Festival + Hornbill / Northeast Cultural Tourism Season
+EV116,EV168,AMPLIFICATION,4.0,11.11 Shopping Festival + Diwali Pre-Stocking for Retailers
+EV116,EV169,AMPLIFICATION,4.0,11.11 Shopping Festival + Wedding Retail Inventory Build-Up — Winter
+EV117,EV122,AMPLIFICATION,4.5,Black Friday + Winter Onset — North India
+EV117,EV127,AMPLIFICATION,4.0,Black Friday + Christmas-New Year Travel Peak
+EV117,EV131,AMPLIFICATION,4.0,Black Friday + Winter Wedding Peak
+EV117,EV132,AMPLIFICATION,4.0,Black Friday + Financial Year Planning / Corporate Budget Buying
+EV117,EV135,AMPLIFICATION,4.5,Black Friday + Monsoon Withdrawal / Post-Monsoon
+EV117,EV136,AMPLIFICATION,4.5,Black Friday + Post-Monsoon Pest/Humidity Cycle
+EV117,EV150,AMPLIFICATION,4.0,Black Friday + Corporate Festive Procurement
+EV117,EV151,AMPLIFICATION,4.0,Black Friday + Post-Festival Restock / Consumption Normalization
+EV117,EV161,AMPLIFICATION,5.0,Black Friday + Hornbill / Northeast Cultural Tourism Season
+EV117,EV168,AMPLIFICATION,4.0,Black Friday + Diwali Pre-Stocking for Retailers
+EV117,EV169,AMPLIFICATION,4.0,Black Friday + Wedding Retail Inventory Build-Up — Winter
+EV118,EV122,AMPLIFICATION,4.5,Black Friday Consumer Electronics + Winter Onset — North India
+EV118,EV127,AMPLIFICATION,4.0,Black Friday Consumer Electronics + Christmas-New Year Travel Peak
+EV118,EV131,AMPLIFICATION,4.0,Black Friday Consumer Electronics + Winter Wedding Peak
+EV118,EV132,AMPLIFICATION,4.0,Black Friday Consumer Electronics + Financial Year Planning / Corporate Budget Buying
+EV118,EV135,AMPLIFICATION,4.5,Black Friday Consumer Electronics + Monsoon Withdrawal / Post-Monsoon
+EV118,EV136,AMPLIFICATION,4.5,Black Friday Consumer Electronics + Post-Monsoon Pest/Humidity Cycle
+EV118,EV150,AMPLIFICATION,4.0,Black Friday Consumer Electronics + Corporate Festive Procurement
+EV118,EV151,AMPLIFICATION,4.0,Black Friday Consumer Electronics + Post-Festival Restock / Consumption Normalization
+EV118,EV161,AMPLIFICATION,5.0,Black Friday Consumer Electronics + Hornbill / Northeast Cultural Tourism Season
+EV118,EV168,AMPLIFICATION,4.0,Black Friday Consumer Electronics + Diwali Pre-Stocking for Retailers
+EV118,EV169,AMPLIFICATION,4.0,Black Friday Consumer Electronics + Wedding Retail Inventory Build-Up — Winter
+EV119,EV122,AMPLIFICATION,4.5,Black Friday Fashion Sales + Winter Onset — North India
+EV119,EV127,AMPLIFICATION,4.0,Black Friday Fashion Sales + Christmas-New Year Travel Peak
+EV119,EV131,AMPLIFICATION,4.0,Black Friday Fashion Sales + Winter Wedding Peak
+EV119,EV132,AMPLIFICATION,4.0,Black Friday Fashion Sales + Financial Year Planning / Corporate Budget Buying
+EV119,EV135,AMPLIFICATION,4.5,Black Friday Fashion Sales + Monsoon Withdrawal / Post-Monsoon
+EV119,EV136,AMPLIFICATION,4.5,Black Friday Fashion Sales + Post-Monsoon Pest/Humidity Cycle
+EV119,EV150,AMPLIFICATION,4.0,Black Friday Fashion Sales + Corporate Festive Procurement
+EV119,EV151,AMPLIFICATION,4.0,Black Friday Fashion Sales + Post-Festival Restock / Consumption Normalization
+EV119,EV161,AMPLIFICATION,5.0,Black Friday Fashion Sales + Hornbill / Northeast Cultural Tourism Season
+EV119,EV168,AMPLIFICATION,4.0,Black Friday Fashion Sales + Diwali Pre-Stocking for Retailers
+EV119,EV169,AMPLIFICATION,4.0,Black Friday Fashion Sales + Wedding Retail Inventory Build-Up — Winter
+EV120,EV122,AMPLIFICATION,4.5,Post-Diwali Clearance + Winter Onset — North India
+EV120,EV127,AMPLIFICATION,4.0,Post-Diwali Clearance + Christmas-New Year Travel Peak
+EV120,EV131,AMPLIFICATION,4.0,Post-Diwali Clearance + Winter Wedding Peak
+EV120,EV132,AMPLIFICATION,4.0,Post-Diwali Clearance + Financial Year Planning / Corporate Budget Buying
+EV120,EV135,AMPLIFICATION,4.5,Post-Diwali Clearance + Monsoon Withdrawal / Post-Monsoon
+EV120,EV136,AMPLIFICATION,4.5,Post-Diwali Clearance + Post-Monsoon Pest/Humidity Cycle
+EV120,EV150,AMPLIFICATION,4.0,Post-Diwali Clearance + Corporate Festive Procurement
+EV120,EV151,AMPLIFICATION,4.0,Post-Diwali Clearance + Post-Festival Restock / Consumption Normalization
+EV120,EV160,AMPLIFICATION,5.0,Post-Diwali Clearance + Bathukamma Pre-Season
+EV120,EV161,AMPLIFICATION,5.0,Post-Diwali Clearance + Hornbill / Northeast Cultural Tourism Season
+EV120,EV168,AMPLIFICATION,4.0,Post-Diwali Clearance + Diwali Pre-Stocking for Retailers
+EV120,EV169,AMPLIFICATION,4.0,Post-Diwali Clearance + Wedding Retail Inventory Build-Up — Winter
+EV121,EV122,AMPLIFICATION,4.5,Cyber Monday + Winter Onset — North India
+EV121,EV127,AMPLIFICATION,4.0,Cyber Monday + Christmas-New Year Travel Peak
+EV121,EV131,AMPLIFICATION,4.0,Cyber Monday + Winter Wedding Peak
+EV121,EV132,AMPLIFICATION,4.0,Cyber Monday + Financial Year Planning / Corporate Budget Buying
+EV121,EV136,AMPLIFICATION,4.5,Cyber Monday + Post-Monsoon Pest/Humidity Cycle
+EV121,EV150,AMPLIFICATION,4.0,Cyber Monday + Corporate Festive Procurement
+EV121,EV151,AMPLIFICATION,4.0,Cyber Monday + Post-Festival Restock / Consumption Normalization
+EV121,EV161,AMPLIFICATION,5.0,Cyber Monday + Hornbill / Northeast Cultural Tourism Season
+EV121,EV168,AMPLIFICATION,4.0,Cyber Monday + Diwali Pre-Stocking for Retailers
+EV121,EV169,AMPLIFICATION,4.0,Cyber Monday + Wedding Retail Inventory Build-Up — Winter
+EV122,EV124,AMPLIFICATION,4.5,Winter Onset — North India + Secret Santa / Corporate Gifting
+EV122,EV125,AMPLIFICATION,4.5,Winter Onset — North India + Christmas Holiday Kids Demand
+EV122,EV127,ATTENUATION,3.5,Winter Onset — North India + Christmas-New Year Travel Peak
+EV122,EV128,AMPLIFICATION,4.5,Winter Onset — North India + New Year Party Pre-Season
+EV122,EV129,AMPLIFICATION,4.5,Winter Onset — North India + New Year's Eve
+EV122,EV130,AMPLIFICATION,4.5,Winter Onset — North India + Year-End Clearance Sale
+EV122,EV131,ATTENUATION,3.5,Winter Onset — North India + Winter Wedding Peak
+EV122,EV132,ATTENUATION,3.5,Winter Onset — North India + Financial Year Planning / Corporate Budget Buying
+EV122,EV150,ATTENUATION,3.5,Winter Onset — North India + Corporate Festive Procurement
+EV122,EV151,ATTENUATION,3.5,Winter Onset — North India + Post-Festival Restock / Consumption Normalization
+EV122,EV152,AMPLIFICATION,4.5,Winter Onset — North India + Pre-Christmas Home & Party Preparation
+EV122,EV160,ATTENUATION,3.5,Winter Onset — North India + Bathukamma Pre-Season
+EV122,EV161,ATTENUATION,3.5,Winter Onset — North India + Hornbill / Northeast Cultural Tourism Season
+EV122,EV167,AMPLIFICATION,4.5,Winter Onset — North India + Festive Inventory Build-Up
+EV122,EV168,ATTENUATION,3.5,Winter Onset — North India + Diwali Pre-Stocking for Retailers
+EV122,EV169,ATTENUATION,3.5,Winter Onset — North India + Wedding Retail Inventory Build-Up — Winter
+EV124,EV127,AMPLIFICATION,4.0,Secret Santa / Corporate Gifting + Christmas-New Year Travel Peak
+EV124,EV131,AMPLIFICATION,4.0,Secret Santa / Corporate Gifting + Winter Wedding Peak
+EV124,EV132,AMPLIFICATION,4.0,Secret Santa / Corporate Gifting + Financial Year Planning / Corporate Budget Buying
+EV124,EV136,AMPLIFICATION,4.5,Secret Santa / Corporate Gifting + Post-Monsoon Pest/Humidity Cycle
+EV124,EV150,AMPLIFICATION,4.0,Secret Santa / Corporate Gifting + Corporate Festive Procurement
+EV124,EV151,AMPLIFICATION,4.0,Secret Santa / Corporate Gifting + Post-Festival Restock / Consumption Normalization
+EV124,EV161,AMPLIFICATION,5.0,Secret Santa / Corporate Gifting + Hornbill / Northeast Cultural Tourism Season
+EV124,EV168,AMPLIFICATION,4.0,Secret Santa / Corporate Gifting + Diwali Pre-Stocking for Retailers
+EV124,EV169,AMPLIFICATION,4.0,Secret Santa / Corporate Gifting + Wedding Retail Inventory Build-Up — Winter
+EV125,EV127,AMPLIFICATION,4.0,Christmas Holiday Kids Demand + Christmas-New Year Travel Peak
+EV125,EV131,AMPLIFICATION,4.0,Christmas Holiday Kids Demand + Winter Wedding Peak
+EV125,EV132,AMPLIFICATION,4.0,Christmas Holiday Kids Demand + Financial Year Planning / Corporate Budget Buying
+EV125,EV136,AMPLIFICATION,4.5,Christmas Holiday Kids Demand + Post-Monsoon Pest/Humidity Cycle
+EV125,EV150,AMPLIFICATION,4.0,Christmas Holiday Kids Demand + Corporate Festive Procurement
+EV125,EV151,AMPLIFICATION,4.0,Christmas Holiday Kids Demand + Post-Festival Restock / Consumption Normalization
+EV125,EV161,AMPLIFICATION,5.0,Christmas Holiday Kids Demand + Hornbill / Northeast Cultural Tourism Season
+EV125,EV168,AMPLIFICATION,4.0,Christmas Holiday Kids Demand + Diwali Pre-Stocking for Retailers
+EV125,EV169,AMPLIFICATION,4.0,Christmas Holiday Kids Demand + Wedding Retail Inventory Build-Up — Winter
+EV127,EV128,AMPLIFICATION,4.0,Christmas-New Year Travel Peak + New Year Party Pre-Season
+EV127,EV129,AMPLIFICATION,4.0,Christmas-New Year Travel Peak + New Year's Eve
+EV127,EV130,AMPLIFICATION,4.0,Christmas-New Year Travel Peak + Year-End Clearance Sale
+EV127,EV152,AMPLIFICATION,4.0,Christmas-New Year Travel Peak + Pre-Christmas Home & Party Preparation
+EV127,EV167,AMPLIFICATION,4.0,Christmas-New Year Travel Peak + Festive Inventory Build-Up
+EV128,EV131,AMPLIFICATION,4.0,New Year Party Pre-Season + Winter Wedding Peak
+EV128,EV132,AMPLIFICATION,4.0,New Year Party Pre-Season + Financial Year Planning / Corporate Budget Buying
+EV128,EV150,AMPLIFICATION,4.0,New Year Party Pre-Season + Corporate Festive Procurement
+EV128,EV151,AMPLIFICATION,4.0,New Year Party Pre-Season + Post-Festival Restock / Consumption Normalization
+EV128,EV161,AMPLIFICATION,5.0,New Year Party Pre-Season + Hornbill / Northeast Cultural Tourism Season
+EV128,EV169,AMPLIFICATION,4.0,New Year Party Pre-Season + Wedding Retail Inventory Build-Up — Winter
+EV129,EV131,AMPLIFICATION,4.0,New Year's Eve + Winter Wedding Peak
+EV129,EV132,AMPLIFICATION,4.0,New Year's Eve + Financial Year Planning / Corporate Budget Buying
+EV129,EV151,AMPLIFICATION,4.0,New Year's Eve + Post-Festival Restock / Consumption Normalization
+EV129,EV161,AMPLIFICATION,5.0,New Year's Eve + Hornbill / Northeast Cultural Tourism Season
+EV129,EV169,AMPLIFICATION,4.0,New Year's Eve + Wedding Retail Inventory Build-Up — Winter
+EV130,EV131,AMPLIFICATION,4.0,Year-End Clearance Sale + Winter Wedding Peak
+EV130,EV132,AMPLIFICATION,4.0,Year-End Clearance Sale + Financial Year Planning / Corporate Budget Buying
+EV130,EV150,AMPLIFICATION,4.0,Year-End Clearance Sale + Corporate Festive Procurement
+EV130,EV151,AMPLIFICATION,4.0,Year-End Clearance Sale + Post-Festival Restock / Consumption Normalization
+EV130,EV161,AMPLIFICATION,5.0,Year-End Clearance Sale + Hornbill / Northeast Cultural Tourism Season
+EV130,EV168,AMPLIFICATION,4.0,Year-End Clearance Sale + Diwali Pre-Stocking for Retailers
+EV130,EV169,AMPLIFICATION,4.0,Year-End Clearance Sale + Wedding Retail Inventory Build-Up — Winter
+EV131,EV134,ATTENUATION,3.5,Winter Wedding Peak + Severe Rain / Flood Risk
+EV131,EV135,ATTENUATION,3.5,Winter Wedding Peak + Monsoon Withdrawal / Post-Monsoon
+EV131,EV136,ATTENUATION,3.5,Winter Wedding Peak + Post-Monsoon Pest/Humidity Cycle
+EV131,EV152,AMPLIFICATION,4.0,Winter Wedding Peak + Pre-Christmas Home & Party Preparation
+EV131,EV167,AMPLIFICATION,4.0,Winter Wedding Peak + Festive Inventory Build-Up
+EV132,EV136,ATTENUATION,3.5,Financial Year Planning / Corporate Budget Buying + Post-Monsoon Pest/Humidity Cycle
+EV132,EV152,AMPLIFICATION,4.0,Financial Year Planning / Corporate Budget Buying + Pre-Christmas Home & Party Preparation
+EV132,EV167,AMPLIFICATION,4.0,Financial Year Planning / Corporate Budget Buying + Festive Inventory Build-Up
+EV133,EV145,ATTENUATION,3.5,Extreme Heatwave Alert + Academic New Year Preparation
+EV133,EV146,ATTENUATION,3.5,Extreme Heatwave Alert + School Admissions Cycle
+EV133,EV147,ATTENUATION,3.5,Extreme Heatwave Alert + College Admissions Cycle
+EV133,EV148,ATTENUATION,3.5,Extreme Heatwave Alert + Summer Vacation Peak
+EV133,EV149,ATTENUATION,3.5,Extreme Heatwave Alert + Back-to-Work / Post-Vacation Demand
+EV133,EV156,ATTENUATION,3.5,Extreme Heatwave Alert + Vaisakhi Gurdwara / Community Celebration
+EV133,EV157,ATTENUATION,3.5,Extreme Heatwave Alert + Thrissur Pooram
+EV133,EV158,ATTENUATION,3.5,Extreme Heatwave Alert + Jagannath Snana Yatra
+EV133,EV159,ATTENUATION,3.5,Extreme Heatwave Alert + Bonalu
+EV133,EV162,ATTENUATION,3.5,Extreme Heatwave Alert + Goa Carnival / Pre-Lent Tourism
+EV133,EV170,ATTENUATION,3.5,Extreme Heatwave Alert + Wedding Retail Inventory Build-Up — Summer
+EV133,EV173,ATTENUATION,3.5,Extreme Heatwave Alert + Bihu / Regional New Year Travel & Gifting Build
+EV133,EV174,ATTENUATION,3.5,Extreme Heatwave Alert + Pre-College / Hostel Setup Season
+EV134,EV146,ATTENUATION,3.5,Severe Rain / Flood Risk + School Admissions Cycle
+EV134,EV147,ATTENUATION,3.5,Severe Rain / Flood Risk + College Admissions Cycle
+EV134,EV148,ATTENUATION,3.5,Severe Rain / Flood Risk + Summer Vacation Peak
+EV134,EV149,ATTENUATION,3.5,Severe Rain / Flood Risk + Back-to-Work / Post-Vacation Demand
+EV134,EV150,ATTENUATION,3.5,Severe Rain / Flood Risk + Corporate Festive Procurement
+EV134,EV158,ATTENUATION,3.5,Severe Rain / Flood Risk + Jagannath Snana Yatra
+EV134,EV159,ATTENUATION,3.5,Severe Rain / Flood Risk + Bonalu
+EV134,EV160,ATTENUATION,3.5,Severe Rain / Flood Risk + Bathukamma Pre-Season
+EV134,EV167,AMPLIFICATION,4.5,Severe Rain / Flood Risk + Festive Inventory Build-Up
+EV134,EV168,ATTENUATION,3.5,Severe Rain / Flood Risk + Diwali Pre-Stocking for Retailers
+EV134,EV169,ATTENUATION,3.5,Severe Rain / Flood Risk + Wedding Retail Inventory Build-Up — Winter
+EV134,EV170,ATTENUATION,3.5,Severe Rain / Flood Risk + Wedding Retail Inventory Build-Up — Summer
+EV134,EV174,ATTENUATION,3.5,Severe Rain / Flood Risk + Pre-College / Hostel Setup Season
+EV135,EV150,ATTENUATION,3.5,Monsoon Withdrawal / Post-Monsoon + Corporate Festive Procurement
+EV135,EV160,ATTENUATION,3.5,Monsoon Withdrawal / Post-Monsoon + Bathukamma Pre-Season
+EV135,EV167,AMPLIFICATION,4.5,Monsoon Withdrawal / Post-Monsoon + Festive Inventory Build-Up
+EV135,EV168,ATTENUATION,3.5,Monsoon Withdrawal / Post-Monsoon + Diwali Pre-Stocking for Retailers
+EV135,EV169,ATTENUATION,3.5,Monsoon Withdrawal / Post-Monsoon + Wedding Retail Inventory Build-Up — Winter
+EV135,EV174,ATTENUATION,3.5,Monsoon Withdrawal / Post-Monsoon + Pre-College / Hostel Setup Season
+EV136,EV150,ATTENUATION,3.5,Post-Monsoon Pest/Humidity Cycle + Corporate Festive Procurement
+EV136,EV151,ATTENUATION,3.5,Post-Monsoon Pest/Humidity Cycle + Post-Festival Restock / Consumption Normalization
+EV136,EV152,AMPLIFICATION,4.5,Post-Monsoon Pest/Humidity Cycle + Pre-Christmas Home & Party Preparation
+EV136,EV160,ATTENUATION,3.5,Post-Monsoon Pest/Humidity Cycle + Bathukamma Pre-Season
+EV136,EV161,ATTENUATION,3.5,Post-Monsoon Pest/Humidity Cycle + Hornbill / Northeast Cultural Tourism Season
+EV136,EV167,AMPLIFICATION,4.5,Post-Monsoon Pest/Humidity Cycle + Festive Inventory Build-Up
+EV136,EV168,ATTENUATION,3.5,Post-Monsoon Pest/Humidity Cycle + Diwali Pre-Stocking for Retailers
+EV136,EV169,ATTENUATION,3.5,Post-Monsoon Pest/Humidity Cycle + Wedding Retail Inventory Build-Up — Winter
+EV136,EV174,ATTENUATION,3.5,Post-Monsoon Pest/Humidity Cycle + Pre-College / Hostel Setup Season
+EV145,EV171,ATTENUATION,3.5,Academic New Year Preparation + Winter Transition — Southern India
+EV145,EV172,AMPLIFICATION,4.0,Academic New Year Preparation + Valentine's Pre-Season Demand Build
+EV146,EV171,ATTENUATION,3.5,School Admissions Cycle + Winter Transition — Southern India
+EV146,EV172,AMPLIFICATION,4.0,School Admissions Cycle + Valentine's Pre-Season Demand Build
+EV147,EV165,ATTENUATION,3.5,College Admissions Cycle + Mosquito Season Demand Peak
+EV147,EV166,ATTENUATION,3.5,College Admissions Cycle + Rainwear Replacement / Mid-Monsoon Restock
+EV147,EV167,AMPLIFICATION,4.0,College Admissions Cycle + Festive Inventory Build-Up
+EV148,EV165,ATTENUATION,3.5,Summer Vacation Peak + Mosquito Season Demand Peak
+EV149,EV165,ATTENUATION,3.5,Back-to-Work / Post-Vacation Demand + Mosquito Season Demand Peak
+EV149,EV166,ATTENUATION,3.5,Back-to-Work / Post-Vacation Demand + Rainwear Replacement / Mid-Monsoon Restock
+EV149,EV167,AMPLIFICATION,4.0,Back-to-Work / Post-Vacation Demand + Festive Inventory Build-Up
+EV150,EV152,AMPLIFICATION,4.0,Corporate Festive Procurement + Pre-Christmas Home & Party Preparation
+EV150,EV165,ATTENUATION,3.5,Corporate Festive Procurement + Mosquito Season Demand Peak
+EV150,EV166,ATTENUATION,3.5,Corporate Festive Procurement + Rainwear Replacement / Mid-Monsoon Restock
+EV150,EV167,AMPLIFICATION,4.0,Corporate Festive Procurement + Festive Inventory Build-Up
+EV151,EV152,AMPLIFICATION,4.0,Post-Festival Restock / Consumption Normalization + Pre-Christmas Home & Party Preparation
+EV151,EV167,AMPLIFICATION,4.0,Post-Festival Restock / Consumption Normalization + Festive Inventory Build-Up
+EV152,EV161,AMPLIFICATION,5.0,Pre-Christmas Home & Party Preparation + Hornbill / Northeast Cultural Tourism Season
+EV152,EV168,AMPLIFICATION,4.0,Pre-Christmas Home & Party Preparation + Diwali Pre-Stocking for Retailers
+EV152,EV169,AMPLIFICATION,4.0,Pre-Christmas Home & Party Preparation + Wedding Retail Inventory Build-Up — Winter
+EV153,EV154,SATURATION,4.0,Makaravilakku / Sabarimala Pilgrimage Season + Thaipusam
+EV153,EV155,SATURATION,4.0,Makaravilakku / Sabarimala Pilgrimage Season + Magh Bihu / Bhogali Bihu
+EV153,EV162,SATURATION,4.0,Makaravilakku / Sabarimala Pilgrimage Season + Goa Carnival / Pre-Lent Tourism
+EV153,EV171,ATTENUATION,3.5,Makaravilakku / Sabarimala Pilgrimage Season + Winter Transition — Southern India
+EV153,EV172,AMPLIFICATION,5.0,Makaravilakku / Sabarimala Pilgrimage Season + Valentine's Pre-Season Demand Build
+EV154,EV155,SATURATION,4.0,Thaipusam + Magh Bihu / Bhogali Bihu
+EV154,EV162,SATURATION,4.0,Thaipusam + Goa Carnival / Pre-Lent Tourism
+EV154,EV171,ATTENUATION,3.5,Thaipusam + Winter Transition — Southern India
+EV154,EV172,AMPLIFICATION,5.0,Thaipusam + Valentine's Pre-Season Demand Build
+EV155,EV162,SATURATION,4.0,Magh Bihu / Bhogali Bihu + Goa Carnival / Pre-Lent Tourism
+EV155,EV171,ATTENUATION,3.5,Magh Bihu / Bhogali Bihu + Winter Transition — Southern India
+EV155,EV172,AMPLIFICATION,5.0,Magh Bihu / Bhogali Bihu + Valentine's Pre-Season Demand Build
+EV156,EV157,SATURATION,4.0,Vaisakhi Gurdwara / Community Celebration + Thrissur Pooram
+EV156,EV173,SATURATION,4.0,Vaisakhi Gurdwara / Community Celebration + Bihu / Regional New Year Travel & Gifting Build
+EV157,EV173,SATURATION,4.0,Thrissur Pooram + Bihu / Regional New Year Travel & Gifting Build
+EV158,EV159,SATURATION,4.0,Jagannath Snana Yatra + Bonalu
+EV158,EV165,ATTENUATION,3.5,Jagannath Snana Yatra + Mosquito Season Demand Peak
+EV159,EV165,ATTENUATION,3.5,Bonalu + Mosquito Season Demand Peak
+EV159,EV166,ATTENUATION,3.5,Bonalu + Rainwear Replacement / Mid-Monsoon Restock
+EV159,EV167,AMPLIFICATION,5.0,Bonalu + Festive Inventory Build-Up
+EV160,EV165,ATTENUATION,3.5,Bathukamma Pre-Season + Mosquito Season Demand Peak
+EV160,EV166,ATTENUATION,3.5,Bathukamma Pre-Season + Rainwear Replacement / Mid-Monsoon Restock
+EV160,EV167,AMPLIFICATION,5.0,Bathukamma Pre-Season + Festive Inventory Build-Up
+EV161,EV167,AMPLIFICATION,5.0,Hornbill / Northeast Cultural Tourism Season + Festive Inventory Build-Up
+EV162,EV171,ATTENUATION,3.5,Goa Carnival / Pre-Lent Tourism + Winter Transition — Southern India
+EV162,EV172,AMPLIFICATION,5.0,Goa Carnival / Pre-Lent Tourism + Valentine's Pre-Season Demand Build
+EV165,EV167,AMPLIFICATION,4.5,Mosquito Season Demand Peak + Festive Inventory Build-Up
+EV165,EV168,ATTENUATION,3.5,Mosquito Season Demand Peak + Diwali Pre-Stocking for Retailers
+EV165,EV169,ATTENUATION,3.5,Mosquito Season Demand Peak + Wedding Retail Inventory Build-Up — Winter
+EV165,EV170,ATTENUATION,3.5,Mosquito Season Demand Peak + Wedding Retail Inventory Build-Up — Summer
+EV165,EV174,ATTENUATION,3.5,Mosquito Season Demand Peak + Pre-College / Hostel Setup Season
+EV166,EV167,AMPLIFICATION,4.5,Rainwear Replacement / Mid-Monsoon Restock + Festive Inventory Build-Up
+EV166,EV168,ATTENUATION,3.5,Rainwear Replacement / Mid-Monsoon Restock + Diwali Pre-Stocking for Retailers
+EV166,EV169,ATTENUATION,3.5,Rainwear Replacement / Mid-Monsoon Restock + Wedding Retail Inventory Build-Up — Winter
+EV166,EV174,ATTENUATION,3.5,Rainwear Replacement / Mid-Monsoon Restock + Pre-College / Hostel Setup Season
+EV167,EV168,AMPLIFICATION,4.0,Festive Inventory Build-Up + Diwali Pre-Stocking for Retailers
+EV167,EV169,AMPLIFICATION,4.0,Festive Inventory Build-Up + Wedding Retail Inventory Build-Up — Winter
+EV167,EV174,AMPLIFICATION,4.0,Festive Inventory Build-Up + Pre-College / Hostel Setup Season
+EV170,EV171,ATTENUATION,3.5,Wedding Retail Inventory Build-Up — Summer + Winter Transition — Southern India
+EV170,EV172,AMPLIFICATION,4.0,Wedding Retail Inventory Build-Up — Summer + Valentine's Pre-Season Demand Build
+EV171,EV172,AMPLIFICATION,4.5,Winter Transition — Southern India + Valentine's Pre-Season Demand Build

@@ -1,0 +1,541 @@
+{
+  "run_id": "RUN_1789927880",
+  "start_time": "2026-09-20T18:11:20.229742",
+  "status": "COMPLETED",
+  "completed_steps": {
+    "GEN_T0_REF": {
+      "step": 1,
+      "generator_node": "GEN_T0_REF",
+      "name": "Reference Dimensions Generator",
+      "scheduling_tier": 0,
+      "status": "SUCCESS",
+      "row_count": 19,
+      "checksum": "26a7d131e75dd271e88870702e7293364fd1afa22b3aa3a7d691eac7adf374b9",
+      "duration_seconds": 1.918,
+      "timestamp": "2026-09-20T18:12:35.880847+00:00",
+      "output_files": [
+        "D:\\projects\\SCOF_V1\\SCOF\\datasets\\foundations\\currency.csv",
+        "D:\\projects\\SCOF_V1\\SCOF\\datasets\\foundations\\unit_of_measure.csv",
+        "D:\\projects\\SCOF_V1\\SCOF\\datasets\\foundations\\payment_terms.csv",
+        "D:\\projects\\SCOF_V1\\SCOF\\datasets\\foundations\\incoterm.csv"
+      ],
+      "metrics": {
+        "currencies": 4,
+        "uoms": 7
+      }
+    },
+    "GEN_T0_GEO": {
+      "step": 2,
+      "generator_node": "GEN_T0_GEO",
+      "name": "Geospatial & Administrative Hierarchy Generator",
+      "scheduling_tier": 0,
+      "status": "SUCCESS",
+      "row_count": 13,
+      "checksum": "1a3817d6fc66b20097574ee7116fa26875444813feb8e3cdc0fc727d52dbe68f",
+      "duration_seconds": 0.014,
+      "timestamp": "2026-09-20T18:12:35.895033+00:00",
+      "output_files": [
+        "D:\\projects\\SCOF_V1\\SCOF\\datasets\\foundations\\geography_nodes.csv"
+      ],
+      "metrics": {
+        "cities": 4,
+        "states": 4
+      }
+    },
+    "GEN_T0_PARTY": {
+      "step": 3,
+      "generator_node": "GEN_T0_PARTY",
+      "name": "Party & Identity Master Generator",
+      "scheduling_tier": 0,
+      "status": "SUCCESS",
+      "row_count": 228,
+      "checksum": "e759f5916055136530aa8769c5d5ceefa739ccbf93438fe3f41ff7c56143d770",
+      "duration_seconds": 0.019,
+      "timestamp": "2026-09-20T18:12:35.913848+00:00",
+      "output_files": [
+        "D:\\projects\\SCOF_V1\\SCOF\\datasets\\foundations\\party_master.csv"
+      ],
+      "metrics": {
+        "total_parties": 228
+      }
+    },
+    "GEN_T0_TIME": {
+      "step": 4,
+      "generator_node": "GEN_T0_TIME",
+      "name": "Dual Calendar & Time Generator",
+      "scheduling_tier": 0,
+      "status": "SUCCESS",
+      "row_count": 1288,
+      "checksum": "a5af36a4b893154bebb626c42f79c235a9c02ac8d9b1ab49facc5974e92e26c2",
+      "duration_seconds": 0.055,
+      "timestamp": "2026-09-20T18:12:35.968950+00:00",
+      "output_files": [
+        "D:\\projects\\SCOF_V1\\SCOF\\datasets\\foundations\\calendar_date.csv",
+        "D:\\projects\\SCOF_V1\\SCOF\\datasets\\foundations\\week.csv",
+        "D:\\projects\\SCOF_V1\\SCOF\\datasets\\foundations\\fiscal_period.csv"
+      ],
+      "metrics": {
+        "total_days": 1095,
+        "total_weeks": 157
+      }
+    },
+    "GEN_T0_HOLIDAY": {
+      "step": 5,
+      "generator_node": "GEN_T0_HOLIDAY",
+      "name": "Holiday & Calendar Observances Generator",
+      "scheduling_tier": 0,
+      "status": "SUCCESS",
+      "row_count": 7,
+      "checksum": "6a96be66a56af3ec6213a65e20323a46d3472d20e2d911894c2ebb13483126a5",
+      "duration_seconds": 0.013,
+      "timestamp": "2026-09-20T18:12:35.982130+00:00",
+      "output_files": [
+        "D:\\projects\\SCOF_V1\\SCOF\\datasets\\foundations\\holiday_instance.csv"
+      ],
+      "metrics": {
+        "holidays": 7
+      }
+    },
+    "GEN_T1_ENT": {
+      "step": 6,
+      "generator_node": "GEN_T1_ENT",
+      "name": "Enterprise & Legal Structure Generator",
+      "scheduling_tier": 1,
+      "status": "SUCCESS",
+      "row_count": 30,
+      "checksum": "cea6c60b8bd512ab1259ea66c3594452116bc7c7b0f2a7d8718c5ccbcc2bd37d",
+      "duration_seconds": 0.01,
+      "timestamp": "2026-09-20T18:12:35.992834+00:00",
+      "output_files": [
+        "D:\\projects\\SCOF_V1\\SCOF\\datasets\\governance\\enterprise_structure.csv",
+        "D:\\projects\\SCOF_V1\\SCOF\\datasets\\governance\\legal_entities.csv",
+        "D:\\projects\\SCOF_V1\\SCOF\\datasets\\governance\\business_units.csv"
+      ],
+      "metrics": {
+        "enterprise_nodes": 30
+      }
+    },
+    "GEN_T1_FAC": {
+      "step": 7,
+      "generator_node": "GEN_T1_FAC",
+      "name": "Physical Facility Master Generator",
+      "scheduling_tier": 1,
+      "status": "SUCCESS",
+      "row_count": 21,
+      "checksum": "53fff9246292f91f3de4c1eff12955f3dfad9550c6e1fc05d8a68ac1dfd6fcdf",
+      "duration_seconds": 0.018,
+      "timestamp": "2026-09-20T18:12:36.011042+00:00",
+      "output_files": [
+        "D:\\projects\\SCOF_V1\\SCOF\\datasets\\network\\facility_master.csv"
+      ],
+      "metrics": {
+        "stores": 16,
+        "warehouses": 5
+      }
+    },
+    "GEN_T1_MERCH": {
+      "step": 8,
+      "generator_node": "GEN_T1_MERCH",
+      "name": "Merchandise Hierarchy Master Generator",
+      "scheduling_tier": 1,
+      "status": "SUCCESS",
+      "row_count": 49616,
+      "checksum": "37fc38e8eff73d3b81139a5c83c455e2e668fbeaf9871d3863ebbf7aadf6bc5a",
+      "duration_seconds": 0.264,
+      "timestamp": "2026-09-20T18:12:36.276492+00:00",
+      "output_files": [
+        "D:\\projects\\SCOF_V1\\SCOF\\datasets\\merchandise\\sku_master.csv"
+      ],
+      "metrics": {
+        "total_skus": 49616
+      }
+    },
+    "GEN_T1_PROF": {
+      "step": 9,
+      "generator_node": "GEN_T1_PROF",
+      "name": "Role Profiles & Workforce Generator",
+      "scheduling_tier": 1,
+      "status": "SUCCESS",
+      "row_count": 525,
+      "checksum": "4e3ab8b692a679b66cb98fa711fb9dbc390e7d1ebe779f8294741f722e774df8",
+      "duration_seconds": 0.013,
+      "timestamp": "2026-09-20T18:12:36.290140+00:00",
+      "output_files": [
+        "D:\\projects\\SCOF_V1\\SCOF\\datasets\\sourcing\\supplier_profiles.csv",
+        "D:\\projects\\SCOF_V1\\SCOF\\datasets\\sourcing\\carrier_profiles.csv",
+        "D:\\projects\\SCOF_V1\\SCOF\\datasets\\sourcing\\employee_profiles.csv"
+      ],
+      "metrics": {
+        "suppliers": 200,
+        "carriers": 25,
+        "employees": 300
+      }
+    },
+    "GEN_T2_AST": {
+      "step": 10,
+      "generator_node": "GEN_T2_AST",
+      "name": "Physical Assets & Equipment Generator",
+      "scheduling_tier": 2,
+      "status": "SUCCESS",
+      "row_count": 150,
+      "checksum": "7b04763080009d9d4f49baa3b1ec0f5906e4a944d8da7bfc1ca4a4585345c9ba",
+      "duration_seconds": 0.014,
+      "timestamp": "2026-09-20T18:12:36.304167+00:00",
+      "output_files": [
+        "D:\\projects\\SCOF_V1\\SCOF\\datasets\\network\\physical_assets.csv"
+      ],
+      "metrics": {
+        "total_assets": 150
+      }
+    },
+    "GEN_T2_LANE": {
+      "step": 11,
+      "generator_node": "GEN_T2_LANE",
+      "name": "Transport Lane & Route Generator",
+      "scheduling_tier": 2,
+      "status": "SUCCESS",
+      "row_count": 35,
+      "checksum": "75eefe06ece0bcd2745d66d1d4655b7d2f26160de5bc989d4dad1bc57cc3a054",
+      "duration_seconds": 0.014,
+      "timestamp": "2026-09-20T18:12:36.319237+00:00",
+      "output_files": [
+        "D:\\projects\\SCOF_V1\\SCOF\\datasets\\network\\transport_lanes.csv"
+      ],
+      "metrics": {
+        "total_lanes": 35
+      }
+    },
+    "GEN_T2_SSA": {
+      "step": 12,
+      "generator_node": "GEN_T2_SSA",
+      "name": "Store-SKU Assortment Generator",
+      "scheduling_tier": 2,
+      "status": "SUCCESS",
+      "row_count": 346238,
+      "checksum": "d4efdf233dcfe4b3a911faa52ba26bf315a58fca9cbacd6a788c301d25ddf256",
+      "duration_seconds": 0.452,
+      "timestamp": "2026-09-20T18:12:36.771552+00:00",
+      "output_files": [
+        "D:\\projects\\SCOF_V1\\SCOF\\datasets\\merchandise\\store_sku_assortment.csv"
+      ],
+      "metrics": {
+        "total_assortments": 346238
+      }
+    },
+    "GEN_T2_SSM": {
+      "step": 13,
+      "generator_node": "GEN_T2_SSM",
+      "name": "Supplier-SKU Sourcing Matrix Generator",
+      "scheduling_tier": 2,
+      "status": "SUCCESS",
+      "row_count": 99232,
+      "checksum": "b422e2e5b4c661b2dad0425da1df8ba01047a40191e7ed757d4c81fc12d3debd",
+      "duration_seconds": 0.273,
+      "timestamp": "2026-09-20T18:12:37.045450+00:00",
+      "output_files": [
+        "D:\\projects\\SCOF_V1\\SCOF\\datasets\\sourcing\\supplier_sku_map.csv"
+      ],
+      "metrics": {
+        "total_sourcing_edges": 99232
+      }
+    },
+    "GEN_T2_SWM": {
+      "step": 14,
+      "generator_node": "GEN_T2_SWM",
+      "name": "Store-Warehouse Network Topology Generator",
+      "scheduling_tier": 2,
+      "status": "SUCCESS",
+      "row_count": 32,
+      "checksum": "8ad076c02ddb3a1f98c08958a97c7839f20e1062e3db2331294420d9f8ca3fe5",
+      "duration_seconds": 0.003,
+      "timestamp": "2026-09-20T18:12:37.049394+00:00",
+      "output_files": [
+        "D:\\projects\\SCOF_V1\\SCOF\\datasets\\network\\store_warehouse_map.csv"
+      ],
+      "metrics": {
+        "servicing_links": 32
+      }
+    },
+    "GEN_T3_CONT": {
+      "step": 15,
+      "generator_node": "GEN_T3_CONT",
+      "name": "Commercial Contracts & SLAs Generator",
+      "scheduling_tier": 3,
+      "status": "SUCCESS",
+      "row_count": 225,
+      "checksum": "48a8befdc19ecedcd9212dfd3d0026cccd942a17f711ed1be671e93a564e16a9",
+      "duration_seconds": 0.021,
+      "timestamp": "2026-09-20T18:12:37.070615+00:00",
+      "output_files": [
+        "D:\\projects\\SCOF_V1\\SCOF\\datasets\\sourcing\\commercial_contracts.csv"
+      ],
+      "metrics": {
+        "total_contracts": 225
+      }
+    },
+    "GEN_T3_PRC": {
+      "step": 16,
+      "generator_node": "GEN_T3_PRC",
+      "name": "Price Lists & Multi-Week Price History Generator",
+      "scheduling_tier": 3,
+      "status": "SUCCESS",
+      "row_count": 2580032,
+      "checksum": "b93b6e8cae5f26d7914ae76a3890142bdc769a8d86fb0442dee7c34377de7e66",
+      "duration_seconds": 1.917,
+      "timestamp": "2026-09-20T18:12:38.988603+00:00",
+      "output_files": [
+        "D:\\projects\\SCOF_V1\\SCOF\\datasets\\merchandise\\price_history.parquet"
+      ],
+      "metrics": {
+        "total_price_records": 2580032
+      }
+    },
+    "GEN_T4_EVT": {
+      "step": 17,
+      "generator_node": "GEN_T4_EVT",
+      "name": "Festival, Cultural & Calendar Event Generator",
+      "scheduling_tier": 4,
+      "status": "SUCCESS",
+      "row_count": 3812,
+      "checksum": "485de7dcca79895cfa478b8888f4f05cb78b06cf6fbcf0326367730b1f0eeafb",
+      "duration_seconds": 0.101,
+      "timestamp": "2026-09-20T18:12:39.090998+00:00",
+      "output_files": [
+        "D:\\projects\\SCOF_V1\\SCOF\\datasets\\demand\\event_master.csv"
+      ],
+      "metrics": {
+        "events": 174,
+        "impacts": 1107,
+        "interactions": 1977,
+        "regional_weights": 554
+      }
+    },
+    "GEN_T4_WEA": {
+      "step": 18,
+      "generator_node": "GEN_T4_WEA",
+      "name": "Weekly Weather Observations Generator",
+      "scheduling_tier": 4,
+      "status": "SUCCESS",
+      "row_count": 312,
+      "checksum": "f94f5d51a03419c4fc329378bcd702834ce3b5002c96221b707aa45cb32195b8",
+      "duration_seconds": 0.02,
+      "timestamp": "2026-09-20T18:12:39.111767+00:00",
+      "output_files": [
+        "D:\\projects\\SCOF_V1\\SCOF\\datasets\\demand\\weather_weekly.csv"
+      ],
+      "metrics": {
+        "weather_observations": 312
+      }
+    },
+    "GEN_T5_COMMERCE": {
+      "step": 19,
+      "generator_node": "GEN_T5_COMMERCE",
+      "name": "Omnichannel Commerce & POS Transaction Engine",
+      "scheduling_tier": 5,
+      "status": "SUCCESS",
+      "row_count": 250039,
+      "checksum": "57925d3fcbc753121776dc0c146ddb7fdc1b8a4769266afe06cc907f6bdac66e",
+      "duration_seconds": 4.2,
+      "timestamp": "2026-09-20T18:12:43.312612+00:00",
+      "output_files": [
+        "D:\\projects\\SCOF_V1\\SCOF\\datasets\\commerce\\sales_channels.csv",
+        "D:\\projects\\SCOF_V1\\SCOF\\datasets\\commerce\\sales_transactions.parquet",
+        "D:\\projects\\SCOF_V1\\SCOF\\datasets\\commerce\\sales_lines.parquet"
+      ],
+      "metrics": {
+        "transactions": 50000,
+        "sales_lines": 200035
+      }
+    },
+    "GEN_T5_PROCURE": {
+      "step": 20,
+      "generator_node": "GEN_T5_PROCURE",
+      "name": "Procurement & Purchase Order Engine",
+      "scheduling_tier": 5,
+      "status": "SUCCESS",
+      "row_count": 105227,
+      "checksum": "15bd370ccfce99ec28928f303e09493300e1767b21a84906fb88c50e526648d5",
+      "duration_seconds": 1.864,
+      "timestamp": "2026-09-20T18:12:45.177679+00:00",
+      "output_files": [
+        "D:\\projects\\SCOF_V1\\SCOF\\datasets\\procurement\\purchase_orders.parquet",
+        "D:\\projects\\SCOF_V1\\SCOF\\datasets\\procurement\\po_lines.parquet"
+      ],
+      "metrics": {
+        "purchase_orders": 15000,
+        "po_lines": 90227
+      }
+    },
+    "GEN_T5_LOGISTICS": {
+      "step": 21,
+      "generator_node": "GEN_T5_LOGISTICS",
+      "name": "Logistics, Transport & Shipment Engine",
+      "scheduling_tier": 5,
+      "status": "SUCCESS",
+      "row_count": 170876,
+      "checksum": "9b35518f72348566bdc12e5b61476a4841770e70afd1e0b33b1c953834cec3b6",
+      "duration_seconds": 1.381,
+      "timestamp": "2026-09-20T18:12:46.559944+00:00",
+      "output_files": [
+        "D:\\projects\\SCOF_V1\\SCOF\\datasets\\network\\shipments.parquet",
+        "D:\\projects\\SCOF_V1\\SCOF\\datasets\\network\\shipment_lines.parquet"
+      ],
+      "metrics": {
+        "shipments": 18000,
+        "shipment_lines": 152876
+      }
+    },
+    "GEN_T6_RECEIVING": {
+      "step": 22,
+      "generator_node": "GEN_T6_RECEIVING",
+      "name": "Goods Receiving & Putaway Engine",
+      "scheduling_tier": 6,
+      "status": "SUCCESS",
+      "row_count": 104871,
+      "checksum": "1cf63959d535b319e32531fb643ad108bfd1227c9e04eae6a525995b6a215166",
+      "duration_seconds": 0.656,
+      "timestamp": "2026-09-20T18:12:47.217298+00:00",
+      "output_files": [
+        "D:\\projects\\SCOF_V1\\SCOF\\datasets\\inventory\\goods_receipts.parquet",
+        "D:\\projects\\SCOF_V1\\SCOF\\datasets\\inventory\\goods_receipt_lines.parquet"
+      ],
+      "metrics": {
+        "goods_receipts": 15000,
+        "receipt_lines": 89871
+      }
+    },
+    "GEN_T6_INVENTORY": {
+      "step": 23,
+      "generator_node": "GEN_T6_INVENTORY",
+      "name": "Inventory State & Physical Conservation Engine",
+      "scheduling_tier": 6,
+      "status": "SUCCESS",
+      "row_count": 99232,
+      "checksum": "542939e28c1397510584ce93d4e6b2ce9902ca1c74b75e1aa03d1c3670642ba5",
+      "duration_seconds": 0.116,
+      "timestamp": "2026-09-20T18:12:47.334260+00:00",
+      "output_files": [
+        "D:\\projects\\SCOF_V1\\SCOF\\datasets\\inventory\\inventory_positions.parquet"
+      ],
+      "metrics": {
+        "inventory_positions": 99232
+      }
+    },
+    "GEN_T7_CUST_INVOICE": {
+      "step": 24,
+      "generator_node": "GEN_T7_CUST_INVOICE",
+      "name": "Customer Billing & Receivable Invoicing Engine",
+      "scheduling_tier": 7,
+      "status": "SUCCESS",
+      "row_count": 50000,
+      "checksum": "d7654e077a5612d18bbb13469fdc7093e513074e8fa6c34fd1c30147e8acb5fa",
+      "duration_seconds": 0.745,
+      "timestamp": "2026-09-20T18:12:48.079927+00:00",
+      "output_files": [
+        "D:\\projects\\SCOF_V1\\SCOF\\datasets\\finance\\customer_invoices.parquet"
+      ],
+      "metrics": {
+        "customer_invoices": 50000
+      }
+    },
+    "GEN_T7_SIMULATION_TRUTH": {
+      "step": 25,
+      "generator_node": "GEN_T7_SIMULATION_TRUTH",
+      "name": "V2 Ground Truth & Causal Demand Simulation Engine",
+      "scheduling_tier": 7,
+      "status": "SUCCESS",
+      "row_count": 18004376,
+      "checksum": "AUTHORITATIVE_V2_SIMULATION_ASSET_2070273959",
+      "duration_seconds": 0.0,
+      "timestamp": "2026-09-20T18:12:48.080928+00:00",
+      "output_files": [
+        "D:\\projects\\SCOF_V1\\SCOF\\datasets\\weekly_demand_history_v2.csv"
+      ],
+      "metrics": {
+        "demand_observations": 18004376,
+        "file_size_bytes": 2070273959
+      }
+    },
+    "GEN_T7_SUPP_INVOICE": {
+      "step": 26,
+      "generator_node": "GEN_T7_SUPP_INVOICE",
+      "name": "Supplier Invoicing Engine",
+      "scheduling_tier": 7,
+      "status": "SUCCESS",
+      "row_count": 90268,
+      "checksum": "77778af50db363b86b5f316b3bbf62db688fd703c5a6582cb4bfd715a0c1da4b",
+      "duration_seconds": 1.237,
+      "timestamp": "2026-09-20T18:12:49.318956+00:00",
+      "output_files": [
+        "D:\\projects\\SCOF_V1\\SCOF\\datasets\\finance\\supplier_invoices.parquet",
+        "D:\\projects\\SCOF_V1\\SCOF\\datasets\\finance\\supplier_invoice_lines.parquet"
+      ],
+      "metrics": {
+        "supplier_invoices": 15000,
+        "invoice_lines": 75268
+      }
+    },
+    "GEN_T7_THREE_WAY_MATCH": {
+      "step": 27,
+      "generator_node": "GEN_T7_THREE_WAY_MATCH",
+      "name": "Three-Way Match Verification Engine",
+      "scheduling_tier": 7,
+      "status": "SUCCESS",
+      "row_count": 75268,
+      "checksum": "218d1c99131c78cf91f72e0bb11dd3e52b2292299bbe46dd49c363e7b7112fbf",
+      "duration_seconds": 1.92,
+      "timestamp": "2026-09-20T18:12:51.240160+00:00",
+      "output_files": [
+        "D:\\projects\\SCOF_V1\\SCOF\\datasets\\finance\\three_way_match_records.parquet"
+      ],
+      "metrics": {
+        "matched_records": 75268
+      }
+    },
+    "GEN_T7_PAYMENT": {
+      "step": 28,
+      "generator_node": "GEN_T7_PAYMENT",
+      "name": "Settlement & Payment Engine",
+      "scheduling_tier": 7,
+      "status": "SUCCESS",
+      "row_count": 130000,
+      "checksum": "fb94c4890f3d2a017b996886f3df9afe11fca11aa971b539c8ead38ee052f94a",
+      "duration_seconds": 1.268,
+      "timestamp": "2026-09-20T18:12:52.509317+00:00",
+      "output_files": [
+        "D:\\projects\\SCOF_V1\\SCOF\\datasets\\finance\\payments.parquet",
+        "D:\\projects\\SCOF_V1\\SCOF\\datasets\\finance\\payment_allocations.parquet"
+      ],
+      "metrics": {
+        "payments": 65000,
+        "allocations": 65000
+      }
+    },
+    "GEN_T7_GL_LEDGER": {
+      "step": 29,
+      "generator_node": "GEN_T7_GL_LEDGER",
+      "name": "Double-Entry General Ledger Postings Engine",
+      "scheduling_tier": 7,
+      "status": "SUCCESS",
+      "row_count": 75007,
+      "checksum": "f2f675b506709c997bc0f7aa40673fb0f9f7d194663a2a05112871cc677a5236",
+      "duration_seconds": 0.266,
+      "timestamp": "2026-09-20T18:12:52.776366+00:00",
+      "output_files": [
+        "D:\\projects\\SCOF_V1\\SCOF\\datasets\\finance\\chart_of_accounts.csv",
+        "D:\\projects\\SCOF_V1\\SCOF\\datasets\\finance\\gl_accounts.csv",
+        "D:\\projects\\SCOF_V1\\SCOF\\datasets\\finance\\journal_entries.parquet",
+        "D:\\projects\\SCOF_V1\\SCOF\\datasets\\finance\\journal_lines.parquet"
+      ],
+      "metrics": {
+        "journal_entries": 25000,
+        "journal_lines": 50000,
+        "total_debits": 627894009.3599999,
+        "total_credits": 627894009.3599999
+      }
+    }
+  },
+  "total_rows_generated": 22236979,
+  "end_time": "2026-09-20T18:12:52.778347+00:00",
+  "total_duration_seconds": 18.82
+}

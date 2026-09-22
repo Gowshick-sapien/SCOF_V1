@@ -1,0 +1,22 @@
+facility_id,facility_name,facility_category,operating_status
+str-001,Delhi National Mall Hypermarket,STORE,OPERATIONAL
+str-002,Mumbai Flagship Hypermarket,STORE,OPERATIONAL
+str-003,Bengaluru Tech Hub Supermarket,STORE,OPERATIONAL
+str-004,Chennai Metro Express,STORE,OPERATIONAL
+str-005,Kolkata City Center Hypermarket,STORE,OPERATIONAL
+str-006,Hyderabad Central Supermarket,STORE,OPERATIONAL
+str-007,Ahmedabad West Supermarket,STORE,OPERATIONAL
+str-008,Pune Deccan Express,STORE,OPERATIONAL
+str-009,Jaipur Pink City Supermarket,STORE,OPERATIONAL
+str-010,Lucknow Gomti Supermarket,STORE,OPERATIONAL
+str-011,Chandigarh Sector Express,STORE,OPERATIONAL
+str-012,Kochi Marine Drive Supermarket,STORE,OPERATIONAL
+str-013,Indore Palasia Supermarket,STORE,OPERATIONAL
+str-014,Bhopal New Market Express,STORE,OPERATIONAL
+str-015,Patna Bailey Road Supermarket,STORE,OPERATIONAL
+str-016,Guwahati Gateway Express,STORE,OPERATIONAL
+wh-001,National Northern DC,WAREHOUSE,OPERATIONAL
+wh-002,Western Regional DC,WAREHOUSE,OPERATIONAL
+wh-003,Southern Regional DC,WAREHOUSE,OPERATIONAL
+wh-004,Eastern Regional DC,WAREHOUSE,OPERATIONAL
+wh-005,Central Hub DC,WAREHOUSE,OPERATIONAL

@@ -185,7 +185,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeView, onSelectView }) =>
           title="Close Window"
           aria-label="Close Window"
         >
-          <span className={styles.dotIcon}>✕</span>
+          <span className={styles.dotIcon}>×</span>
         </button>
         <button
           className={`${styles.trafficDot} ${styles.dotYellow}`}

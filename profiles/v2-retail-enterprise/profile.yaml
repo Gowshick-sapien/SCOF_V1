@@ -1,0 +1,8 @@
+profile_id: "v2-retail-enterprise"
+name: "SCOF Retail Enterprise Reference World Profile"
+version: "2.0.0"
+description: "Authoritative V2 enterprise domain binding over the 30-domain, 49,616-SKU retail complex dataset, activating the 5-DC, 16-store multi-echelon network."
+author: "SCOF Architecture Team"
+dataset_version: "2.0.0"
+dataset_path: "datasets/scof_relational.db"
+neo4j_graph_version: "2.0.0"

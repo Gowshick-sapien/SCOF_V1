@@ -73,4 +73,4 @@ Attempting to force both data models into a single storage engine introduces sev
 
 * [ADR 003: Vector Database Selection](./003_pgvector_for_semantic_memory.md)
 * [ADR 009: Declarative YAML Domain Profiles](./009_declarative_yaml_domain_profiles.md)
-* [D2 Knowledge Layer Documentation](file:///d:/projects/SCOF_V1/SCOF/docs/deliverables/D02_knowledge_layer/README.md)
+* [D2 Knowledge Layer Documentation](file:///d:/projects/SCOF_V1/SCOF/docs/v1_mvp/deliverables/D02_knowledge_layer/README.md)

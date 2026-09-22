@@ -1,0 +1,5 @@
+currency_id,currency_name,symbol,decimal_places,is_active
+INR,Indian Rupee,Rs,2,True
+USD,US Dollar,$,2,True
+EUR,Euro,EUR,2,True
+GBP,British Pound,GBP,2,True

@@ -71,4 +71,4 @@ The presentation layer needed to fulfill strict requirements:
 ## 7. Related Decisions & Artifacts
 
 * [ADR 010: Real-Time State Caching with Redis](./010_redis_realtime_state_caching.md)
-* [D9 Desktop Operations Console Documentation](file:///d:/projects/SCOF_V1/SCOF/docs/deliverables/D09_desktop_operations_console/README.md)
+* [D9 Desktop Operations Console Documentation](file:///d:/projects/SCOF_V1/SCOF/docs/v1_mvp/deliverables/D09_desktop_operations_console/README.md)

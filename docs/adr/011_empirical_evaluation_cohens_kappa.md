@@ -68,7 +68,7 @@ The evaluation harness needed an objective, statistically defensible methodology
 
 * Implemented in [services/evaluation/src/metrics.py](file:///d:/projects/SCOF_V1/SCOF/services/evaluation/src/metrics.py) and [services/evaluation/src/harness.py](file:///d:/projects/SCOF_V1/SCOF/services/evaluation/src/harness.py).
 * Standalone CLI benchmark runner in [services/evaluation/src/benchmark_runner.py](file:///d:/projects/SCOF_V1/SCOF/services/evaluation/src/benchmark_runner.py).
-* Full empirical results published in [docs/deliverables/D10_integration_evaluation/results_report.md](file:///d:/projects/SCOF_V1/SCOF/docs/deliverables/D10_integration_evaluation/results_report.md).
+* Full empirical results published in [docs/deliverables/D10_integration_evaluation/results_report.md](file:///d:/projects/SCOF_V1/SCOF/docs/v1_mvp/deliverables/D10_integration_evaluation/results_report.md).
 * Verified via `python -m pytest services/evaluation/tests/ -v` (40 / 40 tests passed).
 
 ---
@@ -77,4 +77,4 @@ The evaluation harness needed an objective, statistically defensible methodology
 
 * [ADR 004: Consensus Arbitration Framework](./004_cd2f_consensus_arbitration.md)
 * [ADR 005: Dual-Path Execution Routing Strategy](./005_dual_path_execution_routing.md)
-* [D10 Results Report](file:///d:/projects/SCOF_V1/SCOF/docs/deliverables/D10_integration_evaluation/results_report.md)
+* [D10 Results Report](file:///d:/projects/SCOF_V1/SCOF/docs/v1_mvp/deliverables/D10_integration_evaluation/results_report.md)

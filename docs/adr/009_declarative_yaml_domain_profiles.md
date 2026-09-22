@@ -73,4 +73,4 @@ At startup, every microservice points to the active profile via the `SCOF_PROFIL
 ## 7. Related Decisions & Artifacts
 
 * [ADR 006: Protocol Standardization (MCP & A2A)](./006_mcp_and_a2a_protocol_standardization.md)
-* [Domain Binding Strategy Document](file:///d:/projects/SCOF_V1/SCOF/docs/domain_binding_strategy.md)
+* [Domain Binding Strategy Document](file:///d:/projects/SCOF_V1/SCOF/docs/v1_mvp/domain_binding_strategy.md)

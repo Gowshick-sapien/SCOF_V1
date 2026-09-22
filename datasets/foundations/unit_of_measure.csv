@@ -1,0 +1,8 @@
+uom_id,uom_name,uom_category,conversion_factor_to_base
+KG,Kilogram,WEIGHT,1.0
+G,Gram,WEIGHT,0.001
+L,Liter,VOLUME,1.0
+ML,Milliliter,VOLUME,0.001
+EA,Each,COUNT,1.0
+BOX,Box,COUNT,10.0
+PALLET,Pallet,COUNT,100.0

@@ -75,4 +75,4 @@ Traditional methods rely on either simple majority voting, unweighted democratic
 
 * [ADR 005: Dual-Path Execution Routing Strategy](./005_dual_path_execution_routing.md)
 * [ADR 011: Empirical Evaluation & Calibration](./011_empirical_evaluation_cohens_kappa.md)
-* [D6 Consensus Engine Documentation](file:///d:/projects/SCOF_V1/SCOF/docs/deliverables/D06_consensus_engine/README.md)
+* [D6 Consensus Engine Documentation](file:///d:/projects/SCOF_V1/SCOF/docs/v1_mvp/deliverables/D06_consensus_engine/README.md)

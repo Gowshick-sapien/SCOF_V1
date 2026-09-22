@@ -37,124 +37,95 @@ SCOF/
        deliverable_task.md                 # Template tied to D1–D11 tracking
     PULL_REQUEST_TEMPLATE.md
 
- docs/                                       # All project documentation
-    ideation.md                             # FINAL_SCOF_Ideation.md (moved here)
-    srs.md                                  # SCOF SRS (moved here)
-    architecture.md                         # SCOF Architecture (moved here)
-    implementation_plan.md                  # Implementation Plan (moved here)
-    domain_binding_strategy.md              # Domain Binding Strategy (moved here)
-    repository_structure.md                 # This document (moved here)
-   
-    deliverables/                           # Per-deliverable documentation
-       D01_simulation_data/
-          README.md                       # D1 overview, objectives, acceptance criteria
-          implementation_plan.md          # D1 implementation plan
-          design_decisions.md             # Generator architecture, data model choices
-          schema_design.md                # PostgreSQL schema definitions
-          data_dictionary.md              # Entity fields, types, constraints
-          acceptance_evidence.md          # Test results proving "done"
-          walkthrough.md                  # D1 walkthrough
-      
-       D02_knowledge_layer/
-          README.md                       # D2 overview, objectives, acceptance criteria
-          neo4j_schema.md                 # Graph schema: nodes, relationships, properties
-          pgvector_schema.md              # Vector store tables, embedding strategy
-          etl_design.md                   # ETL pipeline design and idempotency approach
-          acceptance_evidence.md          # Test results proving "done"
-          walkthrough.md   
-      
-       D03_demand_inventory_agents/
-          README.md                       # D3 overview, objectives, acceptance criteria
-          demand_agent_design.md          # Model selection, ensemble strategy, MCP tools
-          inventory_agent_design.md       # Model selection, ensemble strategy, MCP tools
-          model_evaluation.md             # Forecast accuracy against D1 ground truth
-          acceptance_evidence.md          # Test results proving "done"
-          walkthrough.md                  # D3 walkthrough
-      
-       D04_supplier_transport_agents/
-          README.md                       # D4 overview, objectives, acceptance criteria
-          supplier_agent_design.md        # Reliability scoring, Neo4j queries, MCP tools
-          transport_agent_design.md       # Delay prediction, rerouting logic, MCP tools
-          model_evaluation.md             # Prediction accuracy against D1 disruptions
-          acceptance_evidence.md
-      
-       D05_orchestration/
-          README.md                       # D5 overview, objectives, acceptance criteria
-          langgraph_design.md             # State graph topology, node definitions
-          mcp_server_design.md            # MCP server specifications per agent
-          a2a_protocol_design.md          # Agent Card schema, discovery mechanism
-          acceptance_evidence.md
-      
-       D06_consensus_engine/
-          README.md                       # D6 overview, objectives, acceptance criteria
-          cd2f_algorithm_design.md        # Arbitration pipeline, weighting, escalation
-          calibration_design.md           # Judge calibration, Cohen's kappa methodology
-          baseline_design.md              # Single-agent and naive voting baselines
-          fixture_test_cases.md           # Hand-worked expected outputs
-          acceptance_evidence.md
-      
-       D07_observability/
-          README.md                       # D7 overview, objectives, acceptance criteria
-          tracing_design.md               # LangSmith/Langfuse integration approach
-          trace_schema.md                 # Decision trace storage schema
-          acceptance_evidence.md
-      
-       D08_backend_api/
-          README.md                       # D8 overview, objectives, acceptance criteria
-          api_design.md                   # Endpoint specifications, request/response schemas
-          event_bus_design.md             # Kafka/RabbitMQ topic design
-          websocket_design.md             # Channel specifications, payload formats
-          acceptance_evidence.md
-      
-       D09_desktop_operations_console/
-          README.md                       # D9 overview, objectives, acceptance criteria
-          implementation_plan.md          # D9 implementation plan
-          component_design.md             # React component hierarchy, view specifications
-          ui_ux_design.md                 # Wireframes, interaction patterns
-          desktop_integration.md          # Tauri native features: tray, notifications, window
-          type_contract.md                # OpenAPI codegen strategy, WebSocket type definitions
-          acceptance_evidence.md
-      
-       D10_integration_evaluation/
-          README.md                       # D10 overview, objectives, acceptance criteria
-          evaluation_harness_design.md    # Metrics computation, benchmark methodology
-          benchmark_results.md            # CD²F vs. baselines results (filled post-run)
-          rq_mapping.md                   # Results mapped to RQ1–RQ4
-          acceptance_evidence.md
-      
-       D11_post_mvp_extensions/
-           README.md                       # D11 overview, extension points summary
-           risk_agent_interface.md          # Where Risk Agent plugs in
-           finance_sustainability_weather.md # Where these agents attach
-           cross_org_handoff.md             # Cross-organization A2A extension
-           digital_twin_interface.md        # Digital Twin replay extension
-           new_profile_deployment.md        # How a new Domain Profile deploys
-   
-    research/                               # Research-specific documentation
-       research_questions.md               # RQ1–RQ4 definitions and methodology
-       literature_review.md                # Related work, positioning
-       paper_draft/                        # Academic paper workspace
-           .gitkeep
-   
-    adr/                                    # Architecture Decision Records
-        001_langgraph_over_crewai.md        # Why LangGraph was chosen
-        002_kafka_vs_rabbitmq.md            # Message broker selection
-        003_pgvector_over_dedicated_vectordb.md
-        template.md                         # ADR template
+ docs/                                       # Two-Track Project Documentation Portal
+    README.md                               # Master Documentation Navigation Portal
+    repository_structure.md                 # This document
+
+    adr/                                    # Master Architecture Decision Records (Sequential 001 - 018+)
+       README.md                            # ADR Registry & Status Matrix
+       template.md                          # Standard ADR Template
+       001_langgraph_orchestration_kernel.md # V1: LangGraph StateGraph selection
+       002_apache_kafka_event_streaming.md   # V1: Kafka message streaming
+       003_pgvector_for_semantic_memory.md   # V1: pgvector memory store
+       004_cd2f_consensus_arbitration.md     # V1: CD²F Dynamic Arbitration
+       005_dual_path_execution_routing.md    # V1: Fast-Path vs Slow-Path / HITL
+       006_mcp_and_a2a_protocol_standardization.md # V1: MCP & A2A protocols
+       007_hybrid_knowledge_layer_neo4j_postgres.md # V1: Hybrid Knowledge Layer (Amended by ADR 014)
+       008_tauri_v2_desktop_operations_console.md # V1: Tauri v2 desktop console
+       009_declarative_yaml_domain_profiles.md # V1: Domain Profiles (Amended by ADR 016)
+       010_redis_realtime_state_caching.md   # V1: Redis caching
+       011_empirical_evaluation_cohens_kappa.md # V1: Empirical evaluation & calibration
+       012_containerized_polyglot_microservices.md # V1: Docker Compose fleet
+       013_enterprise_knowledge_fabric_over_monolithic_generator.md # V2: 30-domain Enterprise Knowledge Fabric
+       014_materialized_graph_projection_and_bounded_query_contracts.md # V2: Materialized Graph & Bounded MCP Tools
+       015_tripartite_state_isolation_for_benchmark_integrity.md # V2: Tripartite State Isolation (Frozen/Base/Runtime)
+       016_declarative_domain_binding_profiles.md # V2: Declarative Domain Binding Profiles
+       017_decoupling_data_domains_from_agent_roster.md # V2: 30 Data Domains != 30 Agents (4 Specialists)
+       018_cognitive_twin_service_substrate.md # V2: Cognitive Twin Service Layer (`twin_service.py`)
+
+    v1_mvp/                                 # TRACK 1: FROZEN V1 MVP BASELINE (Historical Reference)
+       README.md                            # Track 1 Overview & Verification Status
+       architecture.md                      # Original V1 System Architecture
+       srs.md                               # Original V1 SRS
+       ideation.md                          # Original Ideation and Vision
+       implementation_plan.md               # Original V1 Implementation Plan
+       domain_binding_strategy.md           # Original Domain Binding Strategy
+       deliverables/                        # Original V1 Deliverables (D01 through D11)
+          D01_simulation_data/
+          D02_knowledge_layer/
+          D03_demand_inventory_agents/
+          D04_supplier_transport_agents/
+          D05_orchestration/
+          D06_consensus_engine/
+          D07_observability/
+          D08_backend_api/
+          D09_desktop_operations_console/
+          D10_integration_evaluation/
+          D11_post_mvp_extensions/
+
+    v2_enterprise/                          # TRACK 2: ACTIVE V2 ENTERPRISE EXPANSION
+       README.md                            # Track 2 Master Overview & Architecture
+       scof_v2_architecture_evolution.md    # Detailed V1-to-V2 Transformation Report
+       dataset/                             # Enterprise Dataset Architecture & Specs
+          SCOF_Enterprise_Dataset_Architecture_and_Implementation_Report.md
+          SCOF_Dataset_Files_Big_Picture_Understanding_Document.md
+          SCOF_Internal_Dataset_Architecture_Specification.md
+          SCOF_Physical_Generation_DAG.md & .yaml
+          SCOF_Validation_Report.md
+          SCOF_Operational_Validation_Report.md
+          dataset_schema_report.md
+       ontology/                            # Enterprise Ontologies, ERD, & Graph Specs
+          SCOF_Foundational_Ontology.md
+          SCOF_Enterprise_Domain_and_Node_Registry.md
+          SCOF_Enterprise_Relationship_Registry.md
+          SCOF_Entity_Realization_Map.md
+          SCOF_Enterprise_Lifecycle_Flows.md
+          SCOF_Canonical_ERD.md
+          SCOF_Neo4j_Graph_Specification.md
+          conceptual_models/
+       deliverables/                        # V2 Deliverable Blueprints (D1 through D11)
+          README.md
+          D01_enterprise_simulation_foundation.md
+          D02_knowledge_fabric.md
+       contracts/                           # Machine-Readable Interface Contracts
+          structured_claim_contract.md
+          bounded_mcp_tools_spec.md
+       research/                            # Academic & Research Foundations
+          understanding_cognitive_twin_service.md
+          research_questions_v2.md
+          benchmark_methodology.md
 
  profiles/                                   # Domain Profiles (profile-driven config)
-    mvp-electronics/                        # MVP Domain Profile
-        profile.yaml                        # Top-level metadata (name, version, description)
-        topology.yaml                       # Entities: manufacturers, suppliers, warehouses, DCs, routes
-        agents.yaml                         # Active agents: model configs, MCP bindings, thresholds
-        disruptions.yaml                    # Disruption catalog: types, parameters, propagation
-        consensus.yaml                      # CD²F: escalation thresholds, impact scales, calibration
-        data_bindings.yaml                  # MCP server configs, DB connection mappings
-        evaluation.yaml                     # Metrics, baselines, scenario set references
-        dashboard.yaml                      # View configuration, map bounds, entity labels
-        scenarios/
-            calibration_set.json            # Hand-labeled scenarios for judge calibration
-            evaluation_set.json             # Scenarios for benchmark evaluation
+    mvp-electronics/                        # V1 MVP Baseline Domain Profile (5 suppliers, 5 products)
+        profile.yaml
+        topology.yaml
+        agents.yaml
+        disruptions.yaml
+        consensus.yaml
+    v2-retail-enterprise/                   # V2 Enterprise Domain Binding Profile (49.6K SKUs, 21 facilities)
+        profile.yaml
+        binding.yaml
+        evaluation.yaml
 
  shared/                                     # Shared Python library (imported by all services)
     pyproject.toml                          # Package definition for `scof-shared`
@@ -537,6 +508,12 @@ SCOF/
     lint.sh                                 # Run all linters (ruff, eslint, mypy)
     test_all.sh                             # Run all tests across services
     clean.sh                                # Clean generated data, containers, volumes
+
+ archive/                                    # Archived legacy generators, scripts, and plans
+    legacy_generators/                      # Early monolithic/segmented generator scripts
+    legacy_scripts/                         # Early analysis, conversion, and scratch scripts
+    legacy_plans/                           # Brainstorm notes, preliminary prompts, scratch tasks
+    scratch_data/                           # Root duplicate CSVs and temporary summaries
 
  .env.example                                # Environment variable template
  .env                                        # Local environment variables (gitignored)

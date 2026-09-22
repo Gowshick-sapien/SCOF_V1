@@ -1,0 +1,7 @@
+gl_account_id,account_name,account_type,normal_balance
+1010,Cash and Cash Equivalents,ASSET,DEBIT
+1110,Accounts Receivable,ASSET,DEBIT
+1210,Inventory Asset,ASSET,DEBIT
+2010,Accounts Payable,LIABILITY,CREDIT
+4010,Merchandise Sales Revenue,REVENUE,CREDIT
+5010,Cost of Goods Sold,EXPENSE,DEBIT

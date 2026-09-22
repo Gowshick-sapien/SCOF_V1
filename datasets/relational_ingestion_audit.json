@@ -1,0 +1,681 @@
+{
+  "timestamp": "2026-09-21T04:18:17Z",
+  "engine": "SQLite (authoritative local harness)",
+  "total_tables": 96,
+  "loaded_tables": 92,
+  "total_rows_ingested": 4358100,
+  "audit_records": [
+    {
+      "step": 1,
+      "table": "currency",
+      "status": "LOADED",
+      "rows": 4,
+      "target_cols_count": 5
+    },
+    {
+      "step": 2,
+      "table": "unit_of_measure",
+      "status": "LOADED",
+      "rows": 7,
+      "target_cols_count": 5
+    },
+    {
+      "step": 3,
+      "table": "payment_terms",
+      "status": "LOADED",
+      "rows": 4,
+      "target_cols_count": 6
+    },
+    {
+      "step": 4,
+      "table": "incoterm",
+      "status": "LOADED",
+      "rows": 4,
+      "target_cols_count": 6
+    },
+    {
+      "step": 5,
+      "table": "calendar",
+      "status": "LOADED",
+      "rows": 1,
+      "target_cols_count": 4
+    },
+    {
+      "step": 6,
+      "table": "calendar_year",
+      "status": "LOADED",
+      "rows": 3,
+      "target_cols_count": 6
+    },
+    {
+      "step": 7,
+      "table": "month",
+      "status": "LOADED",
+      "rows": 36,
+      "target_cols_count": 7
+    },
+    {
+      "step": 8,
+      "table": "week",
+      "status": "LOADED",
+      "rows": 157,
+      "target_cols_count": 6
+    },
+    {
+      "step": 9,
+      "table": "calendar_date",
+      "status": "LOADED",
+      "rows": 1095,
+      "target_cols_count": 11
+    },
+    {
+      "step": 10,
+      "table": "fiscal_calendar",
+      "status": "LOADED",
+      "rows": 1,
+      "target_cols_count": 4
+    },
+    {
+      "step": 11,
+      "table": "fiscal_year",
+      "status": "LOADED",
+      "rows": 2,
+      "target_cols_count": 6
+    },
+    {
+      "step": 12,
+      "table": "fiscal_quarter",
+      "status": "LOADED",
+      "rows": 8,
+      "target_cols_count": 5
+    },
+    {
+      "step": 13,
+      "table": "fiscal_period",
+      "status": "LOADED",
+      "rows": 24,
+      "target_cols_count": 8
+    },
+    {
+      "step": 14,
+      "table": "country",
+      "status": "LOADED",
+      "rows": 1,
+      "target_cols_count": 5
+    },
+    {
+      "step": 15,
+      "table": "zone_macro_region",
+      "status": "LOADED",
+      "rows": 4,
+      "target_cols_count": 4
+    },
+    {
+      "step": 16,
+      "table": "state_province",
+      "status": "LOADED",
+      "rows": 4,
+      "target_cols_count": 5
+    },
+    {
+      "step": 17,
+      "table": "district",
+      "status": "LOADED",
+      "rows": 4,
+      "target_cols_count": 3
+    },
+    {
+      "step": 18,
+      "table": "city",
+      "status": "LOADED",
+      "rows": 4,
+      "target_cols_count": 5
+    },
+    {
+      "step": 19,
+      "table": "postal_area",
+      "status": "LOADED",
+      "rows": 4,
+      "target_cols_count": 4
+    },
+    {
+      "step": 20,
+      "table": "location",
+      "status": "LOADED",
+      "rows": 24,
+      "target_cols_count": 6
+    },
+    {
+      "step": 21,
+      "table": "facility",
+      "status": "LOADED",
+      "rows": 21,
+      "target_cols_count": 8
+    },
+    {
+      "step": 22,
+      "table": "party",
+      "status": "LOADED",
+      "rows": 230,
+      "target_cols_count": 8
+    },
+    {
+      "step": 23,
+      "table": "person",
+      "status": "LOADED",
+      "rows": 2,
+      "target_cols_count": 7
+    },
+    {
+      "step": 24,
+      "table": "organization",
+      "status": "LOADED",
+      "rows": 228,
+      "target_cols_count": 6
+    },
+    {
+      "step": 25,
+      "table": "identity",
+      "status": "LOADED",
+      "rows": 1,
+      "target_cols_count": 7
+    },
+    {
+      "step": 26,
+      "table": "contact_point",
+      "status": "LOADED",
+      "rows": 1,
+      "target_cols_count": 11
+    },
+    {
+      "step": 27,
+      "table": "party_role_assignment",
+      "status": "LOADED",
+      "rows": 230,
+      "target_cols_count": 10
+    },
+    {
+      "step": 28,
+      "table": "enterprise",
+      "status": "LOADED",
+      "rows": 1,
+      "target_cols_count": 5
+    },
+    {
+      "step": 29,
+      "table": "legal_entity",
+      "status": "LOADED",
+      "rows": 1,
+      "target_cols_count": 6
+    },
+    {
+      "step": 30,
+      "table": "business_unit",
+      "status": "LOADED",
+      "rows": 1,
+      "target_cols_count": 5
+    },
+    {
+      "step": 31,
+      "table": "division",
+      "status": "LOADED",
+      "rows": 1,
+      "target_cols_count": 4
+    },
+    {
+      "step": 32,
+      "table": "org_department",
+      "status": "LOADED",
+      "rows": 1,
+      "target_cols_count": 4
+    },
+    {
+      "step": 33,
+      "table": "cost_center",
+      "status": "LOADED",
+      "rows": 1,
+      "target_cols_count": 4
+    },
+    {
+      "step": 34,
+      "table": "profit_center",
+      "status": "LOADED",
+      "rows": 1,
+      "target_cols_count": 4
+    },
+    {
+      "step": 35,
+      "table": "store",
+      "status": "LOADED",
+      "rows": 16,
+      "target_cols_count": 5
+    },
+    {
+      "step": 36,
+      "table": "warehouse",
+      "status": "LOADED",
+      "rows": 5,
+      "target_cols_count": 5
+    },
+    {
+      "step": 37,
+      "table": "production_site",
+      "status": "INITIALIZED_EMPTY",
+      "rows": 0,
+      "target_cols_count": 4
+    },
+    {
+      "step": 38,
+      "table": "office",
+      "status": "INITIALIZED_EMPTY",
+      "rows": 0,
+      "target_cols_count": 3
+    },
+    {
+      "step": 39,
+      "table": "brand",
+      "status": "LOADED",
+      "rows": 2,
+      "target_cols_count": 4
+    },
+    {
+      "step": 40,
+      "table": "merchandise_department",
+      "status": "LOADED",
+      "rows": 12,
+      "target_cols_count": 3
+    },
+    {
+      "step": 41,
+      "table": "category",
+      "status": "LOADED",
+      "rows": 1,
+      "target_cols_count": 3
+    },
+    {
+      "step": 42,
+      "table": "subcategory",
+      "status": "LOADED",
+      "rows": 1,
+      "target_cols_count": 4
+    },
+    {
+      "step": 43,
+      "table": "product_family",
+      "status": "LOADED",
+      "rows": 1,
+      "target_cols_count": 4
+    },
+    {
+      "step": 44,
+      "table": "product",
+      "status": "LOADED",
+      "rows": 1,
+      "target_cols_count": 5
+    },
+    {
+      "step": 45,
+      "table": "sku",
+      "status": "LOADED",
+      "rows": 49616,
+      "target_cols_count": 9
+    },
+    {
+      "step": 46,
+      "table": "batch",
+      "status": "LOADED",
+      "rows": 1,
+      "target_cols_count": 5
+    },
+    {
+      "step": 47,
+      "table": "lot",
+      "status": "LOADED",
+      "rows": 1,
+      "target_cols_count": 4
+    },
+    {
+      "step": 48,
+      "table": "supplier_profile",
+      "status": "LOADED",
+      "rows": 200,
+      "target_cols_count": 8
+    },
+    {
+      "step": 49,
+      "table": "customer_segment",
+      "status": "LOADED",
+      "rows": 2,
+      "target_cols_count": 4
+    },
+    {
+      "step": 50,
+      "table": "customer_profile",
+      "status": "LOADED",
+      "rows": 1,
+      "target_cols_count": 6
+    },
+    {
+      "step": 51,
+      "table": "carrier_profile",
+      "status": "LOADED",
+      "rows": 25,
+      "target_cols_count": 6
+    },
+    {
+      "step": 52,
+      "table": "workforce_role",
+      "status": "LOADED",
+      "rows": 1,
+      "target_cols_count": 3
+    },
+    {
+      "step": 53,
+      "table": "employee_profile",
+      "status": "LOADED",
+      "rows": 300,
+      "target_cols_count": 7
+    },
+    {
+      "step": 54,
+      "table": "store_warehouse_map",
+      "status": "LOADED",
+      "rows": 32,
+      "target_cols_count": 7
+    },
+    {
+      "step": 55,
+      "table": "supplier_sku_map",
+      "status": "LOADED",
+      "rows": 99232,
+      "target_cols_count": 8
+    },
+    {
+      "step": 56,
+      "table": "store_sku_assortment",
+      "status": "LOADED",
+      "rows": 346238,
+      "target_cols_count": 7
+    },
+    {
+      "step": 57,
+      "table": "transport_lane",
+      "status": "LOADED",
+      "rows": 35,
+      "target_cols_count": 8
+    },
+    {
+      "step": 58,
+      "table": "asset_category",
+      "status": "LOADED",
+      "rows": 1,
+      "target_cols_count": 2
+    },
+    {
+      "step": 59,
+      "table": "physical_asset",
+      "status": "LOADED",
+      "rows": 150,
+      "target_cols_count": 9
+    },
+    {
+      "step": 60,
+      "table": "contract",
+      "status": "LOADED",
+      "rows": 225,
+      "target_cols_count": 8
+    },
+    {
+      "step": 61,
+      "table": "price_list",
+      "status": "LOADED",
+      "rows": 1,
+      "target_cols_count": 6
+    },
+    {
+      "step": 62,
+      "table": "price_record",
+      "status": "LOADED",
+      "rows": 2580032,
+      "target_cols_count": 9
+    },
+    {
+      "step": 63,
+      "table": "event",
+      "status": "LOADED",
+      "rows": 174,
+      "target_cols_count": 5
+    },
+    {
+      "step": 64,
+      "table": "event_instance",
+      "status": "LOADED",
+      "rows": 174,
+      "target_cols_count": 6
+    },
+    {
+      "step": 65,
+      "table": "event_impact",
+      "status": "LOADED",
+      "rows": 1107,
+      "target_cols_count": 6
+    },
+    {
+      "step": 66,
+      "table": "event_interaction",
+      "status": "LOADED",
+      "rows": 1977,
+      "target_cols_count": 6
+    },
+    {
+      "step": 67,
+      "table": "regional_event_weight",
+      "status": "LOADED",
+      "rows": 174,
+      "target_cols_count": 5
+    },
+    {
+      "step": 68,
+      "table": "weather_observation",
+      "status": "LOADED",
+      "rows": 312,
+      "target_cols_count": 7
+    },
+    {
+      "step": 69,
+      "table": "purchase_order",
+      "status": "LOADED",
+      "rows": 15000,
+      "target_cols_count": 10
+    },
+    {
+      "step": 70,
+      "table": "po_line",
+      "status": "LOADED",
+      "rows": 90227,
+      "target_cols_count": 10
+    },
+    {
+      "step": 71,
+      "table": "shipment",
+      "status": "LOADED",
+      "rows": 18000,
+      "target_cols_count": 8
+    },
+    {
+      "step": 72,
+      "table": "shipment_line",
+      "status": "LOADED",
+      "rows": 152876,
+      "target_cols_count": 5
+    },
+    {
+      "step": 73,
+      "table": "sales_channel",
+      "status": "LOADED",
+      "rows": 4,
+      "target_cols_count": 2
+    },
+    {
+      "step": 74,
+      "table": "customer_session",
+      "status": "LOADED",
+      "rows": 1,
+      "target_cols_count": 5
+    },
+    {
+      "step": 75,
+      "table": "cart",
+      "status": "LOADED",
+      "rows": 1,
+      "target_cols_count": 6
+    },
+    {
+      "step": 76,
+      "table": "basket",
+      "status": "LOADED",
+      "rows": 50000,
+      "target_cols_count": 8
+    },
+    {
+      "step": 77,
+      "table": "basket_line",
+      "status": "INITIALIZED_EMPTY",
+      "rows": 0,
+      "target_cols_count": 8
+    },
+    {
+      "step": 78,
+      "table": "sales_transaction",
+      "status": "LOADED",
+      "rows": 50000,
+      "target_cols_count": 8
+    },
+    {
+      "step": 79,
+      "table": "sales_line",
+      "status": "LOADED",
+      "rows": 200035,
+      "target_cols_count": 9
+    },
+    {
+      "step": 80,
+      "table": "goods_receipt",
+      "status": "LOADED",
+      "rows": 15000,
+      "target_cols_count": 4
+    },
+    {
+      "step": 81,
+      "table": "goods_receipt_line",
+      "status": "LOADED",
+      "rows": 72917,
+      "target_cols_count": 7
+    },
+    {
+      "step": 82,
+      "table": "inventory_position",
+      "status": "LOADED",
+      "rows": 99232,
+      "target_cols_count": 14
+    },
+    {
+      "step": 83,
+      "table": "invoice",
+      "status": "LOADED",
+      "rows": 65000,
+      "target_cols_count": 11
+    },
+    {
+      "step": 84,
+      "table": "customer_invoice",
+      "status": "LOADED",
+      "rows": 50000,
+      "target_cols_count": 3
+    },
+    {
+      "step": 85,
+      "table": "supplier_invoice",
+      "status": "LOADED",
+      "rows": 15000,
+      "target_cols_count": 4
+    },
+    {
+      "step": 86,
+      "table": "supplier_invoice_line",
+      "status": "LOADED",
+      "rows": 66673,
+      "target_cols_count": 9
+    },
+    {
+      "step": 87,
+      "table": "payment",
+      "status": "LOADED",
+      "rows": 65000,
+      "target_cols_count": 6
+    },
+    {
+      "step": 88,
+      "table": "payment_allocation",
+      "status": "LOADED",
+      "rows": 65000,
+      "target_cols_count": 6
+    },
+    {
+      "step": 89,
+      "table": "three_way_match_record",
+      "status": "LOADED",
+      "rows": 60965,
+      "target_cols_count": 12
+    },
+    {
+      "step": 90,
+      "table": "chart_of_accounts",
+      "status": "LOADED",
+      "rows": 1,
+      "target_cols_count": 3
+    },
+    {
+      "step": 91,
+      "table": "gl_account",
+      "status": "LOADED",
+      "rows": 6,
+      "target_cols_count": 5
+    },
+    {
+      "step": 92,
+      "table": "journal_entry",
+      "status": "LOADED",
+      "rows": 25000,
+      "target_cols_count": 7
+    },
+    {
+      "step": 93,
+      "table": "journal_line",
+      "status": "LOADED",
+      "rows": 50000,
+      "target_cols_count": 6
+    },
+    {
+      "step": 94,
+      "table": "demand_observation",
+      "status": "LOADED",
+      "rows": 50000,
+      "target_cols_count": 10
+    },
+    {
+      "step": 95,
+      "table": "event_attribution",
+      "status": "INITIALIZED_EMPTY",
+      "rows": 0,
+      "target_cols_count": 5
+    },
+    {
+      "step": 96,
+      "table": "lifecycle_status_event",
+      "status": "LOADED",
+      "rows": 1,
+      "target_cols_count": 10
+    }
+  ]
+}

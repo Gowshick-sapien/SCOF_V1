@@ -1,0 +1,17 @@
+STORE_ID,STORE_NAME,STORE_FORMAT,REGION,STATE,CITY,TIER,PRIMARY_DC_ID,MAX_SHELF_CAPACITY_UNITS
+str-001,Delhi National Mall Hypermarket,HYPERMARKET,North,Delhi,Delhi,Tier-1,wh-001,250000
+str-002,Mumbai Flagship Hypermarket,HYPERMARKET,West,Maharashtra,Mumbai,Tier-1,wh-002,300000
+str-003,Bengaluru Tech Hub Supermarket,SUPERMARKET,South,Karnataka,Bengaluru,Tier-1,wh-003,150000
+str-004,Chennai Metro Express,EXPRESS,South,Tamil Nadu,Chennai,Tier-1,wh-003,30000
+str-005,Kolkata City Center Hypermarket,HYPERMARKET,East,West Bengal,Kolkata,Tier-1,wh-004,200000
+str-006,Hyderabad Central Supermarket,SUPERMARKET,South,Telangana,Hyderabad,Tier-1,wh-003,120000
+str-007,Ahmedabad West Supermarket,SUPERMARKET,West,Gujarat,Ahmedabad,Tier-2,wh-002,90000
+str-008,Pune Deccan Express,EXPRESS,West,Maharashtra,Pune,Tier-2,wh-002,25000
+str-009,Jaipur Pink City Supermarket,SUPERMARKET,North,Rajasthan,Jaipur,Tier-2,wh-001,80000
+str-010,Lucknow Gomti Supermarket,SUPERMARKET,North,Uttar Pradesh,Lucknow,Tier-2,wh-001,85000
+str-011,Chandigarh Sector Express,EXPRESS,North,Punjab,Chandigarh,Tier-2,wh-001,30000
+str-012,Kochi Marine Drive Supermarket,SUPERMARKET,South,Kerala,Kochi,Tier-2,wh-003,75000
+str-013,Indore Palasia Supermarket,SUPERMARKET,Central,Madhya Pradesh,Indore,Tier-2,wh-005,70000
+str-014,Bhopal New Market Express,EXPRESS,Central,Madhya Pradesh,Bhopal,Tier-2,wh-005,25000
+str-015,Patna Bailey Road Supermarket,SUPERMARKET,East,Bihar,Patna,Tier-2,wh-004,80000
+str-016,Guwahati Gateway Express,EXPRESS,Northeast,Assam,Guwahati,Tier-2,wh-004,35000

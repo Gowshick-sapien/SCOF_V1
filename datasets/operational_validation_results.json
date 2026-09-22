@@ -1,0 +1,765 @@
+{
+  "validation_timestamp": "2026-09-21T10:29:08.628613",
+  "database_path": "d:\\projects\\SCOF_V1\\SCOF\\datasets\\scof_relational.db",
+  "gates": {
+    "Gate_1_Referential_Closure": {
+      "status": "PASS",
+      "total_physical_fks_validated": 165,
+      "fks_with_zero_orphans": 165,
+      "details": {
+        "unit_of_measure.base_unit_id -> unit_of_measure.uom_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "calendar_year.calendar_id -> calendar.calendar_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "month.year_id -> calendar_year.year_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "week.year_id -> calendar_year.year_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "calendar_date.year_id -> calendar_year.year_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "calendar_date.month_id -> month.month_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "calendar_date.week_id -> week.week_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "fiscal_year.fiscal_calendar_id -> fiscal_calendar.fiscal_calendar_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "fiscal_quarter.fiscal_year_id -> fiscal_year.fiscal_year_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "fiscal_period.fiscal_year_id -> fiscal_year.fiscal_year_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "fiscal_period.fiscal_quarter_id -> fiscal_quarter.fiscal_quarter_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "country.currency_id -> currency.currency_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "zone_macro_region.country_id -> country.country_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "state_province.country_id -> country.country_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "state_province.zone_id -> zone_macro_region.zone_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "district.state_id -> state_province.state_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "city.district_id -> district.district_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "postal_area.city_id -> city.city_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "location.postal_area_id -> postal_area.postal_area_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "facility.location_id -> location.location_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "person.party_id -> party.party_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "organization.party_id -> party.party_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "organization.incorporation_country_id -> country.country_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "identity.party_id -> party.party_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "contact_point.party_id -> party.party_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "contact_point.postal_area_id -> postal_area.postal_area_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "contact_point.city_id -> city.city_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "party_role_assignment.party_id -> party.party_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "enterprise.party_id -> party.party_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "enterprise.headquarters_country_id -> country.country_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "legal_entity.enterprise_id -> enterprise.enterprise_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "legal_entity.country_id -> country.country_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "business_unit.legal_entity_id -> legal_entity.legal_entity_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "business_unit.currency_id -> currency.currency_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "division.business_unit_id -> business_unit.business_unit_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "org_department.division_id -> division.division_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "org_department.department_head_id -> party.party_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "cost_center.org_department_id -> org_department.org_department_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "cost_center.budget_currency_id -> currency.currency_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "profit_center.division_id -> division.division_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "store.facility_id -> facility.facility_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "warehouse.facility_id -> facility.facility_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "production_site.facility_id -> facility.facility_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "office.facility_id -> facility.facility_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "brand.owner_org_id -> party.party_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "merchandise_department.buyer_role_id -> party.party_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "category.department_id -> merchandise_department.department_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "subcategory.category_id -> category.category_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "product_family.subcategory_id -> subcategory.subcategory_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "product.product_family_id -> product_family.product_family_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "product.brand_id -> brand.brand_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "sku.product_id -> product.product_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "sku.uom_id -> unit_of_measure.uom_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "batch.sku_id -> sku.sku_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "batch.producer_org_id -> party.party_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "lot.batch_id -> batch.batch_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "lot.sku_id -> sku.sku_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "supplier_profile.party_id -> party.party_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "supplier_profile.role_assignment_id -> party_role_assignment.role_assignment_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "supplier_profile.payment_term_id -> payment_terms.payment_term_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "supplier_profile.default_currency_id -> currency.currency_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "supplier_profile.incoterm_id -> incoterm.incoterm_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "customer_profile.party_id -> party.party_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "customer_profile.role_assignment_id -> party_role_assignment.role_assignment_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "customer_profile.customer_segment_id -> customer_segment.customer_segment_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "carrier_profile.party_id -> party.party_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "carrier_profile.role_assignment_id -> party_role_assignment.role_assignment_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "employee_profile.party_id -> party.party_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "employee_profile.role_assignment_id -> party_role_assignment.role_assignment_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "employee_profile.assigned_facility_id -> facility.facility_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "employee_profile.workforce_role_id -> workforce_role.workforce_role_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "store_warehouse_map.store_facility_id -> store.facility_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "store_warehouse_map.warehouse_facility_id -> warehouse.facility_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "supplier_sku_map.supplier_profile_id -> supplier_profile.supplier_profile_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "supplier_sku_map.sku_id -> sku.sku_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "supplier_sku_map.currency_id -> currency.currency_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "store_sku_assortment.facility_id -> store.facility_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "store_sku_assortment.sku_id -> sku.sku_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "transport_lane.origin_facility_id -> facility.facility_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "transport_lane.destination_facility_id -> facility.facility_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "transport_lane.primary_carrier_profile_id -> carrier_profile.carrier_profile_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "physical_asset.facility_id -> facility.facility_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "physical_asset.category_id -> asset_category.category_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "contract.party_id -> party.party_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "contract.payment_term_id -> payment_terms.payment_term_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "contract.incoterm_id -> incoterm.incoterm_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "price_list.currency_id -> currency.currency_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "price_record.sku_id -> sku.sku_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "price_record.facility_id -> facility.facility_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "price_record.week_id -> week.week_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "price_record.currency_id -> currency.currency_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "event_instance.event_id -> event.event_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "event_instance.year_id -> calendar_year.year_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "event_impact.event_id -> event.event_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "event_interaction.event_id_1 -> event.event_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "event_interaction.event_id_2 -> event.event_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "regional_event_weight.event_id -> event.event_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "regional_event_weight.zone_id -> zone_macro_region.zone_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "weather_observation.zone_id -> zone_macro_region.zone_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "weather_observation.week_id -> week.week_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "purchase_order.supplier_profile_id -> supplier_profile.supplier_profile_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "purchase_order.destination_facility_id -> facility.facility_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "purchase_order.payment_term_id -> payment_terms.payment_term_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "purchase_order.incoterm_id -> incoterm.incoterm_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "purchase_order.currency_id -> currency.currency_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "po_line.po_id -> purchase_order.po_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "po_line.sku_id -> sku.sku_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "shipment.origin_facility_id -> facility.facility_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "shipment.destination_facility_id -> facility.facility_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "shipment.carrier_profile_id -> carrier_profile.carrier_profile_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "shipment_line.shipment_id -> shipment.shipment_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "shipment_line.po_line_id -> po_line.po_line_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "shipment_line.sku_id -> sku.sku_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "customer_session.customer_profile_id -> customer_profile.customer_profile_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "customer_session.channel_id -> sales_channel.channel_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "cart.session_id -> customer_session.session_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "cart.customer_profile_id -> customer_profile.customer_profile_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "basket.cart_id -> cart.cart_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "basket.customer_profile_id -> customer_profile.customer_profile_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "basket.facility_id -> facility.facility_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "basket_line.basket_id -> basket.basket_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "basket_line.sku_id -> sku.sku_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "sales_transaction.basket_id -> basket.basket_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "sales_transaction.facility_id -> facility.facility_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "sales_transaction.channel_id -> sales_channel.channel_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "sales_line.transaction_id -> sales_transaction.transaction_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "sales_line.sku_id -> sku.sku_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "sales_line.price_record_id -> price_record.price_record_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "goods_receipt.po_id -> purchase_order.po_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "goods_receipt.receiving_facility_id -> facility.facility_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "goods_receipt_line.goods_receipt_id -> goods_receipt.goods_receipt_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "goods_receipt_line.po_line_id -> po_line.po_line_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "goods_receipt_line.sku_id -> sku.sku_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "inventory_position.facility_id -> facility.facility_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "inventory_position.sku_id -> sku.sku_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "inventory_position.lot_id -> lot.lot_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "inventory_position.uom_id -> unit_of_measure.uom_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "invoice.party_id -> party.party_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "invoice.currency_id -> currency.currency_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "customer_invoice.invoice_id -> invoice.invoice_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "customer_invoice.sales_transaction_id -> sales_transaction.transaction_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "customer_invoice.customer_profile_id -> customer_profile.customer_profile_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "supplier_invoice.invoice_id -> invoice.invoice_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "supplier_invoice.po_id -> purchase_order.po_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "supplier_invoice.supplier_profile_id -> supplier_profile.supplier_profile_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "supplier_invoice_line.invoice_id -> supplier_invoice.invoice_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "supplier_invoice_line.po_line_id -> po_line.po_line_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "supplier_invoice_line.sku_id -> sku.sku_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "payment.currency_id -> currency.currency_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "payment_allocation.payment_id -> payment.payment_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "payment_allocation.invoice_id -> invoice.invoice_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "three_way_match_record.po_line_id -> po_line.po_line_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "three_way_match_record.gr_line_id -> goods_receipt_line.gr_line_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "three_way_match_record.supplier_invoice_line_id -> supplier_invoice_line.invoice_line_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "chart_of_accounts.enterprise_id -> enterprise.enterprise_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "gl_account.coa_id -> chart_of_accounts.coa_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "journal_entry.fiscal_period_id -> fiscal_period.fiscal_period_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "journal_line.journal_entry_id -> journal_entry.journal_entry_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "journal_line.gl_account_id -> gl_account.gl_account_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "demand_observation.sku_id -> sku.sku_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "demand_observation.facility_id -> facility.facility_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "demand_observation.week_id -> week.week_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "event_attribution.observation_id -> demand_observation.observation_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "event_attribution.event_instance_id -> event_instance.event_instance_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        },
+        "lifecycle_status_event.actor_party_id -> party.party_id": {
+          "orphan_count": 0,
+          "status": "PASS"
+        }
+      }
+    },
+    "Gate_2_Physical_Inventory_Conservation": {
+      "status": "PASS",
+      "details": {
+        "population_scope_proof": {
+          "grain": "(SKU, Location_ID) opening posture",
+          "sku_population": 49616,
+          "facility_population": 2,
+          "scope_equation": "49,616 SKUs * 2 anchor facilities = 99,232 positions",
+          "total_positions_expected": 99232,
+          "total_positions_actual": 99232,
+          "scope_status": "EXACT_POPULATION_MATCH"
+        },
+        "conservation_checks": {
+          "total_positions": 99232,
+          "negative_qoh": 0,
+          "negative_available": 0,
+          "balance_mismatches": 0,
+          "status": "PASS"
+        }
+      }
+    },
+    "Gate_3_Double_Entry_Financial_Equilibrium": {
+      "status": "PASS",
+      "details": {
+        "journal_entry_equilibrium": {
+          "total_entries": 25000,
+          "unbalanced_entries": 0,
+          "status": "PASS"
+        },
+        "global_trial_balance": {
+          "total_debits": 627894009.36,
+          "total_credits": 627894009.36,
+          "imbalance_amount": 0.0,
+          "status": "PASS"
+        }
+      }
+    },
+    "Gate_4_Three_Way_Match_Audit": {
+      "status": "PASS",
+      "details": {
+        "match_quantity_bounds": {
+          "total_matches": 60965,
+          "qty_exceeds_po": 0,
+          "qty_exceeds_inv": 0,
+          "invalid_status": 0,
+          "status": "PASS"
+        }
+      }
+    },
+    "Gate_5_Demand_Conservation": {
+      "status": "PASS",
+      "details": {
+        "simulation_universe_validation": {
+          "scope": "Exhaustive V2 Simulation Ground Truth (weekly_demand_history_v2.csv)",
+          "total_rows_validated": 18004376,
+          "weeks": 52,
+          "store_sku_pairings": 346238,
+          "mass_balance_violations": 0,
+          "demand_balance_violations": 0,
+          "negative_closing_inventory_violations": 0,
+          "status": "PASS (Certified in Phase 0 / Tier B Validation)"
+        },
+        "runtime_twin_operational_gate": {
+          "scope": "Populated Transactional Database (demand_observation)",
+          "total_observations_tested": 50000,
+          "latent_less_than_sales": 0,
+          "lost_sales_mismatches": 0,
+          "invalid_service_level": 0,
+          "status": "PASS"
+        }
+      }
+    },
+    "Gate_6_Relational_Graph_Parity": {
+      "status": "PASS",
+      "details": {
+        "constraint_reconciliation": {
+          "frozen_core_constraints": 51,
+          "frozen_core_labels": 50,
+          "frozen_core_violations": 0,
+          "extended_hardening_constraints": 8,
+          "extended_hardening_violations": 0,
+          "total_constraints_verified": 59,
+          "parity_checks_performed": 56,
+          "parity_mismatches": 0,
+          "total_nodes": 3728199,
+          "total_edges": 2104514,
+          "reconciliation_status": "RECONCILED_AND_CERTIFIED"
+        }
+      }
+    }
+  },
+  "overall_status": "CERTIFIED",
+  "elapsed_seconds": 2.38
+}

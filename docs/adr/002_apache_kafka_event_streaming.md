@@ -69,4 +69,4 @@ The message streaming layer must guarantee high throughput, strict ordering of d
 
 * [ADR 003: Vector Database Selection](./003_pgvector_for_semantic_memory.md)
 * [ADR 010: Real-Time State Caching with Redis](./010_redis_realtime_state_caching.md)
-* [Event Bus Design Document](file:///d:/projects/SCOF_V1/SCOF/docs/deliverables/D08_backend_api/event_bus_design.md)
+* [Event Bus Design Document](file:///d:/projects/SCOF_V1/SCOF/docs/v1_mvp/deliverables/D08_backend_api/event_bus_design.md)

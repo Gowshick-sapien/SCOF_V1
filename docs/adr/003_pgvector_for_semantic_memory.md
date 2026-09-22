@@ -67,4 +67,4 @@ This requires generating 384-dimensional dense vector embeddings (using `sentenc
 ## 7. Related Decisions & Artifacts
 
 * [ADR 007: Hybrid Knowledge Layer Architecture](./007_hybrid_knowledge_layer_neo4j_postgres.md)
-* [D2 Knowledge Layer Documentation](file:///d:/projects/SCOF_V1/SCOF/docs/deliverables/D02_knowledge_layer/README.md)
+* [D2 Knowledge Layer Documentation](file:///d:/projects/SCOF_V1/SCOF/docs/v1_mvp/deliverables/D02_knowledge_layer/README.md)

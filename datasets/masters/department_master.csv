@@ -1,0 +1,13 @@
+DEPARTMENT_ID,DEPARTMENT_NAME
+DEP-FNB,Food & Beverage
+DEP-GRO,Grocery & FMCG
+DEP-FRE,Fresh Produce & Perishables
+DEP-APP,Apparel & Fashion
+DEP-ELE,Electronics & Computing
+DEP-HOM,Home & Living
+DEP-HEA,"Health, Beauty & Personal Care"
+DEP-TOY,"Kids, Toys & Entertainment"
+DEP-SPO,"Sports, Hobbies & Lifestyle"
+DEP-HAR,"Hardware, Auto & Industrial"
+DEP-LIF,"Gifts, Lifestyle & Cultural"
+DEP-SER,Services & Specialty

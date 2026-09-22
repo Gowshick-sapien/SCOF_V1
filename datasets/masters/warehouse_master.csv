@@ -1,0 +1,6 @@
+WAREHOUSE_ID,WAREHOUSE_NAME,REGION,STATE,CITY,TOTAL_CAPACITY_PALLETS,INBOUND_THROUGHPUT_MAX_UNITS_PER_WEEK
+wh-001,National Northern DC,North,Haryana,Gurugram,50000,500000
+wh-002,Western Regional DC,West,Maharashtra,Bhiwandi,60000,600000
+wh-003,Southern Regional DC,South,Karnataka,Bengaluru,55000,550000
+wh-004,Eastern Regional DC,East,West Bengal,Kolkata,40000,400000
+wh-005,Central Hub DC,Central,Madhya Pradesh,Indore,35000,350000

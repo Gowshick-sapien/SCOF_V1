@@ -1,0 +1,5 @@
+incoterm_id,incoterm_name,risk_transfer_point,freight_payer
+FOB,Free On Board,Port of Origin,BUYER
+CIF,"Cost, Insurance and Freight",Port of Destination,SELLER
+EXW,Ex Works,Seller Premises,BUYER
+DDP,Delivered Duty Paid,Buyer Premises,SELLER

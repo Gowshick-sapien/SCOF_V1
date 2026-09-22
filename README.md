@@ -206,12 +206,27 @@ python -m services.evaluation.src.benchmark_runner
 
 ---
 
-## Documentation & Architecture Deep Dives
+## Two-Track Technical Documentation Portal
 
-For detailed technical specifications, architectural diagrams, and empirical reports, explore the [`docs/`](file:///d:/projects/SCOF_V1/SCOF/docs/) directory:
+SCOF technical documentation is organized into a **Two-Track Architecture** ([`docs/README.md`](file:///d:/projects/SCOF_V1/SCOF/docs/README.md)):
 
-* **[System Architecture](file:///d:/projects/SCOF_V1/SCOF/docs/architecture.md)**: Deep dive into the LangGraph state machine, MCP tool architecture, and CD²F mathematical formulations.
-* **[Software Requirements Specification (SRS)](file:///d:/projects/SCOF_V1/SCOF/docs/srs.md)**: Functional and non-functional requirements specification.
-* **[Ideation & Vision](file:///d:/projects/SCOF_V1/SCOF/docs/ideation.md)**: Theoretical foundation, multi-agent collaboration rationale, and research questions.
-* **[Evaluation & Research Results Report](file:///d:/projects/SCOF_V1/SCOF/docs/deliverables/D10_integration_evaluation/results_report.md)**: Empirical validation answering Research Questions RQ1–RQ4 across 20 canonical disruption scenarios.
-* **[Acceptance Evidence Document](file:///d:/projects/SCOF_V1/SCOF/docs/deliverables/D10_integration_evaluation/acceptance_evidence.md)**: Detailed audit logs and verification matrices across all system capabilities.
+### Track 2: V2 Enterprise Cognitive Twin (Active Expansion)
+* **[V2 Architecture Evolution Blueprint](file:///d:/projects/SCOF_V1/SCOF/docs/v2_enterprise/scof_v2_architecture_evolution.md)**: Authoritative blueprint governing the scale-up to the 30-domain, 49.6K-SKU enterprise ecosystem.
+* **[Enterprise Dataset Master Report](file:///d:/projects/SCOF_V1/SCOF/docs/v2_enterprise/dataset/SCOF_Enterprise_Dataset_Architecture_and_Implementation_Report.md)**: Complete freeze report covering 30 domains, 96 tables, 165 foreign keys, and 3.73M Neo4j nodes.
+* **[Dataset Files Big Picture Guide](file:///d:/projects/SCOF_V1/SCOF/docs/v2_enterprise/dataset/SCOF_Dataset_Files_Big_Picture_Understanding_Document.md)**: End-to-end file-by-file walkthrough detailing schemas, row counts, and graph projections.
+* **[Enterprise Foundational Ontology](file:///d:/projects/SCOF_V1/SCOF/docs/v2_enterprise/ontology/SCOF_Foundational_Ontology.md)**: Formal ontological primitives (Party, Spatial, Temporal, Measures).
+* **[Canonical Enterprise ERD](file:///d:/projects/SCOF_V1/SCOF/docs/v2_enterprise/ontology/SCOF_Canonical_ERD.md)**: Relational schema diagrams and cross-domain foreign key topology.
+* **[Cognitive Twin Service Guide](file:///d:/projects/SCOF_V1/SCOF/docs/v2_enterprise/research/understanding_cognitive_twin_service.md)**: Operational guide to discrete simulation, lineage, and accounting audits.
+* **[V2 Deliverables Roadmap (D1–D11)](file:///d:/projects/SCOF_V1/SCOF/docs/v2_enterprise/deliverables/README.md)**: Comprehensive milestone specifications for enterprise deliverables.
+
+### Track 1: V1 MVP Baseline (Historical Reference)
+* **[Track 1 Documentation Overview](file:///d:/projects/SCOF_V1/SCOF/docs/v1_mvp/README.md)**: Complete documentation for the initial 5-supplier electronics proof-of-concept.
+* **[V1 System Architecture](file:///d:/projects/SCOF_V1/SCOF/docs/v1_mvp/architecture.md)**: Original LangGraph state machine, CD²F consensus algorithm, and microservices fleet.
+* **[V1 Software Requirements Specification (SRS)](file:///d:/projects/SCOF_V1/SCOF/docs/v1_mvp/srs.md)**: Functional and non-functional requirements.
+* **[V1 Deliverables Archive](file:///d:/projects/SCOF_V1/SCOF/docs/v1_mvp/deliverables/D01_simulation_data/README.md)**: Design decisions and acceptance evidence for D01 through D11.
+
+### Governance & Architecture Decisions
+* **[Architecture Decision Records Registry (ADR 001–018+)](file:///d:/projects/SCOF_V1/SCOF/docs/adr/README.md)**: Complete sequential registry of architectural decisions across both V1 and V2.
+* **[Repository Structure Guide](file:///d:/projects/SCOF_V1/SCOF/docs/repository_structure.md)**: Master layout and component directory definitions.
+
+

@@ -1,4 +1,4 @@
-.PHONY: up down build generate etl test verify-d1 verify-d2 verify-d3 verify-d4 verify-d6 verify-d7 lint clean
+.PHONY: up down build generate etl test verify-d1 verify-d2 verify-d3 verify-d4 verify-d6 verify-d7 lint clean data-status data-build data-compress
 
 up:
 	docker compose up -d
@@ -14,6 +14,15 @@ generate:
 
 etl:
 	docker compose run --rm etl python -m src.main
+
+data-status:
+	python scripts/bootstrap_dataset.py --status
+
+data-build:
+	python scripts/bootstrap_dataset.py --build
+
+data-compress:
+	python scripts/bootstrap_dataset.py --compress
 
 verify-d1:
 	python scripts/verify_d1.py

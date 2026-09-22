@@ -1,0 +1,55 @@
+# SCOF V2 Declarative Domain Binding Configuration (ADR 016)
+
+operational_scope:
+  enterprise_id: "ENT-001"
+  legal_entities:
+    - "LE-001"
+    - "LE-002"
+  business_units:
+    - "BU-RETAIL-01"
+    - "BU-LOGISTICS-01"
+
+active_facilities:
+  regional_distribution_centers:
+    - facility_id: "WH-001"
+      name: "Regional DC South"
+      role: "PRIMARY_COLD_AND_DRY"
+    - facility_id: "WH-002"
+      name: "Regional DC West"
+      role: "PRIMARY_DRY"
+    - facility_id: "WH-003"
+      name: "Regional DC North"
+      role: "SECONDARY_BUFFER"
+    - facility_id: "WH-004"
+      name: "Regional DC East"
+      role: "SECONDARY_BUFFER"
+    - facility_id: "WH-005"
+      name: "Central Logistics Hub"
+      role: "INTER_DC_REDEPLOYMENT"
+
+  retail_stores_count: 16
+  store_facility_prefix: "STR-"
+
+network_connectivity:
+  active_transport_lanes_count: 35
+  max_rerouting_transit_days: 5
+
+agent_roster:
+  active_specialists:
+    - agent_id: "demand_agent"
+      service_endpoint: "http://scof-agent-demand:8011"
+      bound_domains: ["commerce", "sales_transactions", "promotions", "events", "weather"]
+    - agent_id: "inventory_agent"
+      service_endpoint: "http://scof-agent-inventory:8012"
+      bound_domains: ["inventory_positions", "goods_receipts", "assortments", "replenishment_policies", "physical_assets"]
+    - agent_id: "supplier_agent"
+      service_endpoint: "http://scof-agent-supplier:8013"
+      bound_domains: ["supplier_profiles", "commercial_contracts", "purchase_orders", "supplier_invoices", "three_way_match"]
+    - agent_id: "transport_agent"
+      service_endpoint: "http://scof-agent-transport:8014"
+      bound_domains: ["transport_lanes", "shipments", "carrier_profiles", "fleet_assets", "disruptions"]
+
+consensus_parameters:
+  arbitration_engine: "CD2F"
+  wcs_fast_path_threshold: 0.70
+  high_severity_hitl_threshold: 0.60

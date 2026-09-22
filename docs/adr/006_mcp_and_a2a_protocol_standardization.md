@@ -59,7 +59,7 @@ Hardcoding direct SQL/Cypher queries inside agents tightly couples agent reasoni
 
 * Shared protocol contracts in [shared/scof_shared/protocols/](file:///d:/projects/SCOF_V1/SCOF/shared/scof_shared/protocols/).
 * Agent cards published at `/.well-known/agent.json` by each specialist microservice (`8011–8014`).
-* A2A discovery client implemented in [services/coordinator/src/a2a_client.py](file:///d:/projects/SCOF_V1/SCOF/services/coordinator/src/a2a_client.py).
+* A2A discovery client implemented in [services/coordinator/src/agent_discovery.py](file:///d:/projects/SCOF_V1/SCOF/services/coordinator/src/agent_discovery.py).
 * Verified via `python scripts/verify_d5.py`.
 
 ---
@@ -68,4 +68,4 @@ Hardcoding direct SQL/Cypher queries inside agents tightly couples agent reasoni
 
 * [ADR 001: Orchestration Kernel Selection](./001_langgraph_orchestration_kernel.md)
 * [ADR 009: Declarative YAML Domain Profiles](./009_declarative_yaml_domain_profiles.md)
-* [D5 Orchestration Documentation](file:///d:/projects/SCOF_V1/SCOF/docs/deliverables/D05_orchestration/README.md)
+* [D5 Orchestration Documentation](file:///d:/projects/SCOF_V1/SCOF/docs/v1_mvp/deliverables/D05_orchestration/README.md)

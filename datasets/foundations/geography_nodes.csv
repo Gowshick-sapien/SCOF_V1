@@ -1,0 +1,5 @@
+city_id,district_id,city_name,tier,population
+CTY_CHENNAI,DIST_CHN,Chennai,TIER_1,8000000
+CTY_BLR,DIST_BLR,Bengaluru,TIER_1,12000000
+CTY_MUMBAI,DIST_MUM,Mumbai,TIER_1,15000000
+CTY_HYD,DIST_HYD,Hyderabad,TIER_1,9000000

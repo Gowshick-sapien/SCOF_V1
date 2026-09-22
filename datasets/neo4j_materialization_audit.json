@@ -1,0 +1,849 @@
+{
+  "materialization_timestamp": "2026-09-21T09:52:33.720409",
+  "database_source": "d:\\projects\\SCOF_V1\\SCOF\\datasets\\scof_relational.db",
+  "nodes": {
+    "Party": 230,
+    "Facility": 21,
+    "Party_Role_Assignment": 230,
+    "Identity": 1,
+    "Contact_Point": 1,
+    "Country": 1,
+    "Zone_Macro_Region": 4,
+    "State_Province": 4,
+    "District": 4,
+    "City": 4,
+    "Postal_Area": 4,
+    "Location": 24,
+    "Calendar": 1,
+    "Calendar_Year": 3,
+    "Month": 36,
+    "Week": 157,
+    "Calendar_Date": 1095,
+    "Fiscal_Calendar": 1,
+    "Fiscal_Year": 2,
+    "Fiscal_Quarter": 8,
+    "Fiscal_Period": 24,
+    "Currency": 4,
+    "Unit_of_Measure": 7,
+    "Payment_Terms": 4,
+    "Incoterm": 4,
+    "Tax_Identity": 1,
+    "Merchandise_Department": 12,
+    "Category": 1,
+    "Subcategory": 1,
+    "Product_Family": 1,
+    "Product": 1,
+    "Brand": 2,
+    "SKU": 49616,
+    "Batch": 1,
+    "Lot": 1,
+    "Supplier_Profile": 200,
+    "Carrier_Profile": 25,
+    "Customer_Profile": 1,
+    "Purchase_Order": 15000,
+    "PO_Line": 90227,
+    "Goods_Receipt": 15000,
+    "Goods_Receipt_Line": 72917,
+    "Shipment": 18000,
+    "Shipment_Line": 152876,
+    "Inventory_Position": 99232,
+    "Sales_Transaction": 50000,
+    "Sales_Line": 200035,
+    "Price_Record": 2580032,
+    "Invoice": 65000,
+    "Payment": 65000,
+    "Supplier_Invoice_Line": 66673,
+    "Three_Way_Match_Record": 60965,
+    "GL_Account": 6,
+    "Journal_Entry": 25000,
+    "Journal_Line": 50000,
+    "Event": 174,
+    "Event_Instance": 174,
+    "Demand_Observation": 50000,
+    "Physical_Asset": 150,
+    "Lifecycle_Status_Event": 1
+  },
+  "multi_label_nodes": {
+    "Person:Party": 2,
+    "Organization:Party": 228,
+    "Store:Facility": 16,
+    "Warehouse:Facility": 5,
+    "Supplier_Invoice:Invoice": 65000,
+    "Supplier_Payment:Payment": 65000
+  },
+  "relationships": {
+    "SOURCES": 99232,
+    "ASSORTS": 346238,
+    "SERVICED_BY": 32,
+    "LANE_TO": 35,
+    "IMPACTS": 1107,
+    "INTERACTS_WITH": 1977,
+    "REGIONAL_WEIGHT": 174,
+    "MATCHES_PO": 60965,
+    "MATCHES_RECEIPT": 60965,
+    "MATCHES_INVOICE": 60965,
+    "ALLOCATED_TO": 65000,
+    "PRICED_BY": 200035,
+    "PART_OF": 49616,
+    "BELONGS_TO_FAMILY": 1,
+    "HAS_BRAND": 1,
+    "IN_SUBCATEGORY": 1,
+    "IN_CATEGORY": 1,
+    "IN_DEPARTMENT": 1,
+    "ORDERED_IN": 90227,
+    "FOR_SKU_POLINE": 90227,
+    "RECEIVED_IN": 72917,
+    "FULFILLS_PO_LINE": 72917,
+    "INVOICED_IN": 66673,
+    "INVOICING_PO_LINE": 66673,
+    "PART_OF_TRANSACTION": 200035,
+    "FOR_SKU_SALES": 200035,
+    "LOCATED_AT": 99232,
+    "HOLDS_SKU": 99232,
+    "LINE_OF_JOURNAL": 50000,
+    "POSTED_TO": 50000
+  },
+  "uniqueness_constraints_verified": {
+    "cst_Party_party_id": {
+      "label": "Party",
+      "property": "party_id",
+      "total_nodes": 230,
+      "duplicate_keys": 0,
+      "constraint_satisfied": true
+    },
+    "cst_Party_party_code": {
+      "label": "Party",
+      "property": "party_code",
+      "total_nodes": 230,
+      "duplicate_keys": 0,
+      "constraint_satisfied": true
+    },
+    "cst_Party_Role_Assignment_role_assignment_id": {
+      "label": "Party_Role_Assignment",
+      "property": "role_assignment_id",
+      "total_nodes": 230,
+      "duplicate_keys": 0,
+      "constraint_satisfied": true
+    },
+    "cst_Identity_identity_id": {
+      "label": "Identity",
+      "property": "identity_id",
+      "total_nodes": 1,
+      "duplicate_keys": 0,
+      "constraint_satisfied": true
+    },
+    "cst_Contact_Point_contact_point_id": {
+      "label": "Contact_Point",
+      "property": "contact_point_id",
+      "total_nodes": 1,
+      "duplicate_keys": 0,
+      "constraint_satisfied": true
+    },
+    "cst_Tax_Identity_tax_identity_id": {
+      "label": "Tax_Identity",
+      "property": "tax_identity_id",
+      "total_nodes": 1,
+      "duplicate_keys": 0,
+      "constraint_satisfied": true
+    },
+    "cst_Country_country_id": {
+      "label": "Country",
+      "property": "country_id",
+      "total_nodes": 1,
+      "duplicate_keys": 0,
+      "constraint_satisfied": true
+    },
+    "cst_Zone_Macro_Region_zone_id": {
+      "label": "Zone_Macro_Region",
+      "property": "zone_id",
+      "total_nodes": 4,
+      "duplicate_keys": 0,
+      "constraint_satisfied": true
+    },
+    "cst_State_Province_state_id": {
+      "label": "State_Province",
+      "property": "state_id",
+      "total_nodes": 4,
+      "duplicate_keys": 0,
+      "constraint_satisfied": true
+    },
+    "cst_District_district_id": {
+      "label": "District",
+      "property": "district_id",
+      "total_nodes": 4,
+      "duplicate_keys": 0,
+      "constraint_satisfied": true
+    },
+    "cst_City_city_id": {
+      "label": "City",
+      "property": "city_id",
+      "total_nodes": 4,
+      "duplicate_keys": 0,
+      "constraint_satisfied": true
+    },
+    "cst_Postal_Area_postal_area_id": {
+      "label": "Postal_Area",
+      "property": "postal_area_id",
+      "total_nodes": 4,
+      "duplicate_keys": 0,
+      "constraint_satisfied": true
+    },
+    "cst_Location_location_id": {
+      "label": "Location",
+      "property": "location_id",
+      "total_nodes": 24,
+      "duplicate_keys": 0,
+      "constraint_satisfied": true
+    },
+    "cst_Facility_facility_id": {
+      "label": "Facility",
+      "property": "facility_id",
+      "total_nodes": 21,
+      "duplicate_keys": 0,
+      "constraint_satisfied": true
+    },
+    "cst_Calendar_calendar_id": {
+      "label": "Calendar",
+      "property": "calendar_id",
+      "total_nodes": 1,
+      "duplicate_keys": 0,
+      "constraint_satisfied": true
+    },
+    "cst_Calendar_Year_year_id": {
+      "label": "Calendar_Year",
+      "property": "year_id",
+      "total_nodes": 3,
+      "duplicate_keys": 0,
+      "constraint_satisfied": true
+    },
+    "cst_Month_month_id": {
+      "label": "Month",
+      "property": "month_id",
+      "total_nodes": 36,
+      "duplicate_keys": 0,
+      "constraint_satisfied": true
+    },
+    "cst_Week_week_id": {
+      "label": "Week",
+      "property": "week_id",
+      "total_nodes": 157,
+      "duplicate_keys": 0,
+      "constraint_satisfied": true
+    },
+    "cst_Calendar_Date_date_id": {
+      "label": "Calendar_Date",
+      "property": "date_id",
+      "total_nodes": 1095,
+      "duplicate_keys": 0,
+      "constraint_satisfied": true
+    },
+    "cst_Fiscal_Period_fiscal_period_id": {
+      "label": "Fiscal_Period",
+      "property": "fiscal_period_id",
+      "total_nodes": 24,
+      "duplicate_keys": 0,
+      "constraint_satisfied": true
+    },
+    "cst_Currency_currency_id": {
+      "label": "Currency",
+      "property": "currency_id",
+      "total_nodes": 4,
+      "duplicate_keys": 0,
+      "constraint_satisfied": true
+    },
+    "cst_Unit_of_Measure_uom_id": {
+      "label": "Unit_of_Measure",
+      "property": "uom_id",
+      "total_nodes": 7,
+      "duplicate_keys": 0,
+      "constraint_satisfied": true
+    },
+    "cst_Payment_Terms_payment_term_id": {
+      "label": "Payment_Terms",
+      "property": "payment_term_id",
+      "total_nodes": 4,
+      "duplicate_keys": 0,
+      "constraint_satisfied": true
+    },
+    "cst_Incoterm_incoterm_id": {
+      "label": "Incoterm",
+      "property": "incoterm_id",
+      "total_nodes": 4,
+      "duplicate_keys": 0,
+      "constraint_satisfied": true
+    },
+    "cst_SKU_sku_id": {
+      "label": "SKU",
+      "property": "sku_id",
+      "total_nodes": 49616,
+      "duplicate_keys": 0,
+      "constraint_satisfied": true
+    },
+    "cst_Product_product_id": {
+      "label": "Product",
+      "property": "product_id",
+      "total_nodes": 1,
+      "duplicate_keys": 0,
+      "constraint_satisfied": true
+    },
+    "cst_Product_Family_product_family_id": {
+      "label": "Product_Family",
+      "property": "product_family_id",
+      "total_nodes": 1,
+      "duplicate_keys": 0,
+      "constraint_satisfied": true
+    },
+    "cst_Subcategory_subcategory_id": {
+      "label": "Subcategory",
+      "property": "subcategory_id",
+      "total_nodes": 1,
+      "duplicate_keys": 0,
+      "constraint_satisfied": true
+    },
+    "cst_Category_category_id": {
+      "label": "Category",
+      "property": "category_id",
+      "total_nodes": 1,
+      "duplicate_keys": 0,
+      "constraint_satisfied": true
+    },
+    "cst_Merchandise_Department_department_id": {
+      "label": "Merchandise_Department",
+      "property": "department_id",
+      "total_nodes": 12,
+      "duplicate_keys": 0,
+      "constraint_satisfied": true
+    },
+    "cst_Brand_brand_id": {
+      "label": "Brand",
+      "property": "brand_id",
+      "total_nodes": 2,
+      "duplicate_keys": 0,
+      "constraint_satisfied": true
+    },
+    "cst_Batch_batch_id": {
+      "label": "Batch",
+      "property": "batch_id",
+      "total_nodes": 1,
+      "duplicate_keys": 0,
+      "constraint_satisfied": true
+    },
+    "cst_Lot_lot_id": {
+      "label": "Lot",
+      "property": "lot_id",
+      "total_nodes": 1,
+      "duplicate_keys": 0,
+      "constraint_satisfied": true
+    },
+    "cst_Supplier_Profile_supplier_profile_id": {
+      "label": "Supplier_Profile",
+      "property": "supplier_profile_id",
+      "total_nodes": 200,
+      "duplicate_keys": 0,
+      "constraint_satisfied": true
+    },
+    "cst_Carrier_Profile_carrier_profile_id": {
+      "label": "Carrier_Profile",
+      "property": "carrier_profile_id",
+      "total_nodes": 25,
+      "duplicate_keys": 0,
+      "constraint_satisfied": true
+    },
+    "cst_Customer_Profile_customer_profile_id": {
+      "label": "Customer_Profile",
+      "property": "customer_profile_id",
+      "total_nodes": 1,
+      "duplicate_keys": 0,
+      "constraint_satisfied": true
+    },
+    "cst_Purchase_Order_po_id": {
+      "label": "Purchase_Order",
+      "property": "po_id",
+      "total_nodes": 15000,
+      "duplicate_keys": 0,
+      "constraint_satisfied": true
+    },
+    "cst_PO_Line_po_line_id": {
+      "label": "PO_Line",
+      "property": "po_line_id",
+      "total_nodes": 90227,
+      "duplicate_keys": 0,
+      "constraint_satisfied": true
+    },
+    "cst_Goods_Receipt_goods_receipt_id": {
+      "label": "Goods_Receipt",
+      "property": "goods_receipt_id",
+      "total_nodes": 15000,
+      "duplicate_keys": 0,
+      "constraint_satisfied": true
+    },
+    "cst_Goods_Receipt_Line_gr_line_id": {
+      "label": "Goods_Receipt_Line",
+      "property": "gr_line_id",
+      "total_nodes": 72917,
+      "duplicate_keys": 0,
+      "constraint_satisfied": true
+    },
+    "cst_Shipment_shipment_id": {
+      "label": "Shipment",
+      "property": "shipment_id",
+      "total_nodes": 18000,
+      "duplicate_keys": 0,
+      "constraint_satisfied": true
+    },
+    "cst_Inventory_Position_position_id": {
+      "label": "Inventory_Position",
+      "property": "position_id",
+      "total_nodes": 99232,
+      "duplicate_keys": 0,
+      "constraint_satisfied": true
+    },
+    "cst_Sales_Transaction_transaction_id": {
+      "label": "Sales_Transaction",
+      "property": "transaction_id",
+      "total_nodes": 50000,
+      "duplicate_keys": 0,
+      "constraint_satisfied": true
+    },
+    "cst_Sales_Line_sales_line_id": {
+      "label": "Sales_Line",
+      "property": "sales_line_id",
+      "total_nodes": 200035,
+      "duplicate_keys": 0,
+      "constraint_satisfied": true
+    },
+    "cst_Price_Record_price_record_id": {
+      "label": "Price_Record",
+      "property": "price_record_id",
+      "total_nodes": 2580032,
+      "duplicate_keys": 0,
+      "constraint_satisfied": true
+    },
+    "cst_Invoice_invoice_id": {
+      "label": "Invoice",
+      "property": "invoice_id",
+      "total_nodes": 65000,
+      "duplicate_keys": 0,
+      "constraint_satisfied": true
+    },
+    "cst_Supplier_Invoice_Line_invoice_line_id": {
+      "label": "Supplier_Invoice_Line",
+      "property": "invoice_line_id",
+      "total_nodes": 66673,
+      "duplicate_keys": 0,
+      "constraint_satisfied": true
+    },
+    "cst_Payment_payment_id": {
+      "label": "Payment",
+      "property": "payment_id",
+      "total_nodes": 65000,
+      "duplicate_keys": 0,
+      "constraint_satisfied": true
+    },
+    "cst_Three_Way_Match_Record_match_id": {
+      "label": "Three_Way_Match_Record",
+      "property": "match_id",
+      "total_nodes": 60965,
+      "duplicate_keys": 0,
+      "constraint_satisfied": true
+    },
+    "cst_GL_Account_gl_account_id": {
+      "label": "GL_Account",
+      "property": "gl_account_id",
+      "total_nodes": 6,
+      "duplicate_keys": 0,
+      "constraint_satisfied": true
+    },
+    "cst_Journal_Entry_journal_entry_id": {
+      "label": "Journal_Entry",
+      "property": "journal_entry_id",
+      "total_nodes": 25000,
+      "duplicate_keys": 0,
+      "constraint_satisfied": true
+    },
+    "cst_Journal_Line_journal_line_id": {
+      "label": "Journal_Line",
+      "property": "journal_line_id",
+      "total_nodes": 50000,
+      "duplicate_keys": 0,
+      "constraint_satisfied": true
+    },
+    "cst_Event_event_id": {
+      "label": "Event",
+      "property": "event_id",
+      "total_nodes": 174,
+      "duplicate_keys": 0,
+      "constraint_satisfied": true
+    },
+    "cst_Event_Instance_event_instance_id": {
+      "label": "Event_Instance",
+      "property": "event_instance_id",
+      "total_nodes": 174,
+      "duplicate_keys": 0,
+      "constraint_satisfied": true
+    },
+    "cst_Demand_Observation_observation_id": {
+      "label": "Demand_Observation",
+      "property": "observation_id",
+      "total_nodes": 50000,
+      "duplicate_keys": 0,
+      "constraint_satisfied": true
+    },
+    "cst_Physical_Asset_physical_asset_id": {
+      "label": "Physical_Asset",
+      "property": "physical_asset_id",
+      "total_nodes": 150,
+      "duplicate_keys": 0,
+      "constraint_satisfied": true
+    },
+    "cst_Lifecycle_Status_Event_status_event_id": {
+      "label": "Lifecycle_Status_Event",
+      "property": "status_event_id",
+      "total_nodes": 1,
+      "duplicate_keys": 0,
+      "constraint_satisfied": true
+    }
+  },
+  "sql_graph_identity_parity": {
+    "Party": {
+      "sql_table": "party",
+      "sql_rows": 230,
+      "graph_nodes": 230,
+      "parity_status": "MATCH"
+    },
+    "Party_Role_Assignment": {
+      "sql_table": "party_role_assignment",
+      "sql_rows": 230,
+      "graph_nodes": 230,
+      "parity_status": "MATCH"
+    },
+    "Identity": {
+      "sql_table": "identity",
+      "sql_rows": 1,
+      "graph_nodes": 1,
+      "parity_status": "MATCH"
+    },
+    "Contact_Point": {
+      "sql_table": "contact_point",
+      "sql_rows": 1,
+      "graph_nodes": 1,
+      "parity_status": "MATCH"
+    },
+    "Tax_Identity": {
+      "sql_table": "DERIVED",
+      "sql_rows": 1,
+      "graph_nodes": 1,
+      "parity_status": "MATCH"
+    },
+    "Country": {
+      "sql_table": "country",
+      "sql_rows": 1,
+      "graph_nodes": 1,
+      "parity_status": "MATCH"
+    },
+    "Zone_Macro_Region": {
+      "sql_table": "zone_macro_region",
+      "sql_rows": 4,
+      "graph_nodes": 4,
+      "parity_status": "MATCH"
+    },
+    "State_Province": {
+      "sql_table": "state_province",
+      "sql_rows": 4,
+      "graph_nodes": 4,
+      "parity_status": "MATCH"
+    },
+    "District": {
+      "sql_table": "district",
+      "sql_rows": 4,
+      "graph_nodes": 4,
+      "parity_status": "MATCH"
+    },
+    "City": {
+      "sql_table": "city",
+      "sql_rows": 4,
+      "graph_nodes": 4,
+      "parity_status": "MATCH"
+    },
+    "Postal_Area": {
+      "sql_table": "postal_area",
+      "sql_rows": 4,
+      "graph_nodes": 4,
+      "parity_status": "MATCH"
+    },
+    "Location": {
+      "sql_table": "location",
+      "sql_rows": 24,
+      "graph_nodes": 24,
+      "parity_status": "MATCH"
+    },
+    "Facility": {
+      "sql_table": "facility",
+      "sql_rows": 21,
+      "graph_nodes": 21,
+      "parity_status": "MATCH"
+    },
+    "Calendar": {
+      "sql_table": "calendar",
+      "sql_rows": 1,
+      "graph_nodes": 1,
+      "parity_status": "MATCH"
+    },
+    "Calendar_Year": {
+      "sql_table": "calendar_year",
+      "sql_rows": 3,
+      "graph_nodes": 3,
+      "parity_status": "MATCH"
+    },
+    "Month": {
+      "sql_table": "month",
+      "sql_rows": 36,
+      "graph_nodes": 36,
+      "parity_status": "MATCH"
+    },
+    "Week": {
+      "sql_table": "week",
+      "sql_rows": 157,
+      "graph_nodes": 157,
+      "parity_status": "MATCH"
+    },
+    "Calendar_Date": {
+      "sql_table": "calendar_date",
+      "sql_rows": 1095,
+      "graph_nodes": 1095,
+      "parity_status": "MATCH"
+    },
+    "Fiscal_Period": {
+      "sql_table": "fiscal_period",
+      "sql_rows": 24,
+      "graph_nodes": 24,
+      "parity_status": "MATCH"
+    },
+    "Currency": {
+      "sql_table": "currency",
+      "sql_rows": 4,
+      "graph_nodes": 4,
+      "parity_status": "MATCH"
+    },
+    "Unit_of_Measure": {
+      "sql_table": "unit_of_measure",
+      "sql_rows": 7,
+      "graph_nodes": 7,
+      "parity_status": "MATCH"
+    },
+    "Payment_Terms": {
+      "sql_table": "payment_terms",
+      "sql_rows": 4,
+      "graph_nodes": 4,
+      "parity_status": "MATCH"
+    },
+    "Incoterm": {
+      "sql_table": "incoterm",
+      "sql_rows": 4,
+      "graph_nodes": 4,
+      "parity_status": "MATCH"
+    },
+    "SKU": {
+      "sql_table": "sku",
+      "sql_rows": 49616,
+      "graph_nodes": 49616,
+      "parity_status": "MATCH"
+    },
+    "Product": {
+      "sql_table": "product",
+      "sql_rows": 1,
+      "graph_nodes": 1,
+      "parity_status": "MATCH"
+    },
+    "Product_Family": {
+      "sql_table": "product_family",
+      "sql_rows": 1,
+      "graph_nodes": 1,
+      "parity_status": "MATCH"
+    },
+    "Subcategory": {
+      "sql_table": "subcategory",
+      "sql_rows": 1,
+      "graph_nodes": 1,
+      "parity_status": "MATCH"
+    },
+    "Category": {
+      "sql_table": "category",
+      "sql_rows": 1,
+      "graph_nodes": 1,
+      "parity_status": "MATCH"
+    },
+    "Merchandise_Department": {
+      "sql_table": "merchandise_department",
+      "sql_rows": 12,
+      "graph_nodes": 12,
+      "parity_status": "MATCH"
+    },
+    "Brand": {
+      "sql_table": "brand",
+      "sql_rows": 2,
+      "graph_nodes": 2,
+      "parity_status": "MATCH"
+    },
+    "Batch": {
+      "sql_table": "batch",
+      "sql_rows": 1,
+      "graph_nodes": 1,
+      "parity_status": "MATCH"
+    },
+    "Lot": {
+      "sql_table": "lot",
+      "sql_rows": 1,
+      "graph_nodes": 1,
+      "parity_status": "MATCH"
+    },
+    "Supplier_Profile": {
+      "sql_table": "supplier_profile",
+      "sql_rows": 200,
+      "graph_nodes": 200,
+      "parity_status": "MATCH"
+    },
+    "Carrier_Profile": {
+      "sql_table": "carrier_profile",
+      "sql_rows": 25,
+      "graph_nodes": 25,
+      "parity_status": "MATCH"
+    },
+    "Customer_Profile": {
+      "sql_table": "customer_profile",
+      "sql_rows": 1,
+      "graph_nodes": 1,
+      "parity_status": "MATCH"
+    },
+    "Purchase_Order": {
+      "sql_table": "purchase_order",
+      "sql_rows": 15000,
+      "graph_nodes": 15000,
+      "parity_status": "MATCH"
+    },
+    "PO_Line": {
+      "sql_table": "po_line",
+      "sql_rows": 90227,
+      "graph_nodes": 90227,
+      "parity_status": "MATCH"
+    },
+    "Goods_Receipt": {
+      "sql_table": "goods_receipt",
+      "sql_rows": 15000,
+      "graph_nodes": 15000,
+      "parity_status": "MATCH"
+    },
+    "Goods_Receipt_Line": {
+      "sql_table": "goods_receipt_line",
+      "sql_rows": 72917,
+      "graph_nodes": 72917,
+      "parity_status": "MATCH"
+    },
+    "Shipment": {
+      "sql_table": "shipment",
+      "sql_rows": 18000,
+      "graph_nodes": 18000,
+      "parity_status": "MATCH"
+    },
+    "Inventory_Position": {
+      "sql_table": "inventory_position",
+      "sql_rows": 99232,
+      "graph_nodes": 99232,
+      "parity_status": "MATCH"
+    },
+    "Sales_Transaction": {
+      "sql_table": "sales_transaction",
+      "sql_rows": 50000,
+      "graph_nodes": 50000,
+      "parity_status": "MATCH"
+    },
+    "Sales_Line": {
+      "sql_table": "sales_line",
+      "sql_rows": 200035,
+      "graph_nodes": 200035,
+      "parity_status": "MATCH"
+    },
+    "Price_Record": {
+      "sql_table": "price_record",
+      "sql_rows": 2580032,
+      "graph_nodes": 2580032,
+      "parity_status": "MATCH"
+    },
+    "Invoice": {
+      "sql_table": "invoice",
+      "sql_rows": 65000,
+      "graph_nodes": 65000,
+      "parity_status": "MATCH"
+    },
+    "Supplier_Invoice_Line": {
+      "sql_table": "supplier_invoice_line",
+      "sql_rows": 66673,
+      "graph_nodes": 66673,
+      "parity_status": "MATCH"
+    },
+    "Payment": {
+      "sql_table": "payment",
+      "sql_rows": 65000,
+      "graph_nodes": 65000,
+      "parity_status": "MATCH"
+    },
+    "Three_Way_Match_Record": {
+      "sql_table": "three_way_match_record",
+      "sql_rows": 60965,
+      "graph_nodes": 60965,
+      "parity_status": "MATCH"
+    },
+    "GL_Account": {
+      "sql_table": "gl_account",
+      "sql_rows": 6,
+      "graph_nodes": 6,
+      "parity_status": "MATCH"
+    },
+    "Journal_Entry": {
+      "sql_table": "journal_entry",
+      "sql_rows": 25000,
+      "graph_nodes": 25000,
+      "parity_status": "MATCH"
+    },
+    "Journal_Line": {
+      "sql_table": "journal_line",
+      "sql_rows": 50000,
+      "graph_nodes": 50000,
+      "parity_status": "MATCH"
+    },
+    "Event": {
+      "sql_table": "event",
+      "sql_rows": 174,
+      "graph_nodes": 174,
+      "parity_status": "MATCH"
+    },
+    "Event_Instance": {
+      "sql_table": "event_instance",
+      "sql_rows": 174,
+      "graph_nodes": 174,
+      "parity_status": "MATCH"
+    },
+    "Demand_Observation": {
+      "sql_table": "demand_observation",
+      "sql_rows": 50000,
+      "graph_nodes": 50000,
+      "parity_status": "MATCH"
+    },
+    "Physical_Asset": {
+      "sql_table": "physical_asset",
+      "sql_rows": 150,
+      "graph_nodes": 150,
+      "parity_status": "MATCH"
+    },
+    "Lifecycle_Status_Event": {
+      "sql_table": "lifecycle_status_event",
+      "sql_rows": 1,
+      "graph_nodes": 1,
+      "parity_status": "MATCH"
+    }
+  },
+  "status": "CERTIFIED",
+  "total_nodes": 3728199,
+  "total_edges": 2104514,
+  "elapsed_seconds": 125.84
+}
