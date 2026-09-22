@@ -1,10 +1,6 @@
 # ADR 015: Tripartite State Isolation for Benchmark and Simulation Integrity
 
 * **Status**: Accepted
-* **Date**: 2026-09-22
-* **Deciders**: SCOF Core Architecture Team
-* **Consulted**: Evaluation Leads, Simulation Engineers
-* **Informed**: Engineering Organization
 
 ---
 

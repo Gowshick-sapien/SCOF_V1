@@ -1,10 +1,6 @@
 # ADR 014: Materialized Graph Projection and Bounded Query Contracts
 
 * **Status**: Accepted (Amends ADR 007)
-* **Date**: 2026-09-22
-* **Deciders**: SCOF Core Architecture Team
-* **Consulted**: Knowledge Graph Engineers, Agent Framework Specialists
-* **Informed**: Engineering Organization
 
 ---
 

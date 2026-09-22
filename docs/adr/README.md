@@ -37,9 +37,17 @@ These decisions govern the industrial-scale expansion over the 30-domain, 49.6K 
 | **[ADR 016](./016_declarative_domain_binding_profiles.md)** | Declarative Domain Binding Profiles | **Accepted** | Operational subset scoping over dataset | Domain Binding Profile Contract |
 | **[ADR 017](./017_decoupling_data_domains_from_agent_roster.md)** | Decoupling Data Domains from Agent Roster | **Accepted** | 30 data domains $\ne$ 30 agents | 4 Core Operational Specialists |
 | **[ADR 018](./018_cognitive_twin_service_substrate.md)** | Cognitive Twin Service Substrate | **Accepted** | Simulation, lineage, 3-way match, ledger | `twin_service.py` Service Layer |
+| **[ADR 019](./019_operational_digital_twin_substrate_layer.md)** | Operational Digital Twin Substrate Layer | **Accepted** | Authoritative cyber-physical state layer | Operational Substrate Above D1/D2 |
+| **[ADR 020](./020_tri_zone_query_routing_and_deeper_resolver.md)** | Tri-Zone Query Routing & Deeper Resolver | **Accepted** | Cognitive routing, intent disambiguation | Fast-Path + Deeper Resolver + Fallback |
+| **[ADR 021](./021_dynamic_capability_registry_over_static_mcp_endpoints.md)** | Dynamic Capability Registry Over Static MCP | **Accepted** | Dynamic discovery, bounded MCP binding | Declarative Capability Cards |
+| **[ADR 022](./022_minimalist_bounded_worker_concurrency.md)** | Minimalist Bounded Worker Concurrency | **Accepted** | Resource containment, predictable latency | 4-Tier Priority Queue + Worker Pool |
+| **[ADR 023](./023_event_stepped_simulation_kernel_over_fixed_tick_daemon.md)** | Event-Stepped Simulation Kernel | **Accepted** | Discrete-event clock advance, 100% replay | Event-Stepped DES Engine |
+| **[ADR 024](./024_immutable_neo4j_topology_with_in_memory_scenario_overlays.md)** | Immutable Neo4j Topology with Overlays | **Accepted** | Zero graph pollution, concurrent branching | In-Memory Graph Perturbation Masks |
+| **[ADR 025](./025_five_tier_state_hierarchy_and_actuation_boundaries.md)** | Five-Tier State Hierarchy & Actuation | **Accepted** | Strict separation of facts vs simulations | 5 Tiers + Gated HITL Actuation |
 
 ---
 
 ## Template
 
 All future architectural changes should follow the standard [ADR Template](./template.md).
+

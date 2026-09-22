@@ -1,10 +1,6 @@
 # ADR 016: Declarative Domain Binding Profiles over Procedural World Generators
 
 * **Status**: Accepted (Amends ADR 009)
-* **Date**: 2026-09-22
-* **Deciders**: SCOF Core Architecture Team
-* **Consulted**: Systems Architects, Domain Engineers
-* **Informed**: Engineering Organization
 
 ---
 

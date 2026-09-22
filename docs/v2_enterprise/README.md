@@ -19,6 +19,15 @@ docs/v2_enterprise/
 ├── README.md                              # This master document
 ├── scof_v2_architecture_evolution.md      # Detailed V1-to-V2 transformation report
 │
+├── architecture/                          # Core Subsystem Architecture Specifications
+│   ├── README.md                          # Subsystem matrix & interaction flow
+│   ├── 01_digital_twin_service_architecture.md
+│   ├── 02_cognitive_query_routing_and_resolution_pipeline.md
+│   ├── 03_dynamic_capability_registry.md
+│   ├── 04_minimalist_concurrency_and_worker_pool.md
+│   ├── 05_state_isolation_and_evidence_fabric.md
+│   └── 06_subsystem_boundaries_and_orchestration_contracts.md
+│
 ├── dataset/                               # Authoritative Dataset Architecture & Specs
 │   ├── SCOF_Enterprise_Dataset_Architecture_and_Implementation_Report.md
 │   ├── SCOF_Dataset_Files_Big_Picture_Understanding_Document.md
@@ -40,7 +49,7 @@ docs/v2_enterprise/
 │
 ├── deliverables/                          # V2 Deliverable Evolution Blueprints (D1–D11)
 │   ├── D01_enterprise_simulation_foundation.md
-│   ├── D02_enterprise_knowledge_fabric.md
+│   ├── D02_knowledge_fabric.md
 │   ├── D03_demand_inventory_agents_v2.md
 │   ├── D04_supplier_transport_agents_v2.md
 │   ├── D05_orchestration_kernel_v2.md
@@ -52,6 +61,8 @@ docs/v2_enterprise/
 │   └── D11_post_mvp_extensions_v2.md
 │
 ├── contracts/                             # Machine-Readable Interface Contracts
+│   ├── twin_service_api_spec.md
+│   ├── capability_registry_spec.md
 │   ├── structured_claim_contract.md
 │   ├── agent_card_spec.md
 │   └── bounded_mcp_tools_spec.md
@@ -61,6 +72,7 @@ docs/v2_enterprise/
     ├── research_questions_v2.md
     └── benchmark_methodology.md
 ```
+
 
 ---
 

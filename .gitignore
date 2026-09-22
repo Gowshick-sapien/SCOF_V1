@@ -91,3 +91,7 @@ datasets/weekly_demand_history_v2.csv
 
 # Derived Neo4j LOAD CSV materialized export files (430 MB)
 datasets/neo4j_graph/
+
+
+# ME AND AI - TWIN SERVICES CONVO 
+docs/v2_enterprise/research/TWIN_SERVICES_CONVO.md

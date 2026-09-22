@@ -1,10 +1,6 @@
 # ADR 018: Cognitive Twin Service Layer as Programmatic Simulation and Audit Substrate
 
 * **Status**: Accepted
-* **Date**: 2026-09-22
-* **Deciders**: SCOF Core Architecture Team
-* **Consulted**: Systems Architects, Simulation Engineers
-* **Informed**: Engineering Organization
 
 ---
 

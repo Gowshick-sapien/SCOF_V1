@@ -104,6 +104,74 @@ A critical principle for V2 is that the **30 business domains represent the ente
 
 ---
 
+### 3.5 Digital Twin Architecture: Cyber-Physical State Authority
+A foundational decision established during V2 evolution is positioning the Digital Twin Service as an **Operational World and Simulation Layer Above D1 and D2** ([ADR 019](file:///d:/projects/SCOF_V1/SCOF/docs/adr/019_operational_digital_twin_substrate_layer.md)):
+
+* **D1 (World Foundation)** owns the enterprise dataset, schema manifests, and generation provenance.
+* **D2 (Knowledge Fabric)** owns authoritative enterprise storage (PostgreSQL System of Record, Neo4j Topology, pgvector Semantic Memory).
+* **The Twin** turns data into an operationally meaningful, scenario-aware cyber-physical world. It executes forward propagation along event timelines, enforces physical invariants (conservation of mass, capacity, lead-time causality), and forks isolated counterfactual branches.
+* **Subsystem Boundaries:** The Twin owns simulation state and physics; it does **NOT** own agent orchestration (owned by LangGraph) or consensus arbitration (owned by CD²F).
+* **Event-Stepped DES Kernel:** Rather than running an expensive continuous fixed-tick clock, the Twin advances state deterministically from event to event along discrete event timelines ([ADR 023](file:///d:/projects/SCOF_V1/SCOF/docs/adr/023_event_stepped_simulation_kernel_over_fixed_tick_daemon.md)).
+
+Detailed Specification: [Digital Twin Service Architecture](file:///d:/projects/SCOF_V1/SCOF/docs/v2_enterprise/architecture/01_digital_twin_service_architecture.md).
+
+---
+
+### 3.6 Tri-Zone Cognitive Query Routing & Dynamic Capability Registry
+To prevent the Twin from becoming a congested query bottleneck, operations are segregated into three distinct classes ([ADR 020](file:///d:/projects/SCOF_V1/SCOF/docs/adr/020_tri_zone_query_routing_and_deeper_resolver.md)):
+1. **Class A (Direct Read-Only Facts):** Direct queries against PostgreSQL and Neo4j via bounded MCP tools ($< 50\text{ ms}$). Bypasses the Twin completely.
+2. **Class B (Derived Analytics & Forecasts):** Statistical ensembling and ML forecasting ($< 250\text{ ms}$).
+3. **Class C (Counterfactual Simulation):** State forward propagation, asset disruption testing, and intervention delta evaluation in the Twin ($< 500\text{ ms}$).
+
+The **Tri-Zone Cognitive Router** governs execution:
+* **Zone 1 (Fast-Path Router):** High-confidence ($c \ge 0.85$) deterministic signature matching executing in $< 10\text{ ms}$.
+* **Zone 2 (Ambiguous-Path Deeper Resolver):** Triggered when $0.50 \le c < 0.85$ to disambiguate intent, resolve entity bindings, and synthesize parameters.
+* **Zone 3 (Fallback Handler):** Triggered when $c < 0.50$ to emit structured clarification requests and log routing anomalies.
+
+**Dynamic Capability Registry ([ADR 021](file:///d:/projects/SCOF_V1/SCOF/docs/adr/021_dynamic_capability_registry_over_static_mcp_endpoints.md)):** Replaces brittle manual tool enumeration. Service providers register declarative Capability Cards. The registry dynamically mounts only the 3–5 most relevant bounded tools into each agent prompt, reducing prompt tokens by $91\%$.
+
+Detailed Specifications: [Cognitive Query Routing](file:///d:/projects/SCOF_V1/SCOF/docs/v2_enterprise/architecture/02_cognitive_query_routing_and_resolution_pipeline.md) and [Dynamic Capability Registry](file:///d:/projects/SCOF_V1/SCOF/docs/v2_enterprise/architecture/03_dynamic_capability_registry.md).
+
+---
+
+### 3.7 Minimalist Concurrency Model: Priority Queue & Bounded Worker Pool
+To handle concurrent multi-agent simulation inquiries without over-engineering complex scheduling machinery, SCOF adopts a minimalist concurrency architecture ([ADR 022](file:///d:/projects/SCOF_V1/SCOF/docs/adr/022_minimalist_bounded_worker_concurrency.md)):
+* **4-Tier Priority Queue:**
+  * **P0 (Emergency):** System telemetry threshold alerts and critical asset breakdown interrupts.
+  * **P1 (Consensus Deliberation):** CD²F arbitration queries evaluating final trade-offs.
+  * **P2 (Agent Deliberation):** Routine specialist agent what-if explorations.
+  * **P3 (Background Evaluation):** Batch benchmark runs and long-horizon risk heatmaps.
+* **Bounded Worker Pool:** Fixed concurrency ($W = 4..8$ workers) processing tasks FIFO within each tier, guaranteeing complete resource containment.
+* **In-Memory Scenario Overlays:** Non-blocking Day-0 baseline reads with branch-local copy-on-write overlays ensuring zero lock contention.
+
+Detailed Specification: [Minimalist Concurrency & Worker Pool Architecture](file:///d:/projects/SCOF_V1/SCOF/docs/v2_enterprise/architecture/04_minimalist_concurrency_and_worker_pool.md).
+
+---
+
+### 3.8 Five-Tier State Hierarchy & Actuation Boundaries
+SCOF eliminates ambiguity across facts, baselines, simulations, claims, and decisions by enforcing a five-tier state hierarchy ([ADR 025](file:///d:/projects/SCOF_V1/SCOF/docs/adr/025_five_tier_state_hierarchy_and_actuation_boundaries.md)):
+1. **Tier 1 (Historical Fact):** Frozen ground truth sealed with SHA-256 digests.
+2. **Tier 2 (Baseline Current State):** Active Day-0 relational state and immutable Neo4j topology.
+3. **Tier 3 (Scenario Projection):** Simulated Layer 3 sandbox state overlays.
+4. **Tier 4 (Agent Recommendation):** Structured claims emitted by specialist agents.
+5. **Tier 5 (CD²F Decision):** Approved cross-domain consensus outcome.
+
+**Actuation Boundary:** Applying an approved decision to Tier 3 modifies simulation sandbox state only. Real-world actuation (ERP PO creation, EDI freight booking) requires Human-in-the-Loop authorization via the Tauri v2 Desktop Operations Console (D09) and execution via isolated Execution Adapters.
+
+Detailed Specification: [State Isolation & Evidence Fabric Architecture](file:///d:/projects/SCOF_V1/SCOF/docs/v2_enterprise/architecture/05_state_isolation_and_evidence_fabric.md).
+
+---
+
+### 3.9 Explicitly Rejected Architectural Anti-Patterns
+To preserve engineering discipline and prevent architectural drift, the following patterns are explicitly rejected:
+1. **Continuous Real-Time Tick Daemon:** Supply chains operate via discrete events; continuous ticking introduces idle CPU burn and clock drift ([ADR 023](file:///d:/projects/SCOF_V1/SCOF/docs/adr/023_event_stepped_simulation_kernel_over_fixed_tick_daemon.md)).
+2. **Direct Graph Mutations in Production Neo4j:** Runtime scenario perturbations must never write dirty edges or properties to Neo4j. Overlays are held in memory ([ADR 024](file:///d:/projects/SCOF_V1/SCOF/docs/adr/024_immutable_neo4j_topology_with_in_memory_scenario_overlays.md)).
+3. **Twin-as-Monolithic-Gateway:** Routing all queries through the Twin causes severe latency degradation and bottlenecks ([ADR 019](file:///d:/projects/SCOF_V1/SCOF/docs/adr/019_operational_digital_twin_substrate_layer.md), [ADR 020](file:///d:/projects/SCOF_V1/SCOF/docs/adr/020_tri_zone_query_routing_and_deeper_resolver.md)).
+4. **Static Tool Signature Sprawl:** Hardcoding 50+ domain-specific MCP endpoints dilutes prompt context and causes tool call errors ([ADR 021](file:///d:/projects/SCOF_V1/SCOF/docs/adr/021_dynamic_capability_registry_over_static_mcp_endpoints.md)).
+5. **Direct Automated ERP Actuation:** Autonomous un-gated physical writes to production ERP systems violate enterprise risk boundaries ([ADR 025](file:///d:/projects/SCOF_V1/SCOF/docs/adr/025_five_tier_state_hierarchy_and_actuation_boundaries.md)).
+
+---
+
 ## 4. Deliverable-by-Deliverable Transformation Matrix (D1 to D11)
 
 ### Deliverable D1: Enterprise World & Simulation Foundation

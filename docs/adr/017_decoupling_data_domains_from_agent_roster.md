@@ -1,10 +1,6 @@
 # ADR 017: Decoupling Enterprise Data Domains from Multi-Agent Operational Roster
 
 * **Status**: Accepted
-* **Date**: 2026-09-22
-* **Deciders**: SCOF Core Architecture Team
-* **Consulted**: Multi-Agent Systems Leads, Domain Specialists
-* **Informed**: Engineering Organization
 
 ---
 

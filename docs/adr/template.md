@@ -1,10 +1,6 @@
 # ADR Template: [Short Title of Solved Problem]
 
 * **Status**: [Proposed | Accepted | Superseded | Deprecated]
-* **Date**: [YYYY-MM-DD]
-* **Deciders**: [Architects, Technical Leads]
-* **Consulted**: [Team Members, Domain Specialists]
-* **Informed**: [Engineering Organization]
 
 ---
 

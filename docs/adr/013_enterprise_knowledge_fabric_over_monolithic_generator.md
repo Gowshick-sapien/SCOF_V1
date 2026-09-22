@@ -1,10 +1,6 @@
 # ADR 013: Enterprise Knowledge Fabric over Monolithic Synthetic Generator
 
 * **Status**: Accepted (Supersedes V1 D01/D02 Toy Generator Scope)
-* **Date**: 2026-09-22
-* **Deciders**: SCOF Core Architecture Team
-* **Consulted**: Systems Engineering, Data Engineering Leads
-* **Informed**: Engineering Organization
 
 ---
 

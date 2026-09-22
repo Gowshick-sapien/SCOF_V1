@@ -41,7 +41,7 @@ SCOF/
     README.md                               # Master Documentation Navigation Portal
     repository_structure.md                 # This document
 
-    adr/                                    # Master Architecture Decision Records (Sequential 001 - 018+)
+    adr/                                    # Master Architecture Decision Records (Sequential 001 - 025+)
        README.md                            # ADR Registry & Status Matrix
        template.md                          # Standard ADR Template
        001_langgraph_orchestration_kernel.md # V1: LangGraph StateGraph selection
@@ -62,6 +62,13 @@ SCOF/
        016_declarative_domain_binding_profiles.md # V2: Declarative Domain Binding Profiles
        017_decoupling_data_domains_from_agent_roster.md # V2: 30 Data Domains != 30 Agents (4 Specialists)
        018_cognitive_twin_service_substrate.md # V2: Cognitive Twin Service Layer (`twin_service.py`)
+       019_operational_digital_twin_substrate_layer.md # V2: Operational Digital Twin Substrate Layer
+       020_tri_zone_query_routing_and_deeper_resolver.md # V2: Tri-Zone Router & Deeper Resolver Pipeline
+       021_dynamic_capability_registry_over_static_mcp_endpoints.md # V2: Dynamic Capability Cards & Tool Synthesis
+       022_minimalist_bounded_worker_concurrency.md # V2: 4-Tier Priority Queue & Bounded Worker Pool
+       023_event_stepped_simulation_kernel_over_fixed_tick_daemon.md # V2: Event-Stepped DES Engine
+       024_immutable_neo4j_topology_with_in_memory_scenario_overlays.md # V2: Immutable Graph & Scenario Overlays
+       025_five_tier_state_hierarchy_and_actuation_boundaries.md # V2: 5 State Tiers & Gated HITL Actuation
 
     v1_mvp/                                 # TRACK 1: FROZEN V1 MVP BASELINE (Historical Reference)
        README.md                            # Track 1 Overview & Verification Status
@@ -86,6 +93,14 @@ SCOF/
     v2_enterprise/                          # TRACK 2: ACTIVE V2 ENTERPRISE EXPANSION
        README.md                            # Track 2 Master Overview & Architecture
        scof_v2_architecture_evolution.md    # Detailed V1-to-V2 Transformation Report
+       architecture/                        # Core Subsystem Architecture Specifications
+          README.md                         # Subsystem matrix & interaction flow
+          01_digital_twin_service_architecture.md
+          02_cognitive_query_routing_and_resolution_pipeline.md
+          03_dynamic_capability_registry.md
+          04_minimalist_concurrency_and_worker_pool.md
+          05_state_isolation_and_evidence_fabric.md
+          06_subsystem_boundaries_and_orchestration_contracts.md
        dataset/                             # Enterprise Dataset Architecture & Specs
           SCOF_Enterprise_Dataset_Architecture_and_Implementation_Report.md
           SCOF_Dataset_Files_Big_Picture_Understanding_Document.md
@@ -107,8 +122,20 @@ SCOF/
           README.md
           D01_enterprise_simulation_foundation.md
           D02_knowledge_fabric.md
+          D03_demand_inventory_agents_v2.md
+          D04_supplier_transport_agents_v2.md
+          D05_orchestration_kernel_v2.md
+          D06_cd2f_consensus_v2.md
+          D07_observability_explainability_v2.md
+          D08_api_event_bus_v2.md
+          D09_desktop_console_v2.md
+          D10_benchmarking_evaluation_v2.md
+          D11_post_mvp_extensions_v2.md
        contracts/                           # Machine-Readable Interface Contracts
+          twin_service_api_spec.md
+          capability_registry_spec.md
           structured_claim_contract.md
+          agent_card_spec.md
           bounded_mcp_tools_spec.md
        research/                            # Academic & Research Foundations
           understanding_cognitive_twin_service.md
