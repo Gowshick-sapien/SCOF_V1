@@ -1,6 +1,9 @@
-# ADR 010: Real-Time State Caching & WebSockets — Redis vs. Direct PostgreSQL Polling
+ADR 019: Real-Time State Caching & WebSockets -- Redis vs. Direct PostgreSQL Polling
+
+* **Status**: Accepted
 
 ---
+
 
 ## 1. Context and Problem Statement
 
@@ -32,7 +35,7 @@ If the desktop application polls PostgreSQL relational tables every second (or h
 
 ## 4. Decision Outcome
 
-**Chosen Option**: **Option 3 — Redis 7 In-Memory Store**
+**Chosen Option**: **Option 3 -- Redis 7 In-Memory Store**
 
 ### Rationale:
 1. **Sub-Millisecond Ephemeral Caching**:
@@ -70,5 +73,5 @@ If the desktop application polls PostgreSQL relational tables every second (or h
 
 ## 7. Related Decisions & Artifacts
 
-* [ADR 002: Message Streaming Bus Selection (Kafka)](./002_apache_kafka_event_streaming.md)
-* [ADR 008: Desktop Operations Console Architecture](./008_tauri_v2_desktop_operations_console.md)
+* [ADR ADR 018: Message Streaming Bus Selection (Kafka)](./018_apache_kafka_event_streaming.md)
+* [ADR ADR 020: Desktop Operations Console Architecture](./020_tauri_v2_desktop_operations_console.md)

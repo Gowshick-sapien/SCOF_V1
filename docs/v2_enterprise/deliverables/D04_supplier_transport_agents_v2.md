@@ -53,6 +53,6 @@ When an upstream disruption occurs (e.g., Supplier `SUP-0042` declares force maj
 ## 5. Acceptance Criteria & Verification Evidence
 
 1. **Vendor Resilience Gate:** Automated dual-sourcing rebalances order shortfalls within $\le 1.2\text{ s}$ of supplier disruption injection.
-2. **Graph Traversal Gate:** Bounded alternate route queries over the 3.73M-node Neo4j graph return viable paths in $< 50\text{ ms}$ (ADR 014).
+2. **Graph Traversal Gate:** Bounded alternate route queries over the 3.73M-node Neo4j graph return viable paths in $< 50\text{ ms}$ (ADR ADR 005 (Amendment)).
 3. **Contract Adherence Gate:** 100% of generated purchase claims honor minimum order quantities and supplier payment terms.
 4. **Contract Compliance Gate:** All outputs conform to [`structured_claim_contract.md`](file:///d:/projects/SCOF_V1/SCOF/docs/v2_enterprise/contracts/structured_claim_contract.md).

@@ -12,14 +12,14 @@ The original V1 documents and deliverables remain preserved as the foundational 
 
 | Dimension | V1 MVP Architecture | V2 Enterprise Cognitive Twin Architecture |
 | :--- | :--- | :--- |
-| **Enterprise Scale** | 1 manufacturer, 5 suppliers, 2 warehouses, 1 DC, 3–5 products. | 200 suppliers, 21 facilities (5 DCs, 16 stores), 49,616 SKUs, 346,238 assortments, 18M demand rows. |
+| **Enterprise Scale** | 1 manufacturer, 5 suppliers, 2 warehouses, 1 DC, 3-5 products. | 200 suppliers, 21 facilities (5 DCs, 16 stores), 49,616 SKUs, 346,238 assortments, 18M demand rows. |
 | **Role of D1** | Monolithic generator creating toy synthetic profiles. | **Enterprise World & Simulation Foundation**: Dataset provenance, versioned manifests, baseline state, and isolated scenario injection. |
 | **Role of D2** | Basic ETL pipeline loading PostgreSQL, Neo4j, and pgvector. | **Enterprise Knowledge & Data Fabric**: Clear separation of concerns (PostgreSQL = System of Record, Neo4j = Materialized Topology Projection, pgvector = Semantic Projection). |
 | **Domain Profiles** | Procedural script inputs ("generate 5 suppliers and 2 warehouses"). | **Declarative Operational Bindings**: "This SCOF deployment operates over this specific enterprise dataset and active operational subset." |
 | **Graph Model Role** | Second operational database storing state and facts. | **Materialized Topology & Traversal Engine**: Bounded graph traversals for structural dependencies; transactions and facts remain in PostgreSQL. |
 | **State Mutation** | In-place state modification during simulations. | **Strict Tripartite Isolation**: Layer 1 (Frozen Ground Truth) $\to$ Layer 2 (Baseline State) $\to$ Layer 3 (Isolated Scenario Snapshots). |
 | **Domain Identity** | Mixed terminology (retail mart, shopping mall, multi-billion conglomerate). | **SCOF Retail Enterprise Reference World**: Single unified enterprise ontology with hierarchical operational tiers. |
-| **Domain vs. Agent Mapping** | Implied 1:1 coupling (e.g., Finance domain implies Finance agent). | **Many-to-Many Decoupling**: 30 business domains form the data ontology; 4–5 federated specialist agents consume multiple domains. |
+| **Domain vs. Agent Mapping** | Implied 1:1 coupling (e.g., Finance domain implies Finance agent). | **Many-to-Many Decoupling**: 30 business domains form the data ontology; 4-5 federated specialist agents consume multiple domains. |
 
 ---
 
@@ -105,20 +105,20 @@ A critical principle for V2 is that the **30 business domains represent the ente
 ---
 
 ### 3.5 Digital Twin Architecture: Cyber-Physical State Authority
-A foundational decision established during V2 evolution is positioning the Digital Twin Service as an **Operational World and Simulation Layer Above D1 and D2** ([ADR 019](file:///d:/projects/SCOF_V1/SCOF/docs/adr/019_operational_digital_twin_substrate_layer.md)):
+A foundational decision established during V2 evolution is positioning the Digital Twin Service as an **Operational World and Simulation Layer Above D1 and D2** ([ADR ADR 008](file:///d:/projects/SCOF_V1/SCOF/docs/adr/008_operational_digital_twin_substrate_layer.md)):
 
 * **D1 (World Foundation)** owns the enterprise dataset, schema manifests, and generation provenance.
 * **D2 (Knowledge Fabric)** owns authoritative enterprise storage (PostgreSQL System of Record, Neo4j Topology, pgvector Semantic Memory).
 * **The Twin** turns data into an operationally meaningful, scenario-aware cyber-physical world. It executes forward propagation along event timelines, enforces physical invariants (conservation of mass, capacity, lead-time causality), and forks isolated counterfactual branches.
-* **Subsystem Boundaries:** The Twin owns simulation state and physics; it does **NOT** own agent orchestration (owned by LangGraph) or consensus arbitration (owned by CD²F).
-* **Event-Stepped DES Kernel:** Rather than running an expensive continuous fixed-tick clock, the Twin advances state deterministically from event to event along discrete event timelines ([ADR 023](file:///d:/projects/SCOF_V1/SCOF/docs/adr/023_event_stepped_simulation_kernel_over_fixed_tick_daemon.md)).
+* **Subsystem Boundaries:** The Twin owns simulation state and physics; it does **NOT** own agent orchestration (owned by LangGraph) or consensus arbitration (owned by CD2F).
+* **Event-Stepped DES Kernel:** Rather than running an expensive continuous fixed-tick clock, the Twin advances state deterministically from event to event along discrete event timelines ([ADR ADR 010](file:///d:/projects/SCOF_V1/SCOF/docs/adr/010_event_stepped_simulation_kernel_over_fixed_tick_daemon.md)).
 
 Detailed Specification: [Digital Twin Service Architecture](file:///d:/projects/SCOF_V1/SCOF/docs/v2_enterprise/architecture/01_digital_twin_service_architecture.md).
 
 ---
 
 ### 3.6 Tri-Zone Cognitive Query Routing & Dynamic Capability Registry
-To prevent the Twin from becoming a congested query bottleneck, operations are segregated into three distinct classes ([ADR 020](file:///d:/projects/SCOF_V1/SCOF/docs/adr/020_tri_zone_query_routing_and_deeper_resolver.md)):
+To prevent the Twin from becoming a congested query bottleneck, operations are segregated into three distinct classes ([ADR ADR 013](file:///d:/projects/SCOF_V1/SCOF/docs/adr/013_tri_zone_query_routing_and_deeper_resolver.md)):
 1. **Class A (Direct Read-Only Facts):** Direct queries against PostgreSQL and Neo4j via bounded MCP tools ($< 50\text{ ms}$). Bypasses the Twin completely.
 2. **Class B (Derived Analytics & Forecasts):** Statistical ensembling and ML forecasting ($< 250\text{ ms}$).
 3. **Class C (Counterfactual Simulation):** State forward propagation, asset disruption testing, and intervention delta evaluation in the Twin ($< 500\text{ ms}$).
@@ -128,17 +128,17 @@ The **Tri-Zone Cognitive Router** governs execution:
 * **Zone 2 (Ambiguous-Path Deeper Resolver):** Triggered when $0.50 \le c < 0.85$ to disambiguate intent, resolve entity bindings, and synthesize parameters.
 * **Zone 3 (Fallback Handler):** Triggered when $c < 0.50$ to emit structured clarification requests and log routing anomalies.
 
-**Dynamic Capability Registry ([ADR 021](file:///d:/projects/SCOF_V1/SCOF/docs/adr/021_dynamic_capability_registry_over_static_mcp_endpoints.md)):** Replaces brittle manual tool enumeration. Service providers register declarative Capability Cards. The registry dynamically mounts only the 3–5 most relevant bounded tools into each agent prompt, reducing prompt tokens by $91\%$.
+**Dynamic Capability Registry ([ADR ADR 012 (Amendment)](file:///d:/projects/SCOF_V1/SCOF/docs/adr/012b_amendment_dynamic_capability_registry_over_static_mcp.md)):** Replaces brittle manual tool enumeration. Service providers register declarative Capability Cards. The registry dynamically mounts only the 3-5 most relevant bounded tools into each agent prompt, reducing prompt tokens by $91\%$.
 
 Detailed Specifications: [Cognitive Query Routing](file:///d:/projects/SCOF_V1/SCOF/docs/v2_enterprise/architecture/02_cognitive_query_routing_and_resolution_pipeline.md) and [Dynamic Capability Registry](file:///d:/projects/SCOF_V1/SCOF/docs/v2_enterprise/architecture/03_dynamic_capability_registry.md).
 
 ---
 
 ### 3.7 Minimalist Concurrency Model: Priority Queue & Bounded Worker Pool
-To handle concurrent multi-agent simulation inquiries without over-engineering complex scheduling machinery, SCOF adopts a minimalist concurrency architecture ([ADR 022](file:///d:/projects/SCOF_V1/SCOF/docs/adr/022_minimalist_bounded_worker_concurrency.md)):
+To handle concurrent multi-agent simulation inquiries without over-engineering complex scheduling machinery, SCOF adopts a minimalist concurrency architecture ([ADR ADR 011](file:///d:/projects/SCOF_V1/SCOF/docs/adr/011_minimalist_bounded_worker_concurrency.md)):
 * **4-Tier Priority Queue:**
   * **P0 (Emergency):** System telemetry threshold alerts and critical asset breakdown interrupts.
-  * **P1 (Consensus Deliberation):** CD²F arbitration queries evaluating final trade-offs.
+  * **P1 (Consensus Deliberation):** CD2F arbitration queries evaluating final trade-offs.
   * **P2 (Agent Deliberation):** Routine specialist agent what-if explorations.
   * **P3 (Background Evaluation):** Batch benchmark runs and long-horizon risk heatmaps.
 * **Bounded Worker Pool:** Fixed concurrency ($W = 4..8$ workers) processing tasks FIFO within each tier, guaranteeing complete resource containment.
@@ -149,12 +149,12 @@ Detailed Specification: [Minimalist Concurrency & Worker Pool Architecture](file
 ---
 
 ### 3.8 Five-Tier State Hierarchy & Actuation Boundaries
-SCOF eliminates ambiguity across facts, baselines, simulations, claims, and decisions by enforcing a five-tier state hierarchy ([ADR 025](file:///d:/projects/SCOF_V1/SCOF/docs/adr/025_five_tier_state_hierarchy_and_actuation_boundaries.md)):
+SCOF eliminates ambiguity across facts, baselines, simulations, claims, and decisions by enforcing a five-tier state hierarchy ([ADR ADR 017](file:///d:/projects/SCOF_V1/SCOF/docs/adr/017_five_tier_state_hierarchy_and_actuation_boundaries.md)):
 1. **Tier 1 (Historical Fact):** Frozen ground truth sealed with SHA-256 digests.
 2. **Tier 2 (Baseline Current State):** Active Day-0 relational state and immutable Neo4j topology.
 3. **Tier 3 (Scenario Projection):** Simulated Layer 3 sandbox state overlays.
 4. **Tier 4 (Agent Recommendation):** Structured claims emitted by specialist agents.
-5. **Tier 5 (CD²F Decision):** Approved cross-domain consensus outcome.
+5. **Tier 5 (CD2F Decision):** Approved cross-domain consensus outcome.
 
 **Actuation Boundary:** Applying an approved decision to Tier 3 modifies simulation sandbox state only. Real-world actuation (ERP PO creation, EDI freight booking) requires Human-in-the-Loop authorization via the Tauri v2 Desktop Operations Console (D09) and execution via isolated Execution Adapters.
 
@@ -164,11 +164,11 @@ Detailed Specification: [State Isolation & Evidence Fabric Architecture](file://
 
 ### 3.9 Explicitly Rejected Architectural Anti-Patterns
 To preserve engineering discipline and prevent architectural drift, the following patterns are explicitly rejected:
-1. **Continuous Real-Time Tick Daemon:** Supply chains operate via discrete events; continuous ticking introduces idle CPU burn and clock drift ([ADR 023](file:///d:/projects/SCOF_V1/SCOF/docs/adr/023_event_stepped_simulation_kernel_over_fixed_tick_daemon.md)).
-2. **Direct Graph Mutations in Production Neo4j:** Runtime scenario perturbations must never write dirty edges or properties to Neo4j. Overlays are held in memory ([ADR 024](file:///d:/projects/SCOF_V1/SCOF/docs/adr/024_immutable_neo4j_topology_with_in_memory_scenario_overlays.md)).
-3. **Twin-as-Monolithic-Gateway:** Routing all queries through the Twin causes severe latency degradation and bottlenecks ([ADR 019](file:///d:/projects/SCOF_V1/SCOF/docs/adr/019_operational_digital_twin_substrate_layer.md), [ADR 020](file:///d:/projects/SCOF_V1/SCOF/docs/adr/020_tri_zone_query_routing_and_deeper_resolver.md)).
-4. **Static Tool Signature Sprawl:** Hardcoding 50+ domain-specific MCP endpoints dilutes prompt context and causes tool call errors ([ADR 021](file:///d:/projects/SCOF_V1/SCOF/docs/adr/021_dynamic_capability_registry_over_static_mcp_endpoints.md)).
-5. **Direct Automated ERP Actuation:** Autonomous un-gated physical writes to production ERP systems violate enterprise risk boundaries ([ADR 025](file:///d:/projects/SCOF_V1/SCOF/docs/adr/025_five_tier_state_hierarchy_and_actuation_boundaries.md)).
+1. **Continuous Real-Time Tick Daemon:** Supply chains operate via discrete events; continuous ticking introduces idle CPU burn and clock drift ([ADR ADR 010](file:///d:/projects/SCOF_V1/SCOF/docs/adr/010_event_stepped_simulation_kernel_over_fixed_tick_daemon.md)).
+2. **Direct Graph Mutations in Production Neo4j:** Runtime scenario perturbations must never write dirty edges or properties to Neo4j. Overlays are held in memory ([ADR ADR 006](file:///d:/projects/SCOF_V1/SCOF/docs/adr/006_immutable_neo4j_topology_with_in_memory_scenario_overlays.md)).
+3. **Twin-as-Monolithic-Gateway:** Routing all queries through the Twin causes severe latency degradation and bottlenecks ([ADR ADR 008](file:///d:/projects/SCOF_V1/SCOF/docs/adr/008_operational_digital_twin_substrate_layer.md), [ADR ADR 013](file:///d:/projects/SCOF_V1/SCOF/docs/adr/013_tri_zone_query_routing_and_deeper_resolver.md)).
+4. **Static Tool Signature Sprawl:** Hardcoding 50+ domain-specific MCP endpoints dilutes prompt context and causes tool call errors ([ADR ADR 012 (Amendment)](file:///d:/projects/SCOF_V1/SCOF/docs/adr/012b_amendment_dynamic_capability_registry_over_static_mcp.md)).
+5. **Direct Automated ERP Actuation:** Autonomous un-gated physical writes to production ERP systems violate enterprise risk boundaries ([ADR ADR 017](file:///d:/projects/SCOF_V1/SCOF/docs/adr/017_five_tier_state_hierarchy_and_actuation_boundaries.md)).
 
 ---
 
@@ -211,7 +211,7 @@ To preserve engineering discipline and prevent architectural drift, the followin
   2. **Structured Claim Contract:** Universal claim format specifying proposed action, situational confidence ($c_i$), cost impact, and evidence references.
   3. **Parallel Fan-Out / Fan-In:** Concurrent agent deliberation with sub-second execution budgets.
 
-### Deliverable D6: CD²F Dynamic Consensus Engine
+### Deliverable D6: CD2F Dynamic Consensus Engine
 * **V1 Concept:** Static weighted average of agent claims.
 * **V2 Concept:** Dynamic, multi-factor consensus arbitration engine:
   1. **Continuous Multi-Factor Weighting:** $W_i = w_i \times c_i$ (historical domain competence $\times$ real-time confidence).
@@ -246,8 +246,8 @@ To preserve engineering discipline and prevent architectural drift, the followin
 * **V1 Concept:** Basic test scripts running a few scenario assertions.
 * **V2 Concept:** Rigorous scientific evaluation framework:
   1. **Isolated Benchmark Harness:** Guarantees zero cross-scenario state contamination across all evaluation runs.
-  2. **Comparative Baselines:** Benchmarks CD²F against Single-Agent, Naive Unweighted Voting, and Static Priority Heuristics.
-  3. **Formal Research Questions (RQ1–RQ4):** Quantitative proofs of decision accuracy, consensus stability, latency distribution, and fill-rate preservation.
+  2. **Comparative Baselines:** Benchmarks CD2F against Single-Agent, Naive Unweighted Voting, and Static Priority Heuristics.
+  3. **Formal Research Questions (RQ1-RQ4):** Quantitative proofs of decision accuracy, consensus stability, latency distribution, and fill-rate preservation.
 
 ### Deliverable D11: Post-MVP Extension Points
 * **V1 Concept:** Placeholder notes for future work.

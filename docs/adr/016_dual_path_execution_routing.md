@@ -1,6 +1,9 @@
-# ADR 005: Execution Routing Strategy — Dual-Path Gating (Fast-Path vs. Slow-Path / Human Escalation)
+ADR 016: Execution Routing Strategy -- Dual-Path Gating (Fast-Path vs. Slow-Path / Human Escalation)
+
+* **Status**: Accepted
 
 ---
+
 
 ## 1. Context and Problem Statement
 
@@ -31,17 +34,17 @@ A binary system that either automates everything or requires human review for ev
 
 ## 4. Decision Outcome
 
-**Chosen Option**: **Option 3 — Dual-Path Calibrated Risk Gating**
+**Chosen Option**: **Option 3 -- Dual-Path Calibrated Risk Gating**
 
 ### Rationale:
-The CD²F engine enforces a deterministic multi-tier escalation policy based on two metrics:
+The CD2F engine enforces a deterministic multi-tier escalation policy based on two metrics:
 1. **Weighted Consensus Stability ($\text{WCS}$)**: Bounded in $[0.0, 1.0]$.
 2. **Disruption Severity ($S$)**: Bounded in $[0.0, 1.0]$.
 
 $$\text{Tier} = \begin{cases} \text{FAST\_PATH} & \text{if } \text{WCS} \ge 0.70 \text{ and } S < 0.60 \\ \text{SLOW\_PATH} & \text{if } 0.50 \le \text{WCS} < 0.70 \text{ or } 0.60 \le S < 0.85 \\ \text{HUMAN\_ESCALATION} & \text{if } \text{WCS} < 0.50 \text{ or } S \ge 0.85 \end{cases}$$
 
 1. **Fast-Path Execution**:
-   * Resolves in **330.0 – 335.0 ms** median latency ($< 500\text{ ms}$ SLA).
+   * Resolves in **330.0 - 335.0 ms** median latency ($< 500\text{ ms}$ SLA).
    * Safely handles **60.0% of routine disruptions** autonomously with 100% accuracy.
 2. **Slow-Path Simulation**:
    * Evaluates counterfactual fill rate preservation and holding costs before execution. Resolves in **510.0 ms** ($< 2000\text{ ms}$ SLA).
@@ -72,6 +75,6 @@ $$\text{Tier} = \begin{cases} \text{FAST\_PATH} & \text{if } \text{WCS} \ge 0.70
 
 ## 7. Related Decisions & Artifacts
 
-* [ADR 004: Consensus Arbitration Framework](./004_cd2f_consensus_arbitration.md)
-* [ADR 011: Empirical Evaluation & Calibration](./011_empirical_evaluation_cohens_kappa.md)
+* [ADR ADR 015: Consensus Arbitration Framework](./015_cd2f_consensus_arbitration.md)
+* [ADR ADR 022: Empirical Evaluation & Calibration](./022_empirical_evaluation_cohens_kappa.md)
 * [Research Results Report](file:///d:/projects/SCOF_V1/SCOF/docs/v1_mvp/deliverables/D10_integration_evaluation/results_report.md)

@@ -6,17 +6,17 @@ Deliverable D01 in SCOF V2 elevates the simulation foundation from a toy generat
 
 Its primary responsibilities are:
 1. **Authoritative Dataset Provenance:** Immutable tracking of the 96 relational tables via SHA-256 cryptographic hashes and `run_manifest.json`.
-2. **Operational Digital Twin Substrate:** Serving as the authoritative cyber-physical state and discrete-event simulation engine ([ADR 019](file:///d:/projects/SCOF_V1/SCOF/docs/adr/019_operational_digital_twin_substrate_layer.md)).
-3. **Event-Stepped DES Simulation Kernel:** Deterministic timeline advancement advancing state from event to event without idle CPU ticking ([ADR 023](file:///d:/projects/SCOF_V1/SCOF/docs/adr/023_event_stepped_simulation_kernel_over_fixed_tick_daemon.md)).
+2. **Operational Digital Twin Substrate:** Serving as the authoritative cyber-physical state and discrete-event simulation engine ([ADR ADR 008](file:///d:/projects/SCOF_V1/SCOF/docs/adr/008_operational_digital_twin_substrate_layer.md)).
+3. **Event-Stepped DES Simulation Kernel:** Deterministic timeline advancement advancing state from event to event without idle CPU ticking ([ADR ADR 010](file:///d:/projects/SCOF_V1/SCOF/docs/adr/010_event_stepped_simulation_kernel_over_fixed_tick_daemon.md)).
 4. **Physical & Causal Invariant Enforcement:** Non-negotiable physical laws (conservation of mass/inventory, lead-time causality, asset capacity limits, double-entry financial ledger validation).
-5. **Counterfactual Scenario Branching:** Isolated Layer 3 sandboxes enabling agents and CD²F to evaluate candidate operational interventions side by side.
-6. **Minimalist Concurrency Control:** 4-tier Priority Queue (P0-P3) backed by a Bounded Worker Pool with FIFO dispatching ([ADR 022](file:///d:/projects/SCOF_V1/SCOF/docs/adr/022_minimalist_bounded_worker_concurrency.md)).
+5. **Counterfactual Scenario Branching:** Isolated Layer 3 sandboxes enabling agents and CD2F to evaluate candidate operational interventions side by side.
+6. **Minimalist Concurrency Control:** 4-tier Priority Queue (P0-P3) backed by a Bounded Worker Pool with FIFO dispatching ([ADR ADR 011](file:///d:/projects/SCOF_V1/SCOF/docs/adr/011_minimalist_bounded_worker_concurrency.md)).
 
 ---
 
 ## 2. Technical Architecture & State Isolation
 
-### 2.1 The Tripartite State Architecture (ADR 015)
+### 2.1 The Tripartite State Architecture (ADR ADR 002)
 D01 strictly enforces the three-layer state model:
 * **Layer 1 (Frozen Ground Truth):** The physical datasets in [`datasets/`](file:///d:/projects/SCOF_V1/SCOF/datasets/) (`scof_relational.db`, Parquet files, CSV masters) are immutable and sealed by cryptographic SHA-256 hashes.
 * **Layer 2 (Baseline Operational State):** Clean Day-0 operational reference state residing in PostgreSQL and materialized read-only Neo4j graph.
@@ -59,12 +59,12 @@ The simulation kernel deterministically enforces four core physical invariants:
 ## 5. Six-Phase Implementation Roadmap (T1 to T6)
 
 Development follows a verified six-phase roadmap:
-* **Phase T1 — Scenario State Foundation:** `ScenarioContext` lifecycle, Layer 1-3 isolation, SHA-256 state hashing, deterministic scenario creation.
-* **Phase T2 — Deterministic Simulation Kernel:** Event-stepped DES priority queue, state transition dispatcher, discrete clock advancement.
-* **Phase T3 — Physical & Causal Models:** Conservation of mass, lead-time causality, capacity constraints, double-entry financial checks.
-* **Phase T4 — Counterfactual Engine:** Scenario forking (`fork_scenario`), parallel branch isolation, state diffing, comparative delta matrices.
-* **Phase T5 — Cognitive Integration:** Integration with Cognitive Query Router, Dynamic Capability Registry, and LangGraph/CD²F contracts.
-* **Phase T6 — Benchmark & Evaluation:** Reproducible benchmark harness for D10, empirical validation under 100+ disruption runs, SLA and latency profiling.
+* **Phase T1 -- Scenario State Foundation:** `ScenarioContext` lifecycle, Layer 1-3 isolation, SHA-256 state hashing, deterministic scenario creation.
+* **Phase T2 -- Deterministic Simulation Kernel:** Event-stepped DES priority queue, state transition dispatcher, discrete clock advancement.
+* **Phase T3 -- Physical & Causal Models:** Conservation of mass, lead-time causality, capacity constraints, double-entry financial checks.
+* **Phase T4 -- Counterfactual Engine:** Scenario forking (`fork_scenario`), parallel branch isolation, state diffing, comparative delta matrices.
+* **Phase T5 -- Cognitive Integration:** Integration with Cognitive Query Router, Dynamic Capability Registry, and LangGraph/CD2F contracts.
+* **Phase T6 -- Benchmark & Evaluation:** Reproducible benchmark harness for D10, empirical validation under 100+ disruption runs, SLA and latency profiling.
 
 ---
 

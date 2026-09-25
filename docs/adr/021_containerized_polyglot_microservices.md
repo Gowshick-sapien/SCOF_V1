@@ -1,6 +1,9 @@
-# ADR 012: Service Fleet Packaging — Polyglot Containerized Microservices vs. Monolithic Deployment
+ADR 021: Service Fleet Packaging -- Polyglot Containerized Microservices vs. Monolithic Deployment
+
+* **Status**: Accepted
 
 ---
+
 
 ## 1. Context and Problem Statement
 
@@ -9,7 +12,7 @@ The SCOF platform comprises diverse subsystems with distinct operational respons
 * **Consensus Arbitration**: Pure vectorized NumPy/scikit-learn matrix calculations (`:8020`).
 * **Observability & Embeddings**: SQLAlchemy, PostgreSQL connection pools, sentence-transformers (`:8030`).
 * **Evaluation & Benchmarking**: Batch dataset loaders, comparative baseline runners (`:8040`).
-* **Specialist Agents**: MCP tool servers, agent cards, domain reasoning (`:8011`–`:8014`).
+* **Specialist Agents**: MCP tool servers, agent cards, domain reasoning (`:8011`-`:8014`).
 * **API Gateway & Streaming**: FastAPI, WebSocket channel managers, Kafka consumer loops (`:8000`).
 
 Attempting to run all of these systems in a single monolithic Python process causes dependency conflicts, makes graceful restarts impossible without dropping active WebSockets, and prevents isolated failure containment. Conversely, deploying a complex Kubernetes cluster introduces excessive infrastructure friction for local development and edge deployments.
@@ -35,7 +38,7 @@ Attempting to run all of these systems in a single monolithic Python process cau
 
 ## 4. Decision Outcome
 
-**Chosen Option**: **Option 3 — Containerized Microservices Fleet via Docker Compose**
+**Chosen Option**: **Option 3 -- Containerized Microservices Fleet via Docker Compose**
 
 ### Rationale:
 1. **Clear Port & Responsibility Boundaries**:
@@ -74,6 +77,6 @@ Attempting to run all of these systems in a single monolithic Python process cau
 
 ## 7. Related Decisions & Artifacts
 
-* [ADR 001: Orchestration Kernel Selection](./001_langgraph_orchestration_kernel.md)
-* [ADR 008: Desktop Operations Console Architecture](./008_tauri_v2_desktop_operations_console.md)
+* [ADR ADR 014: Orchestration Kernel Selection](./014_langgraph_orchestration_kernel.md)
+* [ADR ADR 020: Desktop Operations Console Architecture](./020_tauri_v2_desktop_operations_console.md)
 * [D8 Backend API Documentation](file:///d:/projects/SCOF_V1/SCOF/docs/v1_mvp/deliverables/D08_backend_api/README.md)

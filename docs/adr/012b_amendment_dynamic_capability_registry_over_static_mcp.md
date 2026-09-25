@@ -1,8 +1,9 @@
-# ADR 021: Dynamic Capability Registry Over Static MCP Endpoints
+ADR 012 (Amendment): Dynamic Capability Registry Over Static MCP Endpoints
 
-* **Status**: Accepted
+* **Status**: Accepted (Amends ADR 012)
 
 ---
+
 
 ## 1. Context and Problem Statement
 
@@ -23,15 +24,15 @@ Injecting 50+ JSON tool schemas into LLM agent prompts caused severe prompt cont
 
 ## 3. Considered Options
 
-* **Option 1 — Static MCP Tool Enumeration:** Manually code and register 50+ individual MCP tool functions into each agent's active system prompt.
-* **Option 2 — Generic Raw Execution Tools:** Expose generic `execute_sql` and `execute_cypher` tools, allowing LLM agents to write raw database queries.
-* **Option 3 — Dynamic Capability Registry:** Central catalog of declarative Capability Cards. Agents specify operational intents; the registry dynamically binds only the 3-5 most relevant, bounded MCP tool schemas into the agent's active execution context on demand.
+* **Option 1 -- Static MCP Tool Enumeration:** Manually code and register 50+ individual MCP tool functions into each agent's active system prompt.
+* **Option 2 -- Generic Raw Execution Tools:** Expose generic `execute_sql` and `execute_cypher` tools, allowing LLM agents to write raw database queries.
+* **Option 3 -- Dynamic Capability Registry:** Central catalog of declarative Capability Cards. Agents specify operational intents; the registry dynamically binds only the 3-5 most relevant, bounded MCP tool schemas into the agent's active execution context on demand.
 
 ---
 
 ## 4. Decision Outcome
 
-**Chosen Option**: **Option 3 — Dynamic Capability Registry**
+**Chosen Option**: **Option 3 -- Dynamic Capability Registry**
 
 ### Rationale:
 1. **Dynamic Binding:** Specialist agents receive lean, contextual tool interfaces containing only the capabilities required for the active disruption, reducing prompt tokens from $\approx 4,500$ to $\approx 400$ ($91\%$ reduction).
@@ -65,7 +66,7 @@ Injecting 50+ JSON tool schemas into LLM agent prompts caused severe prompt cont
 
 ## 7. Related Decisions & Artifacts
 
-* [ADR 006: MCP and A2A Protocol Standardization](file:///d:/projects/SCOF_V1/SCOF/docs/adr/006_mcp_and_a2a_protocol_standardization.md)
-* [ADR 017: Decoupling Data Domains from Agent Roster](file:///d:/projects/SCOF_V1/SCOF/docs/adr/017_decoupling_data_domains_from_agent_roster.md)
-* [ADR 020: Tri-Zone Query Routing and Deeper Resolver](file:///d:/projects/SCOF_V1/SCOF/docs/adr/020_tri_zone_query_routing_and_deeper_resolver.md)
+* [ADR ADR 012: MCP and A2A Protocol Standardization](file:///d:/projects/SCOF_V1/SCOF/docs/adr/012_mcp_and_a2a_protocol_standardization.md)
+* [ADR ADR 003: Decoupling Data Domains from Agent Roster](file:///d:/projects/SCOF_V1/SCOF/docs/adr/003_decoupling_data_domains_from_agent_roster.md)
+* [ADR ADR 013: Tri-Zone Query Routing and Deeper Resolver](file:///d:/projects/SCOF_V1/SCOF/docs/adr/013_tri_zone_query_routing_and_deeper_resolver.md)
 * [Dynamic Capability Registry Architecture Specification](file:///d:/projects/SCOF_V1/SCOF/docs/v2_enterprise/architecture/03_dynamic_capability_registry.md)

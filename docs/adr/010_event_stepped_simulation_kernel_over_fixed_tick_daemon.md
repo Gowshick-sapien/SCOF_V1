@@ -1,8 +1,9 @@
-# ADR 023: Event-Stepped Simulation Kernel Over Fixed-Tick Daemon
+ADR 010: Event-Stepped Simulation Kernel Over Fixed-Tick Daemon
 
 * **Status**: Accepted
 
 ---
+
 
 ## 1. Context and Problem Statement
 
@@ -27,15 +28,15 @@ The decision impacts compute efficiency, deterministic reproducibility, and inte
 
 ## 3. Considered Options
 
-* **Option 1 — Continuous Fixed-Tick Daemon:** Maintain an active background simulation service ticking at a fixed physical frequency, updating state incrementally.
-* **Option 2 — Static Analytical Projection:** Reject simulation entirely in favor of static algebraic equations (e.g., calculating expected stockout day using average daily sales).
-* **Option 3 — Event-Stepped Discrete-Event Simulation (DES) Kernel:** Model the world as an event-driven state machine. A priority event queue holds scheduled events; the simulation engine advances the simulation clock ($t_{\text{sim}}$) deterministically to the next event, executes the state transition, checks physical invariants, and schedules downstream events.
+* **Option 1 -- Continuous Fixed-Tick Daemon:** Maintain an active background simulation service ticking at a fixed physical frequency, updating state incrementally.
+* **Option 2 -- Static Analytical Projection:** Reject simulation entirely in favor of static algebraic equations (e.g., calculating expected stockout day using average daily sales).
+* **Option 3 -- Event-Stepped Discrete-Event Simulation (DES) Kernel:** Model the world as an event-driven state machine. A priority event queue holds scheduled events; the simulation engine advances the simulation clock ($t_{\text{sim}}$) deterministically to the next event, executes the state transition, checks physical invariants, and schedules downstream events.
 
 ---
 
 ## 4. Decision Outcome
 
-**Chosen Option**: **Option 3 — Event-Stepped Discrete-Event Simulation (DES) Kernel**
+**Chosen Option**: **Option 3 -- Event-Stepped Discrete-Event Simulation (DES) Kernel**
 
 ### Rationale:
 1. **Supply Chain Discreteness:** Enterprise supply chains operate through discrete events (dispatching a truck, issuing an invoice, docking a container), not continuous fluid dynamics.
@@ -61,7 +62,7 @@ The decision impacts compute efficiency, deterministic reproducibility, and inte
 
 ## 6. Implementation & Compliance Notes
 
-* Implemented in the simulation stepping functions in [`src/simulation/twin_service.py`](file:///d:/projects/SCOF_V1/SCOF/src/simulation/twin_service.py).
+* Implemented in the simulation stepping functions in [`services/twin_service.py`](file:///d:/projects/SCOF_V1/SCOF/services/twin_service.py).
 * Detailed in [Digital Twin Service Architecture Specification](file:///d:/projects/SCOF_V1/SCOF/docs/v2_enterprise/architecture/01_digital_twin_service_architecture.md).
 * Verified by deterministic replay unit tests in [`tests/test_twin_service.py`](file:///d:/projects/SCOF_V1/SCOF/tests/test_twin_service.py).
 
@@ -69,7 +70,7 @@ The decision impacts compute efficiency, deterministic reproducibility, and inte
 
 ## 7. Related Decisions & Artifacts
 
-* [ADR 018: Cognitive Twin Service Substrate](file:///d:/projects/SCOF_V1/SCOF/docs/adr/018_cognitive_twin_service_substrate.md)
-* [ADR 019: Operational Digital Twin Substrate Layer](file:///d:/projects/SCOF_V1/SCOF/docs/adr/019_operational_digital_twin_substrate_layer.md)
-* [ADR 022: Minimalist Bounded Worker Concurrency](file:///d:/projects/SCOF_V1/SCOF/docs/adr/022_minimalist_bounded_worker_concurrency.md)
+* [ADR ADR 009: Cognitive Twin Service Substrate](file:///d:/projects/SCOF_V1/SCOF/docs/adr/009_cognitive_twin_service_substrate.md)
+* [ADR ADR 008: Operational Digital Twin Substrate Layer](file:///d:/projects/SCOF_V1/SCOF/docs/adr/008_operational_digital_twin_substrate_layer.md)
+* [ADR ADR 011: Minimalist Bounded Worker Concurrency](file:///d:/projects/SCOF_V1/SCOF/docs/adr/011_minimalist_bounded_worker_concurrency.md)
 * [Digital Twin Service Architecture Specification](file:///d:/projects/SCOF_V1/SCOF/docs/v2_enterprise/architecture/01_digital_twin_service_architecture.md)

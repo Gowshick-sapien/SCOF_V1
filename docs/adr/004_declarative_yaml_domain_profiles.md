@@ -1,6 +1,9 @@
-# ADR 009: Domain Profile Architecture — Declarative YAML Profiles vs. Hardcoded Business Logic
+ADR 004: Domain Profile Architecture -- Declarative YAML Profiles vs. Hardcoded Business Logic
+
+* **Status**: Amended by ADR 004 (Amendment)
 
 ---
+
 
 ## 1. Context and Problem Statement
 
@@ -15,7 +18,7 @@ If the multi-agent decision platform hardcodes entities, disruption types, escal
 
 ## 2. Decision Drivers
 
-* **Domain Agnosticism**: The core platform engine (LangGraph coordinator, CD²F arbitration, observability, API gateway, desktop console) must be 100% agnostic to any specific supply chain vertical.
+* **Domain Agnosticism**: The core platform engine (LangGraph coordinator, CD2F arbitration, observability, API gateway, desktop console) must be 100% agnostic to any specific supply chain vertical.
 * **Zero-Code Domain Deployment**: Deploying SCOF into a new supply chain environment must be achieved purely by writing declarative configuration files, with zero modifications to platform code.
 * **Human-Readable Schema**: Configurations must be editable and reviewable by non-software supply chain domain analysts.
 
@@ -31,7 +34,7 @@ If the multi-agent decision platform hardcodes entities, disruption types, escal
 
 ## 4. Decision Outcome
 
-**Chosen Option**: **Option 3 — Declarative YAML Domain Profiles**
+**Chosen Option**: **Option 3 -- Declarative YAML Domain Profiles**
 
 ### Rationale:
 The platform architecture enforces a strict decoupling contract:
@@ -42,7 +45,7 @@ Each Domain Profile directory contains 7 standardized YAML files:
 2. `topology.yaml`: Entities (manufacturers, suppliers, warehouses, distribution centers, routes, products).
 3. `agents.yaml`: Active agent roster, models, confidence thresholds, historical weights.
 4. `disruptions.yaml`: Disruption catalog (parameters, severity scales, triggering rules).
-5. `consensus.yaml`: CD²F parameters, WCS thresholds, Fast-Path/Slow-Path criteria.
+5. `consensus.yaml`: CD2F parameters, WCS thresholds, Fast-Path/Slow-Path criteria.
 6. `data_bindings.yaml`: Database connection strings and MCP server mappings.
 7. `dashboard.yaml`: Map coordinates, view configurations, and heatmap dimensions.
 
@@ -72,5 +75,5 @@ At startup, every microservice points to the active profile via the `SCOF_PROFIL
 
 ## 7. Related Decisions & Artifacts
 
-* [ADR 006: Protocol Standardization (MCP & A2A)](./006_mcp_and_a2a_protocol_standardization.md)
+* [ADR ADR 012: Protocol Standardization (MCP & A2A)](./012_mcp_and_a2a_protocol_standardization.md)
 * [Domain Binding Strategy Document](file:///d:/projects/SCOF_V1/SCOF/docs/v1_mvp/domain_binding_strategy.md)

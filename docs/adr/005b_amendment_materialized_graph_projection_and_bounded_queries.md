@@ -1,12 +1,13 @@
-# ADR 014: Materialized Graph Projection and Bounded Query Contracts
+ADR 005 (Amendment): Materialized Graph Projection and Bounded Query Contracts
 
-* **Status**: Accepted (Amends ADR 007)
+* **Status**: Accepted (Amends ADR 005)
 
 ---
 
+
 ## 1. Context and Problem Statement
 
-In ADR 007, SCOF established a hybrid knowledge layer combining PostgreSQL (relational) and Neo4j (property graph). In V1, the graph contained approximately 20 nodes, making unconstrained Cypher queries trivial.
+In ADR ADR 005, SCOF established a hybrid knowledge layer combining PostgreSQL (relational) and Neo4j (property graph). In V1, the graph contained approximately 20 nodes, making unconstrained Cypher queries trivial.
 
 In V2, the materialized Neo4j property graph scales to **3,732,388 nodes and 2,104,188 edges** across 59 schema constraints. If autonomous LLM agents (D3/D4) are granted direct, unconstrained Cypher query capabilities, multi-hop traversals with unbounded depth (e.g., `MATCH (s:Store)-[*1..5]-(x) RETURN x`) will cause query timeouts, exhaust graph server RAM, and violate SCOF's sub-second ($< 500\text{ ms}$) decision SLA. Furthermore, treating Neo4j as an independent read-write operational store introduces dual-master consistency drift between relational tables and graph entities.
 

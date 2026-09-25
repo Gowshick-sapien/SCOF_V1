@@ -1,6 +1,9 @@
-# ADR 004: Consensus Arbitration Framework — CD²F Dynamic Continuous Weighting vs. Majority Voting & LLM-as-a-Judge
+ADR 015: Consensus Arbitration Framework -- CD2F Dynamic Continuous Weighting vs. Majority Voting & LLM-as-a-Judge
+
+* **Status**: Accepted
 
 ---
+
 
 ## 1. Context and Problem Statement
 
@@ -29,24 +32,24 @@ Traditional methods rely on either simple majority voting, unweighted democratic
 
 * **Option 1: Naive Majority Voting**: Discrete democratic tally (each agent gets 1.0 vote). Deadlocks resolved alphabetically.
 * **Option 2: Unconstrained LLM-as-a-Judge**: Passing all raw agent claims to an external LLM prompt asking it to pick the winner.
-* **Option 3: CD²F (Consensus-Driven Collaborative Decision Framework)**: Continuous composite weighting with Weighted Consensus Stability ($\text{WCS}$) and calibrated tier gating.
+* **Option 3: CD2F (Consensus-Driven Collaborative Decision Framework)**: Continuous composite weighting with Weighted Consensus Stability ($\text{WCS}$) and calibrated tier gating.
 
 ---
 
 ## 4. Decision Outcome
 
-**Chosen Option**: **Option 3 — CD²F Dynamic Arbitration Engine**
+**Chosen Option**: **Option 3 -- CD2F Dynamic Arbitration Engine**
 
 ### Rationale:
 1. **Mathematical Deadlock Elimination**:
    * Under Naive Majority Voting, empirical evaluation proved that **60.0%** of split calibration scenarios deadlocked, forcing an arbitrary decision.
-   * Under CD²F, each claim $k$ is scored using continuous composite weights:
+   * Under CD2F, each claim $k$ is scored using continuous composite weights:
      $$W(k) = \sum_{i \in \text{Claimants}(k)} w_i \cdot c_i$$
      In continuous real space ($\mathbb{R}^+$), ties occur with near-zero probability, reducing the tie-breaker rate to **0.0%**.
 2. **Resilience to Single-Agent Hallucination**:
-   * When a single agent claims high confidence ($c=0.99$) on an aggressive action (`Cancel Backorders`), single-agent baselines greedily execute it. CD²F aggregates corroborated domain evidence from other agents to elect the systemically sound option (`Fulfill from Hub A`) and flags `consensus_divergence_detected: true`.
+   * When a single agent claims high confidence ($c=0.99$) on an aggressive action (`Cancel Backorders`), single-agent baselines greedily execute it. CD2F aggregates corroborated domain evidence from other agents to elect the systemically sound option (`Fulfill from Hub A`) and flags `consensus_divergence_detected: true`.
 3. **Deterministic Speed**:
-   * CD²F executes in pure NumPy vector arithmetic in **$< 5\text{ ms}$**, whereas an LLM-as-a-Judge call requires $1500\text{ ms}$ to $4000\text{ ms}$ and introduces prompt drift.
+   * CD2F executes in pure NumPy vector arithmetic in **$< 5\text{ ms}$**, whereas an LLM-as-a-Judge call requires $1500\text{ ms}$ to $4000\text{ ms}$ and introduces prompt drift.
 
 ---
 
@@ -73,6 +76,6 @@ Traditional methods rely on either simple majority voting, unweighted democratic
 
 ## 7. Related Decisions & Artifacts
 
-* [ADR 005: Dual-Path Execution Routing Strategy](./005_dual_path_execution_routing.md)
-* [ADR 011: Empirical Evaluation & Calibration](./011_empirical_evaluation_cohens_kappa.md)
+* [ADR ADR 016: Dual-Path Execution Routing Strategy](./016_dual_path_execution_routing.md)
+* [ADR ADR 022: Empirical Evaluation & Calibration](./022_empirical_evaluation_cohens_kappa.md)
 * [D6 Consensus Engine Documentation](file:///d:/projects/SCOF_V1/SCOF/docs/v1_mvp/deliverables/D06_consensus_engine/README.md)

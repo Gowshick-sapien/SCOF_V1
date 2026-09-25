@@ -10,7 +10,7 @@ The documentation for the **Supply Chain Cognitive Orchestration Framework (SCOF
 
 ```
 docs/
-├── adr/                                    # Master Architecture Decision Records (ADR 001 - 018+)
+├── adr/                                    # Master Architecture Decision Records (ADR ADR 014 - 018+)
 ├── v1_mvp/                                # Track 1: Frozen V1 MVP Baseline Specification
 └── v2_enterprise/                         # Track 2: Active V2 Enterprise Cognitive Twin Architecture
 ```
@@ -18,8 +18,8 @@ docs/
 | Documentation Track | Focus & Scope | Key Contents | Primary Audience |
 | :--- | :--- | :--- | :--- |
 | **[Track 1: V1 MVP Baseline](file:///d:/projects/SCOF_V1/SCOF/docs/v1_mvp/README.md)** | Proof-of-concept multi-agent consensus system over the initial 5-supplier electronics profile. | V1 Architecture, SRS, Ideation, Implementation Plan, and original Deliverables D01 through D11. | Historical reference, baseline benchmarking, and verification of initial 40/40 tests. |
-| **[Track 2: V2 Enterprise Cognitive Twin](file:///d:/projects/SCOF_V1/SCOF/docs/v2_enterprise/README.md)** | Full-scale industrial digital twin over 30 business domains, 96 tables, 49.6K SKUs, and 3.73M Neo4j nodes. | Enterprise Dataset Architecture, Ontologies, ERDs, V2 Deliverable Blueprints (D01–D11), Contracts, and Research. | Active development, enterprise deployment, simulation studies, and academic research. |
-| **[Architecture Decision Records (ADRs)](file:///d:/projects/SCOF_V1/SCOF/docs/adr/README.md)** | Sequentially tracked architectural choices across both V1 (001–012) and V2 (013–018+). | Formal records documenting problem context, evaluated alternatives, decisions, and supersession links. | Systems architects, core contributors, and auditors. |
+| **[Track 2: V2 Enterprise Cognitive Twin](file:///d:/projects/SCOF_V1/SCOF/docs/v2_enterprise/README.md)** | Full-scale industrial digital twin over 30 business domains, 96 tables, 49.6K SKUs, and 3.73M Neo4j nodes. | Enterprise Dataset Architecture, Ontologies, ERDs, V2 Deliverable Blueprints (D01-D11), Contracts, and Research. | Active development, enterprise deployment, simulation studies, and academic research. |
+| **[Architecture Decision Records (ADRs)](file:///d:/projects/SCOF_V1/SCOF/docs/adr/README.md)** | Sequentially tracked architectural choices across both V1 (001-012) and V2 (013-018+). | Formal records documenting problem context, evaluated alternatives, decisions, and supersession links. | Systems architects, core contributors, and auditors. |
 
 ---
 

@@ -1,8 +1,9 @@
-# ADR 018: Cognitive Twin Service Layer as Programmatic Simulation and Audit Substrate
+ADR 009: Cognitive Twin Service Layer as Programmatic Simulation and Audit Substrate
 
 * **Status**: Accepted
 
 ---
+
 
 ## 1. Context and Problem Statement
 

@@ -1,8 +1,9 @@
-# ADR 020: Tri-Zone Query Routing and Deeper Resolver Pipeline
+ADR 013: Tri-Zone Query Routing and Deeper Resolver Pipeline
 
 * **Status**: Accepted
 
 ---
+
 
 ## 1. Context and Problem Statement
 
@@ -27,15 +28,15 @@ An architectural mechanism was required to route queries deterministically, hand
 
 ## 3. Considered Options
 
-* **Option 1 — Monolithic Twin Gateway:** Route 100% of agent queries through the Twin Service facade.
-* **Option 2 — Hardcoded Rule Segregation:** Write static switch/case or if/else rules categorizing queries by hardcoded domain keywords.
-* **Option 3 — Tri-Zone Cognitive Query Routing with Deeper Resolver:** Implement a three-zone pipeline: Zone 1 (Fast-Path Deterministic Evaluator for high confidence $c \ge 0.85$), Zone 2 (Ambiguous-Path Deeper Resolver for $0.50 \le c < 0.85$ performing intent disambiguation, entity binding, and capability matching), and Zone 3 (Fallback Handler for $c < 0.50$).
+* **Option 1 -- Monolithic Twin Gateway:** Route 100% of agent queries through the Twin Service facade.
+* **Option 2 -- Hardcoded Rule Segregation:** Write static switch/case or if/else rules categorizing queries by hardcoded domain keywords.
+* **Option 3 -- Tri-Zone Cognitive Query Routing with Deeper Resolver:** Implement a three-zone pipeline: Zone 1 (Fast-Path Deterministic Evaluator for high confidence $c \ge 0.85$), Zone 2 (Ambiguous-Path Deeper Resolver for $0.50 \le c < 0.85$ performing intent disambiguation, entity binding, and capability matching), and Zone 3 (Fallback Handler for $c < 0.50$).
 
 ---
 
 ## 4. Decision Outcome
 
-**Chosen Option**: **Option 3 — Tri-Zone Cognitive Query Routing with Deeper Resolver**
+**Chosen Option**: **Option 3 -- Tri-Zone Cognitive Query Routing with Deeper Resolver**
 
 ### Rationale:
 1. **Class-Based Segregation:** Categorizes operations into Class A (D2 direct read-only), Class B (derived analytics), and Class C (Twin simulation).
@@ -69,7 +70,7 @@ An architectural mechanism was required to route queries deterministically, hand
 
 ## 7. Related Decisions & Artifacts
 
-* [ADR 005: Dual-Path Execution Routing](file:///d:/projects/SCOF_V1/SCOF/docs/adr/005_dual_path_execution_routing.md)
-* [ADR 019: Operational Digital Twin Substrate Layer](file:///d:/projects/SCOF_V1/SCOF/docs/adr/019_operational_digital_twin_substrate_layer.md)
-* [ADR 021: Dynamic Capability Registry Over Static MCP Endpoints](file:///d:/projects/SCOF_V1/SCOF/docs/adr/021_dynamic_capability_registry_over_static_mcp_endpoints.md)
+* [ADR ADR 016: Dual-Path Execution Routing](file:///d:/projects/SCOF_V1/SCOF/docs/adr/016_dual_path_execution_routing.md)
+* [ADR ADR 008: Operational Digital Twin Substrate Layer](file:///d:/projects/SCOF_V1/SCOF/docs/adr/008_operational_digital_twin_substrate_layer.md)
+* [ADR ADR 012 (Amendment): Dynamic Capability Registry Over Static MCP Endpoints](file:///d:/projects/SCOF_V1/SCOF/docs/adr/012b_amendment_dynamic_capability_registry_over_static_mcp.md)
 * [Cognitive Query Routing Architecture Specification](file:///d:/projects/SCOF_V1/SCOF/docs/v2_enterprise/architecture/02_cognitive_query_routing_and_resolution_pipeline.md)

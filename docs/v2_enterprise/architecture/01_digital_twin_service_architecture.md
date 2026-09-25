@@ -36,7 +36,7 @@ Architecturally, SCOF V2 formally anchors the Twin as **a Distinct Operational W
 * **D2 (Knowledge Fabric) asks:** *"What does the current enterprise data say across relational records, topology, and vector embeddings?"*
 * **Twin (Simulation Substrate) asks:** *"What is the current operational reality, how does physical reality propagate forward over time, and what happens to the enterprise when specific disruptions or interventions occur?"*
 * **Agents (Cognitive Reasoners) ask:** *"Given this operational reality and forward projections, what strategic trade-offs exist and what actions should we propose?"*
-* **CD²F (Consensus Engine) asks:** *"Which cross-domain proposal maximizes conglomerate utility and reconciles specialist conflicts?"*
+* **CD2F (Consensus Engine) asks:** *"Which cross-domain proposal maximizes conglomerate utility and reconciles specialist conflicts?"*
 
 ---
 
@@ -86,7 +86,7 @@ The Digital Twin substrate is built upon five foundational pillars, refined to m
 ```
 
 ### Pillar 1: Multi-Layer State Isolation
-The Twin enforces a strict three-layer state boundary (see [ADR 015](file:///d:/projects/SCOF_V1/SCOF/docs/adr/015_tripartite_state_isolation_for_benchmark_integrity.md)):
+The Twin enforces a strict three-layer state boundary (see [ADR ADR 002](file:///d:/projects/SCOF_V1/SCOF/docs/adr/002_tripartite_state_isolation_for_benchmark_integrity.md)):
 1. **Layer 1 (Frozen Ground Truth):** Immutable physical data files in `datasets/` verified by SHA-256 digests.
 2. **Layer 2 (Baseline Operational State):** Authoritative Day-0 relational state in PostgreSQL and topological projection in Neo4j.
 3. **Layer 3 (Scenario Runtime State):** Isolated, ephemeral scenario sandboxes (`scenario_id`, `sim_run_id`). All scenario perturbations, asset downtime injections, and simulated order rerouting execute exclusively within Layer 3. Layer 1 and Layer 2 are never mutated.
@@ -118,12 +118,12 @@ Agents exploring candidate interventions can fork an active scenario into isolat
 * **Branch A (Expedited Air Freight):** Carrier reallocated to air corridor; transit time reduced from 5 days to 1 day; freight cost increased by $3.2\times$.
 * **Branch B (Alternate Supplier Sourcing):** Secondary vendor engaged; unit cost $+12\%$; lead time 3 days; minimum order quantity enforced.
 * **Branch C (Cross-Facility Rebalancing):** Inter-DC transfer executed; fleet assets reallocated; regional DC stock balanced.
-The Twin executes each branch in an isolated sandbox, computes the state delta, and outputs a comparative delta matrix for CD²F deliberation.
+The Twin executes each branch in an isolated sandbox, computes the state delta, and outputs a comparative delta matrix for CD2F deliberation.
 
 ### Pillar 5: Approved Action Execution Boundary
 A critical architectural boundary: **The Twin executes simulated interventions inside its Layer 3 sandbox. It does NOT directly execute real-world ERP actions.**
 * When an agent proposes an action, the Twin evaluates its counterfactual impact.
-* When the CD²F consensus engine reaches approved consensus ($WCS \ge 0.70$), the approved action is committed to the scenario runtime state.
+* When the CD2F consensus engine reaches approved consensus ($WCS \ge 0.70$), the approved action is committed to the scenario runtime state.
 * If the system operates in real-world deployment, physical ERP actuation (placing real POs, reallocating real trucks) requires Human-in-the-Loop (HITL) authorization and execution via external ERP Adapters. The Twin never possesses unconstrained external write access.
 
 ---
@@ -282,7 +282,7 @@ The development of the Digital Twin Service follows a phased, verified roadmap:
 | **Phase T2** | **Deterministic Simulation Kernel** | Event-stepped DES priority queue, state transition dispatcher, discrete clock advancement. | Replay of 100 identical event queues yields identical state digests. |
 | **Phase T3** | **Physical & Causal Models** | Conservation of mass, lead-time causality, warehouse/chiller capacity rules, double-entry financial ledger checks. | Unit tests catch negative inventory, instant travel, and unbalanced ledger attempts. |
 | **Phase T4** | **Counterfactual Engine** | Scenario forking (`fork_scenario`), parallel branch isolation, state diffing, comparative delta matrices. | Side-by-side execution of 3 candidate branches without cross-branch state leakage. |
-| **Phase T5** | **Cognitive Integration** | Integration with Cognitive Query Router, Dynamic Capability Registry, LangGraph claim synthesis, and CD²F action application. | End-to-end deliberation cycle from disruption injection to consensus execution. |
+| **Phase T5** | **Cognitive Integration** | Integration with Cognitive Query Router, Dynamic Capability Registry, LangGraph claim synthesis, and CD2F action application. | End-to-end deliberation cycle from disruption injection to consensus execution. |
 | **Phase T6** | **Benchmark & Evaluation** | Reproducible benchmark harness for D10, empirical validation under 100+ disruption runs, SLA and latency profiling. | Sub-second simulation execution SLA ($< 500\text{ ms}$) validated on benchmark suite. |
 
 ---
@@ -293,6 +293,6 @@ To prevent scope creep and maintain architectural purity, the following patterns
 
 1. **Continuous Real-Time Tick Daemon:** Supply chain disruptions are discrete events, not millisecond physical control loops. Continuous ticking wastes CPU and introduces clock drift.
 2. **Direct Graph Mutations in Production Neo4j:** Runtime scenario perturbations must never write dirty edges or properties into the 3.73M-node Neo4j graph. Scenario topology perturbations are stored as in-memory overlays.
-3. **Twin-as-Omnipresent-Orchestrator:** The Twin does not coordinate agent communications, manage agent prompts, or arbitrate claims. LangGraph coordinates workflows; CD²F arbitrates decisions.
+3. **Twin-as-Omnipresent-Orchestrator:** The Twin does not coordinate agent communications, manage agent prompts, or arbitrate claims. LangGraph coordinates workflows; CD2F arbitrates decisions.
 4. **Giant Manually Enumerated Tool API:** Building individual `get_X()`, `get_Y()` tools for every enterprise query creates brittle coupling. Queries are resolved dynamically via the Capability Registry and Tri-Zone Router.
-5. **Direct Real-World ERP Actuation:** The Twin sandbox modifies scenario state only. External ERP write-back is governed strictly by CD²F consensus, HITL authorization, and isolated ERP adapters.
+5. **Direct Real-World ERP Actuation:** The Twin sandbox modifies scenario state only. External ERP write-back is governed strictly by CD2F consensus, HITL authorization, and isolated ERP adapters.

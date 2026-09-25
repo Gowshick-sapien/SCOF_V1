@@ -143,5 +143,5 @@ Rather than overwhelming an agent with the entire enterprise tool catalog, SCOF 
 ## 6. Implementation References
 
 * Formal Data Contract: [`capability_registry_spec.md`](file:///d:/projects/SCOF_V1/SCOF/docs/v2_enterprise/contracts/capability_registry_spec.md)
-* Protocol Standardization: [ADR 006 (MCP and A2A)](file:///d:/projects/SCOF_V1/SCOF/docs/adr/006_mcp_and_a2a_protocol_standardization.md)
-* Architecture Decision: [ADR 021 (Dynamic Capability Registry)](file:///d:/projects/SCOF_V1/SCOF/docs/adr/021_dynamic_capability_registry_over_static_mcp_endpoints.md)
+* Protocol Standardization: [ADR ADR 012 (MCP and A2A)](file:///d:/projects/SCOF_V1/SCOF/docs/adr/012_mcp_and_a2a_protocol_standardization.md)
+* Architecture Decision: [ADR ADR 012 (Amendment) (Dynamic Capability Registry)](file:///d:/projects/SCOF_V1/SCOF/docs/adr/012b_amendment_dynamic_capability_registry_over_static_mcp.md)

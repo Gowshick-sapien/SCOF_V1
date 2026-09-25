@@ -1,10 +1,13 @@
-# ADR 002: Message Streaming Bus Selection — Apache Kafka vs. RabbitMQ and Redis Pub/Sub
+ADR 018: Message Streaming Bus Selection -- Apache Kafka vs. RabbitMQ and Redis Pub/Sub
+
+* **Status**: Accepted
 
 ---
 
+
 ## 1. Context and Problem Statement
 
-SCOF is a reactive, event-driven platform where disruption signals (e.g. supplier delay notices, port closures, severe weather warnings) arrive asynchronously and must trigger multi-agent evaluation workflows. Furthermore, downstream systems—including the observability backend, audit logger, and real-time operations console—must consume decision records and agent reasoning events without tight point-to-point coupling.
+SCOF is a reactive, event-driven platform where disruption signals (e.g. supplier delay notices, port closures, severe weather warnings) arrive asynchronously and must trigger multi-agent evaluation workflows. Furthermore, downstream systems--including the observability backend, audit logger, and real-time operations console--must consume decision records and agent reasoning events without tight point-to-point coupling.
 
 The message streaming layer must guarantee high throughput, strict ordering of disruption events, event durability, and the capability to replay historical events for what-if counterfactual analysis.
 
@@ -30,7 +33,7 @@ The message streaming layer must guarantee high throughput, strict ordering of d
 
 ## 4. Decision Outcome
 
-**Chosen Option**: **Option 3 — Apache Kafka (KRaft Mode)**
+**Chosen Option**: **Option 3 -- Apache Kafka (KRaft Mode)**
 
 ### Rationale:
 1. **Append-Only Commit Log vs. Ephemeral Queues**:
@@ -67,6 +70,6 @@ The message streaming layer must guarantee high throughput, strict ordering of d
 
 ## 7. Related Decisions & Artifacts
 
-* [ADR 003: Vector Database Selection](./003_pgvector_for_semantic_memory.md)
-* [ADR 010: Real-Time State Caching with Redis](./010_redis_realtime_state_caching.md)
+* [ADR ADR 007: Vector Database Selection](./007_pgvector_for_semantic_memory.md)
+* [ADR ADR 019: Real-Time State Caching with Redis](./019_redis_realtime_state_caching.md)
 * [Event Bus Design Document](file:///d:/projects/SCOF_V1/SCOF/docs/v1_mvp/deliverables/D08_backend_api/event_bus_design.md)

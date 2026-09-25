@@ -1,6 +1,9 @@
-# ADR 001: Orchestration Kernel Selection — LangGraph vs. CrewAI, AutoGen, and Semantic Kernel
+ADR 014: Orchestration Kernel Selection -- LangGraph vs. CrewAI, AutoGen, and Semantic Kernel
+
+* **Status**: Accepted
 
 ---
+
 
 ## 1. Context and Problem Statement
 
@@ -31,14 +34,14 @@ Traditional multi-agent frameworks often treat agent execution as linear chains 
 
 ## 4. Decision Outcome
 
-**Chosen Option**: **Option 4 — LangGraph**
+**Chosen Option**: **Option 4 -- LangGraph**
 
 ### Rationale:
 LangGraph models agent coordination as a formal **StateGraph** (a directed cyclic graph). Unlike CrewAI and AutoGen, which prioritize open-ended conversational debate, LangGraph enforces strict, typed state dictionaries (`CoordinatorState`) passed across discrete computational nodes. 
 
 1. **Deterministic Edge Routing**: Conditional edges (`tools_condition`, `should_continue`, `check_consensus`) inspect structured agent claims and route to arbitration or escalation based on deterministic mathematical criteria.
 2. **State Checkpointing**: LangGraph provides built-in state persistence (`MemorySaver` or PostgreSQL checkpoints), allowing complete replayability of how a decision evolved across steps.
-3. **Interruptibility**: LangGraph natively supports `interrupt_before` and `interrupt_after` hooks, essential for halting execution when CD²F triggers a `HUMAN_ESCALATION` tier.
+3. **Interruptibility**: LangGraph natively supports `interrupt_before` and `interrupt_after` hooks, essential for halting execution when CD2F triggers a `HUMAN_ESCALATION` tier.
 
 ---
 
@@ -66,6 +69,6 @@ LangGraph models agent coordination as a formal **StateGraph** (a directed cycli
 
 ## 7. Related Decisions & Artifacts
 
-* [ADR 004: Consensus Arbitration Framework](./004_cd2f_consensus_arbitration.md)
-* [ADR 006: Protocol Standardization (MCP & A2A)](./006_mcp_and_a2a_protocol_standardization.md)
+* [ADR ADR 015: Consensus Arbitration Framework](./015_cd2f_consensus_arbitration.md)
+* [ADR ADR 012: Protocol Standardization (MCP & A2A)](./012_mcp_and_a2a_protocol_standardization.md)
 * [System Architecture Document](file:///d:/projects/SCOF_V1/SCOF/docs/v1_mvp/architecture.md)

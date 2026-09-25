@@ -1,6 +1,9 @@
-# ADR 011: Empirical Evaluation Methodology — Cohen's Kappa & Ground Truth vs. Subjective LLM-as-a-Judge
+ADR 022: Empirical Evaluation Methodology -- Cohen's Kappa & Ground Truth vs. Subjective LLM-as-a-Judge
+
+* **Status**: Accepted
 
 ---
+
 
 ## 1. Context and Problem Statement
 
@@ -18,7 +21,7 @@ The evaluation harness needed an objective, statistically defensible methodology
 * **Statistical Defensibility**: Use of recognized psychometric and inter-rater reliability standards.
 * **Ground-Truth Calibration**: Benchmarking against hand-curated expert mitigation decisions.
 * **Multi-Dimensional Metrics**: Evaluation of accuracy, consensus stability, tie-breaker deadlocks, latency percentiles, and operational risk reduction.
-* **Separation of Evaluator from System**: The evaluation harness must run as an independent microservice (`services/evaluation/`) benchmarking identical inputs across CD²F and comparative baselines.
+* **Separation of Evaluator from System**: The evaluation harness must run as an independent microservice (`services/evaluation/`) benchmarking identical inputs across CD2F and comparative baselines.
 
 ---
 
@@ -36,7 +39,7 @@ The evaluation harness needed an objective, statistically defensible methodology
 
 ## 4. Decision Outcome
 
-**Chosen Option**: **Option 3 — Statistical Benchmarking with Cohen's Kappa**
+**Chosen Option**: **Option 3 -- Statistical Benchmarking with Cohen's Kappa**
 
 ### Rationale:
 1. **Cohen's Kappa ($\kappa$) for Inter-Rater Reliability**:
@@ -48,7 +51,7 @@ The evaluation harness needed an objective, statistically defensible methodology
 2. **Standardized Disruption Suite (`benchmark_suite.json`)**:
    * Evaluates a balanced 20-scenario suite spanning all 4 canonical disruption domains (`SUPPLIER_DELAY`, `TRANSPORTATION_FAILURE`, `DEMAND_SPIKE`, `ADVERSE_WEATHER`), proving domain generalizability.
 3. **Comparative Baseline Isolation**:
-   * Executes CD²F against identical ClaimBundles dispatched simultaneously to **Naive Majority Voting** and **Single Specialist Agent** baselines.
+   * Executes CD2F against identical ClaimBundles dispatched simultaneously to **Naive Majority Voting** and **Single Specialist Agent** baselines.
 
 ---
 
@@ -56,7 +59,7 @@ The evaluation harness needed an objective, statistically defensible methodology
 
 ### Positive Consequences:
 * Provides scientific, reproducible answers to Research Questions **RQ1, RQ2, RQ3, and RQ4**.
-* Proved mathematically that Naive Majority Voting deadlocks in **60.0%** of calibration cases, while CD²F achieves **0.0%**.
+* Proved mathematically that Naive Majority Voting deadlocks in **60.0%** of calibration cases, while CD2F achieves **0.0%**.
 * Eliminates evaluation drift and protects against silent regression.
 
 ### Negative Consequences / Trade-offs:
@@ -75,6 +78,6 @@ The evaluation harness needed an objective, statistically defensible methodology
 
 ## 7. Related Decisions & Artifacts
 
-* [ADR 004: Consensus Arbitration Framework](./004_cd2f_consensus_arbitration.md)
-* [ADR 005: Dual-Path Execution Routing Strategy](./005_dual_path_execution_routing.md)
+* [ADR ADR 015: Consensus Arbitration Framework](./015_cd2f_consensus_arbitration.md)
+* [ADR ADR 016: Dual-Path Execution Routing Strategy](./016_dual_path_execution_routing.md)
 * [D10 Results Report](file:///d:/projects/SCOF_V1/SCOF/docs/v1_mvp/deliverables/D10_integration_evaluation/results_report.md)

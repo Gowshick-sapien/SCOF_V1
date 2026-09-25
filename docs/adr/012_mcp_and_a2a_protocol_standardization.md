@@ -1,6 +1,9 @@
-# ADR 006: Protocol Standardization — Model Context Protocol (MCP) and Agent-to-Agent (A2A) vs. Proprietary REST/RPC
+ADR 012: Protocol Standardization -- Model Context Protocol (MCP) and Agent-to-Agent (A2A) vs. Proprietary REST/RPC
+
+* **Status**: Amended by ADR 012 (Amendment)
 
 ---
+
 
 ## 1. Context and Problem Statement
 
@@ -25,13 +28,13 @@ Hardcoding direct SQL/Cypher queries inside agents tightly couples agent reasoni
 
 * **Option 1: Proprietary REST / Direct Python Imports**: Custom FastAPI endpoints or in-process module calls.
 * **Option 2: gRPC / Protocol Buffers**: High-performance binary RPC.
-* **Option 3: Open Protocol Hybrid — Model Context Protocol (MCP) + Agent-to-Agent (A2A)**.
+* **Option 3: Open Protocol Hybrid -- Model Context Protocol (MCP) + Agent-to-Agent (A2A)**.
 
 ---
 
 ## 4. Decision Outcome
 
-**Chosen Option**: **Option 3 — MCP (Agent-to-Tool) + A2A (Agent-to-Agent)**
+**Chosen Option**: **Option 3 -- MCP (Agent-to-Tool) + A2A (Agent-to-Agent)**
 
 ### Rationale:
 1. **Model Context Protocol (MCP) for Tools**:
@@ -58,7 +61,7 @@ Hardcoding direct SQL/Cypher queries inside agents tightly couples agent reasoni
 ## 6. Implementation & Compliance Notes
 
 * Shared protocol contracts in [shared/scof_shared/protocols/](file:///d:/projects/SCOF_V1/SCOF/shared/scof_shared/protocols/).
-* Agent cards published at `/.well-known/agent.json` by each specialist microservice (`8011–8014`).
+* Agent cards published at `/.well-known/agent.json` by each specialist microservice (`8011-8014`).
 * A2A discovery client implemented in [services/coordinator/src/agent_discovery.py](file:///d:/projects/SCOF_V1/SCOF/services/coordinator/src/agent_discovery.py).
 * Verified via `python scripts/verify_d5.py`.
 
@@ -66,6 +69,6 @@ Hardcoding direct SQL/Cypher queries inside agents tightly couples agent reasoni
 
 ## 7. Related Decisions & Artifacts
 
-* [ADR 001: Orchestration Kernel Selection](./001_langgraph_orchestration_kernel.md)
-* [ADR 009: Declarative YAML Domain Profiles](./009_declarative_yaml_domain_profiles.md)
+* [ADR ADR 014: Orchestration Kernel Selection](./014_langgraph_orchestration_kernel.md)
+* [ADR ADR 004: Declarative YAML Domain Profiles](./004_declarative_yaml_domain_profiles.md)
 * [D5 Orchestration Documentation](file:///d:/projects/SCOF_V1/SCOF/docs/v1_mvp/deliverables/D05_orchestration/README.md)

@@ -1,8 +1,9 @@
-# ADR 026: Durable Semantic-Memory and Evidence Substrate
+ADR 007 (Amendment): Durable Semantic-Memory and Evidence Substrate
 
-* **Status**: Accepted (Amends ADR 003 and ADR 007)
+* **Status**: Accepted (Amends ADR 007 and ADR 005)
 
 ---
+
 
 ## 1. Context and Problem Statement
 

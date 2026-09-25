@@ -2,7 +2,7 @@
 
 ## 1. Overview & Objectives
 
-Deliverable D08 upgrades the basic synchronous FastAPI endpoints of V1 into an enterprise-grade **API Gateway and Streaming Event Bus**. It provides the communication backbone that decouples disruption producers, multi-agent orchestration kernels, the cognitive twin simulation substrate, and downstream user interfaces ([ADR 002](file:///d:/projects/SCOF_V1/SCOF/docs/adr/002_apache_kafka_event_streaming.md)).
+Deliverable D08 upgrades the basic synchronous FastAPI endpoints of V1 into an enterprise-grade **API Gateway and Streaming Event Bus**. It provides the communication backbone that decouples disruption producers, multi-agent orchestration kernels, the cognitive twin simulation substrate, and downstream user interfaces ([ADR ADR 018](file:///d:/projects/SCOF_V1/SCOF/docs/adr/018_apache_kafka_event_streaming.md)).
 
 ---
 
@@ -48,7 +48,7 @@ Disruptions and events enter the enterprise backbone across three distinct chann
 * **`POST /api/v2/twin/scenarios/{id}/simulate`** - Runs event-stepped forward propagation across specified horizon.
 * **`POST /api/v2/twin/scenarios/{id}/advance`** - Advances discrete simulation clock by $k$ steps.
 * **`POST /api/v2/twin/scenarios/{id}/counterfactual`** - Evaluates candidate interventions and returns state deltas.
-* **`POST /api/v2/twin/scenarios/{id}/actions`** - Commits CD²F-approved interventions to Layer 3 state.
+* **`POST /api/v2/twin/scenarios/{id}/actions`** - Commits CD2F-approved interventions to Layer 3 state.
 * **`GET /api/v2/twin/scenarios/{id}/evidence/{claim_id}`** - Retrieves verifiable evidence pack with SHA-256 digests.
 
 ### 3.2 Dynamic Capability Registry Endpoints
@@ -71,7 +71,7 @@ Disruptions and events enter the enterprise backbone across three distinct chann
 The event-driven backbone isolates services across four canonical topics:
 1. `scof.disruptions.inbound`: Unprocessed telemetry alerts, maintenance webhooks, and scenario triggers.
 2. `scof.deliberation.transcript`: Agent-to-agent proposals, challenges, and votes.
-3. `scof.consensus.committed`: Resolved actions emitted by the CD²F engine.
+3. `scof.consensus.committed`: Resolved actions emitted by the CD2F engine.
 4. `scof.twin.state_deltas`: State modifications committed to Layer 3 simulation storage.
 
 ---

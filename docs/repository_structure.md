@@ -1,4 +1,4 @@
-# **SCOF — Repository Structure**
+# **SCOF -- Repository Structure**
 
 ## **Complete Project Layout Before Implementation**
 
@@ -14,8 +14,8 @@
 | ----- | ----- |
 | **Monorepo** | All services, agents, frontend, infrastructure, docs, and profiles live in one repository. Simplifies cross-service refactoring, shared contracts, and Docker Compose orchestration. |
 | **Service-per-directory** | Each deployable unit (API, agent, frontend) gets its own top-level directory with its own Dockerfile, dependency file, and tests. |
-| **Deliverable traceability** | Every deliverable (D1–D11) has a dedicated docs folder linking requirements, design decisions, and acceptance evidence. |
-| **Profile-driven** | Domain Profiles are a first-class directory at the repo root — not buried inside a service. |
+| **Deliverable traceability** | Every deliverable (D1-D11) has a dedicated docs folder linking requirements, design decisions, and acceptance evidence. |
+| **Profile-driven** | Domain Profiles are a first-class directory at the repo root -- not buried inside a service. |
 | **Shared contracts** | Common schemas (Structured Claim, Agent Card, event formats) live in a shared library, imported by all Python services. |
 | **Infrastructure as code** | Docker Compose files, database init scripts, and environment configs are versioned alongside application code. |
 
@@ -34,42 +34,42 @@ SCOF/
     ISSUE_TEMPLATE/
        bug_report.md
        feature_request.md
-       deliverable_task.md                 # Template tied to D1–D11 tracking
+       deliverable_task.md                 # Template tied to D1-D11 tracking
     PULL_REQUEST_TEMPLATE.md
 
  docs/                                       # Two-Track Project Documentation Portal
     README.md                               # Master Documentation Navigation Portal
     repository_structure.md                 # This document
 
-    adr/                                    # Master Architecture Decision Records (Sequential 001 - 025+)
-       README.md                            # ADR Registry & Status Matrix
+    adr/                                    # Master Architecture Decision Records (Sequential 001 - 022 + Amendments)
+       README.md                            # ADR Registry & Layered Matrix
        template.md                          # Standard ADR Template
-       001_langgraph_orchestration_kernel.md # V1: LangGraph StateGraph selection
-       002_apache_kafka_event_streaming.md   # V1: Kafka message streaming
-       003_pgvector_for_semantic_memory.md   # V1: pgvector memory store
-       004_cd2f_consensus_arbitration.md     # V1: CD²F Dynamic Arbitration
-       005_dual_path_execution_routing.md    # V1: Fast-Path vs Slow-Path / HITL
-       006_mcp_and_a2a_protocol_standardization.md # V1: MCP & A2A protocols
-       007_hybrid_knowledge_layer_neo4j_postgres.md # V1: Hybrid Knowledge Layer (Amended by ADR 014)
-       008_tauri_v2_desktop_operations_console.md # V1: Tauri v2 desktop console
-       009_declarative_yaml_domain_profiles.md # V1: Domain Profiles (Amended by ADR 016)
-       010_redis_realtime_state_caching.md   # V1: Redis caching
-       011_empirical_evaluation_cohens_kappa.md # V1: Empirical evaluation & calibration
-       012_containerized_polyglot_microservices.md # V1: Docker Compose fleet
-       013_enterprise_knowledge_fabric_over_monolithic_generator.md # V2: 30-domain Enterprise Knowledge Fabric
-       014_materialized_graph_projection_and_bounded_query_contracts.md # V2: Materialized Graph & Bounded MCP Tools
-       015_tripartite_state_isolation_for_benchmark_integrity.md # V2: Tripartite State Isolation (Frozen/Base/Runtime)
-       016_declarative_domain_binding_profiles.md # V2: Declarative Domain Binding Profiles
-       017_decoupling_data_domains_from_agent_roster.md # V2: 30 Data Domains != 30 Agents (4 Specialists)
-       018_cognitive_twin_service_substrate.md # V2: Cognitive Twin Service Layer (`twin_service.py`)
-       019_operational_digital_twin_substrate_layer.md # V2: Operational Digital Twin Substrate Layer
-       020_tri_zone_query_routing_and_deeper_resolver.md # V2: Tri-Zone Router & Deeper Resolver Pipeline
-       021_dynamic_capability_registry_over_static_mcp_endpoints.md # V2: Dynamic Capability Cards & Tool Synthesis
-       022_minimalist_bounded_worker_concurrency.md # V2: 4-Tier Priority Queue & Bounded Worker Pool
-       023_event_stepped_simulation_kernel_over_fixed_tick_daemon.md # V2: Event-Stepped DES Engine
-       024_immutable_neo4j_topology_with_in_memory_scenario_overlays.md # V2: Immutable Graph & Scenario Overlays
-       025_five_tier_state_hierarchy_and_actuation_boundaries.md # V2: 5 State Tiers & Gated HITL Actuation
-       026_durable_semantic_memory_and_evidence_substrate.md # V2: 3-Tier pgvector schema & SemanticMemoryStore
+       001_enterprise_knowledge_fabric_over_monolithic_generator.md # Enterprise Knowledge Fabric & 30-Domain Reference World
+       002_tripartite_state_isolation_for_benchmark_integrity.md # Tripartite State Isolation (Frozen/Base/Runtime)
+       003_decoupling_data_domains_from_agent_roster.md # Decoupling Data Domains from Agent Roster (4 Specialists)
+       004_declarative_yaml_domain_profiles.md # Domain Profile Architecture (Declarative YAML)
+       004b_amendment_declarative_domain_binding_profiles.md # Amendment: Declarative Domain Binding Profiles
+       005_hybrid_knowledge_layer_neo4j_postgres.md # Hybrid Knowledge Layer (Neo4j Graph + PostgreSQL)
+       005b_amendment_materialized_graph_projection_and_bounded_queries.md # Amendment: Read-Only Graph & Bounded MCP Contracts
+       006_immutable_neo4j_topology_with_in_memory_scenario_overlays.md # Immutable Neo4j Graph & Scenario Perturbation Overlays
+       007_pgvector_for_semantic_memory.md  # Vector Database Selection (pgvector)
+       007b_amendment_durable_semantic_memory_and_evidence_substrate.md # Amendment: Durable Multi-Tier Semantic Memory Substrate
+       008_operational_digital_twin_substrate_layer.md # Operational Digital Twin Substrate Layer Above D1/D2
+       009_cognitive_twin_service_substrate.md # Cognitive Twin Service Layer (`twin_service.py`)
+       010_event_stepped_simulation_kernel_over_fixed_tick_daemon.md # Event-Stepped Simulation Kernel (DES Engine)
+       011_minimalist_bounded_worker_concurrency.md # Minimalist Bounded Worker Concurrency (4-Tier Priority Queue)
+       012_mcp_and_a2a_protocol_standardization.md # Protocol Standardization (MCP & A2A)
+       012b_amendment_dynamic_capability_registry_over_static_mcp.md # Amendment: Dynamic Capability Cards & Tool Synthesis
+       013_tri_zone_query_routing_and_deeper_resolver.md # Tri-Zone Query Routing & Deeper Resolver Pipeline
+       014_langgraph_orchestration_kernel.md # LangGraph StateGraph Orchestration Kernel
+       015_cd2f_consensus_arbitration.md    # CD2F Consensus Arbitration Framework
+       016_dual_path_execution_routing.md   # Dual-Path Execution Routing (Fast-Path vs Slow-Path / HITL)
+       017_five_tier_state_hierarchy_and_actuation_boundaries.md # Five-Tier State Hierarchy & Actuation Boundaries
+       018_apache_kafka_event_streaming.md  # Apache Kafka Message Streaming Bus (KRaft)
+       019_redis_realtime_state_caching.md  # Redis Real-Time State Caching & WebSockets
+       020_tauri_v2_desktop_operations_console.md # Tauri v2 Desktop Operations Console (React 19 + Apple HIG)
+       021_containerized_polyglot_microservices.md # Containerized Polyglot Microservices Fleet
+       022_empirical_evaluation_cohens_kappa.md # Empirical Evaluation Methodology (Cohen's Kappa Ground Truth)
 
     v1_mvp/                                 # TRACK 1: FROZEN V1 MVP BASELINE (Historical Reference)
        README.md                            # Track 1 Overview & Verification Status
@@ -196,7 +196,7 @@ SCOF/
 
  services/                                   # All deployable backend services
    
-    simulation/                             # D1 — Simulation Environment & Synthetic Data
+    simulation/                             # D1 -- Simulation Environment & Synthetic Data
        Dockerfile
        pyproject.toml                      # Dependencies: faker, numpy, pandas, psycopg, etc.
        README.md
@@ -213,7 +213,7 @@ SCOF/
            test_disruption_generator.py
            test_db_writer.py
    
-    etl/                                    # D2 — Knowledge & Data Layer ETL
+    etl/                                    # D2 -- Knowledge & Data Layer ETL
        Dockerfile
        pyproject.toml                      # Dependencies: neo4j, psycopg, pgvector, pyyaml
        README.md
@@ -228,9 +228,9 @@ SCOF/
            test_neo4j_loader.py
            test_pgvector_seeder.py
    
-    agents/                                 # D3 + D4 — All specialist agents
+    agents/                                 # D3 + D4 -- All specialist agents
       
-       demand/                             # D3 — Demand Forecast Agent
+       demand/                             # D3 -- Demand Forecast Agent
           Dockerfile
           pyproject.toml                  # Dependencies: xgboost, prophet, chronos, fastapi, langgraph
           README.md
@@ -254,7 +254,7 @@ SCOF/
               test_ensemble.py
               test_claim_builder.py
       
-       inventory/                          # D3 — Inventory Agent
+       inventory/                          # D3 -- Inventory Agent
           Dockerfile
           pyproject.toml
           README.md
@@ -276,7 +276,7 @@ SCOF/
               test_agent.py
               test_ensemble.py
       
-       supplier/                           # D4 — Supplier Intelligence Agent
+       supplier/                           # D4 -- Supplier Intelligence Agent
           Dockerfile
           pyproject.toml
           README.md
@@ -296,7 +296,7 @@ SCOF/
               test_agent.py
               test_reliability_scorer.py
       
-       transportation/                     # D4 — Transportation Agent
+       transportation/                     # D4 -- Transportation Agent
            Dockerfile
            pyproject.toml
            README.md
@@ -316,7 +316,7 @@ SCOF/
                test_agent.py
                test_delay_predictor.py
    
-    coordinator/                            # D5 — Coordinator Agent (Orchestration)
+    coordinator/                            # D5 -- Coordinator Agent (Orchestration)
        Dockerfile
        pyproject.toml                      # Dependencies: langgraph, langsmith/langfuse, fastapi
        README.md
@@ -333,7 +333,7 @@ SCOF/
            test_agent_discovery.py
            test_claim_collector.py
    
-    consensus/                              # D6 — CD²F Consensus Engine
+    consensus/                              # D6 -- CD2F Consensus Engine
        Dockerfile
        pyproject.toml                      # Dependencies: numpy, scipy, scikit-learn
        README.md
@@ -359,7 +359,7 @@ SCOF/
            test_calibration.py
            test_baselines.py
    
-    observability/                          # D7 — Observability & Explainability Backend
+    observability/                          # D7 -- Observability & Explainability Backend
        Dockerfile
        pyproject.toml                      # Dependencies: langsmith/langfuse, psycopg, pgvector
        README.md
@@ -375,7 +375,7 @@ SCOF/
            test_trace_persister.py
            test_trace_retriever.py
    
-    api/                                    # D8 — Backend API & Real-Time Layer
+    api/                                    # D8 -- Backend API & Real-Time Layer
        Dockerfile
        pyproject.toml                      # Dependencies: fastapi, uvicorn, websockets, kafka-python/pika
        README.md
@@ -411,7 +411,7 @@ SCOF/
            test_decisions.py
            test_websocket.py
    
-    evaluation/                             # D10 — Evaluation Harness
+    evaluation/                             # D10 -- Evaluation Harness
         Dockerfile
         pyproject.toml                      # Dependencies: numpy, pandas, scikit-learn, matplotlib
         README.md
@@ -427,20 +427,20 @@ SCOF/
               calibration.py              # Judge calibration kappa over time
            benchmarks/
               __init__.py
-              cd2f_benchmark.py           # Full CD²F benchmark run
+              cd2f_benchmark.py           # Full CD2F benchmark run
               single_agent_benchmark.py   # Single-agent baseline benchmark
               majority_voting_benchmark.py # Naive majority voting benchmark
            reporting/
                __init__.py
                report_generator.py         # Generates markdown/HTML results report
-               rq_mapper.py                # Maps results to RQ1–RQ4
+               rq_mapper.py                # Maps results to RQ1-RQ4
         results/                            # Benchmark results output directory
            .gitkeep
         tests/
             __init__.py
             test_harness.py
 
- desktop/                                    # D09 — SCOF Desktop Operations Console
+ desktop/                                    # D09 -- SCOF Desktop Operations Console
     src-tauri/                              # Tauri native layer (Rust, kept thin)
        Cargo.toml
        tauri.conf.json                     # Window config, app metadata, permissions
@@ -561,7 +561,7 @@ SCOF/
 
 | File | Purpose |
 | ----- | ----- |
-| `pyproject.toml` | Root-level Python configuration. Defines monorepo workspace (if using uv/hatch workspaces), shared linting rules (ruff), and formatting (black). Does **not** define dependencies — each service has its own. |
+| `pyproject.toml` | Root-level Python configuration. Defines monorepo workspace (if using uv/hatch workspaces), shared linting rules (ruff), and formatting (black). Does **not** define dependencies -- each service has its own. |
 | `Makefile` | Developer convenience targets: `make up` (docker compose up), `make test` (run all tests), `make generate` (run D1 data gen), `make etl` (run D2 ETL), `make evaluate` (run D10 benchmarks), `make lint`, `make clean`. |
 | `.env.example` | Template for environment variables used by Docker Compose and services. |
 | `.pre-commit-config.yaml` | Pre-commit hooks: ruff (Python linting), black (Python formatting), eslint + prettier (TypeScript/JS), YAML lint, markdown lint. |
@@ -935,17 +935,17 @@ clean:                                 ## Clean generated data, volumes, caches
 
 | Deliverable | Repo Location(s) | Docs Location |
 | ----- | ----- | ----- |
-| **D1** — Simulation & Synthetic Data | `services/simulation/`, `infrastructure/`, `profiles/` | `docs/deliverables/D01_simulation_data/` |
-| **D2** — Knowledge & Data Layer | `services/etl/`, `infrastructure/database/` | `docs/deliverables/D02_knowledge_layer/` |
-| **D3** — Demand + Inventory Agents | `services/agents/demand/`, `services/agents/inventory/` | `docs/deliverables/D03_demand_inventory_agents/` |
-| **D4** — Supplier + Transport Agents | `services/agents/supplier/`, `services/agents/transportation/` | `docs/deliverables/D04_supplier_transport_agents/` |
-| **D5** — Orchestration & Protocol Layer | `services/coordinator/`, `shared/scof_shared/protocols/` | `docs/deliverables/D05_orchestration/` |
-| **D6** — CD²F Consensus Engine | `services/consensus/` | `docs/deliverables/D06_consensus_engine/` |
-| **D7** — Observability & Explainability | `services/observability/`, `shared/scof_shared/observability/` | `docs/deliverables/D07_observability/` |
-| **D8** — Backend API & Real-Time | `services/api/` | `docs/deliverables/D08_backend_api/` |
-| **D9** — Frontend Dashboard | `frontend/` | `docs/deliverables/D09_frontend_dashboard/` |
-| **D10** — Integration & Evaluation | `services/evaluation/` | `docs/deliverables/D10_integration_evaluation/` |
-| **D11** — Post-MVP Extension Points | — (docs only) | `docs/deliverables/D11_post_mvp_extensions/` |
+| **D1** -- Simulation & Synthetic Data | `services/simulation/`, `infrastructure/`, `profiles/` | `docs/deliverables/D01_simulation_data/` |
+| **D2** -- Knowledge & Data Layer | `services/etl/`, `infrastructure/database/` | `docs/deliverables/D02_knowledge_layer/` |
+| **D3** -- Demand + Inventory Agents | `services/agents/demand/`, `services/agents/inventory/` | `docs/deliverables/D03_demand_inventory_agents/` |
+| **D4** -- Supplier + Transport Agents | `services/agents/supplier/`, `services/agents/transportation/` | `docs/deliverables/D04_supplier_transport_agents/` |
+| **D5** -- Orchestration & Protocol Layer | `services/coordinator/`, `shared/scof_shared/protocols/` | `docs/deliverables/D05_orchestration/` |
+| **D6** -- CD2F Consensus Engine | `services/consensus/` | `docs/deliverables/D06_consensus_engine/` |
+| **D7** -- Observability & Explainability | `services/observability/`, `shared/scof_shared/observability/` | `docs/deliverables/D07_observability/` |
+| **D8** -- Backend API & Real-Time | `services/api/` | `docs/deliverables/D08_backend_api/` |
+| **D9** -- Frontend Dashboard | `frontend/` | `docs/deliverables/D09_frontend_dashboard/` |
+| **D10** -- Integration & Evaluation | `services/evaluation/` | `docs/deliverables/D10_integration_evaluation/` |
+| **D11** -- Post-MVP Extension Points | -- (docs only) | `docs/deliverables/D11_post_mvp_extensions/` |
 | **Shared Contracts** | `shared/` | Inline in `shared/README.md` |
 | **Domain Profiles** | `profiles/` | `docs/domain_binding_strategy.md` |
 
@@ -1025,7 +1025,7 @@ This is the order in which directories should be populated with code, matching t
 
 | Step | What to Build | Directories Involved |
 | ----- | ----- | ----- |
-| **0** | Repo scaffolding — create all directories, config files, `pyproject.toml`s, `Dockerfile`s, `.gitignore`, `Makefile` | All |
+| **0** | Repo scaffolding -- create all directories, config files, `pyproject.toml`s, `Dockerfile`s, `.gitignore`, `Makefile` | All |
 | **1** | MVP Domain Profile | `profiles/mvp-electronics/` |
 | **2** | Docker Compose + DB init scripts | `infrastructure/`, root `docker-compose.yml` |
 | **3** | Shared library (schemas, profile loader) | `shared/` |
@@ -1034,7 +1034,7 @@ This is the order in which directories should be populated with code, matching t
 | **6** | D3: Demand + Inventory agents | `services/agents/demand/`, `services/agents/inventory/` |
 | **7** | D4: Supplier + Transport agents | `services/agents/supplier/`, `services/agents/transportation/` |
 | **8** | D5: Coordinator + orchestration | `services/coordinator/` |
-| **9** | D6: CD²F consensus engine | `services/consensus/` |
+| **9** | D6: CD2F consensus engine | `services/consensus/` |
 | **10** | D7: Observability backend | `services/observability/` |
 | **11** | D8: Backend API + real-time layer | `services/api/` |
 | **12** | D9: Frontend dashboard | `frontend/` |

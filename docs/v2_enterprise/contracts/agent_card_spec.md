@@ -4,7 +4,7 @@
 
 In SCOF V2, all autonomous agents must adhere to a declarative **Agent Card Specification**. The Agent Card serves as the machine-readable and human-auditable contract governing an agent's operational boundaries, domain competencies, tool permissions, input/output schemas, and execution Service Level Agreements (SLAs).
 
-This prevents architectural drift, guarantees deterministic orchestration in Deliverable D05, and enforces least-privilege security over the Enterprise Knowledge Fabric (ADR 014, ADR 017).
+This prevents architectural drift, guarantees deterministic orchestration in Deliverable D05, and enforces least-privilege security over the Enterprise Knowledge Fabric (ADR ADR 005 (Amendment), ADR ADR 003).
 
 ---
 
@@ -63,7 +63,7 @@ fallback_and_resilience:
 
 ## 3. Roster of Standard Agent Cards
 
-Under ADR 017, the 30 data domains are decoupled from the agent roster. SCOF V2 defines four operational specialist agent cards:
+Under ADR ADR 003, the 30 data domains are decoupled from the agent roster. SCOF V2 defines four operational specialist agent cards:
 
 | Agent ID | Canonical Role | Core Domain Inputs | Target Output Action |
 | :--- | :--- | :--- | :--- |
@@ -77,5 +77,5 @@ Under ADR 017, the 30 data domains are decoupled from the agent roster. SCOF V2 
 ## 4. Invariant Rules
 
 1. **State Isolation:** No Agent Card may grant write permissions to Layer 1 (Frozen Datasets) or Layer 2 (Baseline State). Writes are confined to Layer 3 simulation runtime contexts.
-2. **Bounded Depth:** Any graph tool granted to an agent must enforce `max_depth <= 3` (ADR 014).
+2. **Bounded Depth:** Any graph tool granted to an agent must enforce `max_depth <= 3` (ADR ADR 005 (Amendment)).
 3. **Structured Emission:** All agents must emit outputs adhering to [`structured_claim_contract.md`](file:///d:/projects/SCOF_V1/SCOF/docs/v2_enterprise/contracts/structured_claim_contract.md). Unstructured free text output is rejected by the D05 Orchestration Kernel.

@@ -1,14 +1,15 @@
-# ADR 016: Declarative Domain Binding Profiles over Procedural World Generators
+ADR 004 (Amendment): Declarative Domain Binding Profiles over Procedural World Generators
 
-* **Status**: Accepted (Amends ADR 009)
+* **Status**: Accepted (Amends ADR 004)
 
 ---
 
+
 ## 1. Context and Problem Statement
 
-In ADR 009, Domain Profiles (`profiles/<profile-name>/`) were defined as declarative YAML packages that directed synthetic generators to create a specific supply chain topology (e.g., `profiles/mvp-electronics/` directed the generator to create 5 suppliers, 2 warehouses, and 5 products).
+In ADR ADR 004, Domain Profiles (`profiles/<profile-name>/`) were defined as declarative YAML packages that directed synthetic generators to create a specific supply chain topology (e.g., `profiles/mvp-electronics/` directed the generator to create 5 suppliers, 2 warehouses, and 5 products).
 
-With the establishment of the frozen 30-domain Enterprise Knowledge Fabric (ADR 013), treating Domain Profiles as generator inputs is obsolete. An enterprise platform should not rebuild or re-synthesize supply chain worlds per deployment. Instead, the enterprise dataset exists as an authoritative reference world, and different operational contexts represent subsets of that world.
+With the establishment of the frozen 30-domain Enterprise Knowledge Fabric (ADR ADR 001), treating Domain Profiles as generator inputs is obsolete. An enterprise platform should not rebuild or re-synthesize supply chain worlds per deployment. Instead, the enterprise dataset exists as an authoritative reference world, and different operational contexts represent subsets of that world.
 
 ---
 
@@ -36,13 +37,13 @@ With the establishment of the frozen 30-domain Enterprise Knowledge Fabric (ADR 
 ### Rationale:
 The Domain Profile's responsibility fundamentally shifts:
 * **Old V1 Role:** "Generate five suppliers, two warehouses, and five products."
-* **New V2 Role:** "This SCOF instance binds to Enterprise Dataset v2.0, activating Regional Zone South (DCs WH-001/WH-002, Stores STR-001 through STR-004), running Demand, Inventory, Supplier, and Logistics agents under CD²F consensus."
+* **New V2 Role:** "This SCOF instance binds to Enterprise Dataset v2.0, activating Regional Zone South (DCs WH-001/WH-002, Stores STR-001 through STR-004), running Demand, Inventory, Supplier, and Logistics agents under CD2F consensus."
 
 ### Profile Structure (`profiles/v2-retail-enterprise/`):
 * `profile.yaml`: Top-level metadata and dataset version binding (`dataset_version: 2.0.0`).
 * `topology_binding.yaml`: Declares active facilities, primary servicing warehouses, and transport lanes.
 * `agents.yaml`: Declares active specialist agents, model choices (XGBoost, Prophet, Chronos-2), and MCP tool permissions.
-* `consensus.yaml`: Defines CD²F thresholds (Fast-Path $WCS \ge 0.70$, severity scaling, and calibration).
+* `consensus.yaml`: Defines CD2F thresholds (Fast-Path $WCS \ge 0.70$, severity scaling, and calibration).
 
 ---
 

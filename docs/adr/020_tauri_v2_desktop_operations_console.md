@@ -1,6 +1,9 @@
-# ADR 008: Desktop Client Architecture — Tauri v2 + React 19 + Apple HIG vs. Electron and Pure Web App
+ADR 020: Desktop Client Architecture -- Tauri v2 + React 19 + Apple HIG vs. Electron and Pure Web App
+
+* **Status**: Accepted
 
 ---
+
 
 ## 1. Context and Problem Statement
 
@@ -32,7 +35,7 @@ The presentation layer needed to fulfill strict requirements:
 
 ## 4. Decision Outcome
 
-**Chosen Option**: **Option 3 — Tauri v2 + React 19 + Apple HIG**
+**Chosen Option**: **Option 3 -- Tauri v2 + React 19 + Apple HIG**
 
 ### Rationale:
 1. **Lightweight Native Performance**:
@@ -70,5 +73,5 @@ The presentation layer needed to fulfill strict requirements:
 
 ## 7. Related Decisions & Artifacts
 
-* [ADR 010: Real-Time State Caching with Redis](./010_redis_realtime_state_caching.md)
+* [ADR ADR 019: Real-Time State Caching with Redis](./019_redis_realtime_state_caching.md)
 * [D9 Desktop Operations Console Documentation](file:///d:/projects/SCOF_V1/SCOF/docs/v1_mvp/deliverables/D09_desktop_operations_console/README.md)

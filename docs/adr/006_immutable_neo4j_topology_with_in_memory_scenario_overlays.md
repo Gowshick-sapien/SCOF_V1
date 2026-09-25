@@ -1,8 +1,9 @@
-# ADR 024: Immutable Neo4j Topology with In-Memory Scenario Overlays
+ADR 006: Immutable Neo4j Topology with In-Memory Scenario Overlays
 
 * **Status**: Accepted
 
 ---
+
 
 ## 1. Context and Problem Statement
 
@@ -28,15 +29,15 @@ If these scenario modifications are written directly to the database (`DELETE ed
 
 ## 3. Considered Options
 
-* **Option 1 — Direct Neo4j Graph Mutations:** Mutate the graph directly via Cypher during scenario simulation and attempt to rollback changes upon scenario teardown.
-* **Option 2 — Physical Neo4j Database Cloning:** Duplicate the Neo4j database or create separate graph databases per scenario.
-* **Option 3 — Immutable Neo4j Topology with In-Memory Scenario Overlays:** Treat the Neo4j database as 100% read-only. Scenario network perturbations are captured as lightweight in-memory overlay filters in the active `ScenarioContext`. Bounded Cypher queries apply parameter masks over the immutable baseline graph.
+* **Option 1 -- Direct Neo4j Graph Mutations:** Mutate the graph directly via Cypher during scenario simulation and attempt to rollback changes upon scenario teardown.
+* **Option 2 -- Physical Neo4j Database Cloning:** Duplicate the Neo4j database or create separate graph databases per scenario.
+* **Option 3 -- Immutable Neo4j Topology with In-Memory Scenario Overlays:** Treat the Neo4j database as 100% read-only. Scenario network perturbations are captured as lightweight in-memory overlay filters in the active `ScenarioContext`. Bounded Cypher queries apply parameter masks over the immutable baseline graph.
 
 ---
 
 ## 4. Decision Outcome
 
-**Chosen Option**: **Option 3 — Immutable Neo4j Topology with In-Memory Scenario Overlays**
+**Chosen Option**: **Option 3 -- Immutable Neo4j Topology with In-Memory Scenario Overlays**
 
 ### Rationale:
 1. **Absolute Immutability:** No Cypher `CREATE`, `SET`, or `DELETE` statement is ever executed against the Neo4j database during scenario runs or agent deliberation.
@@ -61,7 +62,7 @@ If these scenario modifications are written directly to the database (`DELETE ed
 * Eliminates the risk of dirty database writes or corrupted topology baselines.
 * Zero storage overhead; instant scenario creation and teardown ($< 1\text{ ms}$).
 * Enables non-blocking, highly parallel Cypher read queries.
-* Maintains strict compliance with ADR 015 Tripartite State Isolation.
+* Maintains strict compliance with ADR ADR 002 Tripartite State Isolation.
 
 ### Negative Consequences / Trade-offs:
 * All MCP Cypher traversal queries must adhere to the standardized overlay filtering contract.
@@ -79,7 +80,7 @@ If these scenario modifications are written directly to the database (`DELETE ed
 
 ## 7. Related Decisions & Artifacts
 
-* [ADR 007: Hybrid Knowledge Layer Neo4j Postgres](file:///d:/projects/SCOF_V1/SCOF/docs/adr/007_hybrid_knowledge_layer_neo4j_postgres.md)
-* [ADR 014: Materialized Graph Projection and Bounded Query Contracts](file:///d:/projects/SCOF_V1/SCOF/docs/adr/014_materialized_graph_projection_and_bounded_query_contracts.md)
-* [ADR 015: Tripartite State Isolation for Benchmark Integrity](file:///d:/projects/SCOF_V1/SCOF/docs/adr/015_tripartite_state_isolation_for_benchmark_integrity.md)
+* [ADR ADR 005: Hybrid Knowledge Layer Neo4j Postgres](file:///d:/projects/SCOF_V1/SCOF/docs/adr/005_hybrid_knowledge_layer_neo4j_postgres.md)
+* [ADR ADR 005 (Amendment): Materialized Graph Projection and Bounded Query Contracts](file:///d:/projects/SCOF_V1/SCOF/docs/adr/005b_amendment_materialized_graph_projection_and_bounded_queries.md)
+* [ADR ADR 002: Tripartite State Isolation for Benchmark Integrity](file:///d:/projects/SCOF_V1/SCOF/docs/adr/002_tripartite_state_isolation_for_benchmark_integrity.md)
 * [State Isolation Architecture Specification](file:///d:/projects/SCOF_V1/SCOF/docs/v2_enterprise/architecture/05_state_isolation_and_evidence_fabric.md)

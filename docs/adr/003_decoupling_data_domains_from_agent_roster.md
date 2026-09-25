@@ -1,8 +1,9 @@
-# ADR 017: Decoupling Enterprise Data Domains from Multi-Agent Operational Roster
+ADR 003: Decoupling Enterprise Data Domains from Multi-Agent Operational Roster
 
 * **Status**: Accepted
 
 ---
+
 
 ## 1. Context and Problem Statement
 
@@ -44,7 +45,7 @@ Deploying 30 autonomous LLM agents creates catastrophic operational bottlenecks:
   * **Inventory Agent:** Consumes Inventory Positions, Goods Receipts, Store Assortments, Replenishment Policies, and Physical Assets.
   * **Supplier Agent:** Consumes Supplier Profiles, Commercial Contracts, Purchase Orders, Supplier Invoices, and Three-Way Match records.
   * **Transportation Agent:** Consumes Transport Lanes, Shipments, Carrier Profiles, Fleet Assets, and Route Disruptions.
-* **Consensus Efficiency:** CD²F arbitrates among 4 well-bounded, cross-functional claims rather than resolving a chaotic 30-agent shouting match.
+* **Consensus Efficiency:** CD2F arbitrates among 4 well-bounded, cross-functional claims rather than resolving a chaotic 30-agent shouting match.
 
 ---
 

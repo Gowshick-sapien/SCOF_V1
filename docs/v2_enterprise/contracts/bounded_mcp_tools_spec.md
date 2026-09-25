@@ -2,15 +2,15 @@
 
 ## 1. Overview & Security Invariant
 
-To enforce the sub-second ($< 500\text{ ms}$) decision SLA and protect server memory across the 3.73M-node Neo4j property graph and 96 relational tables, specialist agents are **strictly prohibited from executing raw SQL or unconstrained Cypher queries** ([ADR 014](file:///d:/projects/SCOF_V1/SCOF/docs/adr/014_materialized_graph_projection_and_bounded_query_contracts.md)).
+To enforce the sub-second ($< 500\text{ ms}$) decision SLA and protect server memory across the 3.73M-node Neo4j property graph and 96 relational tables, specialist agents are **strictly prohibited from executing raw SQL or unconstrained Cypher queries** ([ADR ADR 005 (Amendment)](file:///d:/projects/SCOF_V1/SCOF/docs/adr/005b_amendment_materialized_graph_projection_and_bounded_queries.md)).
 
-All agent interactions with the enterprise environment occur through **Model Context Protocol (MCP)** tools. Furthermore, rather than statically mounting dozens of tools into every prompt, tools are dynamically bound per task via the [Dynamic Capability Registry](file:///d:/projects/SCOF_V1/SCOF/docs/v2_enterprise/architecture/03_dynamic_capability_registry.md) ([ADR 021](file:///d:/projects/SCOF_V1/SCOF/docs/adr/021_dynamic_capability_registry_over_static_mcp_endpoints.md)), limiting prompt context to 3–5 bounded tools.
+All agent interactions with the enterprise environment occur through **Model Context Protocol (MCP)** tools. Furthermore, rather than statically mounting dozens of tools into every prompt, tools are dynamically bound per task via the [Dynamic Capability Registry](file:///d:/projects/SCOF_V1/SCOF/docs/v2_enterprise/architecture/03_dynamic_capability_registry.md) ([ADR ADR 012 (Amendment)](file:///d:/projects/SCOF_V1/SCOF/docs/adr/012b_amendment_dynamic_capability_registry_over_static_mcp.md)), limiting prompt context to 3-5 bounded tools.
 
 ---
 
 ## 2. Classification by Operational Class
 
-Tools are strictly partitioned into three operational classes ([ADR 020](file:///d:/projects/SCOF_V1/SCOF/docs/adr/020_tri_zone_query_routing_and_deeper_resolver.md)):
+Tools are strictly partitioned into three operational classes ([ADR ADR 013](file:///d:/projects/SCOF_V1/SCOF/docs/adr/013_tri_zone_query_routing_and_deeper_resolver.md)):
 
 ### 2.1 Class A: Direct Read-Only Enterprise Facts (D2 Fabric)
 Direct lookups against PostgreSQL (system of record) and bounded Neo4j traversals:

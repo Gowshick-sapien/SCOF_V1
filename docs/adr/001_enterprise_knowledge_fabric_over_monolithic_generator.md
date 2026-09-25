@@ -1,12 +1,13 @@
-# ADR 013: Enterprise Knowledge Fabric over Monolithic Synthetic Generator
+ADR 001: Enterprise Knowledge Fabric over Monolithic Synthetic Generator
 
 * **Status**: Accepted (Supersedes V1 D01/D02 Toy Generator Scope)
 
 ---
 
+
 ## 1. Context and Problem Statement
 
-In SCOF V1, Deliverables D1 and D2 relied on a monolithic procedural generator designed to synthesize an isolated toy supply chain (1 manufacturer, 5 suppliers, 2 warehouses, 1 distribution center, and 3–5 products). While sufficient for initial LangGraph and CD²F algorithmic prototyping, this toy dataset lacks the enterprise realism, multi-echelon depth, cross-domain foreign key constraints, and commercial complexities required for an industrial-grade Cognitive Twin.
+In SCOF V1, Deliverables D1 and D2 relied on a monolithic procedural generator designed to synthesize an isolated toy supply chain (1 manufacturer, 5 suppliers, 2 warehouses, 1 distribution center, and 3-5 products). While sufficient for initial LangGraph and CD2F algorithmic prototyping, this toy dataset lacks the enterprise realism, multi-echelon depth, cross-domain foreign key constraints, and commercial complexities required for an industrial-grade Cognitive Twin.
 
 Furthermore, procedural on-the-fly generation coupled generator code to runtime execution, making it difficult to establish cryptographic provenance, repeatable data lineage, and multi-tier network relationships.
 
@@ -50,7 +51,7 @@ Option 3 replaces the toy procedural generator with the **SCOF Retail Enterprise
 
 ### Negative Consequences / Trade-offs:
 * Dataset footprint increases (approx. 585 MB SQLite database, 2 GB weekly demand history).
-* Requires rigorous runtime state isolation to prevent simulation runs from corrupting the baseline dataset (addressed in ADR 015).
+* Requires rigorous runtime state isolation to prevent simulation runs from corrupting the baseline dataset (addressed in ADR ADR 002).
 
 ---
 

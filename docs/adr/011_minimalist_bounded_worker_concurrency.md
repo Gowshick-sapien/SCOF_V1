@@ -1,8 +1,9 @@
-# ADR 022: Minimalist Bounded Worker Concurrency Model
+ADR 011: Minimalist Bounded Worker Concurrency Model
 
 * **Status**: Accepted
 
 ---
+
 
 ## 1. Context and Problem Statement
 
@@ -27,15 +28,15 @@ The architectural challenge was to establish a concurrency model that guarantees
 
 ## 3. Considered Options
 
-* **Option 1 — Unconstrained Async Spawning:** Spin up a new worker coroutine for every incoming query without limits.
-* **Option 2 — Dynamic Fair-Share Scheduler:** Implement dynamic aging, priority score decay formulas, per-agent quotas, and preemption controllers.
-* **Option 3 — Minimalist 4-Tier Priority Queue with Bounded Worker Pool:** Enforce a fixed 4-tier Priority Queue (P0 System Emergency, P1 CD²F Consensus, P2 Agent Deliberation, P3 Background Analytics) backed by a fixed-capacity Bounded Worker Pool ($W = 4..8$ workers) with FIFO dispatching per tier and in-memory branch overlays.
+* **Option 1 -- Unconstrained Async Spawning:** Spin up a new worker coroutine for every incoming query without limits.
+* **Option 2 -- Dynamic Fair-Share Scheduler:** Implement dynamic aging, priority score decay formulas, per-agent quotas, and preemption controllers.
+* **Option 3 -- Minimalist 4-Tier Priority Queue with Bounded Worker Pool:** Enforce a fixed 4-tier Priority Queue (P0 System Emergency, P1 CD2F Consensus, P2 Agent Deliberation, P3 Background Analytics) backed by a fixed-capacity Bounded Worker Pool ($W = 4..8$ workers) with FIFO dispatching per tier and in-memory branch overlays.
 
 ---
 
 ## 4. Decision Outcome
 
-**Chosen Option**: **Option 3 — Minimalist 4-Tier Priority Queue with Bounded Worker Pool**
+**Chosen Option**: **Option 3 -- Minimalist 4-Tier Priority Queue with Bounded Worker Pool**
 
 ### Rationale:
 1. **Proven Simplicity:** The 4-tier priority queue maps directly to enterprise operational realities without arbitrary mathematical tuning.
@@ -70,7 +71,7 @@ The architectural challenge was to establish a concurrency model that guarantees
 
 ## 7. Related Decisions & Artifacts
 
-* [ADR 012: Containerized Polyglot Microservices](file:///d:/projects/SCOF_V1/SCOF/docs/adr/012_containerized_polyglot_microservices.md)
-* [ADR 018: Cognitive Twin Service Substrate](file:///d:/projects/SCOF_V1/SCOF/docs/adr/018_cognitive_twin_service_substrate.md)
-* [ADR 019: Operational Digital Twin Substrate Layer](file:///d:/projects/SCOF_V1/SCOF/docs/adr/019_operational_digital_twin_substrate_layer.md)
+* [ADR ADR 021: Containerized Polyglot Microservices](file:///d:/projects/SCOF_V1/SCOF/docs/adr/021_containerized_polyglot_microservices.md)
+* [ADR ADR 009: Cognitive Twin Service Substrate](file:///d:/projects/SCOF_V1/SCOF/docs/adr/009_cognitive_twin_service_substrate.md)
+* [ADR ADR 008: Operational Digital Twin Substrate Layer](file:///d:/projects/SCOF_V1/SCOF/docs/adr/008_operational_digital_twin_substrate_layer.md)
 * [Minimalist Concurrency Architecture Specification](file:///d:/projects/SCOF_V1/SCOF/docs/v2_enterprise/architecture/04_minimalist_concurrency_and_worker_pool.md)

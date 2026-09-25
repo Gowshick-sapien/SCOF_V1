@@ -59,7 +59,7 @@ To eliminate ambiguity between historical data, current operational baselines, h
 
 ---
 
-## 3. Tripartite State Isolation (ADR 015)
+## 3. Tripartite State Isolation (ADR ADR 002)
 
 The physical persistence architecture maps the five tiers into three strictly separated storage layers:
 
@@ -90,7 +90,7 @@ The physical persistence architecture maps the five tiers into three strictly se
 
 ---
 
-## 4. Immutable Neo4j Topology with Scenario Overlays (ADR 024)
+## 4. Immutable Neo4j Topology with Scenario Overlays (ADR ADR 006)
 
 The Neo4j property graph contains **3,732,388 nodes and 2,104,188 edges**.
 
@@ -156,6 +156,6 @@ Every agent claim submitted to the orchestration kernel must be bound to a **Det
 ```
 
 ### Invariants Guaranteed by Evidence Packs:
-1. **Zero Hallucination:** Agents cannot fabricate numbers; claims without matching evidence pack hashes are rejected by the CD²F consensus engine.
+1. **Zero Hallucination:** Agents cannot fabricate numbers; claims without matching evidence pack hashes are rejected by the CD2F consensus engine.
 2. **Audit Verifiability:** Regulators, operators, and benchmark harnesses can inspect the exact database snapshot and causal trace that justified any action.
 3. **Observability Integration:** Evidence packs are stored verbatim in PostgreSQL and indexed in pgvector for semantic precedent search in D07.

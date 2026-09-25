@@ -8,10 +8,10 @@ Its primary responsibilities are:
 1. **System of Record (PostgreSQL):** Housing the authoritative 30 business domains across 96 tables with 165 physical foreign keys and 4.36M relational rows. (SQLite serves as the dedicated local development and smoke-test harness).
 2. **Materialized Topology Projection (Neo4j):** Serving structural dependency traversals over 3,728,199 materialized nodes, 2,104,514 relationships, and 59 schema constraints.
 3. **Semantic Memory Substrate (pgvector):** Storing 384-dimensional embeddings of historical disruption scenarios, agent evidence claims, decision rationales, CD2F consensus explanations, and dynamic capability cards.
-4. **Bounded Query Governance (ADR 014):** Providing agents with depth-bounded, parameterized MCP traversal tools rather than unconstrained Cypher execution.
-5. **Graph Immutability Invariant (ADR 024):** Guaranteeing Neo4j remains 100% read-only during scenario simulations, applying topological perturbations via in-memory scenario overlays.
+4. **Bounded Query Governance (ADR ADR 005 (Amendment)):** Providing agents with depth-bounded, parameterized MCP traversal tools rather than unconstrained Cypher execution.
+5. **Graph Immutability Invariant (ADR ADR 006):** Guaranteeing Neo4j remains 100% read-only during scenario simulations, applying topological perturbations via in-memory scenario overlays.
 6. **Class A Direct Query Resolution:** Fulfilling read-only operational facts directly to agents in $< 50\text{ ms}$, bypassing the simulation engine.
-7. **Safe Service Encapsulation (ADR 026):** Providing specialist agents with [SemanticMemoryStore](file:///d:/projects/SCOF_V1/SCOF/shared/scof_shared/knowledge/semantic_memory_store.py) to prevent raw SQL or vector parameter handling in cognitive agents.
+7. **Safe Service Encapsulation (ADR ADR 007 (Amendment)):** Providing specialist agents with [SemanticMemoryStore](file:///d:/projects/SCOF_V1/SCOF/shared/scof_shared/knowledge/semantic_memory_store.py) to prevent raw SQL or vector parameter handling in cognitive agents.
 
 ---
 
@@ -48,7 +48,7 @@ To protect the sub-second ($< 500\text{ ms}$) SLA and prevent server memory exha
 | `get_category_assortment_tree` | `max_depth = 4` | `(:Department) -> (:Category) -> (:Subcategory) -> (:Family)` | Demand Agent |
 
 ### Scenario Overlay Masking Contract
-When a scenario injects severed corridors or disabled facilities, queries pass `$disabled_nodes` and `$disabled_edges` into Cypher parameters without mutating the underlying database ([ADR 024](file:///d:/projects/SCOF_V1/SCOF/docs/adr/024_immutable_neo4j_topology_with_in_memory_scenario_overlays.md)):
+When a scenario injects severed corridors or disabled facilities, queries pass `$disabled_nodes` and `$disabled_edges` into Cypher parameters without mutating the underlying database ([ADR ADR 006](file:///d:/projects/SCOF_V1/SCOF/docs/adr/006_immutable_neo4j_topology_with_in_memory_scenario_overlays.md)):
 ```cypher
 MATCH path = (origin:Facility)-[:CONNECTS_TO*1..3]->(dest:Facility)
 WHERE NONE(node IN nodes(path) WHERE node.facility_id IN $disabled_nodes)
@@ -58,7 +58,7 @@ RETURN path
 
 ---
 
-## 4. Semantic Memory Substrate Specification (ADR 026)
+## 4. Semantic Memory Substrate Specification (ADR ADR 007 (Amendment))
 
 ### 4.1 Schema Architecture
 * **`scof.embedding_model`:** Immutable registry (`model_id` formatted as `model_name@version`). Frozen to 384 dimensions and cosine metric.

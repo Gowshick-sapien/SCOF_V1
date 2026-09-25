@@ -1,6 +1,9 @@
-# ADR 007: Knowledge Layer Architecture — Hybrid Graph (Neo4j) + Relational/Vector (PostgreSQL) vs. Monolithic Store
+ADR 005: Knowledge Layer Architecture -- Hybrid Graph (Neo4j) + Relational/Vector (PostgreSQL) vs. Monolithic Store
+
+* **Status**: Amended by ADR 005 (Amendment)
 
 ---
+
 
 ## 1. Context and Problem Statement
 
@@ -25,13 +28,13 @@ Attempting to force both data models into a single storage engine introduces sev
 
 * **Option 1: Pure Relational (PostgreSQL Only)**: Recursive Common Table Expressions (CTEs) for graph queries.
 * **Option 2: Pure Graph (Neo4j Only)**: Storing all order transactions, inventory snapshots, and embeddings inside Neo4j node properties.
-* **Option 3: Hybrid Architecture — Neo4j 5.18 (Graph) + PostgreSQL 16 with pgvector (Relational/Vector)**.
+* **Option 3: Hybrid Architecture -- Neo4j 5.18 (Graph) + PostgreSQL 16 with pgvector (Relational/Vector)**.
 
 ---
 
 ## 4. Decision Outcome
 
-**Chosen Option**: **Option 3 — Hybrid Neo4j + PostgreSQL/pgvector**
+**Chosen Option**: **Option 3 -- Hybrid Neo4j + PostgreSQL/pgvector**
 
 ### Rationale:
 1. **Neo4j for Structural Topology & Cascade Detection**:
@@ -71,6 +74,6 @@ Attempting to force both data models into a single storage engine introduces sev
 
 ## 7. Related Decisions & Artifacts
 
-* [ADR 003: Vector Database Selection](./003_pgvector_for_semantic_memory.md)
-* [ADR 009: Declarative YAML Domain Profiles](./009_declarative_yaml_domain_profiles.md)
+* [ADR ADR 007: Vector Database Selection](./007_pgvector_for_semantic_memory.md)
+* [ADR ADR 004: Declarative YAML Domain Profiles](./004_declarative_yaml_domain_profiles.md)
 * [D2 Knowledge Layer Documentation](file:///d:/projects/SCOF_V1/SCOF/docs/v1_mvp/deliverables/D02_knowledge_layer/README.md)

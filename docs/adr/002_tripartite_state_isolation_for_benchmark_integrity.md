@@ -1,8 +1,9 @@
-# ADR 015: Tripartite State Isolation for Benchmark and Simulation Integrity
+ADR 002: Tripartite State Isolation for Benchmark and Simulation Integrity
 
 * **Status**: Accepted
 
 ---
+
 
 ## 1. Context and Problem Statement
 
@@ -16,7 +17,7 @@ If these mutations occur directly against the shared operational database, subse
 
 * **Zero Cross-Scenario Contamination:** Ensure that any simulation run executes against a guaranteed clean baseline.
 * **Exact Reproducibility:** Ensure any scenario run can be deterministically replayed with identical outputs given the same seed and parameters.
-* **Scientific Validity for D10:** Protect empirical research questions (RQ1–RQ4) from state pollution.
+* **Scientific Validity for D10:** Protect empirical research questions (RQ1-RQ4) from state pollution.
 * **Ground-Truth Immutability:** Guarantee that the source dataset is never modified by runtime execution.
 
 ---

@@ -1,6 +1,9 @@
-# ADR 003: Vector Database Selection — pgvector vs. Dedicated Vector DBs (Pinecone, Weaviate, Qdrant)
+ADR 007: Vector Database Selection -- pgvector vs. Dedicated Vector DBs (Pinecone, Weaviate, Qdrant)
+
+* **Status**: Amended by ADR 007 (Amendment)
 
 ---
+
 
 ## 1. Context and Problem Statement
 
@@ -29,7 +32,7 @@ This requires generating 384-dimensional dense vector embeddings (using `sentenc
 
 ## 4. Decision Outcome
 
-**Chosen Option**: **Option 3 — PostgreSQL with pgvector**
+**Chosen Option**: **Option 3 -- PostgreSQL with pgvector**
 
 ### Rationale:
 1. **Elimination of Dual-Write Inconsistency**:
@@ -66,5 +69,5 @@ This requires generating 384-dimensional dense vector embeddings (using `sentenc
 
 ## 7. Related Decisions & Artifacts
 
-* [ADR 007: Hybrid Knowledge Layer Architecture](./007_hybrid_knowledge_layer_neo4j_postgres.md)
+* [ADR ADR 005: Hybrid Knowledge Layer Architecture](./005_hybrid_knowledge_layer_neo4j_postgres.md)
 * [D2 Knowledge Layer Documentation](file:///d:/projects/SCOF_V1/SCOF/docs/v1_mvp/deliverables/D02_knowledge_layer/README.md)

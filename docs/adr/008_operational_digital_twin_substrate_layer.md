@@ -1,8 +1,9 @@
-# ADR 019: Operational Digital Twin Substrate Layer Above D1 and D2
+ADR 008: Operational Digital Twin Substrate Layer Above D1 and D2
 
 * **Status**: Accepted
 
 ---
+
 
 ## 1. Context and Problem Statement
 
@@ -23,9 +24,9 @@ In earlier conceptualizations, the boundary between synthetic data generation (D
 
 ## 3. Considered Options
 
-* **Alternative 1 — Twin Coupled Inside D1 Generation Engine:** Embed the Twin directly within Deliverable D1, making the synthetic data generator double as the operational simulation engine.
-* **Alternative 2 — Twin as D1/D2 Shared Facade Gateway:** Position the Twin as a mandatory facade and unified gateway wrapping all D1 generation and D2 database queries.
-* **Alternative 3 — Operational Digital Twin Substrate Above D1 and D2:** Establish the Twin as an authoritative, independent cyber-physical state and simulation substrate residing above D1 and D2. D2 provides authoritative relational and graph facts; the Twin manages isolated scenario states, enforces physical invariants, executes forward propagation, and evaluates counterfactual branches.
+* **Alternative 1 -- Twin Coupled Inside D1 Generation Engine:** Embed the Twin directly within Deliverable D1, making the synthetic data generator double as the operational simulation engine.
+* **Alternative 2 -- Twin as D1/D2 Shared Facade Gateway:** Position the Twin as a mandatory facade and unified gateway wrapping all D1 generation and D2 database queries.
+* **Alternative 3 -- Operational Digital Twin Substrate Above D1 and D2:** Establish the Twin as an authoritative, independent cyber-physical state and simulation substrate residing above D1 and D2. D2 provides authoritative relational and graph facts; the Twin manages isolated scenario states, enforces physical invariants, executes forward propagation, and evaluates counterfactual branches.
 
 ---
 
@@ -48,7 +49,7 @@ The adopted decoupled architecture cleanly separates enterprise data custody fro
 * Read-only relational and graph queries bypass the simulation engine, achieving $< 50\text{ ms}$ response times.
 * The Twin is freed from routine database proxy duties, focusing compute resources on discrete-event forward propagation.
 * Layer 1 (Frozen Ground Truth) and Layer 2 (Day-0 Baseline) are structurally protected from scenario state mutation.
-* Supports clean counterfactual forking (`fork_scenario`), enabling side-by-side comparative trade-off analysis during CD²F arbitration.
+* Supports clean counterfactual forking (`fork_scenario`), enabling side-by-side comparative trade-off analysis during CD2F arbitration.
 
 ### Negative Consequences / Trade-offs:
 * Requires maintaining explicit state synchronization between D2 Day-0 snapshots and the Twin's Layer 3 sandbox overlays.
@@ -58,7 +59,7 @@ The adopted decoupled architecture cleanly separates enterprise data custody fro
 
 ## 6. Implementation & Compliance Notes
 
-* Implemented in [`src/simulation/twin_service.py`](file:///d:/projects/SCOF_V1/SCOF/src/simulation/twin_service.py) and detailed in [Digital Twin Service Architecture](file:///d:/projects/SCOF_V1/SCOF/docs/v2_enterprise/architecture/01_digital_twin_service_architecture.md).
+* Implemented in [`services/twin_service.py`](file:///d:/projects/SCOF_V1/SCOF/services/twin_service.py) and detailed in [Digital Twin Service Architecture](file:///d:/projects/SCOF_V1/SCOF/docs/v2_enterprise/architecture/01_digital_twin_service_architecture.md).
 * Verified by automated test suite in [`tests/test_twin_service.py`](file:///d:/projects/SCOF_V1/SCOF/tests/test_twin_service.py).
 * State isolation verified by SHA-256 digests in `run_manifest.json`.
 
@@ -66,8 +67,8 @@ The adopted decoupled architecture cleanly separates enterprise data custody fro
 
 ## 7. Related Decisions & Artifacts
 
-* [ADR 015: Tripartite State Isolation for Benchmark Integrity](file:///d:/projects/SCOF_V1/SCOF/docs/adr/015_tripartite_state_isolation_for_benchmark_integrity.md)
-* [ADR 018: Cognitive Twin Service Substrate](file:///d:/projects/SCOF_V1/SCOF/docs/adr/018_cognitive_twin_service_substrate.md)
-* [ADR 020: Tri-Zone Query Routing and Deeper Resolver](file:///d:/projects/SCOF_V1/SCOF/docs/adr/020_tri_zone_query_routing_and_deeper_resolver.md)
-* [ADR 023: Event-Stepped Simulation Kernel Over Fixed-Tick Daemon](file:///d:/projects/SCOF_V1/SCOF/docs/adr/023_event_stepped_simulation_kernel_over_fixed_tick_daemon.md)
+* [ADR ADR 002: Tripartite State Isolation for Benchmark Integrity](file:///d:/projects/SCOF_V1/SCOF/docs/adr/002_tripartite_state_isolation_for_benchmark_integrity.md)
+* [ADR ADR 009: Cognitive Twin Service Substrate](file:///d:/projects/SCOF_V1/SCOF/docs/adr/009_cognitive_twin_service_substrate.md)
+* [ADR ADR 013: Tri-Zone Query Routing and Deeper Resolver](file:///d:/projects/SCOF_V1/SCOF/docs/adr/013_tri_zone_query_routing_and_deeper_resolver.md)
+* [ADR ADR 010: Event-Stepped Simulation Kernel Over Fixed-Tick Daemon](file:///d:/projects/SCOF_V1/SCOF/docs/adr/010_event_stepped_simulation_kernel_over_fixed_tick_daemon.md)
 * [Digital Twin Service Architecture Specification](file:///d:/projects/SCOF_V1/SCOF/docs/v2_enterprise/architecture/01_digital_twin_service_architecture.md)
