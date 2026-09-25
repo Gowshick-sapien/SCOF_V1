@@ -1,0 +1,28 @@
+version: "2.1.0"
+active_model_id: "sentence-transformers-minilm-l6-v2@1.0.0"
+
+models:
+  "sentence-transformers-minilm-l6-v2@1.0.0":
+    provider: "sentence-transformers"
+    model_name: "all-MiniLM-L6-v2"
+    dimension: 384
+    distance_metric: "cosine"
+    model_version: "1.0.0"
+    normalize_embeddings: true
+    batch_size: 32
+    device: "cpu"
+    is_active: true
+
+  "mock-test-provider@1.0.0":
+    provider: "mock"
+    model_name: "mock-deterministic-384"
+    dimension: 384
+    distance_metric: "cosine"
+    model_version: "1.0.0"
+    normalize_embeddings: true
+    batch_size: 32
+    is_active: false
+
+defaults:
+  similarity_threshold: 0.50
+  max_top_k: 20

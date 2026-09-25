@@ -69,6 +69,7 @@ SCOF/
        023_event_stepped_simulation_kernel_over_fixed_tick_daemon.md # V2: Event-Stepped DES Engine
        024_immutable_neo4j_topology_with_in_memory_scenario_overlays.md # V2: Immutable Graph & Scenario Overlays
        025_five_tier_state_hierarchy_and_actuation_boundaries.md # V2: 5 State Tiers & Gated HITL Actuation
+       026_durable_semantic_memory_and_evidence_substrate.md # V2: 3-Tier pgvector schema & SemanticMemoryStore
 
     v1_mvp/                                 # TRACK 1: FROZEN V1 MVP BASELINE (Historical Reference)
        README.md                            # Track 1 Overview & Verification Status

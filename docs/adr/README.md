@@ -44,6 +44,7 @@ These decisions govern the industrial-scale expansion over the 30-domain, 49.6K 
 | **[ADR 023](./023_event_stepped_simulation_kernel_over_fixed_tick_daemon.md)** | Event-Stepped Simulation Kernel | **Accepted** | Discrete-event clock advance, 100% replay | Event-Stepped DES Engine |
 | **[ADR 024](./024_immutable_neo4j_topology_with_in_memory_scenario_overlays.md)** | Immutable Neo4j Topology with Overlays | **Accepted** | Zero graph pollution, concurrent branching | In-Memory Graph Perturbation Masks |
 | **[ADR 025](./025_five_tier_state_hierarchy_and_actuation_boundaries.md)** | Five-Tier State Hierarchy & Actuation | **Accepted** | Strict separation of facts vs simulations | 5 Tiers + Gated HITL Actuation |
+| **[ADR 026](./026_durable_semantic_memory_and_evidence_substrate.md)** | Durable Semantic-Memory & Evidence Substrate | **Accepted** | Three-tier pgvector schema, model registry, versioning | pgvector + SemanticMemoryStore |
 
 ---
 

@@ -26,7 +26,7 @@ The original V1 documents and deliverables remain preserved as the foundational 
 ## 3. Critical Analysis & Technical Stakes
 
 ### 3.1 The 3.73M-Node Neo4j Graph: Bounded Query Contracts
-The Neo4j property graph contains **3,732,388 nodes and 2,104,188 edges** across 59 schema constraints. While this provides unprecedented topological richness, treating it as an unconstrained operational database presents severe failure modes:
+The Neo4j property graph contains **3,728,199 nodes and 2,104,514 edges** across 59 schema constraints. While this provides unprecedented topological richness, treating it as an unconstrained operational database presents severe failure modes:
 1. **Unconstrained Cypher Traversal Hazard:** If autonomous LLM agents (D3/D4) issue raw Cypher queries with unbounded depth (e.g., `MATCH (s:Store)-[*1..5]-(x) RETURN x`), query latency will exceed the sub-second SLA ($< 500\text{ ms}$) and exhaust server memory.
 2. **Dual-Master Consistency Drift:** If agents write operational state directly to Neo4j while PostgreSQL records transactions, the relational and graph states will inevitably diverge.
 
