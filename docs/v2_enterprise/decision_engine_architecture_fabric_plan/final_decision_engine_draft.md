@@ -234,6 +234,9 @@ evidence sufficiency assessment, or CD2F arbitration.
 Decision approval (CD2F Tier-1) != physical execution.
 Decision approval and execution authorization are SEPARATE gates.
 The execution gate is controlled by organizational policy, not by CD2F confidence.
+Monotonically Restrictive Autonomy Invariant: Downstream ExecutionPolicyService may
+only preserve or further restrict the autonomy state produced upstream; it must NEVER
+downgrade an upstream mandatory-HITL result or classification into AUTO_EXECUTE.
 State revalidation occurs between ExecutionPolicy approval and execution.
 ```
 
@@ -798,6 +801,11 @@ class ActionRegistry:
         if action_type not in cls._entries:
             raise KeyError(f"Action '{action_type}' not registered in ActionRegistry")
         return cls._entries[action_type]
+    
+    @classmethod
+    def get_entry(cls, action_type: str) -> ActionRegistryEntry:
+        """Alias for get() ensuring seamless contract compatibility."""
+        return cls.get(action_type)
     
     @classmethod
     def get_all_action_types(cls) -> set[str]:
@@ -2427,6 +2435,7 @@ class CandidateAdmissionSeal(BaseModel):
     snapshot_epoch: int
     pipeline_version: str = "v2.0"
     admission_status: CandidateAdmissionStatus
+    candidate_content_hash: str   # SHA-256 of canonical serialized candidate content payload
     
     # Validation gates passed verification
     schema_validated: bool
@@ -2437,7 +2446,7 @@ class CandidateAdmissionSeal(BaseModel):
     budget_selected: bool
     
     sealed_at: datetime
-    seal_signature: str    # HMAC-SHA256 signature of (action_id + session_id + snapshot_epoch + status)
+    seal_signature: str    # Keyed HMAC-SHA256 signature binding (action_id:session_id:snapshot_epoch:status:content_hash)
 
 class CompositeActionIntent(ActionIntent):
     """Strict schema for cross-domain composite actions synthesized in Step 8."""
@@ -2453,13 +2462,14 @@ class CompositeActionIntent(ActionIntent):
 class CandidatePipelineService:
     """Orchestrates candidate extraction, validation, synthesis, revalidation, and admission sealing."""
     
-    def __init__(self, action_registry: ActionRegistry, policy: DecisionPolicy):
+    def __init__(self, action_registry: ActionRegistry, policy: DecisionPolicy, signing_secret: bytes = b"scof-v2-admissions-hmac-key"):
         self.registry = action_registry
         self.policy = policy
+        self.signing_secret = signing_secret
     
     def validate_atomic_candidate(self, candidate: CandidateAction, snapshot_epoch: int) -> bool:
         """Executes Steps 2, 3, 4, 5 on atomic proposals."""
-        entry = self.registry.get_entry(candidate.action_type)
+        entry = self.registry.get(candidate.action_type)
         if candidate.proposer_agent_id not in entry.permitted_proposers:
             return False
         # Entity existence check against PostgreSQL at snapshot_epoch
@@ -2483,7 +2493,7 @@ class CandidatePipelineService:
             
         # 9A & 9B: Verify each component adheres to ActionRegistry and parameter authority
         for sub_intent in intent.component_intents:
-            entry = self.registry.get_entry(sub_intent.action_type)
+            entry = self.registry.get(sub_intent.action_type)
             if not self._verify_parameter_authority(sub_intent, entry.parameter_authority):
                 return False
                 
@@ -2503,12 +2513,27 @@ class CandidatePipelineService:
         return True
 
     def stamp_admission_seal(self, candidate: CandidateAction, session_id: str, snapshot_epoch: int) -> CandidateAdmissionSeal:
-        """Generates the cryptographically signed admission seal for compliant candidates."""
+        """Generates the cryptographically signed HMAC-SHA256 admission seal binding candidate content."""
         is_composite = (candidate.action_type == "composite_action")
         status = CandidateAdmissionStatus.ADMITTED_COMPOSITE if is_composite else CandidateAdmissionStatus.ADMITTED_ATOMIC
         
-        raw_token = f"{candidate.action_id}:{session_id}:{snapshot_epoch}:{status.value}"
-        signature = hashlib.sha256(raw_token.encode("utf-8")).hexdigest()
+        # 1. Compute canonical content hash of candidate action payload
+        candidate_payload = json.dumps(
+            candidate.model_dump(exclude={"seal"}) if hasattr(candidate, "model_dump") else candidate.dict(exclude={"seal"}),
+            sort_keys=True,
+            default=str
+        )
+        content_hash = hashlib.sha256(candidate_payload.encode("utf-8")).hexdigest()
+        
+        # 2. Construct canonical payload binding candidate content, session, and snapshot epoch
+        canonical_token = f"{candidate.action_id}:{session_id}:{snapshot_epoch}:{status.value}:{content_hash}"
+        
+        # 3. Compute keyed HMAC-SHA256 signature
+        signature = hmac.new(
+            self.signing_secret,
+            canonical_token.encode("utf-8"),
+            hashlib.sha256
+        ).hexdigest()
         
         return CandidateAdmissionSeal(
             seal_id=f"SEAL-{uuid4().hex[:12].upper()}",
@@ -2517,6 +2542,7 @@ class CandidatePipelineService:
             snapshot_epoch=snapshot_epoch,
             pipeline_version="v2.0",
             admission_status=status,
+            candidate_content_hash=content_hash,
             schema_validated=True,
             entity_validated=True,
             hard_constraints_passed=True,
@@ -2526,6 +2552,24 @@ class CandidatePipelineService:
             sealed_at=datetime.now(timezone.utc),
             seal_signature=signature
         )
+
+    def verify_admission_seal(self, candidate: CandidateAction, seal: CandidateAdmissionSeal, session_id: str, snapshot_epoch: int) -> bool:
+        """Verifies cryptographic authenticity and content integrity of an admission seal."""
+        if seal.action_id != candidate.action_id or seal.session_id != session_id or seal.snapshot_epoch != snapshot_epoch:
+            return False
+            
+        candidate_payload = json.dumps(
+            candidate.model_dump(exclude={"seal"}) if hasattr(candidate, "model_dump") else candidate.dict(exclude={"seal"}),
+            sort_keys=True,
+            default=str
+        )
+        expected_content_hash = hashlib.sha256(candidate_payload.encode("utf-8")).hexdigest()
+        if not hmac.compare_digest(seal.candidate_content_hash, expected_content_hash):
+            return False
+            
+        canonical_token = f"{candidate.action_id}:{session_id}:{snapshot_epoch}:{seal.admission_status.value}:{seal.candidate_content_hash}"
+        expected_sig = hmac.new(self.signing_secret, canonical_token.encode("utf-8"), hashlib.sha256).hexdigest()
+        return hmac.compare_digest(seal.seal_signature, expected_sig)
 ```
 
 ---
@@ -2640,10 +2684,10 @@ STAGE 3: POINT-ESTIMATE PARETO FRONTIER COMPUTATION
     Cardinality Evaluation of Pareto Frontier P:
     
     Case A: |P| == 1 (Singleton Frontier)
-        The frontier contains exactly one universally non-dominated candidate.
         Selected Action = only member c* in P.
         Frontier Classification = SINGLETON_PARETO_FRONTIER.
-        Confidence Score = 1.0 - lambda * uncertainty(c*).
+        Selection Robustness Score = 1.0 - lambda * uncertainty(c*).
+        (Quantifies selection certainty against model uncertainty, distinct from statistical model confidence).
         Proceed directly to Stage 5.
     
     Case B: |P| > 1 (Multiple Pareto Candidates)
@@ -2917,23 +2961,151 @@ class ParetoArbitrationEngine:
 
 ---
 
-## 35. Execution Authorization
+## 35. Execution Authorization (ExecutionPolicyService)
+
+Execution authorization is strictly decoupled from candidate selection. While CD2F selects the optimal candidate action through vector-first Pareto arbitration and policy weighting, it possesses zero authority to trigger physical execution. Independent authorization is performed by `ExecutionPolicyService`.
+
+### Monotonically Restrictive Autonomy Invariant
+
+The downstream authorization layer is **monotonically restrictive**:
+- A downstream authorization gate may impose additional organizational constraints, require higher approval levels, or mandate human-in-the-loop review.
+- It must **NEVER** downgrade or convert an upstream mandatory-HITL status (`requires_hitl=True`, `GENUINE_PARETO_AMBIGUITY`, `CD2F_NO_FEASIBLE_ACTION`) into autonomous execution (`AUTO_EXECUTE`).
+- Upstream safety, feasibility, and ambiguity boundaries established by CD2F are authoritative and irrevocable downstream.
 
 ```python
-class ExecutionPolicyService:
-    """SEPARATE from CD2F. Applies organizational execution policy."""
+class ExecutionAuthorizationStatus(str, Enum):
+    AUTO_EXECUTE = "AUTO_EXECUTE"
+    HITL_REQUIRED = "HITL_REQUIRED"
+    SIMULATION_ONLY = "SIMULATION_ONLY"
+    EXECUTION_BLOCKED = "EXECUTION_BLOCKED"
+
+class ExecutionAuthorization(BaseModel):
+    """Immutable authorization token issued prior to pre-execution state revalidation."""
+    model_config = ConfigDict(frozen=True, extra="forbid")
     
-    def authorize(self, decision, policy, context) -> ExecutionAuthorization:
+    authorization: ExecutionAuthorizationStatus
+    authorized_at: datetime
+    reason: str
+    enforced_policy_id: str
+    requires_human_approval: bool
+    escalation_targets: list[str] = Field(default_factory=list)
+
+class ExecutionPolicy(BaseModel):
+    """Organizational execution governance policy defining autonomy boundaries."""
+    model_config = ConfigDict(frozen=True, extra="forbid")
+    
+    policy_id: str
+    hitl_required_action_types: set[str]
+    max_autonomous_cost_usd: float
+    require_unanimous_no_contradiction: bool = True
+    authorized_roles: list[str] = Field(default_factory=lambda: ["SUPPLY_CHAIN_COORDINATOR", "SYSTEM_AUTOMATION"])
+
+class DecisionResult(BaseModel):
+    """Complete, immutable output of CD2F arbitration delivered to LangGraph Orchestrator."""
+    model_config = ConfigDict(frozen=True, extra="forbid")
+    
+    decision_id: str
+    session_id: str
+    snapshot_epoch: int
+    selected_action: Optional[CandidateAction] = None
+    arbitration_result: ParetoArbitrationResult
+    cost_impact: float = 0.0
+    evaluated_candidates: list[ParetoCandidateVector] = Field(default_factory=list)
+    justification: str
+    decision_confidence: float
+    created_at: datetime
+
+class ExecutionPolicyService:
+    """
+    SEPARATE from CD2F. Applies organizational execution policy.
+    
+    MONOTONICALLY RESTRICTIVE INVARIANT:
+    ExecutionPolicyService may only preserve or further restrict the autonomy state produced upstream;
+    it may never convert requires_hitl=True or an upstream mandatory-HITL classification
+    (e.g., GENUINE_PARETO_AMBIGUITY, CD2F_NO_FEASIBLE_ACTION) into AUTO_EXECUTE.
+    """
+    
+    def authorize(
+        self,
+        decision: DecisionResult,
+        policy: ExecutionPolicy,
+        context: Literal["live", "simulation", "benchmark"]
+    ) -> ExecutionAuthorization:
+        # 1. Non-production execution isolation
         if context in ("simulation", "benchmark"):
-            return ExecutionAuthorization(authorization="SIMULATION_ONLY")
+            return ExecutionAuthorization(
+                authorization=ExecutionAuthorizationStatus.SIMULATION_ONLY,
+                authorized_at=datetime.now(timezone.utc),
+                reason=f"Execution blocked: non-production context '{context}'",
+                enforced_policy_id=policy.policy_id,
+                requires_human_approval=False
+            )
         
+        # 2. Mandatory upstream safety/escalation inheritance (Monotonically Restrictive Invariant)
+        if decision.arbitration_result.requires_hitl:
+            return ExecutionAuthorization(
+                authorization=ExecutionAuthorizationStatus.HITL_REQUIRED,
+                authorized_at=datetime.now(timezone.utc),
+                reason=f"Mandatory upstream escalation: CD2F arbitration flag requires_hitl=True ({decision.arbitration_result.tradeoff_summary})",
+                enforced_policy_id=policy.policy_id,
+                requires_human_approval=True,
+                escalation_targets=["OPERATIONS_LEAD", "EXECUTIVE_PLANNER"]
+            )
+        
+        if decision.arbitration_result.classification in {
+            ParetoFrontierClassification.GENUINE_PARETO_AMBIGUITY,
+            ParetoFrontierClassification.CD2F_NO_FEASIBLE_ACTION,
+        }:
+            return ExecutionAuthorization(
+                authorization=ExecutionAuthorizationStatus.HITL_REQUIRED,
+                authorized_at=datetime.now(timezone.utc),
+                reason=f"Mandatory upstream escalation: CD2F classification '{decision.arbitration_result.classification.value}' requires HITL resolution",
+                enforced_policy_id=policy.policy_id,
+                requires_human_approval=True,
+                escalation_targets=["OPERATIONS_LEAD", "DOMAIN_SPECIALIST"]
+            )
+        
+        # 3. Action existence check
+        if decision.selected_action is None:
+            return ExecutionAuthorization(
+                authorization=ExecutionAuthorizationStatus.HITL_REQUIRED,
+                authorized_at=datetime.now(timezone.utc),
+                reason="No action selected by arbitration: routing to HITL for intervention",
+                enforced_policy_id=policy.policy_id,
+                requires_human_approval=True,
+                escalation_targets=["OPERATIONS_LEAD"]
+            )
+        
+        # 4. Organizational action-type autonomy gate
         if decision.selected_action.action_type in policy.hitl_required_action_types:
-            return ExecutionAuthorization(authorization="HITL_REQUIRED")
+            return ExecutionAuthorization(
+                authorization=ExecutionAuthorizationStatus.HITL_REQUIRED,
+                authorized_at=datetime.now(timezone.utc),
+                reason=f"Organizational policy requires HITL for action type '{decision.selected_action.action_type}'",
+                enforced_policy_id=policy.policy_id,
+                requires_human_approval=True,
+                escalation_targets=["DOMAIN_SPECIALIST"]
+            )
         
+        # 5. Financial cost threshold gate
         if decision.cost_impact > policy.max_autonomous_cost_usd:
-            return ExecutionAuthorization(authorization="HITL_REQUIRED")
+            return ExecutionAuthorization(
+                authorization=ExecutionAuthorizationStatus.HITL_REQUIRED,
+                authorized_at=datetime.now(timezone.utc),
+                reason=f"Estimated cost impact (${decision.cost_impact:,.2f}) exceeds autonomous threshold (${policy.max_autonomous_cost_usd:,.2f})",
+                enforced_policy_id=policy.policy_id,
+                requires_human_approval=True,
+                escalation_targets=["FINANCIAL_CONTROLLER"]
+            )
         
-        return ExecutionAuthorization(authorization="AUTO_EXECUTE")
+        # 6. Monotonically verified autonomous execution approval
+        return ExecutionAuthorization(
+            authorization=ExecutionAuthorizationStatus.AUTO_EXECUTE,
+            authorized_at=datetime.now(timezone.utc),
+            reason="Decision satisfies upstream feasibility/unambiguity and passes all organizational execution policy gates",
+            enforced_policy_id=policy.policy_id,
+            requires_human_approval=False
+        )
 ```
 
 ---
@@ -3300,8 +3472,8 @@ class DecisionRecord(BaseModel):
     cross_exam_rounds: int
     total_deliberation_duration_ms: float
     
-    selected_action: CandidateAction
-    arbitration_result: CD2FArbitrationResult
+    selected_action: Optional[CandidateAction] = None
+    arbitration_result: ParetoArbitrationResult
     execution_authorization: ExecutionAuthorization
     execution_outcome: ExecutionOutcome
     
@@ -3811,7 +3983,7 @@ See Section 17 for the complete state machine definition with all conditional br
 - State revalidation before execution (approved_snapshot_epoch vs current_snapshot_epoch)
 - Corrected B0-B7 ablation ladder (B3 deliberation / B4 evidence gate separation)
 - Proposition-specific evidence authority
-- Execution authorization separation (CD2F selects; ExecutionPolicyService authorizes)
+- Execution authorization separation (CD2F selects; ExecutionPolicyService authorizes under Monotonically Restrictive Autonomy Invariant)
 - DecisionRecord as immutable business artifact
 - Replay manifest with bounded fidelity classification (TRACE / LOGICAL / MODEL / EXACT_SYSTEM)
 
