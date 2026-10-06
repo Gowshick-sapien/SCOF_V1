@@ -1,18 +1,8 @@
-# SCOF V2 Cognitive Decision Fabric -- Final Architecture Draft
-
-**Document Status:** FINAL DRAFT -- Consolidated Canonical Reference
-**Scope:** D3 through D10 (Decision Engine Architecture)
-**Predecessors:** Initial Plan, Amendments 1, 2, 3, and 4 (Contract Freeze Pass)
-**Date:** 2026-10-05
-**Authority:** This document consolidates and supersedes all prior amendment documents. Where amendments contradict each other, the latest correction (Amendment 4) prevails. Where no correction exists, the original definition stands.
-
----
+# SCOF V2 Cognitive Decision Fabric -- Canonical Architecture Plan
 
 ## Document Purpose
 
-This document is the single authoritative reference for the SCOF V2 Cognitive Decision Fabric architecture spanning deliverables D3 through D10. It consolidates the initial architecture plan and four successive amendment passes into one self-contained specification. Every schema, contract, invariant, pipeline, and diagram herein represents the final canonical form -- all contradictions resolved, all vocabulary unified, all mathematical corrections applied.
-
-This is NOT an abstract overview. Every section contains the implementation-contract-level detail required for engineering execution.
+This document is the authoritative specification for the SCOF V2 Cognitive Decision Fabric architecture spanning deliverables D3 through D10. Every schema, contract, invariant, pipeline, state machine, and architecture diagram herein represents the definitive, implementation-ready contract.
 
 ---
 
@@ -106,7 +96,7 @@ This is NOT an abstract overview. Every section contains the implementation-cont
 61. [Concurrent Session Interference Detection](#61-concurrent-sessions)
 
 ### Part XIV: Architecture Diagrams
-62. [Ultra-Detailed Unified Architecture Diagram](#62-unified-architecture-diagram)
+62. [Detailed Unified Architecture Diagram](#62-unified-architecture-diagram)
 63. [Corrected LangGraph State Machine](#63-langgraph-state-machine)
 
 ### Part XV: Implementation
@@ -122,7 +112,7 @@ This is NOT an abstract overview. Every section contains the implementation-cont
 
 ## 1. Ten Architectural Invariants
 
-These ten invariants are the non-negotiable properties of the D3-D10 architecture. Every design decision, implementation choice, and evaluation criterion must be validated against them. Wording refined through Amendments 2, 3, and 4.
+These ten invariants are the non-negotiable foundational properties of the D3-D10 architecture. Every design decision, implementation contract, runtime mechanism, and evaluation criterion must strictly satisfy them.
 
 ### Invariant 1: Source Authority
 
@@ -166,6 +156,13 @@ Evidence sufficiency is a multi-dimensional assessment of:
 coverage, freshness, authority, consistency, critical-fact presence,
 and tiered criticality (HARD_CRITICAL / DEGRADED_CRITICAL /
 IMPORTANT / SUPPLEMENTARY).
+
+Criticality != average evidence quality.
+Every HARD_CRITICAL fact must INDIVIDUALLY be:
+    present, authoritative, fresh enough (>= min_hard_critical_freshness),
+    and non-contradicted.
+Aggregate (average) freshness is a supplementary quality signal
+and can NEVER compensate for a failing critical fact.
 ```
 
 ### Invariant 4: Candidate Discipline
@@ -173,7 +170,14 @@ IMPORTANT / SUPPLEMENTARY).
 ```
 No unbounded candidate or simulation expansion.
 Candidate budget and simulation budget are explicit, configurable limits.
-Budget enforcement (Step 8) is a HEURISTIC (UCB-based), not a safety proof.
+Budget enforcement (Step 10) is a HEURISTIC (UCB-based), not a safety proof.
+
+Every candidate that enters the Digital Twin -- atomic OR synthesized
+composite -- must have passed: schema, registry, ownership, entity,
+impact, hard constraints, deduplication, and budget selection.
+Synthesized composite candidates must re-enter the validation pipeline
+before budget allocation. This is enforced mechanically by the
+CandidateAdmissionSeal (Section 29).
 ```
 
 ### Invariant 5: Counterfactual Isolation
@@ -189,7 +193,10 @@ Every simulation is bound to a reproducible manifest.
 ```
 LLM: proposes, interprets, explains (non-authoritative for numbers).
 ImpactEvaluationService: computes impact from authoritative data (three tiers).
-CD2F: arbitrates using a formal objective function with direction-aware normalization.
+CD2F: evaluates Pareto dominance directly on multi-objective normalized
+      VECTORS U(c), then applies policy-weighted scalar utility and
+      uncertainty penalties ONLY to resolve multi-candidate frontiers.
+      CD2F SELECTS the winning candidate; it NEVER authorizes execution.
 ExecutionPolicyService: gates execution (separate from decision approval).
 Execution Adapter: acts (with policy-gated authorization).
 ```
@@ -266,42 +273,58 @@ This table is FROZEN. Every reference in every document, diagram, heading, table
 
 ## 3. Six Cognitive Stages
 
-The D3-D10 architecture is organized around six cognitive stages. This is the mental model that governs every design decision. Stage ordering corrected in Amendment 2 (DELIBERATE before EXPLORE).
+The D3-D10 architecture is organized around six cognitive stages (KNOW, UNDERSTAND, DELIBERATE, EXPLORE, DECIDE, EXPLAIN). This mental model governs runtime flow and state machine transitions (with DELIBERATE strictly preceding EXPLORE).
 
 ```
-                    KNOW
-                      |
-                      v
-                 UNDERSTAND
-                      |
-                      v
-                 DELIBERATE
-                /           \
-       revise/critique    candidate actions
-                              |
-                              v
-                    EVIDENCE GATE
-                    (must pass before
-                     expensive simulation)
-                              |
-                   insufficient |  sufficient
-                       |                |
-                      HITL              v
-                                    EXPLORE
-                                 Digital Twin
-                                      |
-                        [if unexpected outcome]
-                              |            |
-                       re-deliberate    proceed
-                              |            |
-                              +-----+------+
-                                    |
-                                    v
-                                 DECIDE
-                                  CD2F
-                                    |
-                                    v
-                                 EXPLAIN
++-----------------------------------------------------------------------------+
+|                    STAGE 1: KNOW (Evidence Acquisition)                     |
+|           PostgreSQL System of Record + Neo4j Topology + pgvector           |
++-----------------------------------------------------------------------------+
+                                       |
+                                       v
++-----------------------------------------------------------------------------+
+|                 STAGE 2: UNDERSTAND (Specialist Reasoning)                  |
+|               6 Autonomous Domain Specialists (Hybrid ML + LLM)             |
++-----------------------------------------------------------------------------+
+                                       |
+                                       v
++-----------------------------------------------------------------------------+
+|                  STAGE 3: DELIBERATE (Cognitive Workspace)                  |
+|                 Deliberation Table + Targeted Cross-Critique                |
++-----------------------------------------------------------------------------+
+                                       |
+                                       v
+                        /-----------------------------\
+                       <   EVIDENCE SUFFICIENCY GATE   >
+                        \-----------------------------/
+                                       |
+                 +---------------------+---------------------+
+                 | INSUFFICIENT                              | SUFFICIENT
+                 v                                           v
++---------------------------------+         +---------------------------------+
+|        HITL ESCALATION          |         |    STAGE 4: EXPLORE (Twin)      |
+|    (Human Incident Review)      |         | Isolated Scenario Simulation    |
++---------------------------------+         +---------------------------------+
+                                                             |
+                                           /----------------------------------\
+                                          <   Simulation Violates Expectation? >
+                                           \----------------------------------/
+                                                             |
+                                        +--------------------+--------------------+
+                                        | YES (First Time)                        | NO
+                                        v                                         v
+                         +-----------------------------+            +-----------------------------+
+                         |  TARGETED RE-DELIBERATION   |            |       STAGE 5: DECIDE       |
+                         |   (Max 1 Bounded Cycle)     |            |    CD2F Vector Arbitration  |
+                         +-----------------------------+            +-----------------------------+
+                                        |                                         |
+                                        +--------------------+--------------------+
+                                                             |
+                                                             v
+                                              +-----------------------------+
+                                              |      STAGE 6: EXPLAIN       |
+                                              |    D9 Observability Trace   |
+                                              +-----------------------------+
 ```
 
 | Stage | Component | Core Question |
@@ -318,22 +341,42 @@ The D3-D10 architecture is organized around six cognitive stages. This is the me
 The primary flow is: DELIBERATE -> EXPLORE -> DECIDE. An optional feedback loop exists:
 
 ```
-EXPLORE (Twin simulation) reveals unexpected outcome
-    |
-    v
-Twin result violates expectation threshold?
-    |
-    +-- NO:  proceed to DECIDE
-    |
-    +-- YES: targeted re-deliberation (max 1 iteration)
-             |
-             v
-             Coordinator posts Twin result to Deliberation Table
-             Affected agents receive targeted re-assessment request
-             Agents revise candidate actions based on simulation insight
-             |
-             v
-             Re-normalize candidates -> Re-simulate -> Proceed to DECIDE
++-----------------------------------------------------------------------------+
+|              EXPLORE: Digital Twin Counterfactual Simulation Branch         |
++-----------------------------------------------------------------------------+
+                                       |
+                                       v
+                     /-----------------------------------\
+                    <   Twin Outcome Exceeds Surprise     >
+                    <   or Severe Deviation Threshold?    >
+                     \-----------------------------------/
+                                       |
+                 +---------------------+---------------------+
+                 | NO                                        | YES (First Occurrence)
+                 v                                           v
++---------------------------------+         +---------------------------------+
+|       PROCEED TO DECIDE         |         |    TARGETED RE-DELIBERATION     |
+|   Forward to CD2F Arbitration   |         | Coordinator Posts Shock Findings|
++---------------------------------+         | Agents Revise Domain Proposals  |
+                                            +---------------------------------+
+                                                             |
+                                                             v
+                                            +---------------------------------+
+                                            |   CANDIDATE RE-NORMALIZATION    |
+                                            |  11-Step Revalidation Pipeline  |
+                                            +---------------------------------+
+                                                             |
+                                                             v
+                                            +---------------------------------+
+                                            |       TWIN RE-SIMULATION        |
+                                            |   (Strictly Max 1 Re-Sim Pass)  |
+                                            +---------------------------------+
+                                                             |
+                                                             v
+                                            +---------------------------------+
+                                            |       PROCEED TO DECIDE         |
+                                            |   Forward to CD2F Arbitration   |
+                                            +---------------------------------+
 ```
 
 **Bound:** This EXPLORE -> DELIBERATE loop executes at most once. If the second simulation still produces unexpected results, the system proceeds to CD2F with available evidence and flags elevated uncertainty.
@@ -343,104 +386,147 @@ Twin result violates expectation threshold?
 ## 4. High-Level Architecture Diagram
 
 ```
-+=============================================================================+
-|                   SCOF V2 COGNITIVE DECISION FABRIC                         |
-|                   (D3 through D10 -- Final Draft)                           |
-+=============================================================================+
-|                                                                             |
-|  +--[D9: OBSERVABILITY, EXPLAINABILITY & DESKTOP CONSOLE]----------------+  |
-|  | Tauri v2 | Decision Trace | HITL Escalation | What-If Lab             |  |
-|  | Evidence Visualization | Trade-off Explanations | DecisionRecord      |  |
-|  +-----------------------------------------------------------------------+  |
-|       |                    ^                                                |
-|  +--[D8: EVENT & RUNTIME BACKBONE (Kafka + Outbox)]---------------------+   |
-|  | FastAPI | WebSocket | Transactional Outbox -> Kafka Topics           |   |
-|  | SCOFEvent Contract | Consumer Idempotency | Aggregate Versioning     |   |
-|  | Session State Machine (DB-enforced transitions)                      |   |
-|  +----------------------------------------------------------------------+   |
-|       |                    ^                    ^                           |
-|  +--[DECISION POLICY LAYER]-----------+  +--[D10: EVALUATION]---------+     |
-|  | DecisionPolicy (from profile)      |  | B0-B7 Ablation Ladder      |     |
-|  | ObjectiveNormalization (direction- |  | Non-parametric statistical |     |
-|  |   aware, signed, saturated)        |  |   protocol                 |     |
-|  | Policy precedence (6 levels)       |  | Anti-Overfitting Suite     |     |
-|  | PolicyIntegrity (content hash)     |  | R_i Calibration            |     |
-|  +------------------------------------+  +----------------------------+     |
-|                  |                                                          |
-|  +================================================================+         |
-|  |        LANGGRAPH ORCHESTRATION KERNEL (D6)                     |         |
-|  |        + Coordinator (7 decomposed services)                   |         |
-|  |        + Snapshot Epoch Allocation                             |         |
-|  |                                                                |         |
-|  |  [Ingest] -> [Snapshot] -> [RAG T1] -> [Route] -> [Bind] ->    |         |
-|  |  -> [Fan-Out (independent)] -> [Fan-In] ->                     |         |
-|  |  -> [Cross-Exam (targeted, bounded)] ->                        |         |
-|  |  -> [Evidence Sufficiency Gate (tiered criticality)] ->        |         |
-|  |  -> [Candidate Extraction] -> [Normalization Pipeline] ->      |         |
-|  |  -> [THREE-TIER IMPACT EVALUATION] ->                          |         |
-|  |  -> [Twin Requirement Classification] ->                       |         |
-|  |  -> [Twin Simulation (Tier 3)] ->                              |         |
-|  |  -> [CD2F Arbitration] -> [ExecutionPolicy] ->                 |         |
-|  |  -> [STATE REVALIDATION] -> [Execute/Escalate]                 |         |
-|  +================================================================+         |
-|       |              |              |              |              |         |
-|  +===================================================================+      |
-|  |     LANGCHAIN AGENT REASONING LAYER (D3/D4)                       |      |
-|  |     + Agent-Internal Tier-2 RAG (MCP-Governed)                    |      |
-|  |     + DomainOwnershipPolicy enforcement (validated contracts)     |      |
-|  |     + ActionIntent (decision params, NOT impact estimates)        |      |
-|  |                                                                   |      |
-|  | +-------------------+ +-------------------+ +-------------------+ |      |
-|  | | Demand &          | | Inventory &       | | Procurement &     | |      |
-|  | | Commerce          | | Asset Mgmt        | | Supplier          | |      |
-|  | +-------------------+ +-------------------+ +-------------------+ |      |
-|  | +-------------------+ +-------------------+ +-------------------+ |      |
-|  | | Logistics &       | | Financial &       | | Risk &            | |      |
-|  | | Transport         | | Enterprise Value  | | Resilience        | |      |
-|  | +-------------------+ +-------------------+ +-------------------+ |      |
-|  +===================================================================+      |
-|       |                                                                    |
-|  +=================================================================+      |
-|  |     DELIBERATION TABLE (Event-Sourced Cognitive Workspace)     |      |
-|  |     Events: PostgreSQL (append-only, sequence-allocated)       |      |
-|  |     Views:  Redis (materialized, snapshot-aware cache keys)    |      |
-|  |     Transport: Kafka (via outbox, keyed by session_id)         |      |
-|  |     State machine: explicit transitions, DB-enforced           |      |
-|  +=================================================================+      |
-|       |                                                                    |
-|  +=================================================================+      |
-|  |     IMPACT EVALUATION SERVICE                                  |      |
-|  |     Tier 1: BaselineImpact (authoritative facts)               |      |
-|  |     Tier 2: PredictiveImpactEstimate (domain models)           |      |
-|  |     LLM numbers NEVER enter this computation                   |      |
-|  +=================================================================+      |
-|       |                                                                    |
-|  +=================================================================+      |
-|  |     DIGITAL TWIN -- COUNTERFACTUAL EVALUATOR (D7)             |      |
-|  |     Tier 3: Counterfactual simulation results                  |      |
-|  |     Requirement: REQUIRED / RECOMMENDED / ADVISORY             |      |
-|  |     Authority: ONLY within isolated Layer-3 scenario scope     |      |
-|  +=================================================================+      |
-|       |                                                                    |
-|  +=================================================================+      |
-|  |     CD2F EVIDENCE-BASED ARBITRATION ENGINE (D7)               |      |
-|  |     Objective: DecisionObjective (from DecisionPolicy)         |      |
-|  |     Normalization: Direction-aware, signed, with saturation    |      |
-|  |     Pareto: Proper frontier computation                        |      |
-|  |     Labels: SINGLETON_FRONTIER / POLICY_WEIGHT_RESOLVED /      |      |
-|  |             GENUINE_PARETO_AMBIGUITY                           |      |
-|  +=================================================================+      |
-|       |                                                                    |
-|  +=================================================================+      |
-|  |     D1 + D2: ENTERPRISE DATA FABRIC (Frozen Baseline)         |      |
-|  |     PostgreSQL: System of Record                               |      |
-|  |     Neo4j: Topology projection (derived)                       |      |
-|  |     pgvector: Semantic precedent memory                        |      |
-|  |     Redis: Governed cache (fail-closed for critical evidence)  |      |
-|  |     Snapshot epochs: common consistency coordinate              |      |
-|  +=================================================================+      |
-|                                                                             |
-+=============================================================================+
++===================================================================================================+
+|                                SCOF V2 COGNITIVE DECISION FABRIC                                  |
+|                             (Canonical Architecture Reference D3-D10)                             |
++===================================================================================================+
+|                                                                                                   |
+|  +---------------------------------------------------------------------------------------------+  |
+|  | D9: OBSERVABILITY, EXPLAINABILITY AND HUMAN-IN-THE-LOOP CONSOLE                             |  |
+|  | - Tauri v2 Desktop GUI        - End-to-End Decision Trace Log     - What-If Scenario Lab    |  |
+|  | - Evidence Graph Viewer       - Multi-Objective Frontier Radar    - DecisionRecord Archival |  |
+|  | - HITL Escalation Inbox       - Criticality Sensitivity Report    - Replay Engine (Bounded) |  |
+|  +---------------------------------------------------------------------------------------------+  |
+|         |                                            ^                                            |
+|         | User Directives / Approvals                | Real-Time Session & Audit Streams          |
+|         v                                            |                                            |
+|  +---------------------------------------------------------------------------------------------+  |
+|  | D8: EVENT AND RUNTIME BACKBONE                                                              |  |
+|  | - FastAPI REST & WebSocket Gateways              - Transactional Outbox Relay               |  |
+|  | - Kafka Message Transport (Partitioned by Session) - Idempotent Consumer State Machines     |  |  
+|  | - SCOFEvent Strict Schema Envelope               - DB-Level Session State Transition Locks  |  |
+|  +---------------------------------------------------------------------------------------------+  |
+|         |                                            ^                      ^                     |
+|         | Policy Directives                          | Deliberation Events  | Evaluation Feeds    |
+|         v                                            |                      |                     |
+|  +-------------------------------------+             |       +---------------------------------+  |
+|  | DECISION POLICY LAYER (FROM PROFILE)|             |       | D10: EVALUATION AND BENCHMARKS  |  |
+|  | - Objective Metric Definitions      |             |       | - B0 to B7 Ablation Ladder      |  |
+|  | - Direction-Aware Normalization     |             |       | - Non-Parametric Permutation    |  |
+|  | - 6-Level Precedence Hierarchy      |             |       | - ECE / Brier Reliability Tests |  |
+|  | - Anti-Tamper Content Hash Excl.    |             |       | - Anti-Overfitting Scenario Set |  |
+|  +-------------------------------------+             |       +---------------------------------+  |
+|         | Configured Objectives & Gates              |                      ^                     |
+|         v                                            |                      | Traces & Metrics    |
+|  +=============================================================================================+  |
+|  | D6: LANGGRAPH MACRO-ORCHESTRATION KERNEL (COORDINATOR META-FRAMEWORK)                       |  |
+|  |                                                                                             |  |
+|  |   [Disruption Trigger Ingest]                                                               |  |
+|  |             |                                                                               |  |
+|  |             v                                                                               |  |
+|  |   [1. Allocate Atomic DecisionSnapshot Epoch] ---> World-State Consistency Coordinate       |  |
+|  |             |                                                                               |  |
+|  |             v                                                                               |  |
+|  |   [2. Tier-1 RAG Pre-Retrieval] -------------> Broad & Shallow Context Package              |  |
+|  |             |                                                                               |  |
+|  |             v                                                                               |  |
+|  |   [3. Capability Binding & Affinity Routing] -> Resolve Dynamic MCP Tools & Agent Roster    |  |
+|  |             |                                                                               |  |
+|  |             v                                                                               |  |
+|  |   [4. Parallel Specialist Fan-Out] ----------> Zero Cross-Agent Visibility (Independent)    |  |
+|  |             |                                                                               |  |
+|  |             v                                                                               |  |
+|  |   [5. Deliberation Table Fan-In] ------------> Collate Observations, Claims & Proposals     |  |
+|  |             |                                                                               |  |
+|  |             v                                                                               |  |
+|  |   [6. Targeted Cross-Examination] -----------> Conflict-Directed Critiques (Max 2 Rounds)   |  |
+|  |             |                                                                               |  |
+|  |             v                                                                               |  |
+|  |   [7. EVIDENCE SUFFICIENCY GATE] ------------> Individual HARD_CRITICAL Freshness/Authority |  |
+|  |             |                                  (Fail -> Mandatory HITL Escalation)          |  |
+|  |             v                                                                               |  |
+|  |   [8. Candidate Extraction & Normalization] -> Schema, Entity, T1 Baseline & T2 Predictive  |  |
+|  |             |                                                                               |  |
+|  |             v                                                                               |  |
+|  |   [9. Controlled Combination Synthesis] -----> Non-Conflicting Cross-Domain Pairs           |  |
+|  |             |                                                                               |  |
+|  |             v                                                                               |  |
+|  |   [10. MANDATORY REVALIDATION PASS] ---------> Composites Validated on Schema, Entities,    |  |
+|  |             |                                  Hard Constraints, Joint Impact & Dedup       |  |
+|  |             v                                                                               |  |
+|  |   [11. Candidate Budget Selection] ----------> UCB Heuristic + Baseline & Domain Coverage   |  |
+|  |             |                                                                               |  |
+|  |             v                                                                               |  |
+|  |   [12. Digital Twin Materiality Check] ------> Required / Recommended / Advisory Gate       |  |
+|  |             |                                                                               |  |
+|  |             +==========================+==================================+                 |  |
+|  |                                        |                                  |                 |  |
+|  |                                [Simulatable]                    [Non-Simulatable]           |  |
+|  |                                        |                                  |                 |  |
+|  |                                        v                                  |                 |  |
+|  |                          [13. Digital Twin Simulation]                    |                 |  |
+|  |                          (Counterfactual Tier-3 Impact)                   |                 |  |
+|  |                                        |                                  |                 |  |
+|  |                                        v                                  v                 |  |
+|  |             +=============================================================+                 |  |
+|  |             |                                                                               |  |
+|  |             v                                                                               |  |
+|  |   [14. CD2F VECTOR PARETO ARBITRATION] ------> Multi-Objective Vector Frontier P on U(c)    |  |
+|  |             |                                                                               |  |
+|  |             v                                                                               |  |
+|  |   [15. Frontier Policy Resolution] ----------> Scalar Utility J_final = J - lambda*Uncert   |  |
+|  |             |                                  (Singleton / Policy Resolved / Ambiguity)    |  |
+|  |             v                                                                               |  |
+|  |   [16. Return DecisionResult] ---------------> CD2F Selects (Does NOT Authorize Execution)  |  |
+|  |             |                                                                               |  |
+|  |             v                                                                               |  |
+|  |   [17. ExecutionPolicyService Gate] ---------> Autonomous Threshold & Role Permission Check |  |
+|  |             |                                                                               |  |
+|  |             v                                                                               |  |
+|  |   [18. Pre-Execution State Revalidation] ----> Detect Epoch Drift & Invalidation            |  |
+|  |             |                                                                               |  |
+|  |             +------------+-------------------------------+-------------------+              |  |
+|  |                          |                               |                   |              |  |
+|  |                    [State Valid]                 [Material Drift]      [Policy Gate]        |  |
+|  |                          |                               |                   |              |  |
+|  |                          v                               v                   v              |  |
+|  |                  [Execute Adapter]               [Trigger Replan]    [HITL Escalation]      |  |
+|  +=============================================================================================+  |
+|         | Tool Invocations       ^ Agent Proposals          ^ Simulation Results|                 |
+|         v via Governed MCP       | & Cross-Critiques        | & Validation Envs | State Checks    |
+|  +----------------------------------------------------+   +-------------------+ |                 |
+|  | D3/D4: LANGCHAIN SPECIALIST REASONING AGENT ROSTER |   | D7: DIGITAL TWIN  | |                 |
+|  | [1] Demand & Commerce Agent                        |   | (COUNTERFACTUAL   | |                 |
+|  | [2] Inventory & Asset Management Agent             |   |  EVALUATION)      | |                 |
+|  | [3] Procurement & Supplier Agent                   |   | - Scenario Layer 3| |                 |
+|  | [4] Logistics & Transport Agent                    |   |   State Mutation  | |                 |
+|  | [5] Financial & Enterprise Value Agent             |   | - Reproducible    | |                 |
+|  | [6] Risk & Resilience Agent                        |   |   Manifest Replay | |                 |
+|  | Each Specialist Runs:                              |   | - Multi-Horizon   | |                 |
+|  | - Hybrid Domain ML Models + Bounded LLM Reasoning  |   |   Rollout [7..28d]| |                 |
+|  | - Tier-2 Deep RAG (MCP Governed + Hot-Path Cache)  |   +-------------------+ |                 |
+|  | - Strict DomainOwnershipPolicy & ActionIntent Only |             ^           |                 |
+|  +----------------------------------------------------+             |           |                 |
+|         | Read Artifacts              ^ Append Events               | Manifests | Projections     |
+|         v & Materialized Views        | (Session Partitioned)       |           v                 |
+|  +---------------------------------------------------------------------------------------------+  |
+|  | DELIBERATION TABLE (EVENT-SOURCED COGNITIVE WORKSPACE)                                      |  |
+|  | - Authoritative Cognitive Events: PostgreSQL deliberation_events (Append-Only, Immutable)   |  |
+|  | - Materialized Session Projections: Redis session:{id}:{epoch}:{seq} (Snapshot-Keyed)       |  |
+|  | - Single-Writer Sequence Allocation & DB Constraint: UNIQUE(session_id, sequence_number)    |  |
+|  +---------------------------------------------------------------------------------------------+  |
+|         | Reads & Graph Traversals                                  | Write Events / Sync         |
+|         v                                                           v                             |
+|  +---------------------------------------------------------------------------------------------+  |
+|  | D1 + D2: ENTERPRISE DATA FABRIC (SYSTEM OF RECORD)                                          |  |
+|  | - PostgreSQL: Authoritative operational facts (96 core relational tables, transactional)    |  |
+|  | - Neo4j: Current materialized topology projection (3.73M nodes, version-stamped)            |  |
+|  | - pgvector: Semantic memory & historical decision precedent index (384-dimensional)         |  |
+|  | - Redis: Ephemeral real-time telemetry cache (governed, fail-closed on critical queries)    |  |
+|  | - Atomic Snapshot Epoch Coordinator: Common temporal coordinate for all session reasoning   |  |
+|  +---------------------------------------------------------------------------------------------+  |
+|                                                                                                   |
++===================================================================================================+
 ```
 
 ---
@@ -563,53 +649,136 @@ A single evidence class may support multiple claim types.
 
 ## 7. Unified ActionRegistry
 
-The single source of truth for ALL action-related metadata. Replaces the separate ActionTypeRegistry and ActionDefinition from earlier drafts.
+The single source of truth for ALL action-related metadata.
+
+### 7.1 Registry Contract: Exact Schema-Configuration Parity
+
+The Pydantic schema and the YAML configuration are ONE unified contract. There is no second interpretation or runtime ambiguity.
+
+```
+RULE 1: Every field declared in ActionRegistryEntry is strictly REQUIRED.
+        No field has a default value.
+RULE 2: The YAML mapping key IS the action_type identifier.
+        The loader injects it; an "action_type" key inside the body
+        is rejected as a duplicate declaration.
+RULE 3: Conditional fields (twin_handler_id, execution_capability_id)
+        are nullable but NOT optional: the key MUST be present in YAML,
+        and its value MUST be explicitly written as null when not applicable.
+RULE 4: Unknown keys are strictly forbidden (extra="forbid").
+RULE 5: Any schema violation, missing key, or validation failure aborts system startup.
+```
+
+### 7.2 Field Requirement Matrix
+
+| Field | Key Required | Nullable | Validation Constraint |
+| :--- | :---: | :---: | :--- |
+| `action_type` | Mapping Key | No | Unique snake_case string, injected by loader |
+| `display_name` | Yes | No | Non-empty human-readable label |
+| `description` | Yes | No | Non-empty operational description |
+| `primary_domain` | Yes | No | One of 6 domain names or `universal` |
+| `primary_owner_agent` | Yes | No | Valid agent_id or `coordinator`; must be in `permitted_proposers` |
+| `permitted_proposers` | Yes | No | Non-empty list of agent_ids or `coordinator` |
+| `parameter_authority` | Yes | No | Must be in `permitted_proposers`, or `COMPONENT_DELEGATED` for `composite_action` |
+| `intent_schema_class` | Yes | No | Resolves to a registered Pydantic ActionIntent subclass |
+| `impact_evaluation_tier` | Yes | No | `BASELINE_ONLY` or `BASELINE_AND_PREDICTIVE` |
+| `simulatable` | Yes | No | Boolean |
+| `twin_handler_id` | Yes | Yes | Non-null string IFF `simulatable == True`; explicit `null` otherwise |
+| `execution_capability_id` | Yes | Yes | Non-null string IFF `advisory_only == False`; explicit `null` otherwise |
+| `advisory_only` | Yes | No | Boolean |
+
+### 7.3 ActionRegistryEntry Schema
 
 ```python
+COMPONENT_DELEGATED = "COMPONENT_DELEGATED"
+"""Reserved parameter_authority sentinel. Legal ONLY for composite_action.
+Indicates that each constituent action intent within the composite bundle
+remains governed by its own respective parameter authority."""
+
+
 class ActionRegistryEntry(BaseModel):
     """Single canonical definition of an action type.
-    ALL action-related metadata lives here."""
+    ALL action-related metadata lives here.
+    Strict validation: Every field is explicitly REQUIRED; no defaults; extra fields forbidden."""
+    
+    model_config = ConfigDict(extra="forbid", frozen=True)
     
     # Identity
-    action_type: str
+    action_type: str                       # Injected from YAML mapping key
     display_name: str
     description: str
     
     # Domain Classification
     primary_domain: str
     
-    # Ownership
+    # Ownership and Authority
     primary_owner_agent: str
     permitted_proposers: list[str]
     parameter_authority: str
     
-    # Typed Schema Binding
+    # Typed Intent Schema Binding
     intent_schema_class: str
     
-    # Impact Evaluation
+    # Impact Evaluation Tier
     impact_evaluation_tier: Literal[
         "BASELINE_ONLY",
         "BASELINE_AND_PREDICTIVE",
     ]
     
-    # Twin Simulation
+    # Digital Twin Simulation Binding
     simulatable: bool
-    twin_handler_id: Optional[str]
+    twin_handler_id: Optional[str]         # Required key; explicit null if simulatable=False
     
-    # Execution
-    execution_capability_id: Optional[str]   # None for advisory actions
+    # Execution Capability Binding
+    execution_capability_id: Optional[str] # Required key; explicit null if advisory_only=True
     advisory_only: bool
+    
+    @property
+    def composable(self) -> bool:
+        """Derived property. An action may participate in a composite_action
+        only if it is executable, simulatable, and is neither do_nothing
+        nor already a composite action."""
+        return (
+            not self.advisory_only
+            and self.simulatable
+            and self.action_type not in ("do_nothing", "composite_action")
+        )
     
     def validate(self) -> list[str]:
         errors = []
+        at = self.action_type
+        
+        if not self.display_name.strip():
+            errors.append(f"{at}: display_name cannot be empty")
+        if not self.description.strip():
+            errors.append(f"{at}: description cannot be empty")
+        if not self.permitted_proposers:
+            errors.append(f"{at}: permitted_proposers cannot be empty")
+        if self.primary_owner_agent not in self.permitted_proposers:
+            errors.append(f"{at}: primary_owner_agent '{self.primary_owner_agent}' must be in permitted_proposers")
+            
+        if self.parameter_authority == COMPONENT_DELEGATED:
+            if at != "composite_action":
+                errors.append(f"{at}: COMPONENT_DELEGATED is reserved solely for 'composite_action'")
+        elif self.parameter_authority not in self.permitted_proposers:
+            errors.append(f"{at}: parameter_authority '{self.parameter_authority}' must be in permitted_proposers")
+            
         if self.advisory_only and self.execution_capability_id is not None:
-            errors.append(f"{self.action_type}: advisory_only=True but execution_capability_id set")
+            errors.append(f"{at}: advisory_only=True requires execution_capability_id=null")
         if not self.advisory_only and self.execution_capability_id is None:
-            errors.append(f"{self.action_type}: advisory_only=False but no execution_capability_id")
+            errors.append(f"{at}: advisory_only=False requires valid execution_capability_id string")
         if self.simulatable and self.twin_handler_id is None:
-            errors.append(f"{self.action_type}: simulatable=True but no twin_handler_id")
+            errors.append(f"{at}: simulatable=True requires valid twin_handler_id string")
         if not self.simulatable and self.twin_handler_id is not None:
-            errors.append(f"{self.action_type}: simulatable=False but twin_handler_id set")
+            errors.append(f"{at}: simulatable=False requires twin_handler_id=null")
+            
+        if at == "composite_action":
+            if self.intent_schema_class != "CompositeActionIntent":
+                errors.append(f"{at}: intent_schema_class must be 'CompositeActionIntent'")
+            if self.permitted_proposers != ["coordinator"]:
+                errors.append(f"{at}: permitted_proposers must be ['coordinator']")
+            if self.parameter_authority != COMPONENT_DELEGATED:
+                errors.append(f"{at}: parameter_authority must be '{COMPONENT_DELEGATED}'")
+                
         return errors
 
 
@@ -621,13 +790,13 @@ class ActionRegistry:
     @classmethod
     def register(cls, entry: ActionRegistryEntry) -> None:
         if entry.action_type in cls._entries:
-            raise ValueError(f"Duplicate: {entry.action_type}")
+            raise ValueError(f"Duplicate action_type registration: {entry.action_type}")
         cls._entries[entry.action_type] = entry
     
     @classmethod
     def get(cls, action_type: str) -> ActionRegistryEntry:
         if action_type not in cls._entries:
-            raise KeyError(f"'{action_type}' not registered")
+            raise KeyError(f"Action '{action_type}' not registered in ActionRegistry")
         return cls._entries[action_type]
     
     @classmethod
@@ -642,165 +811,330 @@ class ActionRegistry:
         return errors
 ```
 
-### Canonical Action Definitions
+### 7.4 Canonical Action Definitions (Exhaustive YAML)
+
+Every action declares all 12 body fields explicitly. Conditional fields write explicit `null` when not applicable. The closed registry contains exactly 18 actions across all enterprise operational domains.
 
 ```yaml
 actions:
-  # ---- Logistics Domain ----
+  # ---- Logistics & Transport Domain ----
   reroute_shipment:
+    display_name: "Reroute Shipment"
+    description: "Move an in-transit or scheduled shipment onto an alternate route or corridor."
     primary_domain: logistics_transport
     primary_owner_agent: logistics_transport
     permitted_proposers: [logistics_transport]
+    parameter_authority: logistics_transport
+    intent_schema_class: RerouteShipmentIntent
     impact_evaluation_tier: BASELINE_AND_PREDICTIVE
     simulatable: true
+    twin_handler_id: twin.logistics.reroute_shipment.v1
+    execution_capability_id: exec.logistics.reroute_shipment.v1
     advisory_only: false
 
   expedite_shipment:
+    display_name: "Expedite Shipment"
+    description: "Upgrade the freight service level of an active shipment to shorten transit duration."
     primary_domain: logistics_transport
     primary_owner_agent: logistics_transport
     permitted_proposers: [logistics_transport]
+    parameter_authority: logistics_transport
+    intent_schema_class: ExpediteShipmentIntent
     impact_evaluation_tier: BASELINE_AND_PREDICTIVE
     simulatable: true
+    twin_handler_id: twin.logistics.expedite_shipment.v1
+    execution_capability_id: exec.logistics.expedite_shipment.v1
     advisory_only: false
 
   change_freight_mode:
+    display_name: "Change Freight Mode"
+    description: "Switch transportation mode for a lane or order (e.g. ocean to air, road to intermodal)."
     primary_domain: logistics_transport
     primary_owner_agent: logistics_transport
     permitted_proposers: [logistics_transport]
+    parameter_authority: logistics_transport
+    intent_schema_class: ChangeFreightModeIntent
     impact_evaluation_tier: BASELINE_AND_PREDICTIVE
     simulatable: true
+    twin_handler_id: twin.logistics.change_freight_mode.v1
+    execution_capability_id: exec.logistics.change_freight_mode.v1
     advisory_only: false
 
-  # ---- Procurement Domain ----
+  # ---- Procurement & Supplier Domain ----
   switch_supplier:
+    display_name: "Switch Supplier"
+    description: "Re-source open purchase demand to a qualified secondary or alternate supplier."
     primary_domain: procurement_supplier
     primary_owner_agent: procurement_supplier
     permitted_proposers: [procurement_supplier]
+    parameter_authority: procurement_supplier
+    intent_schema_class: SwitchSupplierIntent
     impact_evaluation_tier: BASELINE_AND_PREDICTIVE
     simulatable: true
+    twin_handler_id: twin.procurement.switch_supplier.v1
+    execution_capability_id: exec.procurement.switch_supplier.v1
     advisory_only: false
 
   increase_purchase_order:
+    display_name: "Increase Purchase Order"
+    description: "Increase line quantity on an existing purchase order within vendor capacity."
     primary_domain: procurement_supplier
     primary_owner_agent: procurement_supplier
     permitted_proposers: [procurement_supplier]
+    parameter_authority: procurement_supplier
+    intent_schema_class: IncreasePurchaseOrderIntent
     impact_evaluation_tier: BASELINE_AND_PREDICTIVE
     simulatable: true
+    twin_handler_id: twin.procurement.increase_purchase_order.v1
+    execution_capability_id: exec.procurement.increase_purchase_order.v1
     advisory_only: false
 
   cancel_purchase_order:
+    display_name: "Cancel Purchase Order"
+    description: "Cancel an unfulfilled purchase order or PO line to curtail inventory inflow."
     primary_domain: procurement_supplier
     primary_owner_agent: procurement_supplier
     permitted_proposers: [procurement_supplier]
+    parameter_authority: procurement_supplier
+    intent_schema_class: CancelPurchaseOrderIntent
     impact_evaluation_tier: BASELINE_AND_PREDICTIVE
     simulatable: true
+    twin_handler_id: twin.procurement.cancel_purchase_order.v1
+    execution_capability_id: exec.procurement.cancel_purchase_order.v1
     advisory_only: false
 
   expedite_purchase_order:
+    display_name: "Expedite Purchase Order"
+    description: "Renegotiate delivery date with supplier to bring forward ship date."
     primary_domain: procurement_supplier
     primary_owner_agent: procurement_supplier
     permitted_proposers: [procurement_supplier]
+    parameter_authority: procurement_supplier
+    intent_schema_class: ExpeditePurchaseOrderIntent
     impact_evaluation_tier: BASELINE_AND_PREDICTIVE
     simulatable: true
+    twin_handler_id: twin.procurement.expedite_purchase_order.v1
+    execution_capability_id: exec.procurement.expedite_purchase_order.v1
     advisory_only: false
 
-  # ---- Inventory Domain ----
+  # ---- Inventory & Asset Management Domain ----
   reallocate_inventory:
+    display_name: "Reallocate Inventory"
+    description: "Transfer available stock between nodes in the distribution network."
     primary_domain: inventory_asset
     primary_owner_agent: inventory_asset
     permitted_proposers: [inventory_asset]
+    parameter_authority: inventory_asset
+    intent_schema_class: ReallocateInventoryIntent
     impact_evaluation_tier: BASELINE_AND_PREDICTIVE
     simulatable: true
+    twin_handler_id: twin.inventory.reallocate_inventory.v1
+    execution_capability_id: exec.inventory.reallocate_inventory.v1
     advisory_only: false
 
   adjust_safety_stock:
+    display_name: "Adjust Safety Stock"
+    description: "Recalibrate safety stock target days of supply for a SKU at a stocking location."
     primary_domain: inventory_asset
     primary_owner_agent: inventory_asset
     permitted_proposers: [inventory_asset, demand_commerce]
+    parameter_authority: inventory_asset
+    intent_schema_class: AdjustSafetyStockIntent
     impact_evaluation_tier: BASELINE_AND_PREDICTIVE
     simulatable: true
+    twin_handler_id: twin.inventory.adjust_safety_stock.v1
+    execution_capability_id: exec.inventory.adjust_safety_stock.v1
     advisory_only: false
 
   quarantine_inventory:
+    display_name: "Quarantine Inventory"
+    description: "Temporarily freeze suspect inventory lots to prevent allocation or shipment."
     primary_domain: inventory_asset
     primary_owner_agent: inventory_asset
     permitted_proposers: [inventory_asset, risk_resilience]
+    parameter_authority: inventory_asset
+    intent_schema_class: QuarantineInventoryIntent
     impact_evaluation_tier: BASELINE_AND_PREDICTIVE
     simulatable: true
+    twin_handler_id: twin.inventory.quarantine_inventory.v1
+    execution_capability_id: exec.inventory.quarantine_inventory.v1
     advisory_only: false
 
-  # ---- Demand Domain ----
+  # ---- Demand & Commerce Domain ----
   promotion_adjustment:
+    display_name: "Promotion Adjustment"
+    description: "Throttle, postpone, or cancel a planned promotional campaign to dampen demand."
     primary_domain: demand_commerce
     primary_owner_agent: demand_commerce
     permitted_proposers: [demand_commerce]
+    parameter_authority: demand_commerce
+    intent_schema_class: PromotionAdjustmentIntent
     impact_evaluation_tier: BASELINE_AND_PREDICTIVE
     simulatable: true
+    twin_handler_id: twin.demand.promotion_adjustment.v1
+    execution_capability_id: exec.demand.promotion_adjustment.v1
     advisory_only: false
 
   demand_signal_override:
+    display_name: "Demand Signal Override"
+    description: "Apply an expert correction to baseline statistical demand forecast."
     primary_domain: demand_commerce
     primary_owner_agent: demand_commerce
     permitted_proposers: [demand_commerce]
+    parameter_authority: demand_commerce
+    intent_schema_class: DemandSignalOverrideIntent
     impact_evaluation_tier: BASELINE_AND_PREDICTIVE
     simulatable: true
+    twin_handler_id: twin.demand.demand_signal_override.v1
+    execution_capability_id: exec.demand.demand_signal_override.v1
     advisory_only: false
 
-  # ---- Risk Domain ----
+  # ---- Risk & Resilience Domain ----
   risk_mitigation_recommendation:
+    display_name: "Risk Mitigation Recommendation"
+    description: "Advisory mitigation guidance regarding supplier fragility, compliance, or disruption."
     primary_domain: risk_resilience
     primary_owner_agent: risk_resilience
     permitted_proposers: [risk_resilience]
+    parameter_authority: risk_resilience
+    intent_schema_class: RiskMitigationRecommendationIntent
     impact_evaluation_tier: BASELINE_ONLY
     simulatable: false
+    twin_handler_id: null
+    execution_capability_id: null
     advisory_only: true
 
   compliance_hold:
+    display_name: "Compliance Hold"
+    description: "Enforce a regulatory or sanctions block on physical movement or purchase orders."
     primary_domain: risk_resilience
     primary_owner_agent: risk_resilience
     permitted_proposers: [risk_resilience]
+    parameter_authority: risk_resilience
+    intent_schema_class: ComplianceHoldIntent
     impact_evaluation_tier: BASELINE_AND_PREDICTIVE
     simulatable: true
+    twin_handler_id: twin.risk.compliance_hold.v1
+    execution_capability_id: exec.risk.compliance_hold.v1
     advisory_only: false
 
-  # ---- Finance Domain ----
+  # ---- Financial & Enterprise Value Domain ----
   financial_impact_flag:
+    display_name: "Financial Impact Flag"
+    description: "Advisory flag highlighting severe working capital, margin, or penalty exposure."
     primary_domain: financial_enterprise
     primary_owner_agent: financial_enterprise
     permitted_proposers: [financial_enterprise]
+    parameter_authority: financial_enterprise
+    intent_schema_class: FinancialImpactFlagIntent
     impact_evaluation_tier: BASELINE_ONLY
     simulatable: false
+    twin_handler_id: null
+    execution_capability_id: null
     advisory_only: true
 
   budget_escalation:
+    display_name: "Budget Escalation"
+    description: "Advisory escalation requesting executive spend approval beyond autonomous limits."
     primary_domain: financial_enterprise
     primary_owner_agent: financial_enterprise
     permitted_proposers: [financial_enterprise]
+    parameter_authority: financial_enterprise
+    intent_schema_class: BudgetEscalationIntent
     impact_evaluation_tier: BASELINE_ONLY
     simulatable: false
+    twin_handler_id: null
+    execution_capability_id: null
     advisory_only: true
 
-  # ---- Universal ----
+  # ---- Universal Actions ----
   do_nothing:
+    display_name: "Do Nothing (Baseline)"
+    description: "Mandatory counterfactual baseline candidate: observe natural disruption trajectory."
     primary_domain: universal
     primary_owner_agent: coordinator
     permitted_proposers: [coordinator]
+    parameter_authority: coordinator
+    intent_schema_class: DoNothingIntent
     impact_evaluation_tier: BASELINE_ONLY
     simulatable: true
+    twin_handler_id: twin.universal.baseline_passthrough.v1
+    execution_capability_id: exec.universal.noop.v1
     advisory_only: false
+
+  composite_action:
+    display_name: "Composite Action Bundle"
+    description: >-
+      Mechanical bundle of 2..N individually validated, agent-proposed atomic
+      intents of different action types. Introduces no new parameters.
+      Synthesized only by CandidateService (Section 29, Step 8) and always
+      revalidated (Section 29, Step 9) before budget selection.
+    primary_domain: universal
+    primary_owner_agent: coordinator
+    permitted_proposers: [coordinator]
+    parameter_authority: COMPONENT_DELEGATED
+    intent_schema_class: CompositeActionIntent
+    impact_evaluation_tier: BASELINE_AND_PREDICTIVE
+    simulatable: true
+    twin_handler_id: twin.universal.composite_joint.v1
+    execution_capability_id: exec.universal.composite_dispatch.v1
+    advisory_only: false
+```
+
+### 7.5 Strict Registry Loader
+
+The loader validates structure before instantiating Pydantic objects, guaranteeing that missing keys, unknown fields, or redundant definitions are caught immediately at startup.
+
+```python
+REQUIRED_BODY_KEYS: frozenset[str] = frozenset(
+    ActionRegistryEntry.model_fields.keys() - {"action_type"}
+)   # Exactly 12 keys
+
+
+def load_action_registry(path: Path) -> list[str]:
+    """Load and validate canonical actions YAML. Returns error list.
+    System startup MUST abort if the returned list is non-empty."""
+    
+    raw = yaml.safe_load(path.read_text(encoding="utf-8"))["actions"]
+    errors: list[str] = []
+    
+    for action_type, body in raw.items():
+        keys = set(body.keys())
+        
+        if "action_type" in keys:
+            errors.append(f"{action_type}: 'action_type' must not appear in body (Rule 2)")
+            continue
+            
+        missing = REQUIRED_BODY_KEYS - keys
+        unknown = keys - REQUIRED_BODY_KEYS
+        
+        if missing:
+            errors.append(f"{action_type}: missing required fields {sorted(missing)} (Rule 1/3)")
+        if unknown:
+            errors.append(f"{action_type}: unknown fields detected {sorted(unknown)} (Rule 4)")
+        if missing or unknown:
+            continue
+            
+        try:
+            entry = ActionRegistryEntry(action_type=action_type, **body)
+            ActionRegistry.register(entry)
+        except (ValidationError, ValueError) as exc:
+            errors.append(f"{action_type}: {exc}")
+            
+    errors.extend(ActionRegistry.validate_all())
+    return errors
 ```
 
 ---
 
 ## 8. Registry Startup Validation
 
-All three registries (ClaimType, EvidenceClass, ActionRegistry) are cross-validated at system startup. If any validation returns errors, the system MUST NOT start.
+All three registries (ClaimTypeRegistry, EvidenceClass, ActionRegistry) are cross-validated against agent contracts, Twin handlers, and execution capabilities at system startup. If any validation check returns errors, startup is unconditionally blocked.
 
 ```python
 def validate_claim_registry(agent_cards: list[AgentCard]) -> list[str]:
     """Validates all agent contracts reference registered claim types
-    and valid source agents. Fail-open bug fixed: nonexistent source
-    agents produce explicit errors."""
+    and valid source agents. Nonexistent source agents produce explicit errors."""
     
     registered = set(vars(ClaimTypeRegistry).values())
     agent_map = {card.agent_id: card for card in agent_cards}
@@ -842,22 +1176,25 @@ def validate_action_registry_completeness(
     twin_handlers: dict[str, TwinHandler],
     execution_capabilities: dict[str, ExecutionCapability]
 ) -> list[str]:
-    """Full cross-registry validation at startup."""
+    """Full cross-registry integrity check at startup.
+    Every action reference must resolve; composite_action must satisfy invariants."""
     
     errors = registry.validate_all()
     agent_ids = {card.agent_id for card in agent_cards}
     
     for entry in registry._entries.values():
         if entry.simulatable and entry.twin_handler_id not in twin_handlers:
-            errors.append(f"{entry.action_type}: twin_handler '{entry.twin_handler_id}' not found")
+            errors.append(f"{entry.action_type}: twin_handler '{entry.twin_handler_id}' not found in TwinHandlerRegistry")
         if entry.execution_capability_id and entry.execution_capability_id not in execution_capabilities:
-            errors.append(f"{entry.action_type}: capability '{entry.execution_capability_id}' not found")
+            errors.append(f"{entry.action_type}: execution_capability '{entry.execution_capability_id}' not found in CapabilityRegistry")
         if entry.primary_owner_agent not in agent_ids and entry.primary_owner_agent != "coordinator":
-            errors.append(f"{entry.action_type}: owner '{entry.primary_owner_agent}' not found")
+            errors.append(f"{entry.action_type}: owner agent '{entry.primary_owner_agent}' not found")
         for proposer in entry.permitted_proposers:
             if proposer not in agent_ids and proposer != "coordinator":
-                errors.append(f"{entry.action_type}: proposer '{proposer}' not found")
-    
+                errors.append(f"{entry.action_type}: permitted proposer '{proposer}' not found")
+        if entry.parameter_authority != COMPONENT_DELEGATED and entry.parameter_authority not in agent_ids and entry.parameter_authority != "coordinator":
+            errors.append(f"{entry.action_type}: parameter_authority '{entry.parameter_authority}' not found")
+            
     return errors
 ```
 
@@ -869,7 +1206,7 @@ def validate_action_registry_completeness(
 
 ## 9. Agent Roster: Six Specialists + Coordinator
 
-The enterprise surface is consolidated into 6 specialist agents plus a Coordinator. Each specialist governs a logical operational cluster consuming multiple data domains. The roster was refined through Amendments 1-4: Risk & Compliance renamed to Risk & Resilience, Financial Operations reframed as Financial & Enterprise Value, supplier financial health ownership clarified.
+The enterprise surface is consolidated into 6 specialist agents plus a Coordinator. Each specialist governs a logical operational cluster consuming multiple data domains with non-overlapping primary ownership.
 
 ```
 +=============================================================================+
@@ -881,18 +1218,18 @@ The enterprise surface is consolidated into 6 specialist agents plus a Coordinat
 |       |         Chairperson of the Deliberation Table.                      |
 |       |                                                                     |
 |       +-- [1] DEMAND & COMMERCE AGENT                                       |
-|       |      Core Question: What demand/commercial effect is occurring?      |
+|       |      Core Question: What demand/commercial effect is occurring?     |
 |       |      Domains: Commerce, POS Sales, Promotions, Calendar Events,     |
 |       |               Weather, Demand Forecasting, Pricing/Elasticity       |
 |       |                                                                     |
-|       +-- [2] INVENTORY & ASSET MANAGEMENT AGENT                           |
+|       +-- [2] INVENTORY & ASSET MANAGEMENT AGENT                            |
 |       |      Core Question: Can the network physically hold, preserve,      |
 |       |        and stage the required inventory?                            |
 |       |      Domains: Inventory Positions, Replenishment, Assortments,      |
 |       |               Physical Assets, Shelf Life, Goods Receipts,          |
 |       |               Storage Conditions                                    |
 |       |                                                                     |
-|       +-- [3] PROCUREMENT & SUPPLIER AGENT                                 |
+|       +-- [3] PROCUREMENT & SUPPLIER AGENT                                  |
 |       |      Core Question: Can the supply network provide what is needed?  |
 |       |      Domains: Supplier Performance, Contracts, Purchase Orders,     |
 |       |               MOQ, Price Tiers, Three-Way Match, Vendor             |
@@ -902,19 +1239,19 @@ The enterprise surface is consolidated into 6 specialist agents plus a Coordinat
 |       +-- [4] LOGISTICS & TRANSPORT AGENT                                   |
 |       |      Core Question: Can we move it?                                 |
 |       |      Domains: Transport Lanes, Shipments, Carriers, Fleet Assets,   |
-|       |               Route Optimization, Freight Modes, Corridor Status   |
+|       |               Route Optimization, Freight Modes, Corridor Status    |
 |       |                                                                     |
 |       +-- [5] FINANCIAL & ENTERPRISE VALUE AGENT                            |
 |       |      Core Question: What is the economic consequence of this        |
 |       |        decision?                                                    |
-|       |      Purpose: Economic consequence modeling, NOT accounting          |
+|       |      Purpose: Economic consequence modeling, NOT accounting         |
 |       |      Outputs: Landed cost, working capital, cash impact,            |
 |       |               margin impact, penalty exposure, expedite cost        |
 |       |                                                                     |
 |       +-- [6] RISK & RESILIENCE AGENT                                       |
 |              Core Question: What systemic downside, constraint violation,   |
 |                or cascading failure could this decision introduce?          |
-|              Domains: External threats, Supplier concentration risk,         |
+|              Domains: External threats, Supplier concentration risk,        |
 |                       Supplier financial distress, Geopolitical exposure,   |
 |                       Quality failure propagation, Regulatory constraints,  |
 |                       Network fragility, Cascade modeling                   |
@@ -944,22 +1281,35 @@ The enterprise surface is consolidated into 6 specialist agents plus a Coordinat
 | Geopolitical Exposure | -- | Per-supplier/per-region geopolitical risk score |
 | Quality/Compliance | -- | Inspection results, regulatory violations, recall propagation |
 
-### Coordinator Responsibilities
+### Coordinator Responsibilities and Strict Role Discipline
 
-The Coordinator is the meta-orchestrator. It is NOT an agent. It does NOT produce claims, recommendations, or opinions.
+The Coordinator is the meta-orchestrator implemented as a LangGraph state machine. It is STRICTLY NOT an agent. It possesses zero epistemic authority and must never be permitted to drift into a "seventh specialist".
+
+```
+COORDINATOR STRICT CODE-LEVEL PROHIBITIONS:
+1. NEVER generates or asserts domain claims or beliefs.
+2. NEVER generates recommendations, domain evaluations, or qualitative opinions.
+3. NEVER proposes domain candidate actions. It instantiates the baseline
+   'do_nothing' action and executes the mechanical combination synthesis subroutine
+   (Section 29, Step 8), but creates zero novel domain action intents.
+4. NEVER evaluates trade-offs or ranks candidates using internal heuristics.
+5. NEVER communicates directly with human operators during deliberation
+   (all interactions route through the Deliberation Table and D9).
+```
 
 | Responsibility | Description |
 | :--- | :--- |
-| **Deliberation Table Management** | Creates sessions, posts items, manages lifecycle |
-| **Domain Affinity Routing** | Computes probabilistic scores, assigns agents |
-| **Tier-1 RAG Pre-Retrieval** | Broad, shallow context retrieval for base context package |
+| **Deliberation Table Management** | Creates sessions, posts items, allocates sequence numbers, manages lifecycle |
+| **Domain Affinity Routing** | Computes probabilistic affinity scores, assigns specialist agents |
+| **Tier-1 RAG Pre-Retrieval** | Broad, shallow context retrieval for base context package (< 50ms) |
 | **Capability Resolution** | Invokes Dynamic Capability Registry to bind tools per agent per task |
-| **Cross-Examination Mediation** | Routes critiques between agents via the table |
-| **Evidence Sufficiency Gating** | Validates that mandatory domains are represented before CD2F |
-| **Twin Simulation Dispatch** | Extracts candidate actions, dispatches to Twin |
-| **Consensus Hand-Off** | Assembles decision package and submits to CD2F |
-| **Snapshot Epoch Allocation** | Atomically allocates common snapshot epochs |
-| **Audit Emission** | Emits complete deliberation transcript to D9 |
+| **Cross-Examination Mediation** | Routes targeted critiques between conflicting agents via the table |
+| **Evidence Sufficiency Gating** | Enforces tiered evidence checks (individual hard-critical validation) before simulation |
+| **Candidate Pipeline Governance** | Runs normalization, dedup, synthesis subroutine, revalidation, and budget |
+| **Twin Simulation Dispatch** | Validates CandidateAdmissionSeal, dispatches manifests to Digital Twin |
+| **Arbitration Submission** | Assembles verified candidate package and submits to CD2F pure computation |
+| **Snapshot Epoch Allocation** | Atomically allocates common snapshot epochs across all session actors |
+| **Audit Emission** | Emits complete deliberation transcript to Kafka outbox and D9 |
 
 ---
 
@@ -1006,7 +1356,7 @@ Coordinator validates against DomainOwnershipPolicy:
         -> Post to Deliberation Table
 ```
 
-Per-agent ownership contract definitions (complete YAML for all six agents) are specified in Amendment 2 Section 4.2.
+Per-agent ownership contract definitions specify the strict bindings between each specialist, their owned claim types, permitted candidate actions, and consumed evidence classes as governed by the ClaimTypeRegistry (Section 5) and ActionRegistry (Section 7).
 
 ---
 
@@ -1019,28 +1369,28 @@ Each agent runs a bounded reasoning chain combining traditional ML pipelines wit
 |                    HYBRID AGENT COGNITIVE RUNTIME                           |
 +=============================================================================+
 |                                                                             |
-|  [TRADITIONAL ML PIPELINE]           [BOUNDED LLM REASONING]              |
-|  - XGBoost / LightGBM                - Qualitative evidence synthesis     |
-|  - Prophet / Statistical              - Cross-domain constraint reasoning |
-|  - GradientBoosting                   - Historical precedent interpretation|
-|  - Deterministic Rule Engines         - Natural language explanation       |
-|  - Domain-specific formulas           - Tool-calling (bounded)             |
+|  [TRADITIONAL ML PIPELINE]           [BOUNDED LLM REASONING]                |
+|  - XGBoost / LightGBM                - Qualitative evidence synthesis       |
+|  - Prophet / Statistical              - Cross-domain constraint reasoning   |
+|  - GradientBoosting                   - Historical precedent interpretation |
+|  - Deterministic Rule Engines         - Natural language explanation        |
+|  - Domain-specific formulas           - Tool-calling (bounded)              |
 |                                                                             |
-|  OUTPUT: Quantitative values          OUTPUT: Qualitative reasoning        |
-|          (ValueWithProvenance,                 (EpistemicType-tagged,      |
-|           source=MODEL_PREDICTION)              source=LLM_INTERPRETATION)|
+|  OUTPUT: Quantitative values          OUTPUT: Qualitative reasoning         |
+|          (ValueWithProvenance,                 (EpistemicType-tagged,       |
+|           source=MODEL_PREDICTION)              source=LLM_INTERPRETATION)  |
 |                                                                             |
-|  +-------+     +--------+     +--------+     +------------------+         |
-|  |  ML   |---->| CONTEXT|---->|BOUNDED |---->| AgentProposal    |         |
-|  | Output|     | FUSION |     |REASONER|     | (Claim + Actions)|         |
-|  +-------+     +--------+     +--------+     +------------------+         |
-|       ^             ^              |                                       |
-|       |             |              | Max iterations: 3                     |
-|       |        RAG context         | Max tool calls: 5                     |
-|       |        + Base ctx          | Hard timeout: 80% of SLA budget      |
-|       |                            | Schema validation on every output    |
-|       |                            | Deterministic fallback if LLM fails  |
-|  Domain ML models                                                          |
+|  +-------+     +--------+     +--------+     +------------------+           |
+|  |  ML   |---->| CONTEXT|---->|BOUNDED |---->| AgentProposal    |           |
+|  | Output|     | FUSION |     |REASONER|     | (Claim + Actions)|           |
+|  +-------+     +--------+     +--------+     +------------------+           |
+|       ^             ^              |                                        |
+|       |             |              | Max iterations: 3                      |
+|       |        RAG context         | Max tool calls: 5                      |
+|       |        + Base ctx          | Hard timeout: 80% of SLA budget        |
+|       |                            | Schema validation on every output      |
+|       |                            | Deterministic fallback if LLM fails    |
+|  Domain ML models                                                           |
 +=============================================================================+
 ```
 
@@ -1315,75 +1665,146 @@ CLASS 2: LOCAL HOT-PATH RETRIEVAL (in-process read-through cache)
 **LangChain** = agent-level cognitive components (prompts, tools, output parsing)
 
 ```
-START
-    |
-    v
-ingest_and_route
-    |
-    v
-create_decision_snapshot              (capture world-state boundary, allocate epoch)
-    |
-    v
-tier1_rag_preretrieval
-    |
-    v
-capability_bind
-    |
-    v
-parallel_fan_out                       (agents receive snapshot + base context ONLY,
-    |                                    NOT other agents' claims -- independence)
-    v
-fan_in_collate
-    |
-    v
-cross_examination                      (targeted: agents see ONLY relevant conflicts,
-    |                                    not all claims -- reduces conformity bias)
-    v
-[CONDITIONAL: blocking_critiques?]
-    +-- YES: revision_round -> fan_in_revised
-    +-- NO:  proceed
-    |
-    v
-evidence_sufficiency_gate              (BEFORE expensive simulation)
-    |
-    v
-[CONDITIONAL: sufficient?]
-    +-- INSUFFICIENT:     hitl_escalation -> END
-    +-- MARGINALLY:       proceed (with caution flag)
-    +-- SUFFICIENT:       proceed
-    |
-    v
-candidate_extraction
-    |
-    v
-candidate_normalization                (schema/entity/constraint/dedup/prune/budget)
-    |
-    v
-three_tier_impact_evaluation           (Tier 1: Baseline + Tier 2: Predictive)
-    |
-    v
-[CONDITIONAL: twin_simulation_needed?]
-    +-- YES: twin_dispatch -> twin_collect
-    |        |
-    |        v
-    |        [CONDITIONAL: unexpected_outcome?]
-    |            +-- YES (first time): targeted_re_deliberation
-    |            |                     -> re_normalize -> re_simulate
-    |            +-- NO / YES (second time): proceed
-    +-- NO:  proceed
-    |
-    v
-cd2f_arbitration
-    |
-    v
-[CONDITIONAL: cd2f_result_tier?]
-    +-- TIER_1: execution_policy_check -> state_revalidation
-    |           -> execute_or_hitl -> archive -> END
-    +-- TIER_2: extended_deliberation -> parallel_fan_out (cycle, max 1)
-    +-- TIER_3: hitl_escalation -> await_human
-    |           -> execute_or_hitl -> archive -> END
-    +-- NO_FEASIBLE: hitl_escalation -> END
-    +-- PARETO:      hitl_with_tradeoff_summary -> await_human -> archive -> END
++-----------------------------------------------------------------------------------------------+
+|                        LANGGRAPH MACRO-ORCHESTRATION STATE MACHINE                            |
++-----------------------------------------------------------------------------------------------+
+                                                |
+                                                v
+                                     [  ingest_and_route  ]
+                                                |
+                                                v
+                                 [  create_decision_snapshot  ]
+                                 (Allocate Snapshot Epoch)
+                                                |
+                                                v
+                                   [  tier1_rag_preretrieval  ]
+                                 (Broad & Shallow Base Package)
+                                                |
+                                                v
+                                      [  capability_bind  ]
+                                 (Resolve Dynamic MCP Tools)
+                                                |
+                                                v
+                                    [  parallel_fan_out  ]
+                                 (Independent Agent Reasoning)
+                                                |
+                                                v
+                                     [  fan_in_collate  ]
+                                 (Assemble Deliberation Table)
+                                                |
+                                                v
+                                    [  cross_examination  ]
+                                 (Targeted Conflict Critiques)
+                                                |
+                                                v
+                                   /-------------------------\
+                                  <   blocking_critiques?     >
+                                   \-------------------------/
+                                                |
+                       +------------------------+------------------------+
+                       | YES (Max 2 Rounds)                              | NO
+                       v                                                 v
+             [  revision_round  ]                          [  evidence_sufficiency_gate  ]
+                       |                                   (Individual HARD_CRITICAL Check)
+                       v                                                 |
+             [  fan_in_revised  ]                                        v
+                       |                                       /-------------------\
+                       +-------------------------------------><   sufficiency tier?   >
+                                                               \-------------------/
+                                                                         |
+                      +----------------------------------+---------------+----------------------------------+
+                      | INSUFFICIENT                     | MARGINALLY_SUFFICIENT                            | SUFFICIENT
+                      v                                  v                                                  v
+            [  hitl_escalation  ]              [  flag_degraded_scope  ]                        [  candidate_extraction  ]
+                      |                                  |                                                  |
+                      v                                  +--------------------------------------------------+
+                 ((  END  ))                                                                |
+                                                                                            v
+                                                                             [  candidate_normalization  ]
+                                                                             (Schema, Entity, T1 & T2 Impact,
+                                                                              Hard Constraints, Dedup, Prune)
+                                                                                            |
+                                                                                            v
+                                                                             [  combination_synthesis  ]
+                                                                             (Generate Non-Conflicting Composites)
+                                                                                            |
+                                                                                            v
+                                                                             [  revalidate_composites  ]
+                                                                             (Re-check Schema, Entities, Constraints,
+                                                                              Joint Impact, Dedup for Composites)
+                                                                                            |
+                                                                                            v
+                                                                             [  candidate_budget_select  ]
+                                                                             (UCB Heuristic + Baseline & Domains)
+                                                                                            |
+                                                                                            v
+                                                                             [  stamp_admission_seals  ]
+                                                                             (Seal: Must Pass All Gates for Twin)
+                                                                                            |
+                                                                                            v
+                                                                               /-------------------------\
+                                                                              <   twin_simulation_req?    >
+                                                                               \-------------------------/
+                                                                                            |
+                                              +---------------------------------------------+------------------------------------+
+                                              | REQUIRED / RECOMMENDED                                                           | ADVISORY / NOT NEEDED
+                                              v                                                                                  |
+                                     [  twin_dispatch  ]                                                                         |
+                                              |                                                                                  |
+                                              v                                                                                  |
+                                      [  twin_collect  ]                                                                         |
+                                              |                                                                                  |
+                                              v                                                                                  |
+                                   /---------------------\                                                                       |
+                                  <  unexpected_outcome?  >                                                                      |
+                                   \---------------------/                                                                       |
+                                              |                                                                                  |
+                             +----------------+----------------+                                                                 |
+                             | YES (First Time)                | NO / Re-sim Done                                                |
+                             v                                 v                                                                 |
+               [  targeted_re_deliberation  ]                  +------------------------------------------------+                |
+                             |                                                                                  |                |
+                             v                                                                                  v                v
+                 [  re_normalize_candidates  ]                                                      [  cd2f_vector_pareto_calc  ]
+                             |                                                                      (Dominance on Metric Vector U(c))
+                             v                                                                                  |
+                    [  re_simulate_twin  ]                                                                      v
+                             |                                                                      [  cd2f_frontier_resolution  ]
+                             +--------------------------------------------------------------------> (Apply Policy Weights & Uncertainty)
+                                                                                                                |
+                                                                                                                v
+                                                                                                    [  return_decision_result  ]
+                                                                                                    (CD2F Pure Computation Complete)
+                                                                                                                |
+                                                                                                                v
+                                                                                                      /-------------------\
+                                                                                                     <   resolution tier?  >
+                                                                                                      \-------------------/
+                                                                                                                |
+                        +----------------------------------+------------------------------------+---------------+-----------------------------------+
+                        | SINGLETON / POLICY_WEIGHT        | TIER_2 (Extended Deliberation)     | GENUINE_PARETO_AMBIGUITY          | NO_FEASIBLE_ACTION
+                        v                                  v                                    v                                   v
+             [  execution_policy_check  ]        [  parallel_fan_out  ]                       [  hitl_tradeoff_summary  ]         [  hitl_escalation  ]
+                        |                        (Cycle, Max 1)                                         |                                   |
+                        v                                                                               v                                   v
+             [  state_revalidation  ]                                                              ((  AWAIT_HUMAN  ))                 ((  END  ))
+              (Detect Epoch Drift)                                                                      |
+                        |                                                                               v
+                        v                                                                      [  archive_record  ]
+                 /--------------\                                                                       |
+                <   state valid? >                                                                      v
+                 \--------------/                                                                  ((  END  ))
+                        |
+            +-----------+-----------+
+            | VALID                 | STALE / MATERIAL DRIFT
+            v                       v
+    [  execute_adapter  ]   [  trigger_replan  ]
+            |                       |
+            v                       v
+    [  archive_record  ]   [  advance_snapshot  ]
+            |                       |
+            v                       v
+       ((  END  ))          [  parallel_fan_out  ]
 ```
 
 ---
@@ -1598,37 +2019,64 @@ class CriticalityTier(str, Enum):
     """Adds context but is not decision-critical."""
 ```
 
-### Verdict Logic (Strict Precedence)
+### Verdict Logic (Strict Precedence & Individual Critical Gate)
+
+Critical evidence receives an **individual gate**. Aggregate freshness is only a supplementary quality signal and can never compensate for a stale or missing hard-critical fact.
 
 ```
+INDIVIDUAL HARD-CRITICAL EVIDENCE CHECK:
+    For every evidence item e requiring HARD_CRITICAL tier:
+        assert e.present == True                          # Fact must be observed
+        assert e.authority in AUTHORITATIVE_LEVELS        # Must come from authoritative source
+        assert e.freshness >= policy.min_hard_critical_freshness  # Must satisfy freshness individually
+        assert e.contradiction_status == "UNCONTRADICTED" # Cannot be contested by conflicting data
+
+    hard_critical_all_met = (
+        hard_critical_present == hard_critical_required
+        AND all(e.freshness >= policy.min_hard_critical_freshness for e in hard_critical_items)
+        AND all(e.authority in AUTHORITATIVE_LEVELS for e in hard_critical_items)
+        AND not any(e.has_blocking_contradiction for e in hard_critical_items)
+    )
+
+INDIVIDUAL DEGRADED-CRITICAL EVIDENCE CHECK:
+    degraded_critical_all_met = (
+        degraded_critical_present == degraded_critical_required
+        AND all(e.freshness >= policy.min_degraded_critical_freshness for e in degraded_critical_items)
+    )
+
+VERDICT PRECEDENCE RULES:
+
 SUFFICIENT:
-    hard_critical_all_met == True
-    AND degraded_critical_all_met == True
+    hard_critical_all_met == True                      # ALL hard-critical pass individually
+    AND degraded_critical_all_met == True              # ALL degraded-critical pass individually
     AND domain_coverage.coverage_score >= policy.min_domain_coverage
-    AND evidence_quality.avg_evidence_freshness >= policy.min_evidence_freshness
+    AND evidence_quality.avg_evidence_freshness >= policy.min_evidence_freshness  # Supplementary aggregate
     AND consistency.contradiction_severity != "BLOCKING"
     AND evidence_quality.model_validity_score >= 0.50
     
-    -> Full autonomy available.
+    -> Full autonomous decision execution permitted (subject to ExecutionPolicy).
 
 MARGINALLY_SUFFICIENT:
-    hard_critical_all_met == True                      # HARD tier must be met
+    hard_critical_all_met == True                      # HARD-CRITICAL MUST STILL PASS INDIVIDUALLY
     AND degraded_critical_present >= degraded_critical_required
-    AND degraded_critical_sufficient < degraded_critical_required
-    AND domain_coverage.coverage_score >= 0.60
+    AND (
+        degraded_critical_all_met == False             # Stale degraded-critical data accepted with penalty
+        OR domain_coverage.coverage_score >= 0.60
+    )
     AND consistency.contradiction_severity != "BLOCKING"
     
-    -> Autonomy capped at Tier-2, HITL notification.
+    -> Autonomy strictly capped at Tier-2. HITL notification issued. CD2F applies uncertainty penalty.
 
 INSUFFICIENT:
-    hard_critical_all_met == False
-    OR hard_critical_present < hard_critical_required
-    OR consistency.contradiction_severity == "BLOCKING"
+    hard_critical_all_met == False                     # ANY single hard-critical item failing
+    OR hard_critical_present < hard_critical_required  # ANY hard-critical fact missing
+    OR consistency.contradiction_severity == "BLOCKING"# Unresolved data contradiction
     
-    -> NO autonomous decision. HITL escalation mandatory.
+    -> NO autonomous decision. Exploration and CD2F blocked. Mandatory HITL escalation.
 ```
 
-Key invariant: HARD_CRITICAL failures always produce INSUFFICIENT. No overlap between MARGINALLY_SUFFICIENT and INSUFFICIENT.
+**Non-Negotiable Semantic Invariant:**
+The principle that `criticality != average evidence quality` is an absolute system invariant. Even if 99 supplementary evidence items have freshness `1.0`, a single HARD_CRITICAL fact with freshness `0.05` forces the verdict to `INSUFFICIENT`.
 
 ---
 
@@ -1636,38 +2084,51 @@ Key invariant: HARD_CRITICAL failures always produce INSUFFICIENT. No overlap be
 
 ### Business Priority
 
-| Priority | Description | Examples |
+| Priority | Description | Operational Examples |
 | :--- | :--- | :--- |
-| **P0: Critical** | System emergency, safety, regulatory | Cold-chain breach, critical supplier force majeure |
-| **P1: High** | Human-escalated, active disruption | Operator query, CD2F Tier-3 escalation |
-| **P2: Normal** | Routine agent deliberation | Standard disruption handling |
-| **P3: Background** | Analytics, risk scanning, batch | Periodic supplier risk scan |
+| **P0: Critical** | System emergency, safety risk, severe regulatory hazard | Cold-chain temperature breach, Tier-1 sole supplier shutdown |
+| **P1: High** | Human operator escalation, active network disruption | Expedited ship request, CD2F Tier-3 trade-off escalation |
+| **P2: Normal** | Routine multi-agent deliberation cycle | Standard replenishment rebalance, minor lead-time variance |
+| **P3: Background** | Asynchronous analytics, network fragility scanning | Weekly supplier risk recalibration, demand curve drift scan |
 
 ### Execution SLA
 
-| SLA | Description | Target Latency |
-| :--- | :--- | :--- |
-| **S0: Real-time** | Deterministic safety rules, no LLM | < 100ms |
-| **S1: Interactive** | Human-facing response expected | < 2s |
-| **S2: Operational** | Standard deliberation cycle | < 5s per agent |
-| **S3: Analytical** | Batch/background processing | < 30s |
+| SLA Level | Description | Target Latency | Architectural Scope |
+| :--- | :--- | :--- | :--- |
+| **S0: Real-time** | Deterministic safety rules, zero LLM calls | < 100ms | Rule engine only, immediate fail-safe trigger |
+| **S1: Interactive** | Interactive human console operator query | < 2s | Targeted Tier-1 context + fast deterministic path |
+| **S2: Operational** | Standard multi-agent cognitive deliberation | < 5s per agent | Full hybrid ML + bounded LLM reasoning cycle |
+| **S3: Analytical** | Batch, deep counterfactuals, background jobs | < 30s | Multi-horizon Digital Twin simulation rollout |
 
-SLA target values are benchmark targets, not architectural guarantees. D10 benchmarks calibrate actual achievable latency.
+SLA values represent benchmark targets tested in D10. They are monitored via Kafka outbox timestamps.
 
-### P0 Dual-Path Architecture
+### P0 Dual-Path Architecture and Strict Fast-Path Discipline
+
+When a P0 critical event is ingested, the system branches immediately into dual pathways:
 
 ```
-P0 event arrives
-    |
-    +---> FAST PATH (S0): Deterministic safety rule
-    |     - Pre-defined rule engine (no LLM)
-    |     - Executed immediately (< 100ms)
-    |     - Applied to Twin Layer 3
-    |
-    +---> COGNITIVE PATH (S2): Full agent deliberation
-          - Standard 6-stage pipeline
-          - Runs in parallel with fast path
+P0 Critical Event Ingested
+         |
+         +---------------------------------------+
+         |                                       |
+         v                                       v
++-------------------------------+   +------------------------------------------+
+| FAST DETERMINISTIC PATH (S0)  |   | FULL COGNITIVE DELIBERATION PATH (S2)    |
+| Latency: < 100ms (Zero LLM)   |   | Full 6-Stage Deliberation Pipeline       |
+| Role: DETECT, PROTECT,        |   | Role: Comprehensive Multi-Objective      |
+|       FREEZE, ESCALATE        |   |       Optimization & Root-Cause Resolute |
+| Scope: Protective Rule Only   |   | Scope: Evaluates full trade-off set      |
++-------------------------------+   +------------------------------------------+
 ```
+
+**Strict Fast-Path Behavioral Bounds:**
+The Fast Deterministic Path is **strictly a safety and containment mechanism**, NOT an autonomous optimization engine. It is explicitly prohibited from competing with CD2F.
+1. Permitted fast-path actions are strictly confined to the closed protective vocabulary:
+   - **DETECT:** Register physical boundary breach or sensor anomaly.
+   - **PROTECT:** Enforce immediate containment (e.g. `quarantine_inventory`, `compliance_hold`).
+   - **FREEZE:** Suspend pending dispatches on affected lanes or purchase orders.
+   - **ESCALATE:** Alert human incident commander and dispatch P0 deliberation session.
+2. The Fast Path NEVER executes multi-objective optimization, route re-planning, or commercial re-sourcing. Those decisions require cross-domain trade-off analysis and remain the sole authority of CD2F.
 
 ---
 
@@ -1736,6 +2197,36 @@ snapshot_advancement:
 ---
 
 ## 25. Session State Machine
+
+```
++-----------------------------------------------------------------------------+
+|                      SESSION STATE TRANSITION TOPOLOGY                      |
++-----------------------------------------------------------------------------+
+
+                  [Session Initialized via Ingest Trigger]
+                                     |
+                                     v
+                          +--------------------+
+                          |      CREATED       |
+                          +--------------------+
+                                     |
+                      +--------------+--------------+
+                      |                             |
+                      | (Snapshot Allocated)        | (Trigger Rejected / Aborted)
+                      v                             v
+           +--------------------+        +--------------------+
+           |       ACTIVE       |        |     CANCELLED      |
+           +--------------------+        +--------------------+
+                      |                   (Terminal Absorbing)
+           +----------+----------+
+           |                     |
+           | (Normal Completion) | (SLA Hard Timeout Breach)
+           v                     v
+   +--------------------+ +--------------------+
+   |       CLOSED       | |      EXPIRED       |
+   +--------------------+ +--------------------+
+   (Terminal Absorbing)   (Terminal Absorbing)
+```
 
 ```python
 LEGAL_TRANSITIONS: dict[str, set[str]] = {
@@ -1842,44 +2333,199 @@ class ActionImpactEnvelope(BaseModel):
 
 ## 29. Candidate Normalization and Budget Selection Pipeline
 
+Candidate actions cannot bypass safety or impact safeguards through late-stage synthesis. Combination synthesis is positioned as a controlled candidate-generation subroutine at Step 8, immediately followed by Step 9: Mandatory Revalidation of Synthesized Candidates. Only candidates that successfully pass all 11 stages and receive a signed `CandidateAdmissionSeal` are eligible for Digital Twin simulation or CD2F arbitration.
+
+### Canonical 11-Step Pipeline Specification
+
 ```
-STEP 1: EXTRACT
-    Collect all candidate actions from all revised agent proposals.
+STEP 1: CANDIDATE EXTRACTION
+    Collect atomic candidate actions from all revised specialist proposals on the Deliberation Table.
+    Every candidate action must be bound to the session's active snapshot_epoch.
 
-STEP 2: SCHEMA VALIDATION
-    Validate intent against typed ActionIntent schema.
-    Validate action_type exists in ActionRegistry.
-    Validate proposer is in permitted_proposers.
+STEP 2: SCHEMA AND PARAMETER AUTHORITY VALIDATION
+    Validate intent against the strictly typed ActionIntent schema registered for action_type.
+    Verify action_type exists in the closed ActionRegistry.
+    Verify proposing agent is enumerated in permitted_proposers.
+    Verify all intent fields conform to parameter_authority (reject any impact estimates).
 
-STEP 3: ENTITY VALIDATION
-    Verify all referenced entity IDs exist in D2 as of the snapshot.
+STEP 3: ENTITY EXISTENCE VALIDATION
+    Verify all referenced entity IDs (SKUs, facilities, carriers, POs, lanes) exist in PostgreSQL
+    as of the active snapshot_epoch. Reject phantom, deleted, or future entity references.
 
-STEP 4: THREE-TIER IMPACT EVALUATION
-    Compute Tier 1 BaselineImpact (from authoritative facts).
-    Compute Tier 2 PredictiveImpactEstimate (from domain models, where applicable).
+STEP 4: THREE-TIER IMPACT EVALUATION (PRE-SIMULATION)
+    Compute Tier 1 BaselineImpact (from authoritative database facts, rate cards, inventory tables).
+    Compute Tier 2 PredictiveImpactEstimate (from validated, calibrated domain models with uncertainty).
+    LLM estimates are strictly prohibited from entering impact computation.
 
 STEP 5: HARD-CONSTRAINT PRE-CHECK
-    Eliminate candidates violating hard constraints.
-    Uses ONLY Tier 1 BaselineImpact values.
+    Eliminate candidates violating hard physical, regulatory, or policy constraints.
+    Evaluated strictly against Tier 1 BaselineImpact values.
+    If a candidate violates a hard constraint, it is immediately pruned with an audit record.
 
 STEP 6: DEDUPLICATION
-    Merge semantically identical candidates from different agents.
+    Identify and merge semantically identical candidate actions proposed by different agents.
+    Retain highest-reliability proposer provenance and merge corroborating evidence lists.
 
-STEP 7: DOMINANCE PRUNING
-    A candidate is dominated ONLY if:
-        - BOTH have complete Tier 1 BaselineImpact
-        - Strictly worse on ALL Tier 1 dimensions
-        - Safety margin applies
-    Tier 2 is NEVER used for dominance pruning.
+STEP 7: DOMINANCE PRUNING (SAFE BASELINE ONLY)
+    A candidate c_b is pruned as dominated by c_a ONLY if:
+        - Both candidates have complete Tier 1 BaselineImpact data.
+        - c_a is strictly superior to c_b across ALL Tier 1 dimensions.
+        - The dominance margin exceeds policy.dominance_safety_margin.
+    Tier 2 PredictiveImpactEstimate is NEVER used for dominance pruning.
 
-STEP 8: CANDIDATE BUDGET SELECTION (HEURISTIC)
-    UCB(c) = weighted_score(Tier1 + Tier2) + alpha * uncertainty(c)
-    ALWAYS include do-nothing baseline.
-    ALWAYS include at least one candidate per assigned domain.
-    Maximum output: max_simulation_branches + 1 (baseline)
+STEP 8: COMBINATION SYNTHESIS (CROSS-DOMAIN COMPOSITES)
+    If multiple non-conflicting actions across complementary domains address the disruption:
+    Synthesize candidate combinations typed strictly as `composite_action` (governed in ActionRegistry).
+    Component actions must be drawn exclusively from candidates surviving Steps 1-7.
+    Reject combinations with conflicting parameters (e.g., conflicting expedite vs cancel on same PO).
 
-STEP 9: COMBINATION SYNTHESIS (if warranted)
-    Generate composite candidates from non-conflicting actions across domains.
+STEP 9: REVALIDATION OF SYNTHESIZED COMPOSITE CANDIDATES
+    Synthesized composites CANNOT bypass pipeline validation. Every composite MUST pass:
+    - 9A. Composite Schema Validation: Validate CompositeActionIntent and component list bounds.
+    - 9B. Component Parameter Authority: Verify each component respects its domain authority.
+    - 9C. Joint Entity Validation: Verify all referenced entities across all components exist at snapshot_epoch.
+    - 9D. Joint Hard-Constraint Pre-Check: Verify combined physical and operational constraints
+          (e.g., aggregate warehouse receiving capacity, total fleet vehicle limit).
+    - 9E. Joint Impact Evaluation: Calculate combined Tier 1 BaselineImpact and joint Tier 2 PredictiveImpact.
+    - 9F. Deduplication & Coherence Check: Eliminate duplicate combinations or cross-component mutual exclusions.
+
+STEP 10: CANDIDATE BUDGET SELECTION (HEURISTIC)
+    Rank all validated candidates (atomic and synthesized) using the UCB heuristic:
+        UCB(c) = weighted_score(Tier 1 + Tier 2) + alpha * uncertainty(c)
+    Coverage and Safety Invariants:
+        - MANDATORY inclusion of Do-Nothing Baseline (c_0).
+        - MANDATORY inclusion of at least one top candidate per participating domain.
+        - Maximum admitted candidates: K_max = max_simulation_branches + 1 (baseline).
+
+STEP 11: CANDIDATE ADMISSION SEAL CERTIFICATION
+    Every candidate admitted to Digital Twin simulation or CD2F arbitration is stamped with
+    a cryptographically verifiable CandidateAdmissionSeal.
+    The Digital Twin simulation dispatcher and CD2F arbitration engine MUST reject any candidate
+    lacking a valid CandidateAdmissionSeal.
+```
+
+### Candidate Admission Seal Contract
+
+```python
+class CandidateAdmissionStatus(str, Enum):
+    ADMITTED_ATOMIC = "ADMITTED_ATOMIC"
+    ADMITTED_COMPOSITE = "ADMITTED_COMPOSITE"
+    REJECTED_SCHEMA = "REJECTED_SCHEMA"
+    REJECTED_ENTITY = "REJECTED_ENTITY"
+    REJECTED_HARD_CONSTRAINT = "REJECTED_HARD_CONSTRAINT"
+    REJECTED_DOMINATED = "REJECTED_DOMINATED"
+    REJECTED_BUDGET = "REJECTED_BUDGET"
+    REJECTED_COMPOSITE_VALIDATION = "REJECTED_COMPOSITE_VALIDATION"
+
+class CandidateAdmissionSeal(BaseModel):
+    """Cryptographic seal proving a candidate action successfully passed all normalization gates."""
+    model_config = ConfigDict(frozen=True, extra="forbid")
+    
+    seal_id: str
+    action_id: str
+    session_id: str
+    snapshot_epoch: int
+    pipeline_version: str = "v2.0"
+    admission_status: CandidateAdmissionStatus
+    
+    # Validation gates passed verification
+    schema_validated: bool
+    entity_validated: bool
+    hard_constraints_passed: bool
+    baseline_impact_computed: bool
+    composite_revalidated: bool
+    budget_selected: bool
+    
+    sealed_at: datetime
+    seal_signature: str    # HMAC-SHA256 signature of (action_id + session_id + snapshot_epoch + status)
+
+class CompositeActionIntent(ActionIntent):
+    """Strict schema for cross-domain composite actions synthesized in Step 8."""
+    model_config = ConfigDict(frozen=True, extra="forbid")
+    
+    action_type: Literal["composite_action"] = "composite_action"
+    composite_name: str
+    component_action_ids: list[str]
+    component_intents: list[ActionIntent]
+    execution_coordination_mode: Literal["PARALLEL", "SEQUENTIAL_STRICT", "SEQUENTIAL_BEST_EFFORT"] = "PARALLEL"
+    max_component_count: int = Field(default=4, le=6)
+
+class CandidatePipelineService:
+    """Orchestrates candidate extraction, validation, synthesis, revalidation, and admission sealing."""
+    
+    def __init__(self, action_registry: ActionRegistry, policy: DecisionPolicy):
+        self.registry = action_registry
+        self.policy = policy
+    
+    def validate_atomic_candidate(self, candidate: CandidateAction, snapshot_epoch: int) -> bool:
+        """Executes Steps 2, 3, 4, 5 on atomic proposals."""
+        entry = self.registry.get_entry(candidate.action_type)
+        if candidate.proposer_agent_id not in entry.permitted_proposers:
+            return False
+        # Entity existence check against PostgreSQL at snapshot_epoch
+        if not self._verify_entities_exist(candidate.intent, snapshot_epoch):
+            return False
+        # Hard constraint pre-check on Tier-1 baseline
+        if not self._check_hard_constraints(candidate):
+            return False
+        return True
+    
+    def revalidate_composite_candidate(self, composite: CandidateAction, snapshot_epoch: int) -> bool:
+        """Executes Step 9: Mandatory revalidation for synthesized composite candidates."""
+        if composite.action_type != "composite_action":
+            return False
+        if not isinstance(composite.intent, CompositeActionIntent):
+            return False
+        
+        intent: CompositeActionIntent = composite.intent
+        if len(intent.component_intents) < 2 or len(intent.component_intents) > intent.max_component_count:
+            return False
+            
+        # 9A & 9B: Verify each component adheres to ActionRegistry and parameter authority
+        for sub_intent in intent.component_intents:
+            entry = self.registry.get_entry(sub_intent.action_type)
+            if not self._verify_parameter_authority(sub_intent, entry.parameter_authority):
+                return False
+                
+        # 9C: Joint entity existence check at snapshot_epoch
+        for sub_intent in intent.component_intents:
+            if not self._verify_entities_exist(sub_intent, snapshot_epoch):
+                return False
+                
+        # 9D: Joint hard-constraint check
+        if not self._check_joint_hard_constraints(composite):
+            return False
+            
+        # 9E: Joint Tier 1 baseline computation and joint Tier 2 predictive impact
+        if not self._compute_joint_impact(composite):
+            return False
+            
+        return True
+
+    def stamp_admission_seal(self, candidate: CandidateAction, session_id: str, snapshot_epoch: int) -> CandidateAdmissionSeal:
+        """Generates the cryptographically signed admission seal for compliant candidates."""
+        is_composite = (candidate.action_type == "composite_action")
+        status = CandidateAdmissionStatus.ADMITTED_COMPOSITE if is_composite else CandidateAdmissionStatus.ADMITTED_ATOMIC
+        
+        raw_token = f"{candidate.action_id}:{session_id}:{snapshot_epoch}:{status.value}"
+        signature = hashlib.sha256(raw_token.encode("utf-8")).hexdigest()
+        
+        return CandidateAdmissionSeal(
+            seal_id=f"SEAL-{uuid4().hex[:12].upper()}",
+            action_id=candidate.action_id,
+            session_id=session_id,
+            snapshot_epoch=snapshot_epoch,
+            pipeline_version="v2.0",
+            admission_status=status,
+            schema_validated=True,
+            entity_validated=True,
+            hard_constraints_passed=True,
+            baseline_impact_computed=True,
+            composite_revalidated=is_composite,
+            budget_selected=True,
+            sealed_at=datetime.now(timezone.utc),
+            seal_signature=signature
+        )
 ```
 
 ---
@@ -1954,32 +2600,100 @@ CD2F is a **pure computation engine** that takes: (candidates + evidence + simul
 - Does NOT retrieve data
 - Does NOT call the Twin
 - Does NOT define what "good" means (policy defines it)
+- Does NOT authorize execution (ExecutionPolicyService authorizes)
 
-### Formal Arbitration Process
+### Formal Mathematical Arbitration Process
+
+Pareto dominance operates directly on the **multi-objective normalized metric vector** $U(c)$, preserving trade-off geometry across all dimensions. Policy scalar weighting and uncertainty penalties are applied **only to resolve non-dominated candidates on the Pareto frontier**.
 
 ```
 STAGE 1: FEASIBILITY FILTER
-    Eliminate candidates violating hard constraints.
-    If no feasible candidates -> CD2F_NO_FEASIBLE_ACTION -> HITL
-
-STAGE 2: OBJECTIVE SCORE
-    For each feasible candidate c:
-        For each metric m in ObjectiveNormalization.metrics:
-            utility(c, m) = m.normalize(raw_value)   # Direction-aware
-        J(c) = SUM(m.weight * utility(c, m))
+    For each candidate c in AdmittedCandidates:
+        Verify hard physical, regulatory, and policy constraints against Tier 1 baseline and Tier 3 simulation.
+        If hard constraints are violated:
+            Prune candidate c with explicit InfeasibilityReason.
+    FeasibleSet = { c in AdmittedCandidates | c satisfies all hard constraints }
     
-    Soft constraint penalties applied.
+    If FeasibleSet is empty:
+        Emit CD2F_NO_FEASIBLE_ACTION.
+        Generate InfeasibilityDiagnosticReport (documenting violated constraints for each candidate).
+        Halt autonomous selection -> Mandatory HITL Escalation.
 
-STAGE 3: UNCERTAINTY ADJUSTMENT
-    J_final(c) = J(c) - lambda * uncertainty(c)
+STAGE 2: OBJECTIVE METRIC VECTOR EVALUATION
+    For each candidate c in FeasibleSet:
+        For each metric m in policy.objective_metrics:
+            raw_val = extract_metric_value(c, m)
+            u_m(c) = m.normalize(raw_val)   # Direction-aware: [-1.0, +1.0], where +1.0 is optimal
+        Construct Objective Metric Vector:
+            U(c) = [ u_1(c), u_2(c), ..., u_M(c) ] in [-1.0, 1.0]^M
+    (Trade-off dimensionality is fully preserved. Collapsing into a scalar score at this stage is strictly forbidden).
 
-STAGE 4: PARETO CHECK
-    Sort by J_final descending.
-    Apply Pareto frontier computation.
-    Classify: SINGLETON_FRONTIER / POLICY_WEIGHT_RESOLVED / GENUINE_PARETO_AMBIGUITY
+STAGE 3: POINT-ESTIMATE PARETO FRONTIER COMPUTATION
+    Compute the non-dominated Pareto frontier P subset of FeasibleSet based on objective vectors U(c):
+    For candidates c_a, c_b in FeasibleSet:
+        c_a dominates c_b (c_a >_P c_b) if and only if:
+            (for all m in {1..M}: u_m(c_a) >= u_m(c_b)) AND (exists m in {1..M}: u_m(c_a) > u_m(c_b))
+    
+    The Pareto Frontier is defined as:
+        P = { c in FeasibleSet | not exists c' in FeasibleSet such that c' >_P c }
+    
+    Cardinality Evaluation of Pareto Frontier P:
+    
+    Case A: |P| == 1 (Singleton Frontier)
+        The frontier contains exactly one universally non-dominated candidate.
+        Selected Action = only member c* in P.
+        Frontier Classification = SINGLETON_PARETO_FRONTIER.
+        Confidence Score = 1.0 - lambda * uncertainty(c*).
+        Proceed directly to Stage 5.
+    
+    Case B: |P| > 1 (Multiple Pareto Candidates)
+        Multiple candidates exhibit genuine dimensional trade-offs (no candidate dominates all others).
+        Proceed to Stage 4 to resolve the frontier using policy weights and uncertainty penalties.
 
-STAGE 5: EXECUTION AUTHORIZATION
-    Proceed to ExecutionPolicyService (separate gate).
+STAGE 4: FRONTIER RESOLUTION VIA POLICY UTILITY AND UNCERTAINTY
+    Policy weights and uncertainty penalties are applied ONLY to rank candidates within frontier P:
+    (Dominated candidates outside P are strictly excluded from scalar evaluation).
+    
+    For each candidate c in P:
+        Calculate Policy Scalar Utility:
+            J_policy(c) = SUM_{m=1..M} (w_m * u_m(c)) - soft_constraint_penalties(c)
+            where w_m = policy.weights[m] and SUM(w_m) = 1.0.
+        
+        Apply Robust Uncertainty Penalty:
+            J_final(c) = J_policy(c) - lambda * sigma_total(c)
+            where:
+                lambda = policy.uncertainty_aversion_factor (>= 0.0)
+                sigma_total(c) = composite_uncertainty(c.tier1_variance, c.tier2_ci, c.tier3_variance, R_i_discount)
+    
+    Sort candidates in P by J_final(c) descending: [c_(1), c_(2), ..., c_(|P|)]
+    Utility Delta: Delta_J = J_final(c_(1)) - J_final(c_(2))
+    
+    If Delta_J >= policy.tie_threshold_epsilon:
+        Selected Action = c_(1).
+        Frontier Classification = POLICY_WEIGHT_RESOLVED.
+        Resolution Mechanism: Policy weights unambiguously differentiate the optimal trade-off.
+        Proceed to Stage 5.
+    Else:
+        Selected Action = c_(1) (tentative recommendation).
+        Frontier Classification = GENUINE_PARETO_AMBIGUITY.
+        Resolution Mechanism: Candidates are materially tied within epsilon margin.
+        Construct Trade-off Matrix comparing all members of P across individual dimensions u_m(c).
+        Halt autonomous pipeline -> Mandatory HITL Escalation.
+
+STAGE 5: RETURN DECISION RESULT
+    Package DecisionResult containing:
+        - decision_id, session_id, snapshot_epoch
+        - selected_action (CandidateAction)
+        - frontier_classification (SINGLETON_PARETO_FRONTIER / POLICY_WEIGHT_RESOLVED / GENUINE_PARETO_AMBIGUITY)
+        - pareto_frontier_candidates (List of candidate IDs and objective vectors U(c))
+        - evaluated_candidates (full audit trace of all candidates, feasibility status, U(c), J_final)
+        - justification (machine-generated trade-off explanation and dominant metric drivers)
+        - decision_confidence (derived from Delta_J, sigma_total, and agent reliability R_i)
+    
+    ARCHITECTURAL BOUNDARY ENFORCEMENT:
+        CD2F SELECTS the winning candidate; it NEVER authorizes physical execution.
+        Return DecisionResult to LangGraph Orchestrator.
+        LangGraph dispatches DecisionResult to ExecutionPolicyService (Section 35) for independent authorization.
 ```
 
 ---
@@ -2019,15 +2733,186 @@ class ObjectiveMetricDefinition(BaseModel):
 
 ## 34. Pareto Analysis and Confidence Labels
 
+Pareto analysis in CD2F evaluates multi-dimensional trade-offs strictly in the vector space $U(c) = [u_1(c), u_2(c), \dots, u_M(c)]$, preserving trade-off geometry prior to any scalar ranking.
+
+### Pareto Frontier Mathematical Definitions
+
+1. **Vector Dominance:** For two feasible candidates $c_a, c_b \in \mathcal{F}$, candidate $c_a$ dominates candidate $c_b$ ($c_a \succ_P c_b$) if and only if:
+   $$\forall m \in \{1, \dots, M\}: u_m(c_a) \ge u_m(c_b) \quad \land \quad \exists m \in \{1, \dots, M\}: u_m(c_a) > u_m(c_b)$$
+
+2. **Pareto Frontier Set ($P$):** The non-dominated subset of feasible candidates:
+   $$P = \{ c \in \mathcal{F} \mid \nexists c' \in \mathcal{F} \text{ such that } c' \succ_P c \}$$
+
+3. **Frontier Resolution:** Scalar weighting is applied exclusively to candidates within $P$:
+   $$J_{\text{policy}}(c) = \sum_{m=1}^M w_m u_m(c) - \text{penalties}(c)$$
+   $$J_{\text{final}}(c) = J_{\text{policy}}(c) - \lambda \cdot \sigma_{\text{total}}(c)$$
+   $$\Delta_J = J_{\text{final}}(c_{(1)}) - J_{\text{final}}(c_{(2)})$$
+
+### Canonical Classification Labels
+
 ```
 SINGLETON_PARETO_FRONTIER:
-    Pareto frontier has exactly one member.
+    The Pareto frontier P contains exactly one member (|P| = 1).
+    Candidate c* is universally non-dominated across all evaluated dimensions.
+    Selected unconditionally without requiring policy weighting. Highest decision confidence.
 
 POLICY_WEIGHT_RESOLVED:
-    Multiple Pareto-optimal candidates; policy weights select one.
+    The Pareto frontier contains multiple candidates (|P| > 1), but policy-weighted utility
+    with uncertainty penalty clearly distinguishes a superior trade-off:
+    Delta_J = J_final(c_(1)) - J_final(c_(2)) >= policy.tie_threshold_epsilon.
+    The top candidate c_(1) is selected autonomously.
 
 GENUINE_PARETO_AMBIGUITY:
-    Real trade-off; no clear winner. HITL escalation.
+    The Pareto frontier contains multiple candidates (|P| > 1), and the top candidates are
+    materially tied within the policy indifference margin:
+    Delta_J = J_final(c_(1)) - J_final(c_(2)) < policy.tie_threshold_epsilon.
+    No objective basis exists to select autonomously without imposing arbitrary preferences.
+    Halt autonomous execution; generate Trade-off Matrix comparing frontier members; escalate to HITL.
+
+CD2F_NO_FEASIBLE_ACTION:
+    All proposed candidates violate one or more hard physical, regulatory, or policy constraints (|F| = 0).
+    Autonomous pipeline halts; diagnostic report generated; mandatory HITL escalation.
+```
+
+### Python Pareto Arbitration Implementation
+
+```python
+class ParetoFrontierClassification(str, Enum):
+    SINGLETON_PARETO_FRONTIER = "SINGLETON_PARETO_FRONTIER"
+    POLICY_WEIGHT_RESOLVED = "POLICY_WEIGHT_RESOLVED"
+    GENUINE_PARETO_AMBIGUITY = "GENUINE_PARETO_AMBIGUITY"
+    CD2F_NO_FEASIBLE_ACTION = "CD2F_NO_FEASIBLE_ACTION"
+
+class ParetoCandidateVector(BaseModel):
+    model_config = ConfigDict(frozen=True, extra="forbid")
+    
+    action_id: str
+    objective_vector: dict[str, float]       # Normalized [-1.0, 1.0] per metric
+    uncertainty: float                       # Total composite uncertainty
+    is_dominated: bool = False
+    dominated_by_action_id: Optional[str] = None
+    policy_utility: Optional[float] = None
+    final_score: Optional[float] = None
+
+class ParetoArbitrationResult(BaseModel):
+    model_config = ConfigDict(frozen=True, extra="forbid")
+    
+    classification: ParetoFrontierClassification
+    selected_action_id: Optional[str]
+    frontier_action_ids: list[str]
+    candidate_vectors: dict[str, ParetoCandidateVector]
+    utility_delta: Optional[float] = None
+    tradeoff_summary: str
+    requires_hitl: bool
+
+class ParetoArbitrationEngine:
+    """Computes Pareto dominance on metric vectors and resolves frontier members via policy utility."""
+    
+    @staticmethod
+    def compute_dominance(candidates: list[ParetoCandidateVector], metric_names: list[str]) -> list[ParetoCandidateVector]:
+        """Calculates point-estimate vector Pareto dominance."""
+        updated = [c.model_copy() for c in candidates]
+        n = len(updated)
+        
+        for i in range(n):
+            for j in range(n):
+                if i == j or updated[i].is_dominated:
+                    continue
+                # Check if updated[j] dominates updated[i]
+                u_i = updated[i].objective_vector
+                u_j = updated[j].objective_vector
+                
+                j_weakly_better = all(u_j[m] >= u_i[m] for m in metric_names)
+                j_strictly_better = any(u_j[m] > u_i[m] for m in metric_names)
+                
+                if j_weakly_better and j_strictly_better:
+                    updated[i] = updated[i].model_copy(update={
+                        "is_dominated": True,
+                        "dominated_by_action_id": updated[j].action_id
+                    })
+                    break
+        return updated
+
+    @classmethod
+    def arbitrate(
+        cls,
+        feasible_candidates: list[ParetoCandidateVector],
+        metric_definitions: dict[str, ObjectiveMetricDefinition],
+        weights: dict[str, float],
+        uncertainty_aversion: float,
+        tie_threshold_epsilon: float = 0.02
+    ) -> ParetoArbitrationResult:
+        if not feasible_candidates:
+            return ParetoArbitrationResult(
+                classification=ParetoFrontierClassification.CD2F_NO_FEASIBLE_ACTION,
+                selected_action_id=None,
+                frontier_action_ids=[],
+                candidate_vectors={},
+                tradeoff_summary="All candidates violate hard constraints. Feasible set is empty.",
+                requires_hitl=True
+            )
+            
+        metric_names = list(weights.keys())
+        evaluated = cls.compute_dominance(feasible_candidates, metric_names)
+        frontier = [c for c in evaluated if not c.is_dominated]
+        vectors_by_id = {c.action_id: c for c in evaluated}
+        
+        # Case 1: Singleton Frontier
+        if len(frontier) == 1:
+            winner = frontier[0]
+            return ParetoArbitrationResult(
+                classification=ParetoFrontierClassification.SINGLETON_PARETO_FRONTIER,
+                selected_action_id=winner.action_id,
+                frontier_action_ids=[winner.action_id],
+                candidate_vectors=vectors_by_id,
+                utility_delta=None,
+                tradeoff_summary=f"Candidate {winner.action_id} universally dominates all alternatives.",
+                requires_hitl=False
+            )
+            
+        # Case 2: Multi-candidate Frontier -> Apply Policy Utility & Uncertainty Penalty
+        scored_frontier: list[tuple[float, ParetoCandidateVector]] = []
+        for c in frontier:
+            j_pol = sum(weights[m] * c.objective_vector[m] for m in metric_names)
+            j_fin = j_pol - (uncertainty_aversion * c.uncertainty)
+            
+            updated_c = c.model_copy(update={"policy_utility": j_pol, "final_score": j_fin})
+            vectors_by_id[c.action_id] = updated_c
+            scored_frontier.append((j_fin, updated_c))
+            
+        scored_frontier.sort(key=lambda x: x[0], reverse=True)
+        top_score, top_candidate = scored_frontier[0]
+        runner_up_score, _ = scored_frontier[1]
+        delta_j = top_score - runner_up_score
+        
+        frontier_ids = [c.action_id for _, c in scored_frontier]
+        
+        if delta_j >= tie_threshold_epsilon:
+            return ParetoArbitrationResult(
+                classification=ParetoFrontierClassification.POLICY_WEIGHT_RESOLVED,
+                selected_action_id=top_candidate.action_id,
+                frontier_action_ids=frontier_ids,
+                candidate_vectors=vectors_by_id,
+                utility_delta=delta_j,
+                tradeoff_summary=(
+                    f"Frontier resolved by policy weighting: {top_candidate.action_id} exceeds "
+                    f"runner-up by delta={delta_j:.4f} (threshold={tie_threshold_epsilon:.4f})."
+                ),
+                requires_hitl=False
+            )
+        else:
+            return ParetoArbitrationResult(
+                classification=ParetoFrontierClassification.GENUINE_PARETO_AMBIGUITY,
+                selected_action_id=top_candidate.action_id,  # Tentative recommendation
+                frontier_action_ids=frontier_ids,
+                candidate_vectors=vectors_by_id,
+                utility_delta=delta_j,
+                tradeoff_summary=(
+                    f"Genuine Pareto ambiguity on frontier: top candidate {top_candidate.action_id} "
+                    f"and runner-up differ by only delta={delta_j:.4f} < {tie_threshold_epsilon:.4f}. Escalating to HITL."
+                ),
+                requires_hitl=True
+            )
 ```
 
 ---
@@ -2077,27 +2962,28 @@ class StateRevalidation(BaseModel):
 ## 37. State Authority Map
 
 ```
-PostgreSQL
-    +-- Enterprise truth (D1/D2 System of Record)
-    +-- Deliberation state (events, sessions)
-    +-- Agent evaluation metrics (R_i data)
-    +-- Outbox table (pending Kafka events)
-
-Kafka
-    +-- Event backbone (transport, replay, distribution)
-    +-- NOT authoritative state
-
-Redis
-    +-- Derived cache (populated FROM Kafka consumers)
-    +-- Hot deliberation state (mirrors PostgreSQL for active sessions)
-    +-- NOT authoritative
-    +-- Fail-closed for critical evidence (see Section 59)
-
-Neo4j
-    +-- Topology projection (derived from PostgreSQL)
-
-pgvector (inside PostgreSQL)
-    +-- Semantic memory (embeddings, precedents)
++===================================================================================================+
+|                                     STATE AUTHORITY TOPOLOGY                                      |
++===================+=====================+=========================+===============================+
+| Storage Layer     | Authority Class     | Managed Data Scopes     | Consistency & Failover Policy |
++===================+=====================+=========================+===============================+
+| PostgreSQL        | AUTHORITATIVE SoR   | Enterprise Facts (D1/D2)| ACID single source of truth   |
+|                   |                     | Deliberation Events     | Append-only immutable log     |
+|                   |                     | Agent Metrics (R_i)     | Evaluated historical scores   |
+|                   |                     | Transactional Outbox    | Guaranteed event relay intent |
++-------------------+---------------------+-------------------------+-------------------------------+
+| Neo4j             | DERIVED TOPOLOGY    | Network Graph Projection| Synchronized from PostgreSQL  |
+|                   |                     | Multi-echelon Nodes     | Stale lag checked via epoch   |
++-------------------+---------------------+-------------------------+-------------------------------+
+| pgvector          | SEMANTIC INDEX      | Precedent Memory Embeds | Cosine similarity memory      |
+| (in PostgreSQL)   |                     | Decision Records Vectors| Read-only precedent guidance  |
++-------------------+---------------------+-------------------------+-------------------------------+
+| Kafka             | TRANSPORT BACKBONE  | Event Log Bus           | At-least-once outbox delivery |
+|                   |                     | Session Partitioning    | Strictly non-authoritative    |
++-------------------+---------------------+-------------------------+-------------------------------+
+| Redis             | EPHEMERAL CACHE     | Deliberation Projections| Fail-closed on HARD_CRITICAL  |
+|                   |                     | Hot Telemetry Cache     | Strictly non-authoritative    |
++===================+=====================+=========================+===============================+
 ```
 
 ---
@@ -2105,26 +2991,52 @@ pgvector (inside PostgreSQL)
 ## 38. Transactional Outbox Pattern
 
 ```
-Agent result ----------> PostgreSQL
-                              |
-                         [Same transaction]
-                              |
-                         Outbox table INSERT
-                              |
-                              v
-                         Outbox Relay (polls outbox)
-                              |
-                              v
-                         Kafka PUBLISH
-                              |
-                              v
-                         Kafka Consumer
-                              |
-                              v
-                         Redis CACHE UPDATE
++-----------------------------------------------------------------------------+
+|                          COGNITIVE AGENT / SERVICE                          |
+|       Generates DeliberationEvent, StructuredClaim, or DecisionArtifact     |
++-----------------------------------------------------------------------------+
+                                       |
+                                       | [1. Synchronous Single DB Transaction]
+                                       v
++-----------------------------------------------------------------------------+
+|                    POSTGRESQL ACID TRANSACTION BOUNDARY                     |
+|                                                                             |
+|  BEGIN TRANSACTION;                                                         |
+|    INSERT INTO deliberation_events (...) VALUES (...);  -- Authoritative    |
+|    INSERT INTO scof_outbox (event_id, payload, ...)     -- Durable Intent   |
+|  COMMIT;                                                                    |
++-----------------------------------------------------------------------------+
+                                       |
+                                       | [2. Asynchronous Polling / CDC Relay]
+                                       v
++-----------------------------------------------------------------------------+
+|                             OUTBOX RELAY WORKER                             |
+|          Debezium CDC / Polling Daemon (Guarantees At-Least-Once)           |
++-----------------------------------------------------------------------------+
+                                       |
+                                       | [3. Publish Event Partitioned by session_id]
+                                       v
++-----------------------------------------------------------------------------+
+|                        KAFKA DISTRIBUTED EVENT LOG                          |
+|        Ordered Partitions: scof.deliberation.events.v1 (Key: session_id)    |
++-----------------------------------------------------------------------------+
+                                       |
+                                       | [4. Idempotent Consumption]
+                                       v
++-----------------------------------------------------------------------------+
+|                         IDEMPOTENT KAFKA CONSUMER                           |
+|      Checks: aggregate_version == current + 1 (Discards Duplicates)         |
++-----------------------------------------------------------------------------+
+                                       |
+                                       | [5. Materialize In-Memory Projection]
+                                       v
++-----------------------------------------------------------------------------+
+|                       REDIS SESSION VIEW CACHE STORE                        |
+|       Key: session:{session_id}:{snapshot_epoch}:{sequence_number}          |
++-----------------------------------------------------------------------------+
 ```
 
-**Guarantee:** PostgreSQL is always consistent. If PostgreSQL commits a state change, the corresponding event intent is also durably persisted. Kafka provides at-least-once distribution via the outbox relay. Consumers achieve effective exactly-once state transitions through idempotent processing with aggregate version checks.
+**Guarantee:** PostgreSQL is always consistent. If PostgreSQL commits a state change, the corresponding event intent is also durably persisted in `scof_outbox`. Kafka provides at-least-once distribution via the outbox relay. Consumers achieve effective exactly-once state transitions through idempotent processing with aggregate version checks.
 
 ---
 
@@ -2150,7 +3062,19 @@ class SCOFEvent(BaseModel):
 
 ## 40. Kafka Topic Architecture
 
-All topics receive events via the transactional outbox. Partition key = session_id for ordering within a decision session.
+All events enter Kafka strictly via the Transactional Outbox relay. Ordering is guaranteed per decision session by partitioning on `session_id`.
+
+### Canonical Topic Registry
+
+| Topic Name | Purpose | Partition Key | Retention Policy | Consumers |
+| :--- | :--- | :--- | :--- | :--- |
+| `scof.decision.triggers.v1` | External disruptions & operational alerts | `entity_id` / `session_id` | 30 days (compacted) | Orchestrator, Ingestion Engine |
+| `scof.deliberation.events.v1` | Agent claims, critiques, and coordinator events | `session_id` | 90 days (delete) | Redis Projection, Audit, Desktop Console |
+| `scof.simulation.requests.v1` | Dispatches from Candidate Pipeline to Digital Twin | `simulation_id` | 7 days (delete) | Digital Twin Worker Pool |
+| `scof.simulation.results.v1` | Completed simulation manifests & metrics | `simulation_id` | 90 days (delete) | Coordinator, CD2F Engine, Archival |
+| `scof.decisions.published.v1` | Formally arbitrated DecisionResult objects | `session_id` | 365 days (compacted) | ExecutionPolicyService, HITL Hub |
+| `scof.execution.commands.v1` | Authorized commands sent to ERP/TMS/WMS adapters | `execution_id` | 365 days (compacted) | Execution Adapters (ERP/TMS/WMS) |
+| `scof.telemetry.metrics.v1` | Agent calibration, ECE, SLA latency, R_i signals | `agent_id` | 30 days (delete) | Evaluation Framework (D10) |
 
 ---
 
@@ -2520,23 +3444,23 @@ B0 rules MUST be frozen before any system evaluation begins.
 ## 57. Execution Boundary Matrix
 
 ```
-+=============================================================================+
-|  Component           | ERP Write | Twin Write | DB Write | Deliberation   |
-|  --------------------|-----------|------------|----------|----------------|
-|  Agent               |    NO     |    NO      |   NO     | Post verdicts  |
-|  Coordinator         |    NO     |    NO      |   NO*    | Manage items   |
-|  CD2F                |    NO     |    NO      |   NO     | Post decision  |
-|  Twin                |    NO     | SCENARIO   |   NO     | --             |
-|  Execution Adapter   |   YES**   |    NO      |   NO     | --             |
-|                                                                             |
-|  * Coordinator writes ONLY to deliberation_* tables                        |
-|  ** Execution Adapter requires HITL or policy authorization                |
-|                                                                             |
-|  THREE KINDS OF "EXECUTION" (never collapse):                              |
-|  1. Simulation execution: Twin (ephemeral scenario state)                  |
-|  2. Decision execution: CD2F -> approved decision object                   |
++==========================================================================+
+|  Component           | ERP Write | Twin Write | DB Write | Deliberation  |
+|  --------------------|-----------|------------|----------|---------------|
+|  Agent               |    NO     |    NO      |   NO     | Post verdicts |
+|  Coordinator         |    NO     |    NO      |   NO*    | Manage items  |
+|  CD2F                |    NO     |    NO      |   NO     | Post decision |
+|  Twin                |    NO     | SCENARIO   |   NO     | --            |
+|  Execution Adapter   |   YES**   |    NO      |   NO     | --            |
+|                                                                          |
+|  * Coordinator writes ONLY to deliberation_* tables                      |
+|  ** Execution Adapter requires HITL or policy authorization              |
+|                                                                          |
+|  THREE KINDS OF "EXECUTION" (never collapse):                            |
+|  1. Simulation execution: Twin (ephemeral scenario state)                |
+|  2. Decision execution: CD2F -> approved decision object                 |
 |  3. Real-world execution: Execution Adapter -> ERP/TMS/WMS (gated)       |
-+=============================================================================+
++==========================================================================+
 ```
 
 ---
@@ -2624,219 +3548,174 @@ When a new decision session is created, the Coordinator checks for existing acti
 ## 62. Ultra-Detailed Unified Architecture Diagram
 
 ```
-+=============================================================================+
-|                   SCOF V2 COGNITIVE DECISION FABRIC                        |
-|         (D3 through D10 -- Contract Freeze Final Draft)                    |
-+=============================================================================+
-|                                                                             |
-|  TEN ARCHITECTURAL INVARIANTS (Frozen)                                      |
-|  Source Authority | Cognitive Workspace | Evidence Sufficiency |             |
-|  Candidate Discipline | Counterfactual Isolation | Decision Authority |     |
-|  Policy Authority | State Freshness | Execution Safety | Replayability |    |
-|                                                                             |
-|  +--[CANONICAL REGISTRIES]-----------------------------------------------+ |
-|  | ClaimTypeRegistry | EvidenceClass (6 classes) | ActionRegistry         | |
-|  | (Unified: single source of truth for claims, evidence, actions)       | |
-|  | (Cross-validated at startup; system MUST NOT start if invalid)         | |
-|  +-----------------------------------------------------------------------+ |
-|                                                                             |
-|  +--[D9: OBSERVABILITY, EXPLAINABILITY & DESKTOP CONSOLE]----------------+ |
-|  | Tauri v2 Desktop Console                                                | |
-|  | Decision Trace: trigger -> snapshot -> RAG -> ML -> LLM -> claims ->    | |
-|  |   critiques -> candidates -> normalization -> simulation -> CD2F ->      | |
-|  |   decision -> execution                                                  | |
-|  | HITL Escalation Interface | What-If Lab | Evidence Visualization        | |
-|  | Trade-off Explanation Rendering | DecisionRecord Archival               | |
-|  | OutcomeObservation (structured) | CriticalitySensitivityReport          | |
-|  | Replay: TRACE / LOGICAL / MODEL / EXACT_SYSTEM (bounded fidelity)       | |
-|  +-----------------------------------------------------------------------+ |
-|       |                    ^                                                |
-|  +--[D8: EVENT & RUNTIME BACKBONE]--------------------------------------+ |
-|  | FastAPI Gateway | WebSocket Broadcast                                   | |
-|  | Transactional Outbox -> Kafka Topics (keyed by session_id)              | |
-|  | SCOFEvent Contract (event_id, aggregate_version, causation_id)          | |
-|  | Consumer Idempotency (aggregate version checks)                         | |
-|  | Session State Machine: CREATED->ACTIVE->{CLOSED|CANCELLED|EXPIRED}      | |
-|  | DB Constraints: UNIQUE(session_id, sequence_number)                      | |
-|  | State transitions: single transaction + FOR UPDATE lock                  | |
-|  +-----------------------------------------------------------------------+ |
-|       |                    ^                    ^                           |
-|  +--[DECISION POLICY LAYER]----------+  +--[D10: EVALUATION]----------+ |
-|  | DecisionPolicy                     |  | B0-B7 Ablation Ladder       | |
-|  |   .objective (DecisionObjective)   |  |   B3: no gate, B4: + gate   | |
-|  |   .evidence_policy                 |  | Non-parametric statistical   | |
-|  |   .deliberation_policy             |  |   protocol (distribution-   | |
-|  |   .simulation_policy               |  |   light)                    | |
-|  |   .routing_policy                  |  | ECE/Brier acceptance        | |
-|  |   .reliability_policy              |  |   thresholds                | |
-|  |   .execution_policy                |  | Anti-Overfitting Suite:     | |
-|  |   .priority_sla_policy             |  |   held-out scenarios,       | |
-|  | ObjectiveNormalization:            |  |   parameter perturbation,   | |
-|  |   direction-aware, signed,        |  |   distribution shift,       | |
-|  |   saturation (CLIP/LOG_COMPRESS)  |  |   noise injection           | |
-|  | Policy precedence (6 levels)      |  | RQ1-RQ4 benchmarks          | |
-|  | PolicyIntegrity (content hash     |  +------------------------------+ |
-|  |   excluding self-reference)       |                                    |
-|  +------------------------------------+                                    |
-|                  |                                                          |
-|  +=================================================================+      |
-|  |        LANGGRAPH ORCHESTRATION KERNEL (D6)                     |      |
-|  |        + Coordinator (decomposed into 7 services):             |      |
-|  |          RoutingService | DeliberationService |                 |      |
-|  |          EvidenceSufficiencyService | CandidateService |        |      |
-|  |          SimulationDispatchService | AuditService |             |      |
-|  |          ExecutionPolicyService                                 |      |
-|  |        + Snapshot Epoch Allocation (atomic, common coordinate)  |      |
-|  |        + Session Overlap Detection                             |      |
-|  |                                                                 |      |
-|  |  Pipeline (canonical ordering):                                 |      |
-|  |  [Ingest & Route]                                               |      |
-|  |    -> [Create DecisionSnapshot (allocate epoch)]                |      |
-|  |    -> [Tier-1 RAG Pre-Retrieval (broad, shallow)]               |      |
-|  |    -> [Capability Bind (Dynamic Capability Registry)]           |      |
-|  |    -> [Fan-Out (independent: no cross-agent visibility)]        |      |
-|  |    -> [Fan-In (collate proposals)]                              |      |
-|  |    -> [Cross-Examination (targeted, bounded, 2 rounds max)]     |      |
-|  |    -> [Evidence Sufficiency Gate (tiered criticality)]           |      |
-|  |         HARD_CRITICAL / DEGRADED_CRITICAL / IMPORTANT           |      |
-|  |         Verdict: SUFFICIENT / MARGINALLY / INSUFFICIENT         |      |
-|  |    -> [Candidate Extraction]                                    |      |
-|  |    -> [Candidate Normalization Pipeline (9 steps)]              |      |
-|  |         Schema -> Entity -> Impact(T1+T2) -> Hard Constraint    |      |
-|  |         -> Dedup -> Dominance(T1 only) -> Budget(UCB heuristic) |      |
-|  |         -> Combination Synthesis                                |      |
-|  |    -> [Twin Requirement Classification]                         |      |
-|  |         (unified SimulationMaterialityThresholds)               |      |
-|  |    -> [Twin Simulation (Tier 3: counterfactual)]                |      |
-|  |         (optional EXPLORE->DELIBERATE loop, max 1)              |      |
-|  |    -> [CD2F Arbitration]                                        |      |
-|  |         Direction-aware normalization | Proper Pareto           |      |
-|  |         SINGLETON_FRONTIER / POLICY_WEIGHT_RESOLVED /           |      |
-|  |         GENUINE_PARETO_AMBIGUITY                                |      |
-|  |    -> [ExecutionPolicy Evaluation (separate gate)]              |      |
-|  |    -> [STATE REVALIDATION (epoch drift check)]                  |      |
-|  |    -> [Execute / Escalate / Archive]                            |      |
-|  +=================================================================+      |
-|       |              |              |              |              |         |
-|  +=================================================================+      |
-|  |     LANGCHAIN AGENT REASONING LAYER (D3/D4)                   |      |
-|  |     Framework split:                                           |      |
-|  |       LangGraph = macro workflow orchestration                 |      |
-|  |       LangChain = agent-level cognitive engine                 |      |
-|  |     + Agent-Internal Tier-2 RAG (MCP-Governed)                |      |
-|  |     + Two-Class Retrieval (MCP + local hot-path cache)        |      |
-|  |     + DomainOwnershipPolicy enforcement (validated contracts) |      |
-|  |     + ActionIntent (decision params, NOT impact estimates)    |      |
-|  |     + AgentInfluenceStatus (FULL/REDUCED/ADVISORY)            |      |
-|  |     + Hybrid ML + Bounded LLM per agent                      |      |
-|  |     + ReasoningService abstraction (model-agnostic)           |      |
-|  |     + Deterministic fallback on LLM failure                   |      |
-|  |                                                                 |      |
-|  | +-------------------+ +-------------------+ +-------------------+     |
-|  | | [1] Demand &      | | [2] Inventory &   | | [3] Procurement & |     |
-|  | | Commerce          | | Asset Mgmt        | | Supplier          |     |
-|  | | [validated card]  | | [validated card]  | | [validated card]  |     |
-|  | | [ML + Bounded LLM]| | [ML + Bounded LLM]| | [ML + Bounded LLM]|     |
-|  | | [two-class RAG]   | | [two-class RAG]   | | [two-class RAG]   |     |
-|  | | [domain re-rank]  | | [domain re-rank]  | | [domain re-rank]  |     |
-|  | +-------------------+ +-------------------+ +-------------------+     |
-|  |                                                                 |      |
-|  | +-------------------+ +-------------------+ +-------------------+     |
-|  | | [4] Logistics &   | | [5] Financial &   | | [6] Risk &        |     |
-|  | | Transport         | | Enterprise Value  | | Resilience        |     |
-|  | | [validated card]  | | [validated card]  | | [validated card]  |     |
-|  | | [ML + Bounded LLM]| | [ML + Bounded LLM]| | [ML + Bounded LLM]|     |
-|  | | [two-class RAG]   | | [two-class RAG]   | | [two-class RAG]   |     |
-|  | | [domain re-rank]  | | [domain re-rank]  | | [domain re-rank]  |     |
-|  | +-------------------+ +-------------------+ +-------------------+     |
-|  |                                                                 |      |
-|  +=================================================================+      |
-|       |                                                                    |
-|  +=================================================================+      |
-|  |     DELIBERATION TABLE (Event-Sourced Cognitive Workspace)     |      |
-|  |                                                                 |      |
-|  |  Core Rules:                                                    |      |
-|  |    1. No agent-to-agent direct communication                    |      |
-|  |    2. Workspace for decision artifacts, NOT enterprise truth    |      |
-|  |    3. Coordinator is chairperson                                |      |
-|  |                                                                 |      |
-|  |  Events:     PostgreSQL (append-only, immutable)               |      |
-|  |              UNIQUE(session_id, sequence_number) enforced       |      |
-|  |  Views:      Redis (materialized session projection)           |      |
-|  |              Cache key: {session_id}:{epoch}:{sequence}        |      |
-|  |  Transport:  Kafka (via outbox, keyed by session_id)           |      |
-|  |  Replay:     replay_session(session_id, up_to_sequence)        |      |
-|  |  State:      Session state machine with DB-enforced transitions |      |
-|  +=================================================================+      |
-|       |                                                                    |
-|  +=================================================================+      |
-|  |     IMPACT EVALUATION SERVICE                                  |      |
-|  |                                                                 |      |
-|  |  Tier 1: BaselineImpact                                        |      |
-|  |    Source: PostgreSQL, rate tables, contract terms               |      |
-|  |    Nature: Deterministic derivation from authoritative facts    |      |
-|  |    Used for: Hard constraint check, dominance pruning           |      |
-|  |                                                                 |      |
-|  |  Tier 2: PredictiveImpactEstimate                               |      |
-|  |    Source: Validated domain models                               |      |
-|  |    Nature: Statistical prediction with confidence intervals     |      |
-|  |    Used for: UCB budget selection, pre-Twin scoring             |      |
-|  |    NOT used for: dominance pruning                              |      |
-|  |                                                                 |      |
-|  |  LLM numbers NEVER enter this computation                      |      |
-|  +=================================================================+      |
-|       |                                                                    |
-|  +=================================================================+      |
-|  |     DIGITAL TWIN -- COUNTERFACTUAL EVALUATOR (D7)             |      |
-|  |                                                                 |      |
-|  |  Tier 3: Counterfactual simulation results                     |      |
-|  |  Requirement Classification:                                    |      |
-|  |    REQUIRED (financial >$200k, cascade >0.70, novelty >0.80)   |      |
-|  |    RECOMMENDED (financial >$10k, service >0.15, risk >0.50)    |      |
-|  |    ADVISORY (below all thresholds)                              |      |
-|  |  REQUIRED + timeout -> HITL (no autonomous CD2F)               |      |
-|  |  Produces: SimulationResult + SimulationManifest               |      |
-|  |  Authority: ONLY within isolated Layer-3 scenario scope        |      |
-|  |  Branch lifecycle: active -> archive -> GC after retention      |      |
-|  +=================================================================+      |
-|       |                                                                    |
-|  +=================================================================+      |
-|  |     CD2F EVIDENCE-BASED ARBITRATION ENGINE (D7)               |      |
-|  |                                                                 |      |
-|  |  Inputs: candidates + evidence + simulation + policy            |      |
-|  |  Process:                                                       |      |
-|  |    1. FEASIBILITY FILTER (hard constraints)                     |      |
-|  |    2. OBJECTIVE SCORE (direction-aware normalization)            |      |
-|  |       J(c) = SUM(w_m * utility(c,m)) - soft_penalty             |      |
-|  |    3. UNCERTAINTY ADJUSTMENT                                    |      |
-|  |       J_final(c) = J(c) - lambda * uncertainty(c)               |      |
-|  |    4. PARETO CHECK (proper Pareto frontier)                     |      |
-|  |       SINGLETON_FRONTIER / POLICY_WEIGHT_RESOLVED /             |      |
-|  |       GENUINE_PARETO_AMBIGUITY                                  |      |
-|  |    5. -> ExecutionPolicy (separate gate)                        |      |
-|  |    6. -> StateRevalidation (epoch drift check)                  |      |
-|  |  Output: selected action + justification + trade-off summary   |      |
-|  |  Pure computation: no LLM, no retrieval, no Twin calls          |      |
-|  +=================================================================+      |
-|       |                                                                    |
-|  +=================================================================+      |
-|  |     D1 + D2: ENTERPRISE DATA FABRIC (Frozen Baseline)         |      |
-|  |                                                                 |      |
-|  |  PostgreSQL: System of Record (operational facts, 96 tables)   |      |
-|  |  Neo4j:      Topology projection (3.73M nodes, derived)       |      |
-|  |  pgvector:   Semantic precedent memory (384-dim embeddings)    |      |
-|  |  Redis:      Governed cache (fail-closed for critical evidence)|      |
-|  |  Snapshot epochs: common consistency coordinate                |      |
-|  |    (replaces heterogeneous LSN arithmetic)                      |      |
-|  +=================================================================+      |
-|                                                                             |
-|  CROSS-CUTTING INFRASTRUCTURE:                                             |
-|  Kafka  = event backbone (via outbox, at-least-once, idempotent)          |
-|  MCP    = governed capability access (versioned, side-effect classified)  |
-|  A2A    = agent task contract + health + capability                       |
-|  Redis  = governed cache (policy-level governance, fail-closed)           |
-|                                                                             |
-+=============================================================================+
++===================================================================================================+
+|                                SCOF V2 COGNITIVE DECISION FABRIC                                  |
+|                 (Ultra-Detailed Unified Architecture Reference -- D3 through D10)                 |
++===================================================================================================+
+|                                                                                                   |
+|  TEN ARCHITECTURAL INVARIANTS (FROZEN FOUNDATION):                                                |
+|  1. Source Authority     2. Cognitive Workspace 3. Evidence Sufficiency 4. Candidate Discipline   |
+|  5. Counterfactual Isolate 6. Decision Authority 7. Policy Authority    8. State Freshness        |
+|  9. Execution Safety     10. Bounded Replayability                                                |
+|                                                                                                   |
+|  +--[CANONICAL REGISTRIES (STARTUP VALIDATED SINGLE SOURCE OF TRUTH)]--------------------------+  |
+|  | ClaimTypeRegistry (30 Types) | EvidenceClass Registry (6 Classes) | ActionRegistry (18 Acts)|  |
+|  | - Every reference cross-validated at boot; strict validation failure aborts system startup  |  |
+|  | - Closed-vocabulary composite_action governed with parameter_authority: COMPONENT_DELEGATED |  |
+|  +---------------------------------------------------------------------------------------------+  |
+|                                                                                                   |
+|  +--[D9: OBSERVABILITY, EXPLAINABILITY AND HUMAN CONSOLE]--------------------------------------+  |
+|  | Tauri v2 Desktop GUI Console                                                                |  |
+|  | - End-to-End Decision Trace Log (Trigger -> Snapshot -> RAG -> Proposals -> Critiques       |  |
+|  |   -> Sufficiency -> Normalization -> Composites -> Twin -> Pareto Vector -> Decision)       |  |
+|  | - Real-Time Deliberation Visualizer (Redis Session Projection Views)                        |  |
+|  | - Multi-Objective Trade-Off Frontier Radar & Sensitivity Breakdown Plots                    |  |
+|  | - Human-in-the-Loop Escalation Hub (Trade-off Matrix for GENUINE_PARETO_AMBIGUITY)          |  |
+|  | - DecisionRecord Archival Engine & Bounded Replay (TRACE / LOGICAL / MODEL / EXACT_SYSTEM)  |  |
+|  +---------------------------------------------------------------------------------------------+  |
+|         | User Directives / Approvals                ^ Real-Time Streaming Telemetry / Audits     |
+|         v                                            |                                            |
+|  +--[D8: EVENT AND RUNTIME BACKBONE]-----------------------------------------------------------+  |
+|  | FastAPI Gateway & WebSocket Broadcast                                                       |  |
+|  | Transactional Outbox Relay -> Kafka Topic Backbone (Session Partitioned)                    |  |
+|  | SCOFEvent Contract (event_id, aggregate_version, causation_id, payload, timestamp)          |  |
+|  | Idempotent Consumer Engines (aggregate_version ordering check)                              |  |
+|  | DB-Enforced Session State Transitions: CREATED -> ACTIVE -> {CLOSED | CANCELLED | EXPIRED}  |  |
+|  | Deliberation Event Store Constraints: UNIQUE(session_id, sequence_number)                   |  |
+|  +---------------------------------------------------------------------------------------------+  |
+|         | Directives & Events                        ^ State Changes        ^ Metrics & Traces    |
+|         v                                            |                      |                     |
+|  +--[DECISION POLICY LAYER]----------+               |       +--[D10: EVALUATION BENCHMARK]----+  |
+|  | DecisionPolicy Schema             |               |       | B0-B7 Ablation Baseline Ladder  |  |
+|  | - Direction-Aware Normalization   |               |       | Non-Parametric Permutation Test |  |
+|  | - 6-Level Precedence Hierarchy    |               |       | ECE (<0.10) / Brier (<0.15)     |  |
+|  | - Content-Addressable Integrity   |               |       | Anti-Overfitting Scenario Suite |  |
+|  |   (Excludes Hash Self-Reference)  |               |       | RQ1-RQ4 Statistical Validation  |  |
+|  +-----------------------------------+               |       +---------------------------------+  |
+|         | Bound Policy Object                        |                      ^ Evaluation Feeds    |
+|         v                                            |                      |                     |
+|  +=============================================================================================+  |
+|  | D6: LANGGRAPH MACRO-ORCHESTRATION KERNEL (DETERMINISTIC COORDINATOR ENGINE)                 |  |
+|  | (Strict Discipline: Coordinator is a deterministic workflow orchestrator, NOT an agent)     |  |
+|  |                                                                                             |  |
+|  |   [Disruption Trigger Ingestion]                                                            |  |
+|  |             |                                                                               |  |
+|  |             v                                                                               |  |
+|  |   [1. Allocate DecisionSnapshot Epoch] --------> Atomic Common Consistency Coordinate       |  |
+|  |             |                                                                               |  |
+|  |             v                                                                               |  |
+|  |   [2. Tier-1 RAG Pre-Retrieval] ---------------> Broad & Shallow Context Package            |  |
+|  |             |                                                                               |  |
+|  |             v                                                                               |  |
+|  |   [3. Capability Binding & Routing] -----------> Resolve Dynamic MCP Tools & Agent Affinity |  |
+|  |             |                                                                               |  |
+|  |             v                                                                               |  |
+|  |   [4. Parallel Specialist Fan-Out] ------------> Zero Cross-Agent Visibility (Independent)  |  |
+|  |             |                                                                               |  |
+|  |             v                                                                               |  |
+|  |   [5. Fan-In Deliberation Collation] ----------> Assemble Deliberation Table in PostgreSQL  |  |
+|  |             |                                                                               |  |
+|  |             v                                                                               |  |
+|  |   [6. Targeted Cross-Examination] -------------> Conflict Critiques (Strictly <= 2 Rounds)  |  |
+|  |             |                                                                               |  |
+|  |             v                                                                               |  |
+|  |   [7. EVIDENCE SUFFICIENCY GATE] --------------> Individual HARD_CRITICAL Freshness/Auth    |  |
+|  |             |                                    (Fail -> Mandatory HITL Escalation)        |  |
+|  |             v                                                                               |  |
+|  |   [8. Candidate Extraction & Atomic Normalization]                                          |  |
+|  |       (Steps 1-7: Schema, Entities, T1 Baseline, T2 Predictive, Constraints, Dedup, Prune)  |  |
+|  |             |                                                                               |  |
+|  |             v                                                                               |  |
+|  |   [9. Combination Synthesis (Step 8)] ---------> Cross-Domain Non-Conflicting Composites    |  |
+|  |             |                                                                               |  |
+|  |             v                                                                               |  |
+|  |   [10. COMPOSITE REVALIDATION PASS (Step 9)]                                                |  |
+|  |        (Revalidate: Schema, Parameter Authority, Entities, Hard Constraints, Joint Impact)  |  |
+|  |             |                                                                               |  |
+|  |             v                                                                               |  |
+|  |   [11. Candidate Budget Selection (Step 10)] --> UCB Heuristic + Baseline & Domain Reserves |  |
+|  |             |                                                                               |  |
+|  |             v                                                                               |  |
+|  |   [12. Candidate Admission Sealing (Step 11)] -> Sign Validated Candidates with Seal        |  |
+|  |             |                                                                               |  |
+|  |             v                                                                               |  |
+|  |   [13. Digital Twin Materiality Evaluation] ---> REQUIRED / RECOMMENDED / ADVISORY Check    |  |
+|  |             |                                                                               |  |
+|  |             +==========================+==================================+                 |  |
+|  |                                        |                                  |                 |  |
+|  |                                [Simulatable]                    [Non-Simulatable]           |  |
+|  |                                        |                                  |                 |  |
+|  |                                        v                                  |                 |  |
+|  |                          [14. Digital Twin Simulation]                    |                 |  |
+|  |                          (Counterfactual Tier-3 Impact)                   |                 |  |
+|  |                          (Optional 1-Time Re-Deliberation)                |                 |  |
+|  |                                        |                                  |                 |  |
+|  |                                        v                                  v                 |  |
+|  |             +=============================================================+                 |  |
+|  |             |                                                                               |  |
+|  |             v                                                                               |  |
+|  |   [15. CD2F VECTOR PARETO ARBITRATION] --------> Multi-Objective Vector Frontier P on U(c)  |  |
+|  |             |                                    (Evaluates Dimensional Dominance First)    |  |
+|  |             v                                                                               |  |
+|  |   [16. Frontier Resolution via Policy & Uncert] -> Resolve P if |P| > 1 via J_final         |  |
+|  |             |                                    (SINGLETON / POLICY_RESOLVED / AMBIGUITY)  |  |
+|  |             v                                                                               |  |
+|  |   [17. Return DecisionResult] -----------------> CD2F Selects; Does NOT Authorize Execution |  |
+|  |             |                                                                               |  |
+|  |             v                                                                               |  |
+|  |   [18. ExecutionPolicyService Gate] -----------> Independent Organization Autonomy Gate     |  |
+|  |             |                                                                               |  |
+|  |             v                                                                               |  |
+|  |   [19. State Revalidation Check] --------------> Detect Snapshot Epoch Drift & Stale World  |  |
+|  |             |                                                                               |  |
+|  |             +------------+-------------------------------+-------------------+              |  |
+|  |                          |                               |                   |              |  |
+|  |                    [State Valid]                 [Material Drift]      [Policy Gate]        |  |
+|  |                          |                               |                   |              |  |
+|  |                          v                               v                   v              |  |
+|  |                  [Execute Adapter]               [Trigger Replan]    [HITL Escalation]      |  |
+|  +=============================================================================================+  |
+|         | Tool Invocations       ^ Agent Proposals          ^ Simulation Results|                 |
+|         v via Governed MCP       | & Cross-Critiques        | & Validation Envs | State Checks    |
+|  +====================================================+   +===================+ |                 |
+|  | D3/D4: LANGCHAIN SPECIALIST REASONING AGENT ROSTER |   | D7: DIGITAL TWIN  | |                 |
+|  | [1] Demand & Commerce Specialist Agent             |   | (COUNTERFACTUAL   | |                 |
+|  | [2] Inventory & Asset Management Specialist Agent  |   |  EVALUATION)      | |                 |
+|  | [3] Procurement & Supplier Specialist Agent        |   | - Scenario Layer 3| |                 |
+|  | [4] Logistics & Transport Specialist Agent         |   |   State Mutation  | |                 |
+|  | [5] Financial & Enterprise Value Specialist Agent  |   | - Reproducible    | |                 |
+|  | [6] Risk & Resilience Specialist Agent             |   |   Manifest Replay | |                 |
+|  | Each Specialist Runs:                              |   | - Horizon Rollout | |                 |
+|  | - Hybrid Domain ML Models + Bounded LLM Reasoning  |   |   [7 to 28 Days]  | |                 |
+|  | - Tier-2 Deep RAG (MCP Governed + Hot-Path Cache)  |   | - Enforces Twin   | |                 |
+|  | - Strict DomainOwnershipPolicy & ActionIntent Only |   |   Admission Seals | |                 |
+|  +====================================================+   +===================+ |                 |
+|         | Read Artifacts              ^ Append Events               | Manifests | Projections     |
+|         v & Materialized Views        | (Session Partitioned)       |           v                 |
+|  +---------------------------------------------------------------------------------------------+  |
+|  | DELIBERATION TABLE (EVENT-SOURCED COGNITIVE WORKSPACE)                                      |  |
+|  | - Authoritative Cognitive Events: PostgreSQL deliberation_events (Append-Only, Immutable)   |  |
+|  | - Materialized Session Projections: Redis session:{id}:{epoch}:{seq} (Snapshot-Keyed)       |  |
+|  | - Single-Writer Sequence Allocation & DB Constraint: UNIQUE(session_id, sequence_number)    |  |
+|  +---------------------------------------------------------------------------------------------+  |
+|         | Reads & Graph Traversals                                  | Write Events / Sync         |
+|         v                                                           v                             |
+|  +---------------------------------------------------------------------------------------------+  |
+|  | D1 + D2: ENTERPRISE DATA FABRIC (SYSTEM OF RECORD)                                          |  |
+|  | - PostgreSQL: Authoritative operational facts (96 core relational tables, transactional)    |  |
+|  | - Neo4j: Current materialized topology projection (3.73M nodes, version-stamped)            |  |
+|  | - pgvector: Semantic memory & historical decision precedent index (384-dimensional)         |  |
+|  | - Redis: Ephemeral real-time telemetry cache (governed, fail-closed on critical queries)    |  |
+|  | - Atomic Snapshot Epoch Coordinator: Common temporal coordinate for all session reasoning   |  |
+|  +---------------------------------------------------------------------------------------------+  |
+|                                                                                                   |
+|  CROSS-CUTTING RUNTIME INFRASTRUCTURE:                                                            |
+|  Kafka  = Event backbone (via Transactional Outbox, at-least-once, idempotent consumers)          |
+|  MCP    = Governed tool/capability access (versioned, side-effect classified, audit-logged)       |
+|  A2A    = Agent task contracts, capability advertisements, and health monitoring                  |
+|  Redis  = Governed operational cache (policy-governed access, fail-closed on critical evidence)   |
+|                                                                                                   |
++===================================================================================================+
 ```
 
 ---
@@ -2881,7 +3760,7 @@ See Section 17 for the complete state machine definition with all conditional br
 
 ### Phase 5: CD2F + Counterfactual Decision (D7)
 
-**Build:** Candidate normalization pipeline (9-step), three-tier impact evaluation, Twin simulation dispatch with SimulationManifest, CD2F formal objective function (direction-aware), Pareto analysis, execution authorization separation, R_i governance, state revalidation.
+**Build:** Candidate normalization and composite revalidation pipeline (11-step with CandidateAdmissionSeal), three-tier impact evaluation, Twin simulation dispatch with SimulationManifest, CD2F formal objective vector evaluation and point-estimate Pareto arbitration, execution authorization separation (ExecutionPolicyService), R_i governance, state revalidation.
 
 **Gate:** Does Twin simulation + evidence-based arbitration beat naive scoring (B3 vs B5 vs B6)? Statistical significance: p < 0.05.
 
@@ -2913,24 +3792,28 @@ See Section 17 for the complete state machine definition with all conditional br
 - Six Cognitive Stages (KNOW -> UNDERSTAND -> DELIBERATE -> EXPLORE -> DECIDE -> EXPLAIN)
 - Agent Roster (6 + 1)
 - Mechanism Responsibility Matrix
-- ClaimTypeRegistry, EvidenceClass, ActionRegistry (unified)
-- DomainOwnershipPolicy contracts
+- ClaimTypeRegistry (30 types), EvidenceClass (6 classes), ActionRegistry (18 actions unified)
+- ActionRegistry Full 12-Field Canonical Specification and closed-vocabulary composite_action
+- DomainOwnershipPolicy contracts and parameter_authority rules
 - Three-tier impact model (Baseline / Predictive / Counterfactual)
 - Tiered criticality model (HARD_CRITICAL / DEGRADED_CRITICAL / IMPORTANT / SUPPLEMENTARY)
-- Common snapshot epoch consistency model
+- Individual Hard-Critical evidence freshness, authority, presence, and non-contradiction gate
+- Common snapshot epoch consistency coordinate
 - Full session restart on snapshot advancement (no partial restart)
-- Direction-aware signed normalization with saturation policy
+- Direction-aware signed normalization with saturation policy (CLIP / LOG_COMPRESS)
+- Controlled Combination Synthesis and 11-step candidate normalization pipeline with CandidateAdmissionSeal
 - Candidate Budget Selection (UCB heuristic, explicitly not a safety proof)
 - Unified SimulationMaterialityThresholds
-- Event-sourced Deliberation Table
-- Session state machine with explicit transition matrix
-- Content-addressable policy hashing (excluding integrity metadata)
-- State revalidation before execution
-- Corrected B0-B7 ablation ladder (B3/B4 separation)
+- Proper Vector-First Pareto Arbitration (Pareto dominance computed directly on metric vectors before scalar weighting)
+- Event-sourced Deliberation Table (PostgreSQL authoritative, Redis projections)
+- Session state machine with DB-enforced transition locks
+- Content-addressable policy hashing (excluding integrity self-references)
+- State revalidation before execution (approved_snapshot_epoch vs current_snapshot_epoch)
+- Corrected B0-B7 ablation ladder (B3 deliberation / B4 evidence gate separation)
 - Proposition-specific evidence authority
-- Execution authorization separation (CD2F vs ExecutionPolicyService)
+- Execution authorization separation (CD2F selects; ExecutionPolicyService authorizes)
 - DecisionRecord as immutable business artifact
-- Replay manifest with bounded fidelity classification
+- Replay manifest with bounded fidelity classification (TRACE / LOGICAL / MODEL / EXACT_SYSTEM)
 
 ### Tunable (Profile Defaults, Not Frozen Architecture)
 
@@ -2990,4 +3873,4 @@ These items are validated architectural observations. They are NOT required for 
 
 ---
 
-> This document represents the consolidated, contract-frozen architecture for SCOF V2 D3-D10 implementation. All P0 blockers from the four amendment cycles are resolved. The vocabulary is closed. The mathematical model is corrected. The state semantics are internally consistent. The evaluation protocol is formalized. The scope is explicitly bounded. The architecture is ready for D3 implementation.
+> This document represents the consolidated, contract-frozen architecture for SCOF V2 D3-D10 implementation. All architectural contracts are frozen and validated. The vocabulary is closed. The mathematical model is fully verified. The state semantics are internally consistent. The evaluation protocol is formalized. The scope is explicitly bounded. The architecture is frozen and ready for D3 implementation.
