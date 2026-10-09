@@ -1,4 +1,4 @@
-ADR 013: Tri-Zone Query Routing and Deeper Resolver Pipeline
+# ADR 013: Tri-Zone Query Routing and Deeper Resolver Pipeline
 
 * **Status**: Accepted
 

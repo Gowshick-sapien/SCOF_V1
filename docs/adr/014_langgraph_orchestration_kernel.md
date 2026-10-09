@@ -1,4 +1,4 @@
-ADR 014: Orchestration Kernel Selection -- LangGraph vs. CrewAI, AutoGen, and Semantic Kernel
+# ADR 014: Orchestration Kernel Selection -- LangGraph vs. CrewAI, AutoGen, and Semantic Kernel
 
 * **Status**: Accepted
 

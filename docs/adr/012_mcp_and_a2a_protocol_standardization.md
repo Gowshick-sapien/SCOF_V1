@@ -1,4 +1,4 @@
-ADR 012: Protocol Standardization -- Model Context Protocol (MCP) and Agent-to-Agent (A2A) vs. Proprietary REST/RPC
+# ADR 012: Protocol Standardization -- Model Context Protocol (MCP) and Agent-to-Agent (A2A) vs. Proprietary REST/RPC
 
 * **Status**: Amended by ADR 012 (Amendment)
 

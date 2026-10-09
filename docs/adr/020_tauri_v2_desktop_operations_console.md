@@ -1,4 +1,4 @@
-ADR 020: Desktop Client Architecture -- Tauri v2 + React 19 + Apple HIG vs. Electron and Pure Web App
+# ADR 020: Desktop Client Architecture -- Tauri v2 + React 19 + Apple HIG vs. Electron and Pure Web App
 
 * **Status**: Accepted
 

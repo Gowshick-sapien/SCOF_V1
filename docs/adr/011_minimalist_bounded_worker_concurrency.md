@@ -1,4 +1,4 @@
-ADR 011: Minimalist Bounded Worker Concurrency Model
+# ADR 011: Minimalist Bounded Worker Concurrency Model
 
 * **Status**: Accepted
 

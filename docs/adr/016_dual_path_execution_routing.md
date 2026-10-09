@@ -1,4 +1,4 @@
-ADR 016: Execution Routing Strategy -- Dual-Path Gating (Fast-Path vs. Slow-Path / Human Escalation)
+# ADR 016: Execution Routing Strategy -- Dual-Path Gating (Fast-Path vs. Slow-Path / Human Escalation)
 
 * **Status**: Accepted
 

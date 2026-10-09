@@ -1,4 +1,4 @@
-ADR 005: Knowledge Layer Architecture -- Hybrid Graph (Neo4j) + Relational/Vector (PostgreSQL) vs. Monolithic Store
+# ADR 005: Knowledge Layer Architecture -- Hybrid Graph (Neo4j) + Relational/Vector (PostgreSQL) vs. Monolithic Store
 
 * **Status**: Amended by ADR 005 (Amendment)
 

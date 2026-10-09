@@ -1,4 +1,4 @@
-ADR 006: Immutable Neo4j Topology with In-Memory Scenario Overlays
+# ADR 006: Immutable Neo4j Topology with In-Memory Scenario Overlays
 
 * **Status**: Accepted
 

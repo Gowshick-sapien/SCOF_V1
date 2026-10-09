@@ -1,4 +1,4 @@
-ADR 008: Operational Digital Twin Substrate Layer Above D1 and D2
+# ADR 008: Operational Digital Twin Substrate Layer Above D1 and D2
 
 * **Status**: Accepted
 

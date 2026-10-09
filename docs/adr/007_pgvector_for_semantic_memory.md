@@ -1,4 +1,4 @@
-ADR 007: Vector Database Selection -- pgvector vs. Dedicated Vector DBs (Pinecone, Weaviate, Qdrant)
+# ADR 007: Vector Database Selection -- pgvector vs. Dedicated Vector DBs (Pinecone, Weaviate, Qdrant)
 
 * **Status**: Amended by ADR 007 (Amendment)
 

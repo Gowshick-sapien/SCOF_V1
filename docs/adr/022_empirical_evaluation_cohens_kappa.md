@@ -1,4 +1,4 @@
-ADR 022: Empirical Evaluation Methodology -- Cohen's Kappa & Ground Truth vs. Subjective LLM-as-a-Judge
+# ADR 022: Empirical Evaluation Methodology -- Cohen's Kappa & Ground Truth vs. Subjective LLM-as-a-Judge
 
 * **Status**: Accepted
 

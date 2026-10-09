@@ -1,4 +1,4 @@
-ADR 005 (Amendment): Materialized Graph Projection and Bounded Query Contracts
+# ADR 005 (Amendment): Materialized Graph Projection and Bounded Query Contracts
 
 * **Status**: Accepted (Amends ADR 005)
 

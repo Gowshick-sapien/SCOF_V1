@@ -1,4 +1,4 @@
-ADR 018: Message Streaming Bus Selection -- Apache Kafka vs. RabbitMQ and Redis Pub/Sub
+# ADR 018: Message Streaming Bus Selection -- Apache Kafka vs. RabbitMQ and Redis Pub/Sub
 
 * **Status**: Accepted
 

@@ -1,4 +1,4 @@
-ADR 003: Decoupling Enterprise Data Domains from Multi-Agent Operational Roster
+# ADR 003: Decoupling Enterprise Data Domains from Multi-Agent Operational Roster
 
 * **Status**: Accepted
 

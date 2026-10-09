@@ -1,4 +1,4 @@
-ADR 019: Real-Time State Caching & WebSockets -- Redis vs. Direct PostgreSQL Polling
+# ADR 019: Real-Time State Caching & WebSockets -- Redis vs. Direct PostgreSQL Polling
 
 * **Status**: Accepted
 

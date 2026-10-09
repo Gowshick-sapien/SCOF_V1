@@ -1,4 +1,4 @@
-ADR 002: Tripartite State Isolation for Benchmark and Simulation Integrity
+# ADR 002: Tripartite State Isolation for Benchmark and Simulation Integrity
 
 * **Status**: Accepted
 

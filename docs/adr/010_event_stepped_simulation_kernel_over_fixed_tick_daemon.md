@@ -1,4 +1,4 @@
-ADR 010: Event-Stepped Simulation Kernel Over Fixed-Tick Daemon
+# ADR 010: Event-Stepped Simulation Kernel Over Fixed-Tick Daemon
 
 * **Status**: Accepted
 

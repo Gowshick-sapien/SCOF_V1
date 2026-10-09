@@ -1,4 +1,4 @@
-ADR 012 (Amendment): Dynamic Capability Registry Over Static MCP Endpoints
+# ADR 012 (Amendment): Dynamic Capability Registry Over Static MCP Endpoints
 
 * **Status**: Accepted (Amends ADR 012)
 

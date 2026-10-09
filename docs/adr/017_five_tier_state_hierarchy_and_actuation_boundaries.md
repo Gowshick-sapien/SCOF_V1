@@ -1,4 +1,4 @@
-ADR 017: Five-Tier State Hierarchy and Actuation Boundaries
+# ADR 017: Five-Tier State Hierarchy and Actuation Boundaries
 
 * **Status**: Accepted
 

@@ -1,4 +1,4 @@
-ADR 015: Consensus Arbitration Framework -- CD2F Dynamic Continuous Weighting vs. Majority Voting & LLM-as-a-Judge
+# ADR 015: Consensus Arbitration Framework -- CD2F Dynamic Continuous Weighting vs. Majority Voting & LLM-as-a-Judge
 
 * **Status**: Accepted
 

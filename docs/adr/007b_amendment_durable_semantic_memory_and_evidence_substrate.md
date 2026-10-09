@@ -1,4 +1,4 @@
-ADR 007 (Amendment): Durable Semantic-Memory and Evidence Substrate
+# ADR 007 (Amendment): Durable Semantic-Memory and Evidence Substrate
 
 * **Status**: Accepted (Amends ADR 007 and ADR 005)
 

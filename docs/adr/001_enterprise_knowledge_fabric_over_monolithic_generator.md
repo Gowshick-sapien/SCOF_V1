@@ -1,4 +1,4 @@
-ADR 001: Enterprise Knowledge Fabric over Monolithic Synthetic Generator
+# ADR 001: Enterprise Knowledge Fabric over Monolithic Synthetic Generator
 
 * **Status**: Accepted (Supersedes V1 D01/D02 Toy Generator Scope)
 

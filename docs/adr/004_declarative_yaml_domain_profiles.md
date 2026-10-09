@@ -1,4 +1,4 @@
-ADR 004: Domain Profile Architecture -- Declarative YAML Profiles vs. Hardcoded Business Logic
+# ADR 004: Domain Profile Architecture -- Declarative YAML Profiles vs. Hardcoded Business Logic
 
 * **Status**: Amended by ADR 004 (Amendment)
 

@@ -1,4 +1,4 @@
-ADR 004 (Amendment): Declarative Domain Binding Profiles over Procedural World Generators
+# ADR 004 (Amendment): Declarative Domain Binding Profiles over Procedural World Generators
 
 * **Status**: Accepted (Amends ADR 004)
 
