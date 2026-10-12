@@ -316,13 +316,13 @@ function computeSimulationOutcome(targetEntity: string, disruptionType: string, 
 
   const calcRisk = (severity * profile.base_risk * mult.risk).toFixed(1);
   const calcLead = (severity * profile.base_lead_time * mult.lead_time).toFixed(1);
-  const calcCost = Math.round(severity * profile.base_cost * mult.cost).toLocaleString();
+  const calcCost = Math.round(severity * profile.base_cost * mult.cost).toLocaleString("en-IN");
   const recommendation = profile.actions[disruptionType] || profile.actions["supplier_delay"];
 
   return {
     stockout_risk_delta: `+${calcRisk}%`,
     lead_time_impact: `+${calcLead} days`,
-    cost_variance: `+$${calcCost}`,
+    cost_variance: `+₹${calcCost}`,
     recommendation,
   };
 }

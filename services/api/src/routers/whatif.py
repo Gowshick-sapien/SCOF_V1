@@ -255,6 +255,22 @@ DISRUPTION_MULTIPLIERS = {
     "adverse_weather": {"risk": 0.95, "lead_time": 1.32, "cost": 1.18},
 }
 
+def format_inr(number: int) -> str:
+    s = str(abs(number))
+    if len(s) <= 3:
+        res = s
+    else:
+        last3 = s[-3:]
+        remaining = s[:-3]
+        groups = []
+        while len(remaining) > 2:
+            groups.insert(0, remaining[-2:])
+            remaining = remaining[:-2]
+        if remaining:
+            groups.insert(0, remaining)
+        res = ",".join(groups) + "," + last3
+    return res
+
 @router.post("/run")
 async def run_whatif(req: WhatIfRequest, request: Request, bus=Depends(get_event_bus), redis_client=Depends(get_redis)):
     whatif_id = f"wi-{uuid.uuid4().hex[:8]}"
@@ -284,7 +300,7 @@ async def run_whatif(req: WhatIfRequest, request: Request, bus=Depends(get_event
         "severity": severity,
         "stockout_risk_delta": f"+{calc_risk}%",
         "lead_time_impact": f"+{calc_lead} days",
-        "cost_variance": f"+${calc_cost:,}",
+        "cost_variance": f"+₹{format_inr(calc_cost)}",
         "recommendation": action,
         "consensus_status": "RESOLVED",
         "status": "COMPLETED",

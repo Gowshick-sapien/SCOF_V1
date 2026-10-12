@@ -201,7 +201,7 @@ Provides counterfactual simulation tools for supply chain analysts. Operators ca
    - **Delta Impact Metrics**:
      - Stockout Risk Delta (e.g., `+38.5%` vs baseline).
      - Lead Time Variance (e.g., `+5.0 days` delivery delay).
-     - Estimated Cost Delta (e.g., `+$42,000` freight/expediting expense).
+     - Estimated Cost Delta (e.g., `+₹42,000` freight/expediting expense).
      - Consensus Status (`RESOLVED` multi-agent agreement).
    - **Counterfactual Consensus Action Callout**: Displays recommended mitigation strategy derived under the simulated parameters.
 
@@ -401,7 +401,7 @@ Open your browser at `http://localhost:1420`.
 1. Press `Ctrl + 5` to navigate to the **What-If Lab**.
 2. Set Base Scenario to `scen-02`, Disruption Type to `supplier_delay`, Target Node to `sup-01`, and Severity to `5`.
 3. Click **Execute What-If Simulation**.
-4. Observe the Comparative Outcome Analysis card populate with stockout risk delta (+38.5%), lead time impact (+5.0 days), and cost delta (+$42,000).
+4. Observe the Comparative Outcome Analysis card populate with stockout risk delta (+38.5%), lead time impact (+5.0 days), and cost delta (+₹42,000).
 
 ### Step 10: Test Natural-Language RAG Query
 1. Press `Ctrl + K` to open the **AI Operational Assistant Drawer**.

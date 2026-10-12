@@ -131,7 +131,7 @@ class TransportAgent(BaseAgent):
                 exp_delay = carrier_delays[carrier]
                 rel = max(0.20, min(1.0, rel - (exp_delay * 0.05)))
 
-            # Normalizations (Transit time: max 20 days, Cost: max $5,000)
+            # Normalizations (Transit time: max 20 days, Cost: max ₹5,000)
             norm_transit = min(1.0, transit_days / 20.0)
             norm_cost = min(1.0, cost / 5000.0)
             hop_factor = 1.0 / hops

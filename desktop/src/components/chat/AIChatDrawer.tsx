@@ -46,7 +46,7 @@ export const AIChatDrawer: React.FC<AIChatDrawerProps> = ({ isOpen, onClose }) =
         ...prev,
         {
           sender: "assistant",
-          text: "Retrieved similar past mitigation: Re-routing order volume to Apex Microdevices (sup-03) reduced stockout probability by 34% in scenario scen-02.",
+          text: "Retrieved similar past mitigation: Re-routing order volume to Kaynes Technology (sup-03, Mysuru) reduced stockout probability by 34% in scenario scen-02.",
           citations: ["scof.decision_records (scen-02)"],
         },
       ]);
