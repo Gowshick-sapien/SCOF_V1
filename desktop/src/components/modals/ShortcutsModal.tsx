@@ -62,6 +62,10 @@ export const ShortcutsModal: React.FC<ShortcutsModalProps> = ({ isOpen, onClose 
                 <kbd className={styles.kbd}>Shift + ?</kbd>
               </div>
               <div className={styles.shortcutItem}>
+                <span className={styles.label}>Toggle Navigation Rail</span>
+                <kbd className={styles.kbd}>Ctrl + B</kbd>
+              </div>
+              <div className={styles.shortcutItem}>
                 <span className={styles.label}>Dismiss Modal / Drawer</span>
                 <kbd className={styles.kbd}>Esc</kbd>
               </div>

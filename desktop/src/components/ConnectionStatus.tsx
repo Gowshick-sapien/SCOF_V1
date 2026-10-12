@@ -8,8 +8,9 @@ export const ConnectionStatus: React.FC = () => {
   const getStatusColor = () => {
     switch (state.overallStatus) {
       case "Connected": return "#4caf50";
+      case "Degraded": return "#ff9800";
       case "Reconnecting": return "#ff9800";
-      case "Disconnected": return "#f44336";
+      case "Offline": return "#f44336";
     }
   };
 

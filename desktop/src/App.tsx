@@ -35,6 +35,7 @@ function App() {
   const [selectedDecisionId, setSelectedDecisionId] = useState<string | undefined>();
   const [isShortcutsOpen, setIsShortcutsOpen] = useState<boolean>(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState<boolean>(false);
+  const [isRailExpanded, setIsRailExpanded] = useState<boolean>(false);
 
   const handleSelectDecision = (decisionId: string) => {
     setSelectedDecisionId(decisionId);
@@ -55,6 +56,7 @@ function App() {
     onSelectView: (view) => setActiveView(view),
     onToggleShortcutsModal: () => setIsShortcutsOpen((prev) => !prev),
     onEscape: handleEscape,
+    onToggleRail: () => setIsRailExpanded((prev) => !prev),
   });
 
   return (
@@ -64,6 +66,8 @@ function App() {
           activeView={activeView}
           onSelectView={setActiveView}
           onOpenSettings={() => setIsSettingsOpen(true)}
+          isExpanded={isRailExpanded}
+          onToggleExpand={() => setIsRailExpanded((prev) => !prev)}
         />
 
         <div className="mainArea">

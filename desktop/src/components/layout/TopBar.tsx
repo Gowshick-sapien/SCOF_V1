@@ -26,14 +26,13 @@ export const TopBar: React.FC<TopBarProps> = ({
     return () => clearInterval(interval);
   }, []);
 
-  const getStatusColor = () => {
-    switch (state.overallStatus) {
-      case "Connected":
-        return "var(--status-healthy)";
-      case "Reconnecting":
-        return "var(--status-warning)";
-      default:
-        return "var(--status-critical)";
+  const formatSyncTime = (iso: string | null) => {
+    if (!iso) return "None";
+    try {
+      const d = new Date(iso);
+      return d.toISOString().substring(11, 19) + " UTC";
+    } catch {
+      return "Unknown";
     }
   };
 
@@ -47,12 +46,18 @@ export const TopBar: React.FC<TopBarProps> = ({
         <div className={styles.statusPill}>
           <span
             className={styles.statusDot}
-            style={{ backgroundColor: getStatusColor() }}
+            style={{ backgroundColor: state.statusColor }}
           />
           <span className={styles.statusLabel}>
-            {state.overallStatus.toUpperCase()}
+            {state.statusLabel}
           </span>
         </div>
+
+        {state.isCached && (
+          <div className={styles.cachedBadge}>
+            <span>[CACHED DATA - Last synced: {formatSyncTime(state.lastSuccessfulSync)}]</span>
+          </div>
+        )}
       </div>
 
       <div className={styles.rightSection}>

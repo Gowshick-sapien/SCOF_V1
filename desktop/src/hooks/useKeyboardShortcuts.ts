@@ -6,6 +6,7 @@ interface KeyboardShortcutsOptions {
   onToggleChat?: () => void;
   onToggleShortcutsModal: () => void;
   onEscape: () => void;
+  onToggleRail?: () => void;
 }
 
 const VIEW_SHORTCUTS: Record<string, ViewKey> = {
@@ -23,6 +24,7 @@ export function useKeyboardShortcuts({
   onToggleChat,
   onToggleShortcutsModal,
   onEscape,
+  onToggleRail,
 }: KeyboardShortcutsOptions) {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -58,11 +60,18 @@ export function useKeyboardShortcuts({
         onSelectView(VIEW_SHORTCUTS[e.key]);
         return;
       }
+
+      // Ctrl + B or Cmd + B toggles navigation rail
+      if (onToggleRail && (e.ctrlKey || e.metaKey) && (e.key === "b" || e.key === "B")) {
+        e.preventDefault();
+        onToggleRail();
+        return;
+      }
     };
 
     window.addEventListener("keydown", handleKeyDown);
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [onSelectView, onToggleChat, onToggleShortcutsModal, onEscape]);
+  }, [onSelectView, onToggleChat, onToggleShortcutsModal, onEscape, onToggleRail]);
 }

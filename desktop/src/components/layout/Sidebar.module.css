@@ -1,25 +1,40 @@
 .sidebar {
-  width: var(--sidebar-width);
   height: 100vh;
   background: var(--surface-sidebar);
   border-right: 1px solid var(--border-default);
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
-  z-index: 10;
+  z-index: 20;
   user-select: none;
+  transition: width var(--transition-normal);
+  overflow: hidden;
+}
+
+.sidebarCollapsed {
+  width: var(--rail-width-collapsed, 68px);
+}
+
+.sidebarExpanded {
+  width: var(--rail-width-expanded, 208px);
 }
 
 .trafficLights {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 16px 20px 8px 20px;
+  padding: 14px 14px 8px 14px;
+  gap: 7px;
+  justify-content: flex-start;
+}
+
+.sidebarCollapsed .trafficLights {
+  justify-content: center;
+  padding: 14px 0 8px 0;
 }
 
 .trafficDot {
-  width: 12px;
-  height: 12px;
+  width: 11px;
+  height: 11px;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -67,14 +82,21 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 8px 20px 14px 20px;
+  padding: 8px 14px 12px 14px;
   border-bottom: 1px solid var(--border-subtle);
-  margin-bottom: 8px;
+  margin-bottom: 6px;
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+
+.sidebarCollapsed .brand {
+  justify-content: center;
+  padding: 8px 0 12px 0;
 }
 
 .brandIcon {
-  width: 22px;
-  height: 22px;
+  width: 26px;
+  height: 26px;
   background: var(--brand-navy);
   border: 1px solid var(--border-default);
   border-radius: var(--radius-sm);
@@ -82,8 +104,9 @@
   align-items: center;
   justify-content: center;
   font-weight: 700;
-  font-size: 11px;
+  font-size: 12px;
   color: var(--text-primary);
+  flex-shrink: 0;
 }
 
 .brandTitle {
@@ -91,15 +114,21 @@
   font-weight: 600;
   letter-spacing: -0.01em;
   color: var(--text-primary);
+  white-space: nowrap;
 }
 
 .nav {
   display: flex;
   flex-direction: column;
   gap: 3px;
-  padding: 0 10px;
+  padding: 0 8px;
   flex: 1;
   overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.sidebarExpanded .nav {
+  padding: 0 10px;
 }
 
 .sectionHeading {
@@ -108,14 +137,21 @@
   color: var(--text-muted);
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  padding: 10px 10px 4px 10px;
+  padding: 8px 8px 4px 8px;
+  white-space: nowrap;
+}
+
+.sectionDivider {
+  height: 1px;
+  background: var(--border-subtle);
+  margin: 4px 6px 6px 6px;
 }
 
 .navItem {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 7px 10px;
+  padding: 8px 10px;
   border-radius: var(--radius-sm);
   color: var(--text-secondary);
   background: transparent;
@@ -124,6 +160,14 @@
   transition: background var(--transition-fast), color var(--transition-fast);
   text-align: left;
   width: 100%;
+  border: none;
+  cursor: pointer;
+}
+
+.sidebarCollapsed .navItem {
+  justify-content: center;
+  padding: 9px 0;
+  height: 38px;
 }
 
 .navItem:hover {
@@ -135,7 +179,12 @@
   background-color: rgba(14, 130, 214, 0.12);
   color: var(--interactive-primary);
   font-weight: 500;
-  border-left: 2px solid var(--interactive-primary);
+  border-left: 3px solid var(--interactive-primary);
+}
+
+.sidebarCollapsed .navItemActive {
+  border-left: 3px solid var(--interactive-primary);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
 }
 
 .navItemActive:hover {
@@ -146,15 +195,17 @@
   display: flex;
   align-items: center;
   gap: 10px;
+  min-width: 0;
 }
 
 .navIcon {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
   opacity: 0.75;
+  flex-shrink: 0;
 }
 
 .navItemActive .navIcon {
@@ -162,14 +213,21 @@
   color: var(--interactive-primary);
 }
 
+.navLabel {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .shortcutBadge {
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 9.5px;
   color: var(--text-muted);
   background: var(--surface-raised);
   padding: 1px 5px;
   border-radius: var(--radius-xs);
   border: 1px solid var(--border-default);
+  flex-shrink: 0;
 }
 
 .navItemActive .shortcutBadge {
@@ -179,33 +237,52 @@
 }
 
 .footer {
-  padding: 12px 14px;
+  padding: 10px 10px;
   border-top: 1px solid var(--border-default);
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
   background: var(--surface-subtle);
+  flex-shrink: 0;
 }
 
-.footerMeta {
-  display: flex;
+.sidebarCollapsed .footer {
+  padding: 10px 6px;
   align-items: center;
-  justify-content: space-between;
 }
 
 .statusIndicator {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 7px;
   font-size: 11px;
   color: var(--text-muted);
+  font-family: var(--font-mono);
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.sidebarCollapsed .statusIndicator {
+  justify-content: center;
+  width: 32px;
+  height: 24px;
+  background: var(--surface-raised);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-xs);
 }
 
 .statusDot {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background-color: var(--status-success);
+  flex-shrink: 0;
+}
+
+.statusText {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 10.5px;
 }
 
 .profileBadge {
@@ -213,28 +290,46 @@
   font-size: 9.5px;
   color: var(--text-muted);
   background: var(--surface-raised);
-  padding: 1px 5px;
+  padding: 2px 6px;
   border-radius: var(--radius-xs);
   border: 1px solid var(--border-default);
+  text-align: center;
+  white-space: nowrap;
 }
 
-.settingsBtn {
+.sidebarCollapsed .profileBadge {
+  width: 38px;
+  padding: 2px 2px;
+  font-size: 9px;
+}
+
+.actionBtn,
+.railToggleBtn {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 6px 10px;
+  padding: 6px 8px;
   background: var(--surface-raised);
   border: 1px solid var(--border-default);
   border-radius: var(--radius-sm);
   color: var(--text-secondary);
-  font-size: 12px;
+  font-size: 11.5px;
   font-weight: 500;
   cursor: pointer;
   width: 100%;
   transition: all var(--transition-fast);
 }
 
-.settingsBtn:hover {
+.sidebarCollapsed .actionBtn,
+.sidebarCollapsed .railToggleBtn {
+  justify-content: center;
+  width: 38px;
+  height: 30px;
+  padding: 0;
+}
+
+.actionBtn:hover,
+.railToggleBtn:hover {
   background: var(--surface-panel);
   color: var(--text-primary);
   border-color: var(--border-strong);
