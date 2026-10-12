@@ -10,7 +10,11 @@ from scof_shared.schemas.agent_card import AgentCard
 from scof_shared.schemas.claim_bundle import ClaimBundle
 from scof_shared.schemas.orchestration_result import OrchestrationResult
 from scof_shared.schemas.scenario_context import ScenarioContext
-from aiokafka import AIOKafkaProducer
+try:
+    from aiokafka import AIOKafkaProducer
+except ImportError:
+    AIOKafkaProducer = None  # type: ignore
+
 from .config import (
     CONNECT_TIMEOUT_SECONDS,
     COORDINATOR_ID,
@@ -30,7 +34,7 @@ logger = logging.getLogger("coordinator")
 
 runtime: Optional[CoordinatorRuntime] = None
 orchestrator: Optional[CoordinatorOrchestrator] = None
-kafka_producer: Optional[AIOKafkaProducer] = None
+kafka_producer: Optional[Any] = None
 
 
 @asynccontextmanager
@@ -68,16 +72,17 @@ async def lifespan(app: FastAPI):
 
     # Initialize Kafka Producer for agent activity events
     bootstrap_servers = os.getenv("KAFKA_BOOTSTRAP_SERVERS", "kafka:29092")
-    try:
-        kafka_producer = AIOKafkaProducer(
-            bootstrap_servers=bootstrap_servers,
-            enable_idempotence=True
-        )
-        await kafka_producer.start()
-        orchestrator.activity_producer = kafka_producer
-        logger.info("Kafka producer initialized for agent activity events.")
-    except Exception as e:
-        logger.warning(f"Failed to initialize Kafka producer (running without activity publishing): {e}")
+    if AIOKafkaProducer is not None:
+        try:
+            kafka_producer = AIOKafkaProducer(
+                bootstrap_servers=bootstrap_servers,
+                enable_idempotence=True
+            )
+            await kafka_producer.start()
+            orchestrator.activity_producer = kafka_producer
+            logger.info("Kafka producer initialized for agent activity events.")
+        except Exception as e:
+            logger.warning(f"Failed to initialize Kafka producer (running without activity publishing): {e}")
 
     yield
     logger.info("Shutting down SCOF Coordinator Service...")

@@ -97,32 +97,66 @@ class EntityGenerator:
             "prod-103": 120.00,
         }
 
-        # Multi-sourcing map
+        # Multi-sourcing mapping across South Indian suppliers
+        # prod-101 (IoT Gateway): Preferred sup-02 (CDIL), Alternates sup-01 (SPEL), sup-04 (Syrma)
+        # prod-102 (Automotive Sensor): Preferred sup-03 (Kaynes), Alternates sup-06 (Vinyas), sup-07 (SFO NeST)
+        # prod-103 (Power Module): Preferred sup-05 (Centum), Alternates sup-08 (Sahasra), sup-01 (SPEL)
+        sourcing_plan = {
+            "prod-101": [
+                ("sup-02", True, 1.00, 0),    # Preferred: CDIL Bengaluru
+                ("sup-01", False, 1.10, 1),   # Alternate: SPEL Semi Chennai (+10% cost, +1d lead time)
+                ("sup-04", False, 1.14, 2),   # Alternate: Syrma SGS Bargur (+14% cost, +2d lead time)
+            ],
+            "prod-102": [
+                ("sup-03", True, 1.00, 0),    # Preferred: Kaynes Mysuru
+                ("sup-06", False, 1.12, 3),   # Alternate: Vinyas Mysuru (+12% cost, +3d lead time)
+                ("sup-07", False, 1.15, 2),   # Alternate: SFO NeST Kochi (+15% cost, +2d lead time)
+            ],
+            "prod-103": [
+                ("sup-05", True, 1.00, 0),    # Preferred: Centum Bengaluru
+                ("sup-08", False, 1.11, 2),   # Alternate: Sahasra Hyderabad (+11% cost, +2d lead time)
+                ("sup-01", False, 1.16, 1),   # Alternate: SPEL Semi Chennai (+16% cost, +1d lead time)
+            ],
+        }
+
+        sup_lookup = {s["id"]: s for s in suppliers}
+
         for i, prod in enumerate(products):
             prod_id = prod["id"]
             cost = base_costs.get(prod_id, 50.00 + (i * 25.00))
 
-            # Preferred supplier
-            pref_sup = suppliers[i % len(suppliers)]
-            results.append({
-                "supplier_id": pref_sup["id"],
-                "product_id": prod_id,
-                "is_preferred_supplier": True,
-                "unit_cost": cost,
-                "minimum_order_qty": 100,
-                "lead_time_override_days": pref_sup["base_lead_time_days"],
-            })
-
-            # Alternate supplier
-            alt_sup = suppliers[(i + 1) % len(suppliers)]
-            results.append({
-                "supplier_id": alt_sup["id"],
-                "product_id": prod_id,
-                "is_preferred_supplier": False,
-                "unit_cost": round(cost * 1.12, 2),  # 12% premium for alternate
-                "minimum_order_qty": 50,
-                "lead_time_override_days": alt_sup["base_lead_time_days"] + 2,
-            })
+            if prod_id in sourcing_plan:
+                for sup_id, is_pref, cost_mult, lead_delta in sourcing_plan[prod_id]:
+                    if sup_id in sup_lookup:
+                        sup = sup_lookup[sup_id]
+                        results.append({
+                            "supplier_id": sup_id,
+                            "product_id": prod_id,
+                            "is_preferred_supplier": is_pref,
+                            "unit_cost": round(cost * cost_mult, 2),
+                            "minimum_order_qty": 100 if is_pref else 50,
+                            "lead_time_override_days": sup["base_lead_time_days"] + lead_delta,
+                        })
+            else:
+                # Fallback multi-sourcing logic for arbitrary profiles
+                pref_sup = suppliers[i % len(suppliers)]
+                alt_sup = suppliers[(i + 1) % len(suppliers)]
+                results.append({
+                    "supplier_id": pref_sup["id"],
+                    "product_id": prod_id,
+                    "is_preferred_supplier": True,
+                    "unit_cost": cost,
+                    "minimum_order_qty": 100,
+                    "lead_time_override_days": pref_sup["base_lead_time_days"],
+                })
+                results.append({
+                    "supplier_id": alt_sup["id"],
+                    "product_id": prod_id,
+                    "is_preferred_supplier": False,
+                    "unit_cost": round(cost * 1.12, 2),
+                    "minimum_order_qty": 50,
+                    "lead_time_override_days": alt_sup["base_lead_time_days"] + 2,
+                })
 
         return results
 
@@ -159,14 +193,13 @@ class EntityGenerator:
         """Generates polymorphic routes between suppliers, warehouses, DCs, and manufacturer."""
         routes = []
 
-        # 1. Supplier -> Warehouse routes
+        # 1. Supplier -> Warehouse routes (domestic road logistics)
         for sup in suppliers:
             for wh in warehouses:
                 dist = calculate_haversine_distance(
                     sup["latitude"], sup["longitude"], wh["latitude"], wh["longitude"]
                 )
-                mode = TransportMode.SEA if dist > 800 else TransportMode.ROAD
-                transit = max(2, int(dist / 400.0) + (5 if mode == TransportMode.SEA else 1))
+                transit = max(1, int(dist / 350.0) + 1)
 
                 route_id = f"route-{sup['id']}-{wh['id']}"
                 routes.append({
@@ -175,19 +208,18 @@ class EntityGenerator:
                     "origin_id": sup["id"],
                     "destination_type": "warehouse",
                     "destination_id": wh["id"],
-                    "mode": mode,
+                    "mode": TransportMode.ROAD,
                     "distance_km": dist,
                     "standard_transit_days": transit,
                 })
 
-        # 2. Warehouse -> DC routes
+        # 2. Warehouse -> DC routes (regional road and maritime container terminal corridors)
         for wh in warehouses:
             for dc in dcs:
                 dist = calculate_haversine_distance(
                     wh["latitude"], wh["longitude"], dc["latitude"], dc["longitude"]
                 )
-                mode = TransportMode.SEA if dist > 600 else TransportMode.ROAD
-                transit = max(1, int(dist / 450.0) + (3 if mode == TransportMode.SEA else 1))
+                transit = max(1, int(dist / 350.0) + 1)
 
                 route_id = f"route-{wh['id']}-{dc['id']}"
                 routes.append({
@@ -196,18 +228,18 @@ class EntityGenerator:
                     "origin_id": wh["id"],
                     "destination_type": "distribution_center",
                     "destination_id": dc["id"],
-                    "mode": mode,
+                    "mode": TransportMode.ROAD,
                     "distance_km": dist,
                     "standard_transit_days": transit,
                 })
 
-        # 3. Warehouse -> Manufacturer routes
+        # 3. Warehouse -> Manufacturer routes (arterial industrial freight corridors to assembly plant)
         mfg = manufacturers[0]
         for wh in warehouses:
             dist = calculate_haversine_distance(
                 wh["latitude"], wh["longitude"], mfg["latitude"], mfg["longitude"]
             )
-            transit = max(1, int(dist / 500.0) + 1)
+            transit = max(1, int(dist / 350.0) + 1)
             route_id = f"route-{wh['id']}-{mfg['id']}"
             routes.append({
                 "id": route_id,
@@ -221,3 +253,4 @@ class EntityGenerator:
             })
 
         return routes
+

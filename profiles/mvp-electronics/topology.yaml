@@ -1,57 +1,87 @@
 manufacturer:
   id: "mfg-01"
-  name: "Apex Electronics Manufacturing"
-  location: { lat: 22.5431, lon: 114.0579 } # Shenzhen
+  name: "Sriperumbudur High-Tech Assembly Plant"
+  location: { lat: 12.9716, lon: 79.9416 } # Sriperumbudur, Tamil Nadu
 
 products:
   - id: "prod-101"
-    name: "Smart IoT Controller"
+    name: "Smart IoT Telematics Gateway"
     sku: "SKU-IOT-101"
   - id: "prod-102"
-    name: "Industrial Sensor Unit"
+    name: "Industrial Automotive Sensor Hub"
     sku: "SKU-SNS-102"
   - id: "prod-103"
-    name: "High-Capacity Power Module"
+    name: "High-Efficiency Micro-Inverter Unit"
     sku: "SKU-PWR-103"
 
 suppliers:
   - id: "sup-01"
-    name: "Semico Components"
-    reliability_profile: "high"
-    lead_time_days: 7
-    location: { lat: 24.1477, lon: 120.6736 } # Taiwan
-  - id: "sup-02"
-    name: "MicroBattery Global"
-    reliability_profile: "medium"
-    lead_time_days: 12
-    location: { lat: 37.5665, lon: 126.9780 } # Seoul
-  - id: "sup-03"
-    name: "Precision Enclosures Inc"
+    name: "SPEL Semiconductor"
     reliability_profile: "high"
     lead_time_days: 5
-    location: { lat: 31.2304, lon: 121.4737 } # Shanghai
+    location: { lat: 12.7937, lon: 80.0242 } # Maraimalai Nagar, Chennai, TN
+  - id: "sup-02"
+    name: "Continental Device India - CDIL"
+    reliability_profile: "high"
+    lead_time_days: 6
+    location: { lat: 12.8452, lon: 77.6602 } # Electronic City, Bengaluru, KA
+  - id: "sup-03"
+    name: "Kaynes Technology India"
+    reliability_profile: "medium"
+    lead_time_days: 8
+    location: { lat: 12.3382, lon: 76.5824 } # Koorgalli, Mysuru, KA
   - id: "sup-04"
-    name: "OptoDisplay Tech"
-    reliability_profile: "volatile"
-    lead_time_days: 14
-    location: { lat: 35.6762, lon: 139.6503 } # Tokyo
+    name: "Syrma SGS Technology"
+    reliability_profile: "high"
+    lead_time_days: 7
+    location: { lat: 12.5442, lon: 78.3614 } # Bargur Industrial Estate, TN
   - id: "sup-05"
-    name: "Global PCB Solutions"
+    name: "Centum Electronics"
     reliability_profile: "medium"
     lead_time_days: 9
-    location: { lat: 1.3521, lon: 103.8198 } # Singapore
+    location: { lat: 13.1007, lon: 77.5963 } # Yelahanka, Bengaluru, KA
+  - id: "sup-06"
+    name: "Vinyas Innovative Technologies"
+    reliability_profile: "volatile"
+    lead_time_days: 12
+    location: { lat: 12.3551, lon: 76.6110 } # Hebbal Industrial Area, Mysuru, KA
+  - id: "sup-07"
+    name: "SFO Technologies NeST Group"
+    reliability_profile: "high"
+    lead_time_days: 7
+    location: { lat: 9.9982, lon: 76.3570 } # Kakkanad, Kochi, KL
+  - id: "sup-08"
+    name: "Sahasra Electronic Solutions"
+    reliability_profile: "medium"
+    lead_time_days: 10
+    location: { lat: 17.3850, lon: 78.4867 } # Hyderabad, TS
 
 warehouses:
   - id: "wh-01"
-    name: "East Asia Transit Hub"
-    capacity_units: 50000
-    location: { lat: 22.3193, lon: 114.1694 } # Hong Kong
+    name: "Hosur Logistics Buffer Warehouse"
+    capacity_units: 75000
+    location: { lat: 12.7409, lon: 77.8253 } # Hosur, TN / KA border
   - id: "wh-02"
-    name: "Southeast Asia Logistics Hub"
-    capacity_units: 35000
-    location: { lat: 13.7563, lon: 100.5018 } # Bangkok
+    name: "Whitefield Inland Container Depot"
+    capacity_units: 50000
+    location: { lat: 12.9698, lon: 77.7500 } # Bengaluru, KA
+  - id: "wh-03"
+    name: "Oragadam JIT Supplier Warehouse"
+    capacity_units: 60000
+    location: { lat: 12.8342, lon: 79.9197 } # Kanchipuram, TN
+  - id: "wh-04"
+    name: "Sri City FTWZ Logistics Center"
+    capacity_units: 40000
+    location: { lat: 13.5410, lon: 80.0210 } # Sri City, AP
 
 distribution_centers:
   - id: "dc-01"
-    name: "Central Distribution Hub"
-    location: { lat: 25.0330, lon: 121.5654 } # Taipei
+    name: "Chennai Port Ennore Logistics Gateway"
+    location: { lat: 13.0827, lon: 80.2907 } # Chennai, TN
+  - id: "dc-02"
+    name: "Cochin International Container Terminal"
+    location: { lat: 9.9836, lon: 76.2415 } # Vallarpadam, Kochi, KL
+  - id: "dc-03"
+    name: "Shamshabad Aerotropolis Express Gateway"
+    location: { lat: 17.2403, lon: 78.4294 } # Hyderabad, TS
+

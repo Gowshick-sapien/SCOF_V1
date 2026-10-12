@@ -13,9 +13,10 @@ def test_load_profile():
     assert profile.meta.profile_id == "mvp-electronics"
     assert profile.meta.version == "1.0.0"
     assert len(profile.topology.products) == 3
-    assert len(profile.topology.suppliers) == 5
-    assert len(profile.topology.warehouses) == 2
-    assert len(profile.topology.distribution_centers) == 1
+    assert len(profile.topology.suppliers) == 8
+    assert len(profile.topology.warehouses) == 4
+    assert len(profile.topology.distribution_centers) == 3
+
 
 
 def test_profile_hash():
