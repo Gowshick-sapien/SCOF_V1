@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import styles from "./Scenarios.module.css";
 import { apiClient } from "../../api/client";
 
@@ -14,8 +14,8 @@ interface ScenarioItem {
 const DISRUPTION_TYPE_OPTIONS = [
   { value: "supplier_delay", label: "supplier_delay (Tier-1 Semiconductor Supplier Delay)" },
   { value: "demand_spike", label: "demand_spike (Automotive / IoT Demand Surge)" },
-  { value: "transport_failure", label: "transport_failure (NH48 Highway Freight Closure)" },
-  { value: "adverse_weather", label: "adverse_weather (Coastal Monsoon Port Stoppage)" },
+  { value: "transport_failure", label: "transport_failure (Interstate Highway / Logistics Corridor Breakdown)" },
+  { value: "adverse_weather", label: "adverse_weather (Coastal Monsoon & Cyclonic Inundation)" },
   { value: "none", label: "none (Nominal Baseline Operations)" },
 ];
 
@@ -37,6 +37,10 @@ const TARGET_ENTITY_OPTIONS = [
   { value: "dc-02", label: "dc-02 (Cochin Port Vallarpadam Terminal)" },
   { value: "dc-03", label: "dc-03 (Hyderabad Air Cargo Gateway)" },
   { value: "route-wh-01-mfg-01", label: "route-wh-01-mfg-01 (Hosur-Sriperumbudur NH48 Freight Corridor)" },
+  { value: "route-sup-02-wh-01", label: "route-sup-02-wh-01 (Bengaluru-Hosur NH44 Freight Lane)" },
+  { value: "route-sup-07-mfg-01", label: "route-sup-07-mfg-01 (Kochi-Sriperumbudur Inter-State Corridor)" },
+  { value: "route-sup-08-wh-04", label: "route-sup-08-wh-04 (Hyderabad-Sri City Corridor)" },
+  { value: "route-wh-03-mfg-01", label: "route-wh-03-mfg-01 (Oragadam-Sriperumbudur Feeder Corridor)" },
   { value: "global", label: "global (South Indian Multi-Tier Supply Network)" },
 ];
 
@@ -81,6 +85,166 @@ const DEFAULT_SCENARIOS: ScenarioItem[] = [
     description: "Arabian Sea cyclonic disturbance forcing 8-day operational container cranes shutdown at Cochin Vallarpadam International Terminal (dc-02).",
     severity: 4,
   },
+  {
+    scenario_id: "scen-06",
+    name: "Discrete Power Fab Cleanroom Outage (CDIL Bengaluru)",
+    disruption_type: "supplier_delay",
+    target_entity: "sup-02",
+    description: "HVAC failure and particulate contamination in Class 100 cleanroom halting power diode and rectifier wafer fabrication for 6 days.",
+    severity: 4,
+  },
+  {
+    scenario_id: "scen-07",
+    name: "Automotive Telematics SMT Head Failure (Kaynes Mysuru)",
+    disruption_type: "supplier_delay",
+    target_entity: "sup-03",
+    description: "High-speed pick-and-place placement head breakdown on primary surface-mount line in Koorgalli creating acute 5-day assembly deficit.",
+    severity: 3,
+  },
+  {
+    scenario_id: "scen-08",
+    name: "Surface-Mount Solder Defect Lot Quarantine (Syrma Bargur)",
+    disruption_type: "supplier_delay",
+    target_entity: "sup-04",
+    description: "Automated X-ray inspection detects BGA solder micro-voiding across 14,000 sub-assembly boards, triggering mandatory quality quarantine.",
+    severity: 4,
+  },
+  {
+    scenario_id: "scen-09",
+    name: "Aerospace Sub-Module Allocation Rationing (Centum Yelahanka)",
+    disruption_type: "supplier_delay",
+    target_entity: "sup-05",
+    description: "Statutory defense and satellite payload contracts preempt 40% of cleanroom capacity, forcing commercial micro-inverter module rationing.",
+    severity: 3,
+  },
+  {
+    scenario_id: "scen-10",
+    name: "High-Density PCB Copper Laminate Stockout (Sahasra Hyderabad)",
+    disruption_type: "supplier_delay",
+    target_entity: "sup-08",
+    description: "Global raw material delays for high-frequency copper-clad laminate halting multi-layer PCB pressing at Shamshabad facility.",
+    severity: 4,
+  },
+  {
+    scenario_id: "scen-11",
+    name: "Smart Energy IoT Meter Mandate Demand Surge",
+    disruption_type: "demand_spike",
+    target_entity: "wh-01",
+    description: "State electricity board smart meter rollout mandates create sudden 80% demand surge for Smart IoT Telematics Gateways.",
+    severity: 4,
+  },
+  {
+    scenario_id: "scen-12",
+    name: "Commercial Fleet EV Powertrain Retrofit Spike",
+    disruption_type: "demand_spike",
+    target_entity: "wh-02",
+    description: "Commercial logistics operator emergency retrofit of 10,000 delivery vans triggering 120% demand spike for power modules.",
+    severity: 5,
+  },
+  {
+    scenario_id: "scen-13",
+    name: "Quarter-End Automotive OEM Assembly Ramp-Up",
+    disruption_type: "demand_spike",
+    target_entity: "wh-03",
+    description: "Quarter-end vehicle export push across Chennai automotive assembly plants increasing JIT sensor intake by 35%.",
+    severity: 3,
+  },
+  {
+    scenario_id: "scen-14",
+    name: "Coastal Municipal Sensor Network Renewal Push",
+    disruption_type: "demand_spike",
+    target_entity: "dc-01",
+    description: "Smart City municipal sensor renewal tenders pull 25,000 environmental telemetry gateways, creating localized buffer stockout hazards.",
+    severity: 3,
+  },
+  {
+    scenario_id: "scen-15",
+    name: "Attibele Interstate Border Truck Checkpost Strike",
+    disruption_type: "transport_failure",
+    target_entity: "route-sup-02-wh-01",
+    description: "Commercial vehicle operators strike and flash roadblock at Attibele toll plaza on NH44 halting container movements into Hosur.",
+    severity: 4,
+  },
+  {
+    scenario_id: "scen-16",
+    name: "Palakkad Gap Western Ghats Landslide Corridor Halt",
+    disruption_type: "transport_failure",
+    target_entity: "route-sup-07-mfg-01",
+    description: "Western Ghats monsoon mudslide and boulder collapse on NH544 between Walayar and Palakkad severing Kerala-Tamil Nadu transit.",
+    severity: 5,
+  },
+  {
+    scenario_id: "scen-17",
+    name: "NH44 Kurnool Bridge Heavy-Axle Weight Embargo",
+    disruption_type: "transport_failure",
+    target_entity: "route-sup-08-wh-04",
+    description: "Emergency bridge pier reinforcement near Kurnool on NH44 restricting multi-axle freight trailers exceeding 16 tonnes.",
+    severity: 3,
+  },
+  {
+    scenario_id: "scen-18",
+    name: "Chennai Outer Ring Road Heavy Freight Gridlock",
+    disruption_type: "transport_failure",
+    target_entity: "route-wh-03-mfg-01",
+    description: "Hazardous material spill and highway pileup halting JIT component shuttles between Oragadam industrial hub and Sriperumbudur.",
+    severity: 3,
+  },
+  {
+    scenario_id: "scen-19",
+    name: "Hosur Buffer Automated AS/RS Crane System Fault",
+    disruption_type: "transport_failure",
+    target_entity: "wh-01",
+    description: "High-bay automated storage crane PLC failure and cable derailment locking 45,000 component totes in Hosur Buffer Warehouse.",
+    severity: 4,
+  },
+  {
+    scenario_id: "scen-20",
+    name: "Sri City FTWZ Regulatory Customs Audit Clearance Hold",
+    disruption_type: "supplier_delay",
+    target_entity: "wh-04",
+    description: "Customs authorities compliance audit placing a 72-hour regulatory hold on duty-free component disbursements at Sri City FTWZ.",
+    severity: 4,
+  },
+  {
+    scenario_id: "scen-21",
+    name: "Whitefield Inland Container Depot Rail Rake Deficit",
+    disruption_type: "transport_failure",
+    target_entity: "wh-02",
+    description: "Regional shortage of specialized CONCOR container flatbed rail wagons delaying intermodal movements to Chennai Port.",
+    severity: 3,
+  },
+  {
+    scenario_id: "scen-22",
+    name: "Chennai Port Shallow Channel Silting Berth Congestion",
+    disruption_type: "transport_failure",
+    target_entity: "dc-01",
+    description: "Post-monsoon littoral sediment accumulation reducing channel draft at Chennai Port, delaying container vessel discharge by 4 days.",
+    severity: 3,
+  },
+  {
+    scenario_id: "scen-23",
+    name: "Shamshabad Aerotropolis Airfreight Cargo Crunch",
+    disruption_type: "transport_failure",
+    target_entity: "dc-03",
+    description: "Scheduled widebody cargo freighter cancellation creating an international airfreight embargo at Hyderabad Airport.",
+    severity: 4,
+  },
+  {
+    scenario_id: "scen-24",
+    name: "Cyclone Michaung Coromandel Plain Compound Inundation",
+    disruption_type: "adverse_weather",
+    target_entity: "sup-01",
+    description: "Category-4 cyclonic storm simultaneously flooding SPEL Semiconductor in Maraimalai Nagar and halting Chennai Port operations.",
+    severity: 5,
+  },
+  {
+    scenario_id: "scen-25",
+    name: "Peninsular Grid Blackout Sourcing Crisis",
+    disruption_type: "supplier_delay",
+    target_entity: "mfg-01",
+    description: "Regional electricity transmission grid failure knocking out industrial power across Tamil Nadu and Karnataka, cutting fab throughput to 40%.",
+    severity: 5,
+  },
 ];
 
 export const ScenariosView: React.FC = () => {
@@ -90,6 +254,8 @@ export const ScenariosView: React.FC = () => {
   const [customTarget, setCustomTarget] = useState<string>("sup-01");
   const [severity, setSeverity] = useState<number>(4);
   const [isTriggering, setIsTriggering] = useState<boolean>(false);
+  const [selectedCategory, setSelectedCategory] = useState<string>("all");
+  const [searchQuery, setSearchQuery] = useState<string>("");
   const [triggerResult, setTriggerResult] = useState<{
     event_id?: string;
     trace_id?: string;
@@ -102,7 +268,6 @@ export const ScenariosView: React.FC = () => {
       .getScenarios()
       .then((res: any) => {
         if (mounted && res && Array.isArray(res.scenarios) && res.scenarios.length > 0) {
-          // Merge API results with rich scenario definitions
           const merged = res.scenarios.map((apiScen: any) => {
             const def = DEFAULT_SCENARIOS.find((d) => d.scenario_id === apiScen.scenario_id);
             return {
@@ -115,7 +280,6 @@ export const ScenariosView: React.FC = () => {
             };
           });
 
-          // Ensure all default catalog scenarios are visible
           DEFAULT_SCENARIOS.forEach((def) => {
             if (!merged.some((m: ScenarioItem) => m.scenario_id === def.scenario_id)) {
               merged.push(def);
@@ -124,7 +288,6 @@ export const ScenariosView: React.FC = () => {
 
           setScenarios(merged);
 
-          // Default selection to scen-02 if available
           const scen02 = merged.find((s: ScenarioItem) => s.scenario_id === "scen-02") || merged[0];
           setSelectedScenario(scen02);
           setCustomDisruptionType(scen02.disruption_type);
@@ -173,6 +336,25 @@ export const ScenariosView: React.FC = () => {
     }
   };
 
+  const filteredScenarios = useMemo(() => {
+    return scenarios.filter((scen) => {
+      if (selectedCategory === "supplier" && scen.disruption_type !== "supplier_delay") return false;
+      if (selectedCategory === "demand" && scen.disruption_type !== "demand_spike") return false;
+      if (selectedCategory === "transport" && scen.disruption_type !== "transport_failure") return false;
+      if (selectedCategory === "weather_systemic" && !["adverse_weather", "none"].includes(scen.disruption_type) && scen.scenario_id !== "scen-25") return false;
+
+      if (searchQuery.trim()) {
+        const q = searchQuery.toLowerCase();
+        const matchId = scen.scenario_id.toLowerCase().includes(q);
+        const matchName = scen.name.toLowerCase().includes(q);
+        const matchTarget = scen.target_entity.toLowerCase().includes(q);
+        const matchDesc = scen.description.toLowerCase().includes(q);
+        if (!matchId && !matchName && !matchTarget && !matchDesc) return false;
+      }
+      return true;
+    });
+  }, [scenarios, selectedCategory, searchQuery]);
+
   return (
     <div className={styles.container}>
       {/* Left Column: Scenario Catalog */}
@@ -180,8 +362,51 @@ export const ScenariosView: React.FC = () => {
         <div className={styles.sectionHeader}>
           <span className={styles.sectionTitle}>Scenario Library</span>
           <span style={{ fontSize: "11px", color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}>
-            {scenarios.length} SCENARIOS AVAILABLE
+            {filteredScenarios.length} OF {scenarios.length} SCENARIOS DISPLAYED
           </span>
+        </div>
+
+        {/* Toolbar: Category Filters and Search */}
+        <div className={styles.toolbar}>
+          <div className={styles.filterTabs}>
+            <button
+              className={`${styles.tabBtn} ${selectedCategory === "all" ? styles.tabBtnActive : ""}`}
+              onClick={() => setSelectedCategory("all")}
+            >
+              All ({scenarios.length})
+            </button>
+            <button
+              className={`${styles.tabBtn} ${selectedCategory === "supplier" ? styles.tabBtnActive : ""}`}
+              onClick={() => setSelectedCategory("supplier")}
+            >
+              Supplier (8)
+            </button>
+            <button
+              className={`${styles.tabBtn} ${selectedCategory === "demand" ? styles.tabBtnActive : ""}`}
+              onClick={() => setSelectedCategory("demand")}
+            >
+              Demand (5)
+            </button>
+            <button
+              className={`${styles.tabBtn} ${selectedCategory === "transport" ? styles.tabBtnActive : ""}`}
+              onClick={() => setSelectedCategory("transport")}
+            >
+              Transport (9)
+            </button>
+            <button
+              className={`${styles.tabBtn} ${selectedCategory === "weather_systemic" ? styles.tabBtnActive : ""}`}
+              onClick={() => setSelectedCategory("weather_systemic")}
+            >
+              Weather & Systemic (3)
+            </button>
+          </div>
+          <input
+            type="text"
+            className={styles.searchInput}
+            placeholder="Search scenarios..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
         </div>
 
         <div className={styles.tableWrapper}>
@@ -197,8 +422,15 @@ export const ScenariosView: React.FC = () => {
               </tr>
             </thead>
             <tbody>
-              {scenarios.map((scen) => {
+              {filteredScenarios.map((scen) => {
                 const isSelected = selectedScenario?.scenario_id === scen.scenario_id;
+                const severityClass =
+                  scen.severity >= 5
+                    ? styles.severityHigh
+                    : scen.severity >= 3
+                    ? styles.severityMed
+                    : styles.severityLow;
+
                 return (
                   <tr
                     key={scen.scenario_id}
@@ -206,14 +438,21 @@ export const ScenariosView: React.FC = () => {
                     onClick={() => handleSelectScenario(scen)}
                   >
                     <td className={styles.scenarioId}>{scen.scenario_id}</td>
-                    <td style={{ fontWeight: 600, color: "var(--text-primary)" }}>{scen.name}</td>
+                    <td>
+                      <div style={{ fontWeight: 600, color: "var(--text-primary)" }}>{scen.name}</div>
+                      <div style={{ fontSize: "11px", color: "var(--text-muted)", marginTop: "2px", lineHeight: "1.3" }}>
+                        {scen.description}
+                      </div>
+                    </td>
                     <td>
                       <span className={styles.disruptionTag}>{scen.disruption_type}</span>
                     </td>
                     <td style={{ fontFamily: "var(--font-mono)", fontSize: "12px" }}>
                       {scen.target_entity}
                     </td>
-                    <td style={{ fontFamily: "var(--font-mono)" }}>{scen.severity || 1} / 5</td>
+                    <td style={{ fontFamily: "var(--font-mono)" }} className={severityClass}>
+                      {scen.severity || 1} / 5
+                    </td>
                     <td style={{ textAlign: "right" }}>
                       {isSelected ? (
                         <button className={styles.activeBtn} disabled>

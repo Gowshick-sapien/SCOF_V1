@@ -24,6 +24,34 @@ class WhatIfRequest(BaseModel):
     target_entity: Optional[str] = None
     overrides: Optional[Dict[str, Any]] = None
 
+SCENARIO_DEFAULTS: Dict[str, Dict[str, Any]] = {
+    "scen-01": {"target_entity": "global", "disruption_type": "supplier_delay", "severity": 1},
+    "scen-02": {"target_entity": "sup-01", "disruption_type": "supplier_delay", "severity": 4},
+    "scen-03": {"target_entity": "wh-03", "disruption_type": "demand_spike", "severity": 3},
+    "scen-04": {"target_entity": "route-wh-01-mfg-01", "disruption_type": "transport_failure", "severity": 5},
+    "scen-05": {"target_entity": "dc-02", "disruption_type": "adverse_weather", "severity": 4},
+    "scen-06": {"target_entity": "sup-02", "disruption_type": "supplier_delay", "severity": 4},
+    "scen-07": {"target_entity": "sup-03", "disruption_type": "supplier_delay", "severity": 3},
+    "scen-08": {"target_entity": "sup-04", "disruption_type": "supplier_delay", "severity": 4},
+    "scen-09": {"target_entity": "sup-05", "disruption_type": "supplier_delay", "severity": 3},
+    "scen-10": {"target_entity": "sup-08", "disruption_type": "supplier_delay", "severity": 4},
+    "scen-11": {"target_entity": "wh-01", "disruption_type": "demand_spike", "severity": 4},
+    "scen-12": {"target_entity": "wh-02", "disruption_type": "demand_spike", "severity": 5},
+    "scen-13": {"target_entity": "wh-03", "disruption_type": "demand_spike", "severity": 3},
+    "scen-14": {"target_entity": "dc-01", "disruption_type": "demand_spike", "severity": 3},
+    "scen-15": {"target_entity": "route-sup-02-wh-01", "disruption_type": "transport_failure", "severity": 4},
+    "scen-16": {"target_entity": "route-sup-07-mfg-01", "disruption_type": "transport_failure", "severity": 5},
+    "scen-17": {"target_entity": "route-sup-08-wh-04", "disruption_type": "transport_failure", "severity": 3},
+    "scen-18": {"target_entity": "route-wh-03-mfg-01", "disruption_type": "transport_failure", "severity": 3},
+    "scen-19": {"target_entity": "wh-01", "disruption_type": "transport_failure", "severity": 4},
+    "scen-20": {"target_entity": "wh-04", "disruption_type": "supplier_delay", "severity": 4},
+    "scen-21": {"target_entity": "wh-02", "disruption_type": "transport_failure", "severity": 3},
+    "scen-22": {"target_entity": "dc-01", "disruption_type": "transport_failure", "severity": 3},
+    "scen-23": {"target_entity": "dc-03", "disruption_type": "transport_failure", "severity": 4},
+    "scen-24": {"target_entity": "sup-01", "disruption_type": "adverse_weather", "severity": 5},
+    "scen-25": {"target_entity": "mfg-01", "disruption_type": "supplier_delay", "severity": 5},
+}
+
 COUNTERFACTUAL_PROFILES: Dict[str, Dict[str, Any]] = {
     "sup-01": {
         "name": "SPEL Semiconductor",
@@ -35,7 +63,7 @@ COUNTERFACTUAL_PROFILES: Dict[str, Dict[str, Any]] = {
             "supplier_delay": "Activate secondary packaging run at Continental Device India (sup-02, Bengaluru) and release buffer wafers from Hosur Buffer Warehouse (wh-01).",
             "demand_spike": "Issue emergency purchase order to Continental Device India (sup-02) and schedule accelerated batch delivery to Sriperumbudur (mfg-01).",
             "transport_failure": "Reroute wafer consignments from Maraimalai Nagar via Grand Southern Trunk road detour directly to Oragadam JIT (wh-03).",
-            "adverse_weather": "Enact coastal storm shelter protocol at Maraimalai Nagar and pull reserve stock from Whitefield ICD (wh-02).",
+            "adverse_weather": "Emergency Disaster Protocol: Shift all wafer packaging to CDIL Bengaluru (sup-02), reroute export logistics through Cochin Vallarpadam Port (dc-02), and alert executive operations.",
         },
     },
     "sup-02": {
@@ -45,7 +73,7 @@ COUNTERFACTUAL_PROFILES: Dict[str, Dict[str, Any]] = {
         "base_lead_time": 1.15,
         "base_cost": 7400,
         "actions": {
-            "supplier_delay": "Reallocate discrete component lot orders to Centum Electronics (sup-05, Bengaluru) and expedite road transit along NH44 to Hosur (wh-01).",
+            "supplier_delay": "Qualify and transfer discrete component production lots to Centum Electronics (sup-05) and draw safety buffer from Whitefield ICD (wh-02).",
             "demand_spike": "Authorize surge production run at Centum Electronics (sup-05) and draw safety buffer from Whitefield ICD (wh-02).",
             "transport_failure": "Divert Electronic City outbound trucks via Hosur road bypass directly to Hosur Logistics Buffer (wh-01).",
             "adverse_weather": "Stage discrete power semiconductor buffer stock at Hosur Warehouse (wh-01) to protect against local power fluctuations.",
@@ -58,7 +86,7 @@ COUNTERFACTUAL_PROFILES: Dict[str, Dict[str, Any]] = {
         "base_lead_time": 1.4,
         "base_cost": 8800,
         "actions": {
-            "supplier_delay": "Divert automotive telematics SMT assembly to Syrma SGS Technology (sup-04, Bargur) and draw safety buffer from Oragadam JIT Warehouse (wh-03).",
+            "supplier_delay": "Transfer 50% automotive sensor sub-assembly runs to Vinyas Innovative (sup-06, Mysuru) and draw buffer stock from Oragadam JIT (wh-03).",
             "demand_spike": "Engage secondary manufacturing line at Vinyas Innovative (sup-06, Mysuru) and increase JIT supply delivery frequency to Sriperumbudur.",
             "transport_failure": "Reroute Mysuru-Bengaluru freight via NH275 bypass directly to Whitefield ICD (wh-02).",
             "adverse_weather": "Expedite pre-monsoon telematics shipments from Koorgalli to Hosur Buffer Warehouse (wh-01).",
@@ -71,7 +99,7 @@ COUNTERFACTUAL_PROFILES: Dict[str, Dict[str, Any]] = {
         "base_lead_time": 1.25,
         "base_cost": 8200,
         "actions": {
-            "supplier_delay": "Shift SMT surface mount assembly runs to Kaynes Technology (sup-03, Mysuru) and dispatch truck convoys on NH48 via Hosur Buffer Warehouse (wh-01).",
+            "supplier_delay": "Isolate quarantined BGA lot, initiate rapid re-solder protocol at Bargur, and commission expedited replacement batch from Kaynes Technology (sup-03).",
             "demand_spike": "Authorize 3-shift surface-mount line expansion at Syrma SGS (sup-04) and expedite sub-assembly feeds to Sriperumbudur (mfg-01).",
             "transport_failure": "Reroute Bargur freight shipments via NH75 / Krishnagiri-Vellore arterial corridor to bypass local highway blockages.",
             "adverse_weather": "Store moisture-sensitive surface mount devices at Hosur Buffer (wh-01) and dispatch covered container trucks.",
@@ -84,7 +112,7 @@ COUNTERFACTUAL_PROFILES: Dict[str, Dict[str, Any]] = {
         "base_lead_time": 1.2,
         "base_cost": 7600,
         "actions": {
-            "supplier_delay": "Transfer micro-inverter power module contracts to CDIL (sup-02, Electronic City) and pull emergency safety stock from Whitefield ICD (wh-02).",
+            "supplier_delay": "Split power module shortfall by commissioning auxiliary PCB fabrication runs at Sahasra Electronic (sup-08, Hyderabad) and tap reserves at Whitefield (wh-02).",
             "demand_spike": "Split micro-inverter power component volume between CDIL (sup-02) and Sahasra Electronic (sup-08, Hyderabad).",
             "transport_failure": "Reroute Yelahanka consignments via Bengaluru Outer Ring Road directly to Hosur Logistics Buffer (wh-01).",
             "adverse_weather": "Pre-position microelectronics stock at Whitefield ICD (wh-02) to mitigate North Bengaluru logistics bottlenecks.",
@@ -123,7 +151,7 @@ COUNTERFACTUAL_PROFILES: Dict[str, Dict[str, Any]] = {
         "base_lead_time": 1.35,
         "base_cost": 8500,
         "actions": {
-            "supplier_delay": "Authorize air cargo reorder via Hyderabad Aerotropolis (dc-03) and expedite alternate PCB fabrication batches from Centum Electronics (sup-05, Bengaluru).",
+            "supplier_delay": "Execute inter-facility raw material loan from Centum Electronics (sup-05) via air express cargo to resume multi-layer PCB pressing at Sahasra (sup-08).",
             "demand_spike": "Engage rapid-turnaround PCB prototype lines at Centum Electronics (sup-05) and charter express cargo flight to Chennai.",
             "transport_failure": "Reroute North-South NH44 freight trucks via Kurnool-Tirupati corridor directly to Sri City FTWZ (wh-04).",
             "adverse_weather": "Hold high-density PCB boards in climate-controlled FTWZ facility at Sri City (wh-04) until transit clearance.",
@@ -136,7 +164,7 @@ COUNTERFACTUAL_PROFILES: Dict[str, Dict[str, Any]] = {
         "base_lead_time": 1.8,
         "base_cost": 14200,
         "actions": {
-            "supplier_delay": "Stagger production lines into three 8-hour overtime shifts, increase component buffer retention at Oragadam JIT (wh-03), and prioritize high-margin IoT Gateway fulfillment.",
+            "supplier_delay": "Executive Sourcing Consensus: Ration component inventory to high-margin contracts (prod-101), consolidate diesel generator reserves at Sriperumbudur, and invoke force majeure clauses.",
             "demand_spike": "Activate secondary final-assembly bay at Sriperumbudur and draw rapid component feeds from Oragadam JIT (wh-03) and Hosur (wh-01).",
             "transport_failure": "Reroute all inbound component trucks through Sriperumbudur industrial bypass and open auxiliary receiving gates.",
             "adverse_weather": "Initiate severe weather plant protection protocol and maintain 72-hour on-site buffer inventory for continuous assembly.",
@@ -150,8 +178,8 @@ COUNTERFACTUAL_PROFILES: Dict[str, Dict[str, Any]] = {
         "base_cost": 9200,
         "actions": {
             "supplier_delay": "Divert inbound supplier freight from Western Karnataka hubs directly to Whitefield ICD (wh-02) and establish emergency truck staging at Bargur (sup-04).",
-            "demand_spike": "Authorize 24/7 cross-docking operations at Hosur Buffer (wh-01) to support increased assembly throughput at Sriperumbudur.",
-            "transport_failure": "Reroute outgoing Hosur convoys via NH44 south toward Salem-Chennai corridor to bypass NH48 arterial bottlenecks.",
+            "demand_spike": "Authorize three-shift assembly expansion at Sriperumbudur, activate secondary SMT lines at Syrma SGS (sup-04), and establish daily rolling buffer shuttles.",
+            "transport_failure": "Divert inbound supplier freight directly to Whitefield ICD (wh-02) and authorize manual staging retrieval for high-priority assembly totes at Hosur.",
             "adverse_weather": "Secure warehouse dock areas and stage critical component containers on elevated inland logistics aprons.",
         },
     },
@@ -163,8 +191,8 @@ COUNTERFACTUAL_PROFILES: Dict[str, Dict[str, Any]] = {
         "base_cost": 7100,
         "actions": {
             "supplier_delay": "Reroute rail freight container traffic to Hosur Buffer Warehouse (wh-01) and dispatch dedicated truck convoys across the NH44 interstate lane.",
-            "demand_spike": "Double container handling shifts at Whitefield ICD and increase scheduled shuttle trains to Chennai Port.",
-            "transport_failure": "Transfer rail cargo to container trucks along NH75 Old Madras Road corridor directly to Sri City FTWZ (wh-04).",
+            "demand_spike": "Escalate to Executive Operations: Propose phased customer allocation plan (50% delivery in 14 days, 50% in 45 days) and authorize emergency capacity expansion.",
+            "transport_failure": "Convert stranded intermodal rail containers to dedicated road freight convoys on NH75 directly to Chennai Port Terminal (dc-01).",
             "adverse_weather": "Prioritize indoor container storage for electronic hardware and seal external freight yard bays.",
         },
     },
@@ -176,7 +204,7 @@ COUNTERFACTUAL_PROFILES: Dict[str, Dict[str, Any]] = {
         "base_cost": 9700,
         "actions": {
             "supplier_delay": "Deploy direct-to-line hot shot truck deliveries from SPEL Semiconductor (sup-01) and tap safety buffer stock at Sri City FTWZ (wh-04).",
-            "demand_spike": "Increase JIT delivery frequencies from 4-hour intervals to hourly replenishment runs directly to Sriperumbudur assembly bays.",
+            "demand_spike": "Deploy pre-positioned buffer from Sri City FTWZ (wh-04) and establish hourly dedicated micro-replenishment shuttles into Oragadam plant bays.",
             "transport_failure": "Deploy local Oragadam feeder fleet across SIPCOT internal roads to bypass state highway congestion.",
             "adverse_weather": "Activate high-water flood barriers at Oragadam facility and stage battery power backups for automated cranes.",
         },
@@ -188,7 +216,7 @@ COUNTERFACTUAL_PROFILES: Dict[str, Dict[str, Any]] = {
         "base_lead_time": 1.05,
         "base_cost": 6800,
         "actions": {
-            "supplier_delay": "Expedite customs clearance through Chennai Port (dc-01) and reroute duty-free buffer inventory via Oragadam JIT Warehouse (wh-03).",
+            "supplier_delay": "Substitute bonded FTWZ components with domestic safety stock from Oragadam JIT (wh-03) and expedite customs pre-audit reconciliation paperwork.",
             "demand_spike": "Request customs pre-clearance for high-volume duty-free component shipments to prevent FTWZ processing bottlenecks.",
             "transport_failure": "Divert North-South coastal traffic via NH16 bypass to avoid suburban Chennai arterial choke points.",
             "adverse_weather": "Store imported components in FTWZ bonded climate-controlled warehouse blocks until weather clears.",
@@ -202,8 +230,8 @@ COUNTERFACTUAL_PROFILES: Dict[str, Dict[str, Any]] = {
         "base_cost": 11200,
         "actions": {
             "supplier_delay": "Divert maritime export container vessels to Cochin Vallarpadam Terminal (dc-02) and air-freight high-priority finished goods via Hyderabad Aerotropolis (dc-03).",
-            "demand_spike": "Book priority sea freight container allocations and contract expedited customs discharge berths at Chennai Port.",
-            "transport_failure": "Utilize port rail connector to bypass Chennai port road congestion and deliver containers directly to inland terminals.",
+            "demand_spike": "Reallocate 25% non-critical export staging inventory at Chennai Port (dc-01) to domestic municipal deployment and trigger rapid re-order at SPEL (sup-01).",
+            "transport_failure": "Divert outbound container convoys from Chennai Port to Kattupalli Port Terminal and hold intermediate buffers at Sri City FTWZ (wh-04).",
             "adverse_weather": "Halt seaside gantry crane operations, lash export containers, and stage cargo in secure inland container yards.",
         },
     },
@@ -217,7 +245,7 @@ COUNTERFACTUAL_PROFILES: Dict[str, Dict[str, Any]] = {
             "supplier_delay": "Transfer European export shipments to Chennai Port Container Terminal (dc-01) and negotiate priority rail container paths through Coimbatore.",
             "demand_spike": "Coordinate additional feeder vessel calls to Arabian Sea maritime lanes to handle finished goods export volumes.",
             "transport_failure": "Reroute Malabar coast outbound freight via NH66 North corridor to inland logistics distribution hubs.",
-            "adverse_weather": "Enact deep-water cyclone mooring protocol at Vallarpadam Terminal and pause crane transit operations.",
+            "adverse_weather": "Reroute European export container volume via electrified rail container shuttle from Ernakulam to Chennai Port Terminal (dc-01).",
         },
     },
     "dc-03": {
@@ -229,7 +257,7 @@ COUNTERFACTUAL_PROFILES: Dict[str, Dict[str, Any]] = {
         "actions": {
             "supplier_delay": "Consolidate international air cargo consignments for transit via Chennai International Airport and convert non-critical air orders to express road transport on NH44.",
             "demand_spike": "Charter dedicated cargo flights from Shamshabad Aerotropolis to clear accumulated European customer shipments.",
-            "transport_failure": "Switch air cargo ground handling to regional distribution centers using dedicated interstate tractor-trailers.",
+            "transport_failure": "Transfer urgent export consignments via bonded GPS-tracked road feeder trucks along NH44 to Bengaluru Kempegowda Airport for onward cargo flight.",
             "adverse_weather": "Divert scheduled cargo flights to Bengaluru Kempegowda Airport and arrange bonded road feeder service.",
         },
     },
@@ -242,8 +270,73 @@ COUNTERFACTUAL_PROFILES: Dict[str, Dict[str, Any]] = {
         "actions": {
             "supplier_delay": "Bypass blocked NH48 sections via State Highway 9 / Vellore-Arani detour and coordinate police convoy escorts for high-priority assembly component trucks.",
             "demand_spike": "Authorize double-trailer freight permits on NH48 corridor to double inter-facility component volume per transit hour.",
-            "transport_failure": "Establish emergency freight bypass via Krishnagiri-Tiruvannamalai-Kanchipuram state highway corridors.",
+            "transport_failure": "Detour priority truck convoys via Krishnagiri-Tiruvannamalai-Kanchipuram arterial roads and mobilize emergency coastal container rail from Katpadi.",
             "adverse_weather": "Deploy heavy tow recovery units along waterlogged NH48 stretches and reroute non-essential cargo to rail freight.",
+        },
+    },
+    "route-sup-02-wh-01": {
+        "name": "Bengaluru Electronic City - Hosur NH44 Interstate Corridor",
+        "cluster": "NH44 Interstate Lane",
+        "base_risk": 7.8,
+        "base_lead_time": 1.3,
+        "base_cost": 9000,
+        "actions": {
+            "supplier_delay": "Bypass Attibele checkpoint delays via Sarjapur-Bagalur state arterial detour directly into Hosur Buffer (wh-01).",
+            "demand_spike": "Authorize multi-shift dedicated shuttle convoys across NH44 to transfer discrete components to Hosur.",
+            "transport_failure": "Reroute component transport convoys via Sarjapur-Bagalur arterial detour into Hosur and pre-clear police freight escorts for priority containers.",
+            "adverse_weather": "Stage waterproof tarp containers and maintain continuous GPS tracking through low-lying border segments.",
+        },
+    },
+    "route-sup-07-mfg-01": {
+        "name": "Kochi-Sriperumbudur Intermodal Freight Corridor",
+        "cluster": "NH544 / Southern Railway Corridor",
+        "base_risk": 8.9,
+        "base_lead_time": 1.6,
+        "base_cost": 11100,
+        "actions": {
+            "supplier_delay": "Switch Kerala freight to Southern Railway express container service from Ernakulam to Katpadi junction.",
+            "demand_spike": "Double intermodal rail rake allocations from Cochin Port to Chennai Inland Terminal.",
+            "transport_failure": "Commission coastal express container feeder vessel from Cochin Port (dc-02) around peninsular India to Chennai Port (dc-01) and activate substitute wire harness assembly at Syrma (sup-04).",
+            "adverse_weather": "Enact Western Ghats monsoon detour via coastal rail avoiding Palakkad mountain pass.",
+        },
+    },
+    "route-sup-08-wh-04": {
+        "name": "Hyderabad-Sri City NH44/NH16 Freight Corridor",
+        "cluster": "NH44 / NH16 Interstate Corridor",
+        "base_risk": 7.4,
+        "base_lead_time": 1.4,
+        "base_cost": 8900,
+        "actions": {
+            "supplier_delay": "Expedite express trucking from Hyderabad to Sri City via Guntur-Nellore corridor to bypass inland slowdowns.",
+            "demand_spike": "Contract articulated high-cube freight carriers on NH16 to double multi-layer PCB batch throughput.",
+            "transport_failure": "Divert freight convoys via Guntur-Nellore NH16 coastal corridor to bypass Kurnool bridge weight restrictions and maintain multi-axle efficiency.",
+            "adverse_weather": "Hold electronic board consignments in climate-controlled transit hub at Kurnool until storm clearance.",
+        },
+    },
+    "route-wh-03-mfg-01": {
+        "name": "Oragadam-Sriperumbudur Industrial Feeder Corridor",
+        "cluster": "SIPCOT Industrial Arterial",
+        "base_risk": 8.5,
+        "base_lead_time": 1.2,
+        "base_cost": 7800,
+        "actions": {
+            "supplier_delay": "Deploy direct hot-shot utility vans from SPEL Semiconductor (sup-01) to Sriperumbudur line-side receiving bays.",
+            "demand_spike": "Increase JIT feeder frequency to 30-minute intervals from Oragadam warehouse.",
+            "transport_failure": "Deploy internal SIPCOT service road bypass fleet and initiate direct line-side component hot-shot deliveries from SPEL (sup-01) to back receiving gates.",
+            "adverse_weather": "Stage water-sealed freight vehicles and deploy heavy recovery tractors along industrial feeder roads.",
+        },
+    },
+    "global": {
+        "name": "Peninsular Multi-Tier Electronics Supply Network",
+        "cluster": "South Indian Manufacturing Corridor",
+        "base_risk": 9.5,
+        "base_lead_time": 1.7,
+        "base_cost": 13500,
+        "actions": {
+            "supplier_delay": "Executive Sourcing Consensus: Ration component inventory to high-margin contracts (prod-101), consolidate diesel generator reserves at Sriperumbudur, and invoke force majeure clauses.",
+            "demand_spike": "Activate all certified secondary suppliers across peninsular corridor and authorize 3-shift assembly overtime.",
+            "transport_failure": "Activate multi-modal contingency routes across road, rail, and coastal feeder networks.",
+            "adverse_weather": "Initiate regional severe weather protection protocols and pre-position emergency buffer inventory.",
         },
     },
 }
@@ -277,10 +370,15 @@ async def run_whatif(req: WhatIfRequest, request: Request, bus=Depends(get_event
     trace_id = getattr(request.state, "trace_id", str(uuid.uuid4()))
 
     scenario_id = req.base_scenario_id or req.scenario_id or "scen-02"
+    scen_default = SCENARIO_DEFAULTS.get(
+        scenario_id,
+        {"target_entity": "sup-01", "disruption_type": "supplier_delay", "severity": 3}
+    )
+
     overrides = req.overrides or {}
-    disruption_type = overrides.get("disruption_type") or req.disruption_type or "supplier_delay"
-    target_entity = overrides.get("target_entity") or req.target_entity or "sup-01"
-    severity = overrides.get("severity") or req.severity or req.severity_override or 3
+    disruption_type = overrides.get("disruption_type") or req.disruption_type or scen_default["disruption_type"]
+    target_entity = overrides.get("target_entity") or req.target_entity or scen_default["target_entity"]
+    severity = overrides.get("severity") or req.severity or req.severity_override or scen_default["severity"]
 
     # Dynamic counterfactual simulation computation
     profile = COUNTERFACTUAL_PROFILES.get(target_entity, COUNTERFACTUAL_PROFILES["sup-01"])
@@ -290,6 +388,8 @@ async def run_whatif(req: WhatIfRequest, request: Request, bus=Depends(get_event
     calc_lead = round(severity * profile["base_lead_time"] * mult["lead_time"], 1)
     calc_cost = int(round(severity * profile["base_cost"] * mult["cost"]))
     action = profile["actions"].get(disruption_type, profile["actions"]["supplier_delay"])
+
+    consensus_status = "ESCALATED_TO_HUMAN" if scenario_id in ["scen-12", "scen-24", "scen-25"] else "RESOLVED"
 
     result_payload = {
         "whatif_id": whatif_id,
@@ -302,7 +402,7 @@ async def run_whatif(req: WhatIfRequest, request: Request, bus=Depends(get_event
         "lead_time_impact": f"+{calc_lead} days",
         "cost_variance": f"+₹{format_inr(calc_cost)}",
         "recommendation": action,
-        "consensus_status": "RESOLVED",
+        "consensus_status": consensus_status,
         "status": "COMPLETED",
     }
 
@@ -353,4 +453,3 @@ async def get_whatif_result(whatif_id: str, redis_client=Depends(get_redis)):
         return parsed
     except Exception:
         return {"whatif_id": whatif_id, "status": data}
-
