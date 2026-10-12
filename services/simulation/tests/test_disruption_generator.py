@@ -28,12 +28,18 @@ def test_disruption_generator():
     scenarios = result["scenarios"]
     disruptions = result["disruption_events"]
 
-    assert len(scenarios) == 2
+    assert len(scenarios) == 5
     assert scenarios[0]["scenario_id"].startswith("scen-")
 
-    assert len(disruptions) > 0
+    assert len(disruptions) == 4
     for d in disruptions:
         assert d["id"].startswith("disrupt-")
         assert 1 <= d["severity"] <= 5
         assert d["run_id"] == "run-test-001"
-        assert d["target_entity_type"] in ("supplier", "route", "product")
+        assert d["target_entity_type"] in (
+            "supplier",
+            "warehouse",
+            "route",
+            "distribution_center",
+            "product",
+        )

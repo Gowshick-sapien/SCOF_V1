@@ -70,7 +70,7 @@ async def list_scenarios():
                     SELECT disruption_type, target_entity_id, severity
                     FROM scof.disruption_events de
                     WHERE de.scenario_id = s.scenario_id
-                    ORDER BY de.created_at, de.id
+                    ORDER BY de.created_at DESC, de.id DESC
                     LIMIT 1
                 ) d ON true
                 ORDER BY s.created_at, s.scenario_id
@@ -148,7 +148,7 @@ async def trigger_scenario(
                     end_date
                 FROM scof.disruption_events
                 WHERE scenario_id = %s
-                ORDER BY created_at, id
+                ORDER BY created_at DESC, id DESC
                 LIMIT 1
                 """,
                 (scenario_id,),

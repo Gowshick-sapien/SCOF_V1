@@ -34,68 +34,104 @@ class DisruptionGenerator:
             {
                 "scenario_id": f"{Prefix.SCENARIO}01",
                 "run_id": self.run_id,
-                "name": "Baseline Normal Operations",
-                "description": "Standard operational baseline with no active systemic disruptions.",
+                "name": "Baseline Nominal Operations",
+                "description": "Nominal operating baseline across peninsular South Indian corridors with predictable demand and on-time supplier deliveries.",
                 "random_seed": self.random_seed,
             },
             {
                 "scenario_id": f"{Prefix.SCENARIO}02",
                 "run_id": self.run_id,
-                "name": "Multi-Disruption Stress Test",
-                "description": "Stress test scenario injecting supplier lead time delay and route failures.",
+                "name": "Tier-1 Semiconductor Packaging Delay (SPEL Chennai)",
+                "description": "5-day wafer-level chip scale packaging delay at SPEL Semiconductor (sup-01) Maraimalai Nagar fab triggering inventory and dual-sourcing arbitration.",
                 "random_seed": self.random_seed + 100,
+            },
+            {
+                "scenario_id": f"{Prefix.SCENARIO}03",
+                "run_id": self.run_id,
+                "name": "Automotive Telematics Sensor Demand Surge (Oragadam Hub)",
+                "description": "Sudden 45% regional order surge for Automotive Sensor Hubs (prod-102) buffering at Oragadam JIT Warehouse (wh-03).",
+                "random_seed": self.random_seed + 200,
+            },
+            {
+                "scenario_id": f"{Prefix.SCENARIO}04",
+                "run_id": self.run_id,
+                "name": "NH48 Arterial Freight Corridor Monsoon Closure",
+                "description": "Severe monsoon waterlogging along the NH48 interstate freight lane halting truck transit from Hosur Buffer Warehouse (wh-01) to Sriperumbudur Assembly Hub (mfg-01).",
+                "random_seed": self.random_seed + 300,
+            },
+            {
+                "scenario_id": f"{Prefix.SCENARIO}05",
+                "run_id": self.run_id,
+                "name": "Cochin Port Deep-Water Terminal Cyclonic Stoppage",
+                "description": "Arabian Sea cyclonic disturbance forcing 8-day operational container cranes shutdown at Cochin Vallarpadam International Terminal (dc-02).",
+                "random_seed": self.random_seed + 400,
             },
         ]
 
         disruption_events: List[Dict[str, Any]] = []
+
+        scenario_disruption_specs = [
+            # scen-02: SPEL Semiconductor Delay
+            {
+                "scenario_id": f"{Prefix.SCENARIO}02",
+                "disruption_type": "supplier_delay",
+                "target_entity_type": "supplier",
+                "target_entity_id": "sup-01",
+                "severity": 4,
+                "duration_days": 7,
+            },
+            # scen-03: Demand Spike at Oragadam JIT Warehouse
+            {
+                "scenario_id": f"{Prefix.SCENARIO}03",
+                "disruption_type": "demand_spike",
+                "target_entity_type": "warehouse",
+                "target_entity_id": "wh-03",
+                "severity": 3,
+                "duration_days": 14,
+            },
+            # scen-04: Transport Failure on NH48 Hosur-Sriperumbudur corridor
+            {
+                "scenario_id": f"{Prefix.SCENARIO}04",
+                "disruption_type": "transport_failure",
+                "target_entity_type": "route",
+                "target_entity_id": "route-wh-01-mfg-01",
+                "severity": 5,
+                "duration_days": 4,
+            },
+            # scen-05: Cyclonic Stoppage at Cochin Port
+            {
+                "scenario_id": f"{Prefix.SCENARIO}05",
+                "disruption_type": "adverse_weather",
+                "target_entity_type": "distribution_center",
+                "target_entity_id": "dc-02",
+                "severity": 4,
+                "duration_days": 8,
+            },
+        ]
+
         counter = 1
-
-        disruption_types = self.profile.disruptions.disruption_types
-
-        # For scenario 2, create 3-4 realistic disruption events
-        target_suppliers = self.master_entities["suppliers"]
-        target_routes = self.master_entities["routes"]
-        target_products = self.master_entities["products"]
-
-        for d_type in disruption_types:
-            dtype_id = d_type.id
-            target_kind = d_type.target_entity
-
-            # Pick target entity ID based on kind
-            if target_kind == "supplier" and target_suppliers:
-                entity_id = target_suppliers[0]["id"]
-            elif target_kind == "route" and target_routes:
-                entity_id = target_routes[0]["id"]
-            elif target_kind == "product" and target_products:
-                entity_id = target_products[0]["id"]
-            else:
-                continue
-
-            sev = int(np.random.randint(d_type.severity_range[0], d_type.severity_range[1] + 1))
-            dur = d_type.default_duration_days
-
-            # Set start date in the middle of simulation history
-            offset_days = int(history_days * 0.4) + counter * 5
+        for spec in scenario_disruption_specs:
+            offset_days = int(history_days * 0.5) + counter * 3
             event_start = start_date + timedelta(days=offset_days)
-            event_end = event_start + timedelta(days=dur)
-
+            event_end = event_start + timedelta(days=spec["duration_days"])
             disrupt_id = f"{Prefix.DISRUPTION}{counter:05d}"
             counter += 1
 
             disruption_events.append({
                 "id": disrupt_id,
                 "run_id": self.run_id,
-                "scenario_id": f"{Prefix.SCENARIO}02",
-                "disruption_type": dtype_id,
-                "target_entity_type": target_kind,
-                "target_entity_id": entity_id,
-                "severity": sev,
+                "scenario_id": spec["scenario_id"],
+                "disruption_type": spec["disruption_type"],
+                "target_entity_type": spec["target_entity_type"],
+                "target_entity_id": spec["target_entity_id"],
+                "severity": spec["severity"],
                 "start_date": event_start,
                 "end_date": event_end,
-                "status": DisruptionStatus.RESOLVED if event_end < (start_date + timedelta(days=history_days)) else DisruptionStatus.ACTIVE,
+                "status": DisruptionStatus.ACTIVE,
             })
 
         return {
             "scenarios": scenarios,
             "disruption_events": disruption_events,
         }
+

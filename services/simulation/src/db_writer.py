@@ -187,10 +187,15 @@ class DBWriter:
                         """
                         INSERT INTO scof.scenarios (scenario_id, run_id, name, description, random_seed)
                         VALUES (%s, %s, %s, %s, %s)
-                        ON CONFLICT (scenario_id) DO NOTHING;
+                        ON CONFLICT (scenario_id) DO UPDATE SET
+                            name = EXCLUDED.name,
+                            description = EXCLUDED.description,
+                            random_seed = EXCLUDED.random_seed,
+                            run_id = EXCLUDED.run_id;
                         """,
                         (sc["scenario_id"], sc["run_id"], sc["name"], sc["description"], sc["random_seed"]),
                     )
+
 
                 # 10. Insert Purchase Orders
                 po_rows = [
@@ -298,13 +303,27 @@ class DBWriter:
                     )
                     for d in disruption_data["disruption_events"]
                 ]
+                cur.execute(
+                    "DELETE FROM scof.disruption_events WHERE run_id = %s;",
+                    (run_metadata["run_id"],),
+                )
                 cur.executemany(
                     """
                     INSERT INTO scof.disruption_events (
                         id, run_id, scenario_id, disruption_type, target_entity_type,
                         target_entity_id, severity, start_date, end_date, status
                     ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-                    ON CONFLICT (id) DO NOTHING;
+                    ON CONFLICT (id) DO UPDATE SET
+                        run_id = EXCLUDED.run_id,
+                        scenario_id = EXCLUDED.scenario_id,
+                        disruption_type = EXCLUDED.disruption_type,
+                        target_entity_type = EXCLUDED.target_entity_type,
+                        target_entity_id = EXCLUDED.target_entity_id,
+                        severity = EXCLUDED.severity,
+                        start_date = EXCLUDED.start_date,
+                        end_date = EXCLUDED.end_date,
+                        status = EXCLUDED.status,
+                        updated_at = CURRENT_TIMESTAMP;
                     """,
                     disrupt_rows,
                 )
