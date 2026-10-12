@@ -1,6 +1,7 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState, useMemo, useRef } from "react";
 import styles from "./Scenarios.module.css";
 import { apiClient } from "../../api/client";
+import { ContextualDrawer } from "../../components/common/ContextualDrawer";
 
 interface ScenarioItem {
   scenario_id: string;
@@ -9,6 +10,28 @@ interface ScenarioItem {
   target_entity: string;
   description: string;
   severity: number;
+}
+
+interface ScenarioDraft {
+  disruption_type: string;
+  target_entity: string;
+  severity: number;
+  isDirty: boolean;
+}
+
+type DispatchStatus =
+  | "IDLE"
+  | "SUBMITTING"
+  | "ACCEPTED"
+  | "REJECTED"
+  | "FAILED"
+  | "UNKNOWN";
+
+interface DispatchResult {
+  status: DispatchStatus;
+  event_id?: string;
+  trace_id?: string;
+  message?: string;
 }
 
 const DISRUPTION_TYPE_OPTIONS = [
@@ -257,18 +280,36 @@ const DEFAULT_SCENARIOS: ScenarioItem[] = [
 
 export const ScenariosView: React.FC = () => {
   const [scenarios, setScenarios] = useState<ScenarioItem[]>(DEFAULT_SCENARIOS);
-  const [selectedScenario, setSelectedScenario] = useState<ScenarioItem>(DEFAULT_SCENARIOS[1]);
-  const [customDisruptionType, setCustomDisruptionType] = useState<string>("supplier_delay");
-  const [customTarget, setCustomTarget] = useState<string>("sup-01");
-  const [severity, setSeverity] = useState<number>(4);
-  const [isTriggering, setIsTriggering] = useState<boolean>(false);
+  const [activeScenario, setActiveScenario] = useState<ScenarioItem>(DEFAULT_SCENARIOS[1]);
+  const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [searchQuery, setSearchQuery] = useState<string>("");
-  const [triggerResult, setTriggerResult] = useState<{
-    event_id?: string;
-    trace_id?: string;
-    status?: string;
-  } | null>(null);
+  const [dispatchResult, setDispatchResult] = useState<DispatchResult | null>(null);
+
+  // In-session memory drafts storage (Scenario ID -> DraftConfig)
+  const [scenarioDrafts, setScenarioDrafts] = useState<Record<string, ScenarioDraft>>({});
+
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [containerWidth, setContainerWidth] = useState<number>(1200);
+
+  useEffect(() => {
+    if (!containerRef.current) return;
+    const updateSize = () => {
+      if (containerRef.current) {
+        setContainerWidth(containerRef.current.clientWidth);
+      }
+    };
+    updateSize();
+
+    const ro = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        setContainerWidth(entry.contentRect.width);
+      }
+    });
+    ro.observe(containerRef.current);
+    return () => ro.disconnect();
+  }, []);
 
   useEffect(() => {
     let mounted = true;
@@ -295,16 +336,10 @@ export const ScenariosView: React.FC = () => {
           });
 
           setScenarios(merged);
-
-          const scen02 = merged.find((s: ScenarioItem) => s.scenario_id === "scen-02") || merged[0];
-          setSelectedScenario(scen02);
-          setCustomDisruptionType(scen02.disruption_type);
-          setCustomTarget(scen02.target_entity);
-          setSeverity(scen02.severity);
         }
       })
       .catch(() => {
-        // Fall back to predefined defaults
+        // Fall back to defaults
       });
 
     return () => {
@@ -312,36 +347,100 @@ export const ScenariosView: React.FC = () => {
     };
   }, []);
 
-  const handleSelectScenario = (scen: ScenarioItem) => {
-    setSelectedScenario(scen);
-    setCustomDisruptionType(scen.disruption_type);
-    setCustomTarget(scen.target_entity);
-    setSeverity(scen.severity || 3);
+  const drawerMode: "docked" | "overlay" = containerWidth >= 1200 ? "docked" : "overlay";
+
+  // Active configuration values (derived from session drafts or scenario baseline)
+  const currentDraft = scenarioDrafts[activeScenario.scenario_id] || {
+    disruption_type: activeScenario.disruption_type,
+    target_entity: activeScenario.target_entity,
+    severity: activeScenario.severity,
+    isDirty: false,
   };
 
+  const handleSelectScenario = (scen: ScenarioItem) => {
+    setActiveScenario(scen);
+    setIsDrawerOpen(true);
+    setDispatchResult(null);
+  };
+
+  const updateDraft = (updates: Partial<ScenarioDraft>) => {
+    setScenarioDrafts((prev) => ({
+      ...prev,
+      [activeScenario.scenario_id]: {
+        ...currentDraft,
+        ...updates,
+        isDirty: true,
+      },
+    }));
+  };
+
+  const handleDiscardDraft = () => {
+    setScenarioDrafts((prev) => {
+      const next = { ...prev };
+      delete next[activeScenario.scenario_id];
+      return next;
+    });
+  };
+
+  // Explicit 4-Outcome Dispatch Handler
   const handleTrigger = async () => {
-    if (!selectedScenario) return;
-    setIsTriggering(true);
-    setTriggerResult(null);
+    if (!activeScenario || isSubmitting) return;
+    setIsSubmitting(true);
+    setDispatchResult({ status: "SUBMITTING" });
+
+    // 10-second client timeout promise to detect UNKNOWN outcome
+    const timeoutPromise = new Promise<{ isTimeout: true }>((resolve) =>
+      setTimeout(() => resolve({ isTimeout: true }), 10000)
+    );
 
     try {
-      const res = await apiClient.triggerScenario(selectedScenario.scenario_id, {
-        disruption_type: customDisruptionType,
-        target_entity_id: customTarget,
-        severity: severity,
+      const triggerPromise = apiClient.triggerScenario(activeScenario.scenario_id, {
+        disruption_type: currentDraft.disruption_type,
+        target_entity_id: currentDraft.target_entity,
+        severity: currentDraft.severity,
       });
 
-      setTriggerResult({
+      const res = await Promise.race([triggerPromise, timeoutPromise]);
+
+      if ("isTimeout" in res) {
+        // 4. UNKNOWN Outcome
+        setDispatchResult({
+          status: "UNKNOWN",
+          message:
+            "Request timed out (>10s) without server confirmation. The disruption may have reached the backend API or event bus. Blind duplicate retry is blocked to prevent duplicate simulation shocks.",
+        });
+        return;
+      }
+
+      // 1. ACCEPTED Outcome
+      setDispatchResult({
+        status: "ACCEPTED",
         event_id: res.event_id,
         trace_id: res.trace_id,
-        status: res.status || "TRIGGERED",
+        message:
+          "Disruption accepted by API Gateway. Awaiting multi-agent deliberation on Kafka bus.",
       });
     } catch (err: any) {
-      setTriggerResult({
-        status: "FAILED: " + (err.message || "Could not trigger disruption"),
-      });
+      const statusCode = err.status || 0;
+      if (statusCode >= 400 && statusCode < 500) {
+        // 2. REJECTED Outcome
+        setDispatchResult({
+          status: "REJECTED",
+          message:
+            err.message ||
+            "Scenario parameters rejected by API Gateway validation.",
+        });
+      } else {
+        // 3. FAILED Outcome
+        setDispatchResult({
+          status: "FAILED",
+          message:
+            err.message ||
+            "Server-side failure prior to event bus publication. Safe to retry.",
+        });
+      }
     } finally {
-      setIsTriggering(false);
+      setIsSubmitting(false);
     }
   };
 
@@ -391,13 +490,185 @@ export const ScenariosView: React.FC = () => {
     });
   }, [scenarios, selectedCategory, searchQuery]);
 
+  const renderConfigurationDrawer = () => (
+    <div className={styles.drawerFormContent}>
+      <div className={styles.drawerHeaderInfo}>
+        <span className={styles.drawerScenarioTitle}>{activeScenario.name}</span>
+        <span className={styles.drawerScenarioDesc}>{activeScenario.description}</span>
+      </div>
+
+      {/* Disruption Type Selector */}
+      <div className={styles.formGroup}>
+        <label className={styles.label}>Disruption Type</label>
+        <select
+          className={styles.select}
+          value={currentDraft.disruption_type}
+          onChange={(e) => updateDraft({ disruption_type: e.target.value })}
+        >
+          {DISRUPTION_TYPE_OPTIONS.map((opt) => (
+            <option key={opt.value} value={opt.value}>
+              {opt.label}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      {/* Target Node Selector */}
+      <div className={styles.formGroup}>
+        <label className={styles.label}>Target Node / Corridor</label>
+        <select
+          className={styles.select}
+          value={currentDraft.target_entity}
+          onChange={(e) => updateDraft({ target_entity: e.target.value })}
+        >
+          {TARGET_ENTITY_OPTIONS.map((opt) => (
+            <option key={opt.value} value={opt.value}>
+              {opt.label}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      {/* 5-Level Segmented Severity Stepper */}
+      <div className={styles.formGroup}>
+        <label className={styles.label}>Shock Severity Level</label>
+        <div className={styles.severitySegmented}>
+          {[1, 2, 3, 4, 5].map((lvl) => (
+            <button
+              key={lvl}
+              type="button"
+              className={`${styles.severityBtn} ${currentDraft.severity === lvl ? styles.severityBtnActive : ""}`}
+              onClick={() => updateDraft({ severity: lvl })}
+            >
+              Level {lvl}
+            </button>
+          ))}
+        </div>
+        <div className={styles.severityDescription}>
+          {SEVERITY_DESCRIPTIONS[currentDraft.severity]}
+        </div>
+      </div>
+
+      {/* Pre-Flight Review Summary Card */}
+      <div className={styles.summaryCard}>
+        <span className={styles.summaryCardHeading}>Pre-Flight Dispatch Summary</span>
+        <div className={styles.summaryRow}>
+          <span className={styles.summaryLabel}>Scenario ID</span>
+          <span className={styles.summaryValue}>{activeScenario.scenario_id}</span>
+        </div>
+        <div className={styles.summaryRow}>
+          <span className={styles.summaryLabel}>Target Entity</span>
+          <span className={styles.summaryValue}>{currentDraft.target_entity}</span>
+        </div>
+        <div className={styles.summaryRow}>
+          <span className={styles.summaryLabel}>Shock Intensity</span>
+          <span className={styles.summaryValue}>Level {currentDraft.severity} / 5</span>
+        </div>
+        <div className={styles.summaryRow}>
+          <span className={styles.summaryLabel}>Event Routing Bus</span>
+          <span className={styles.summaryValue}>Kafka :9092 (disruptions.triggered)</span>
+        </div>
+      </div>
+
+      {/* Dispatch Trigger Button with In-Flight Debounce Lock */}
+      <button
+        className={styles.triggerButton}
+        onClick={handleTrigger}
+        disabled={isSubmitting || dispatchResult?.status === "UNKNOWN"}
+        title={
+          dispatchResult?.status === "UNKNOWN"
+            ? "Duplicate submission blocked pending status reconciliation"
+            : "Dispatch Disruption to Kafka Bus"
+        }
+      >
+        {isSubmitting
+          ? "Publishing Disruption to Kafka Bus..."
+          : dispatchResult?.status === "UNKNOWN"
+          ? "Duplicate Trigger Locked"
+          : `Trigger Disruption: [${activeScenario.scenario_id.toUpperCase()}]`}
+      </button>
+
+      {/* 4-Outcome Dispatch Result Representation */}
+      {dispatchResult && (
+        <div className={`${styles.statusCard} ${
+          dispatchResult.status === "ACCEPTED"
+            ? styles.statusCardSuccess
+            : dispatchResult.status === "REJECTED"
+            ? styles.statusCardRejected
+            : dispatchResult.status === "UNKNOWN"
+            ? styles.statusCardUnknown
+            : styles.statusCardFailed
+        }`}>
+          <div className={styles.statusCardHeader}>
+            <span className={styles.statusTitle}>
+              {dispatchResult.status === "ACCEPTED" && "DISPATCH ACCEPTED (Awaiting Deliberation)"}
+              {dispatchResult.status === "REJECTED" && "DISPATCH REJECTED (Validation Error)"}
+              {dispatchResult.status === "FAILED" && "DISPATCH FAILED (Server Error)"}
+              {dispatchResult.status === "UNKNOWN" && "STATUS UNKNOWN (DISPATCH IN TRANSIT)"}
+            </span>
+          </div>
+
+          {dispatchResult.event_id && (
+            <div className={styles.resultRow}>
+              <span className={styles.resultLabel}>Event ID:</span>
+              <span className={styles.resultVal}>{dispatchResult.event_id}</span>
+            </div>
+          )}
+          {dispatchResult.trace_id && (
+            <div className={styles.resultRow}>
+              <span className={styles.resultLabel}>Trace ID:</span>
+              <span className={styles.resultVal}>{dispatchResult.trace_id}</span>
+            </div>
+          )}
+          {dispatchResult.message && (
+            <div className={styles.resultMessage}>{dispatchResult.message}</div>
+          )}
+
+          {/* Reconciliation Path on UNKNOWN Outcome */}
+          {dispatchResult.status === "UNKNOWN" && (
+            <div className={styles.reconciliationBox}>
+              <span className={styles.reconciliationHeading}>Reconciliation Workflow:</span>
+              <p className={styles.reconciliationText}>
+                Because the dispatch status cannot be established, do not re-trigger this scenario immediately. Verify whether the coordinator initiated consensus:
+              </p>
+              <div className={styles.reconciliationActions}>
+                <button
+                  className={styles.reconcileBtn}
+                  onClick={() => {
+                    // Reset status to allow manual retry after inspection
+                    setDispatchResult(null);
+                  }}
+                >
+                  Clear Lock & Re-verify
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* Retry Option on Confirmed FAILED Outcome */}
+          {dispatchResult.status === "FAILED" && (
+            <div className={styles.retryActionRow}>
+              <button
+                className={styles.retryBtn}
+                onClick={handleTrigger}
+                disabled={isSubmitting}
+              >
+                Retry Dispatch
+              </button>
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+
   return (
-    <div className={styles.container}>
-      {/* Scenario Catalog (Left Column) */}
-      <div className={styles.libraryColumn}>
+    <div className={styles.workspaceWrapper} ref={containerRef}>
+      <div className={styles.workspaceMain}>
+        {/* Scenario Catalog Header */}
         <div className={styles.sectionHeader}>
-          <span className={styles.sectionTitle}>Scenario Catalog</span>
-          <span style={{ fontSize: "11px", color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}>
+          <span className={styles.sectionTitle}>Scenario Catalog & Disruption Lab</span>
+          <span className={styles.scenarioCounter}>
             {filteredScenarios.length} OF {scenarios.length} SCENARIOS DISPLAYED
           </span>
         </div>
@@ -445,6 +716,7 @@ export const ScenariosView: React.FC = () => {
           />
         </div>
 
+        {/* Full-Width Scenario Table */}
         <div className={styles.tableWrapper}>
           <table className={styles.scenarioTable}>
             <thead>
@@ -459,7 +731,8 @@ export const ScenariosView: React.FC = () => {
             </thead>
             <tbody>
               {filteredScenarios.map((scen) => {
-                const isSelected = selectedScenario?.scenario_id === scen.scenario_id;
+                const isSelected = activeScenario?.scenario_id === scen.scenario_id && isDrawerOpen;
+                const hasDraft = scenarioDrafts[scen.scenario_id]?.isDirty;
                 const severityClass =
                   scen.severity >= 5
                     ? styles.severityHigh
@@ -473,38 +746,31 @@ export const ScenariosView: React.FC = () => {
                     className={`${styles.scenarioRow} ${isSelected ? styles.scenarioRowSelected : ""}`}
                     onClick={() => handleSelectScenario(scen)}
                   >
-                    <td className={styles.scenarioId}>{scen.scenario_id}</td>
+                    <td className={styles.scenarioId}>
+                      <span>{scen.scenario_id}</span>
+                      {hasDraft && <span className={styles.draftBadge}>DRAFT</span>}
+                    </td>
                     <td>
-                      <div style={{ fontWeight: 600, color: "var(--text-primary)" }}>{scen.name}</div>
-                      <div style={{ fontSize: "11px", color: "var(--text-muted)", marginTop: "2px", lineHeight: "1.3" }}>
-                        {scen.description}
-                      </div>
+                      <div className={styles.scenarioName}>{scen.name}</div>
+                      <div className={styles.scenarioDesc}>{scen.description}</div>
                     </td>
                     <td>
                       <span className={styles.disruptionTag}>{scen.disruption_type}</span>
                     </td>
-                    <td style={{ fontFamily: "var(--font-mono)", fontSize: "11.5px" }}>
-                      {scen.target_entity}
-                    </td>
-                    <td style={{ fontFamily: "var(--font-mono)" }} className={severityClass}>
-                      {scen.severity || 1} / 5
+                    <td className={styles.targetNode}>{scen.target_entity}</td>
+                    <td className={`${styles.severityCell} ${severityClass}`}>
+                      Level {scen.severity || 1} / 5
                     </td>
                     <td style={{ textAlign: "right" }}>
-                      {isSelected ? (
-                        <button className={styles.activeBtn} disabled>
-                          ACTIVE
-                        </button>
-                      ) : (
-                        <button
-                          className={styles.selectBtn}
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleSelectScenario(scen);
-                          }}
-                        >
-                          Select
-                        </button>
-                      )}
+                      <button
+                        className={isSelected ? styles.activeBtn : styles.selectBtn}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleSelectScenario(scen);
+                        }}
+                      >
+                        {isSelected ? "CONFIGURING" : "Configure & Trigger"}
+                      </button>
                     </td>
                   </tr>
                 );
@@ -514,135 +780,35 @@ export const ScenariosView: React.FC = () => {
         </div>
       </div>
 
-      {/* Launcher Parameter Form (Right Column) */}
-      <div className={styles.launcherColumn}>
-        <div className={styles.formCard}>
-          <div className={styles.sectionHeader} style={{ padding: 0, border: "none", background: "transparent" }}>
-            <span className={styles.sectionTitle}>Disruption Trigger Configuration</span>
-          </div>
+      {/* Stage 2: Slide-Over Configuration Drawer (Docked Mode when wide) */}
+      {drawerMode === "docked" && (
+        <ContextualDrawer
+          isOpen={isDrawerOpen}
+          title={`Configure: [${activeScenario.scenario_id.toUpperCase()}]`}
+          badge={currentDraft.disruption_type}
+          mode="docked"
+          isDirty={currentDraft.isDirty}
+          onClose={() => setIsDrawerOpen(false)}
+          onDiscard={handleDiscardDraft}
+        >
+          {renderConfigurationDrawer()}
+        </ContextualDrawer>
+      )}
 
-          {/* Active Scenario Selector */}
-          <div className={styles.formGroup}>
-            <label className={styles.label}>Active Scenario</label>
-            <select
-              className={styles.select}
-              value={selectedScenario.scenario_id}
-              onChange={(e) => {
-                const found = scenarios.find((s) => s.scenario_id === e.target.value);
-                if (found) {
-                  handleSelectScenario(found);
-                }
-              }}
-            >
-              {scenarios.map((s) => (
-                <option key={s.scenario_id} value={s.scenario_id}>
-                  [{s.scenario_id}] {s.name}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          {/* Disruption Type Selector */}
-          <div className={styles.formGroup}>
-            <label className={styles.label}>Disruption Type</label>
-            <select
-              className={styles.select}
-              value={customDisruptionType}
-              onChange={(e) => setCustomDisruptionType(e.target.value)}
-            >
-              {DISRUPTION_TYPE_OPTIONS.map((opt) => (
-                <option key={opt.value} value={opt.value}>
-                  {opt.label}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          {/* Target Node Selector */}
-          <div className={styles.formGroup}>
-            <label className={styles.label}>Target Node / Corridor</label>
-            <select
-              className={styles.select}
-              value={customTarget}
-              onChange={(e) => setCustomTarget(e.target.value)}
-            >
-              {TARGET_ENTITY_OPTIONS.map((opt) => (
-                <option key={opt.value} value={opt.value}>
-                  {opt.label}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          {/* Precise Segmented Severity Stepper */}
-          <div className={styles.formGroup}>
-            <label className={styles.label}>Severity Level (1 to 5)</label>
-            <div className={styles.severitySegmented}>
-              {[1, 2, 3, 4, 5].map((lvl) => (
-                <button
-                  key={lvl}
-                  type="button"
-                  className={`${styles.severityBtn} ${severity === lvl ? styles.severityBtnActive : ""}`}
-                  onClick={() => setSeverity(lvl)}
-                >
-                  {lvl}
-                </button>
-              ))}
-            </div>
-            <div className={styles.severityDescription}>
-              {SEVERITY_DESCRIPTIONS[severity]}
-            </div>
-          </div>
-
-          {/* Summary Review Card */}
-          <div className={styles.summaryCard}>
-            <div className={styles.summaryRow}>
-              <span className={styles.summaryLabel}>Scenario ID</span>
-              <span className={styles.summaryValue}>{selectedScenario.scenario_id}</span>
-            </div>
-            <div className={styles.summaryRow}>
-              <span className={styles.summaryLabel}>Target Entity</span>
-              <span className={styles.summaryValue}>{customTarget}</span>
-            </div>
-            <div className={styles.summaryRow}>
-              <span className={styles.summaryLabel}>Shock Intensity</span>
-              <span className={styles.summaryValue}>Level {severity} / 5</span>
-            </div>
-            <div className={styles.summaryRow}>
-              <span className={styles.summaryLabel}>Routing Bus</span>
-              <span className={styles.summaryValue}>Kafka :9092 (disruptions.triggered)</span>
-            </div>
-          </div>
-
-          {/* Explicit Trigger Button */}
-          <button
-            className={styles.triggerButton}
-            onClick={handleTrigger}
-            disabled={isTriggering}
-          >
-            {isTriggering
-              ? "Publishing Disruption to Kafka Bus..."
-              : `Trigger Disruption: [${selectedScenario.scenario_id.toUpperCase()}]`}
-          </button>
-        </div>
-
-        {triggerResult && (
-          <div className={styles.statusCard}>
-            <span className={styles.statusTitle}>Dispatch Result</span>
-            {triggerResult.event_id && (
-              <span className={styles.statusItem}>Event ID: {triggerResult.event_id}</span>
-            )}
-            {triggerResult.trace_id && (
-              <span className={styles.statusItem}>Trace ID: {triggerResult.trace_id}</span>
-            )}
-            {triggerResult.status && (
-              <span className={styles.statusItem} style={{ color: "var(--brand-teal)", fontWeight: "600" }}>
-                Status: {triggerResult.status}
-              </span>
-            )}
-          </div>
-        )}
-      </div>
+      {/* Stage 2: Slide-Over Configuration Drawer (Overlay Mode when compact) */}
+      {drawerMode === "overlay" && (
+        <ContextualDrawer
+          isOpen={isDrawerOpen}
+          title={`Configure: [${activeScenario.scenario_id.toUpperCase()}]`}
+          badge={currentDraft.disruption_type}
+          mode="overlay"
+          isDirty={currentDraft.isDirty}
+          onClose={() => setIsDrawerOpen(false)}
+          onDiscard={handleDiscardDraft}
+        >
+          {renderConfigurationDrawer()}
+        </ContextualDrawer>
+      )}
     </div>
   );
 };
