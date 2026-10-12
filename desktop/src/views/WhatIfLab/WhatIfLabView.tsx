@@ -39,8 +39,8 @@ export const WhatIfLabView: React.FC = () => {
           cost_variance: severity >= 4 ? "+$42,000" : "+$12,500",
           recommendation:
             severity >= 4
-              ? "Re-route 60% volume to Apex Microdevices (sup-03) and expedite remaining safety stock from Frankfurt WH-01."
-              : "Absorb lead time buffer from secondary inventory buffer at Amsterdam DC-02.",
+              ? "Re-route 60% volume to Kaynes Technology (sup-03) and expedite remaining safety stock from Hosur Buffer Warehouse (wh-01)."
+              : "Absorb lead time buffer from secondary inventory buffer at Oragadam JIT Warehouse (wh-03).",
         });
         setIsRunning(false);
       }, 1200);
@@ -52,7 +52,7 @@ export const WhatIfLabView: React.FC = () => {
         stockout_risk_delta: "+32.0%",
         lead_time_impact: "+4.5 days",
         cost_variance: "+$28,000",
-        recommendation: "Activate dual-source contract with Apex Microdevices (sup-03).",
+        recommendation: "Activate dual-source contract with Kaynes Technology (sup-03) or Syrma SGS (sup-04).",
       });
     }
   };
@@ -80,10 +80,11 @@ export const WhatIfLabView: React.FC = () => {
               value={baseScenario}
               onChange={(e) => setBaseScenario(e.target.value)}
             >
-              <option value="scen-01">scen-01 (Nominal Baseline)</option>
-              <option value="scen-02">scen-02 (Supplier Delay - sup-01)</option>
-              <option value="scen-03">scen-03 (Demand Surge - wh-01)</option>
-              <option value="scen-04">scen-04 (Logistics Delay - mfg-01)</option>
+              <option value="scen-01">scen-01 (Nominal Baseline Operations)</option>
+              <option value="scen-02">scen-02 (Supplier Delay - sup-01 SPEL Chennai)</option>
+              <option value="scen-03">scen-03 (Demand Surge - wh-03 Oragadam Hub)</option>
+              <option value="scen-04">scen-04 (NH48 Highway Closure - route-wh-01-mfg-01)</option>
+              <option value="scen-05">scen-05 (Cochin Port Cyclonic Stoppage - dc-02)</option>
             </select>
           </div>
 
@@ -108,11 +109,22 @@ export const WhatIfLabView: React.FC = () => {
               value={targetEntity}
               onChange={(e) => setTargetEntity(e.target.value)}
             >
-              <option value="sup-01">sup-01 (Global Silicon)</option>
-              <option value="sup-02">sup-02 (Pacific Semiconductor)</option>
-              <option value="sup-03">sup-03 (Apex Microdevices)</option>
-              <option value="mfg-01">mfg-01 (Shenzhen Assembly)</option>
-              <option value="wh-01">wh-01 (Frankfurt Hub)</option>
+              <option value="sup-01">sup-01 (SPEL Semiconductor - Maraimalai Nagar, Chennai)</option>
+              <option value="sup-02">sup-02 (CDIL - Electronic City, Bengaluru)</option>
+              <option value="sup-03">sup-03 (Kaynes Technology - Koorgalli, Mysuru)</option>
+              <option value="sup-04">sup-04 (Syrma SGS Technology - Bargur)</option>
+              <option value="sup-05">sup-05 (Centum Electronics - Yelahanka, Bengaluru)</option>
+              <option value="sup-06">sup-06 (Vinyas Innovative Technologies - Hebbal, Mysuru)</option>
+              <option value="sup-07">sup-07 (SFO Technologies NeST - Kakkanad, Kochi)</option>
+              <option value="sup-08">sup-08 (Sahasra Electronic Solutions - Hyderabad)</option>
+              <option value="mfg-01">mfg-01 (Sriperumbudur High-Tech Assembly Plant)</option>
+              <option value="wh-01">wh-01 (Hosur Logistics Buffer Warehouse)</option>
+              <option value="wh-02">wh-02 (Whitefield Inland Container Depot)</option>
+              <option value="wh-03">wh-03 (Oragadam JIT Supplier Warehouse)</option>
+              <option value="wh-04">wh-04 (Sri City FTWZ Logistics Center)</option>
+              <option value="dc-01">dc-01 (Chennai Port Container Terminal)</option>
+              <option value="dc-02">dc-02 (Cochin Port Vallarpadam Terminal)</option>
+              <option value="dc-03">dc-03 (Hyderabad Air Cargo Gateway)</option>
             </select>
           </div>
 
