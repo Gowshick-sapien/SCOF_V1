@@ -83,7 +83,7 @@ export const NotificationToast: React.FC<NotificationToastProps> = ({ onSelectDe
                 onClick={() => handleDismiss(toast.id)}
                 aria-label="Dismiss"
               >
-                ✕
+                x
               </button>
             </div>
 
@@ -95,7 +95,7 @@ export const NotificationToast: React.FC<NotificationToastProps> = ({ onSelectDe
                 className={styles.inspectBtn}
                 onClick={() => handleInspect(toast.id)}
               >
-                Inspect Decision →
+                Inspect Decision
               </button>
             </div>
           </div>
