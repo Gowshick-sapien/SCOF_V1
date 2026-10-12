@@ -11,6 +11,7 @@ import { WhatIfLabView } from "./views/WhatIfLab/WhatIfLabView";
 import { ReasoningTraceView } from "./views/ReasoningTrace/ReasoningTraceView";
 import { EvaluationView } from "./views/Evaluation/EvaluationView";
 import { ShortcutsModal } from "./components/modals/ShortcutsModal";
+import { SettingsModal } from "./components/modals/SettingsModal";
 import { ErrorBoundary } from "./components/common/ErrorBoundary";
 import { ConnectionBanner } from "./components/common/ConnectionBanner";
 import { NotificationToast } from "./components/common/NotificationToast";
@@ -33,6 +34,7 @@ function App() {
   const [activeView, setActiveView] = useState<ViewKey>("operations");
   const [selectedDecisionId, setSelectedDecisionId] = useState<string | undefined>();
   const [isShortcutsOpen, setIsShortcutsOpen] = useState<boolean>(false);
+  const [isSettingsOpen, setIsSettingsOpen] = useState<boolean>(false);
 
   const handleSelectDecision = (decisionId: string) => {
     setSelectedDecisionId(decisionId);
@@ -46,6 +48,7 @@ function App() {
 
   const handleEscape = () => {
     if (isShortcutsOpen) setIsShortcutsOpen(false);
+    else if (isSettingsOpen) setIsSettingsOpen(false);
   };
 
   useKeyboardShortcuts({
@@ -57,7 +60,11 @@ function App() {
   return (
     <ConnectionProvider>
       <div className="appLayout">
-        <Sidebar activeView={activeView} onSelectView={setActiveView} />
+        <Sidebar
+          activeView={activeView}
+          onSelectView={setActiveView}
+          onOpenSettings={() => setIsSettingsOpen(true)}
+        />
 
         <div className="mainArea">
           <TopBar
@@ -91,6 +98,11 @@ function App() {
           <ShortcutsModal
             isOpen={isShortcutsOpen}
             onClose={() => setIsShortcutsOpen(false)}
+          />
+
+          <SettingsModal
+            isOpen={isSettingsOpen}
+            onClose={() => setIsSettingsOpen(false)}
           />
 
           <NotificationToast onSelectDecision={handleSelectDecision} />

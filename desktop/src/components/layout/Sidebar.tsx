@@ -14,6 +14,7 @@ export type ViewKey =
 interface SidebarProps {
   activeView: ViewKey;
   onSelectView: (view: ViewKey) => void;
+  onOpenSettings?: () => void;
 }
 
 interface NavItemConfig {
@@ -23,7 +24,11 @@ interface NavItemConfig {
   icon: React.ReactNode;
 }
 
-export const Sidebar: React.FC<SidebarProps> = ({ activeView, onSelectView }) => {
+export const Sidebar: React.FC<SidebarProps> = ({
+  activeView,
+  onSelectView,
+  onOpenSettings,
+}) => {
   const handleClose = async () => {
     try {
       const appWindow = getCurrentWindow();
@@ -55,10 +60,10 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeView, onSelectView }) =>
     }
   };
 
-  const controlRoomItems: NavItemConfig[] = [
+  const navigationItems: NavItemConfig[] = [
     {
       key: "operations",
-      label: "Operations",
+      label: "Operations Overview",
       shortcut: "Ctrl 1",
       icon: (
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -81,7 +86,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeView, onSelectView }) =>
     },
     {
       key: "scenarios",
-      label: "Scenarios",
+      label: "Scenario Launcher",
       shortcut: "Ctrl 3",
       icon: (
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -108,12 +113,9 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeView, onSelectView }) =>
         </svg>
       ),
     },
-  ];
-
-  const intelligenceItems: NavItemConfig[] = [
     {
       key: "whatif",
-      label: "What-If Lab",
+      label: "What-If Simulation Lab",
       shortcut: "Ctrl 5",
       icon: (
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -144,7 +146,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeView, onSelectView }) =>
     },
     {
       key: "evaluation",
-      label: "Evaluation",
+      label: "Evaluation Matrix",
       shortcut: "Ctrl 7",
       icon: (
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -156,28 +158,9 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeView, onSelectView }) =>
     },
   ];
 
-  const renderNavGroup = (items: NavItemConfig[]) => {
-    return items.map((item) => {
-      const isActive = activeView === item.key;
-      return (
-        <button
-          key={item.key}
-          className={`${styles.navItem} ${isActive ? styles.navItemActive : ""}`}
-          onClick={() => onSelectView(item.key)}
-        >
-          <div className={styles.itemLeft}>
-            <span className={styles.navIcon}>{item.icon}</span>
-            <span>{item.label}</span>
-          </div>
-          <span className={styles.shortcutBadge}>{item.shortcut}</span>
-        </button>
-      );
-    });
-  };
-
   return (
     <aside className={styles.sidebar}>
-      {/* Functional macOS Window Traffic Lights */}
+      {/* Functional Window Traffic Dots */}
       <div className={styles.trafficLights}>
         <button
           className={`${styles.trafficDot} ${styles.dotRed}`}
@@ -185,7 +168,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeView, onSelectView }) =>
           title="Close Window"
           aria-label="Close Window"
         >
-          <span className={styles.dotIcon}>✕</span>
+          <span className={styles.dotIcon}>x</span>
         </button>
         <button
           className={`${styles.trafficDot} ${styles.dotYellow}`}
@@ -193,7 +176,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeView, onSelectView }) =>
           title="Minimize Window"
           aria-label="Minimize Window"
         >
-          <span className={styles.dotIcon}>−</span>
+          <span className={styles.dotIcon}>-</span>
         </button>
         <button
           className={`${styles.trafficDot} ${styles.dotGreen}`}
@@ -205,28 +188,57 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeView, onSelectView }) =>
         </button>
       </div>
 
-      {/* Brand Header */}
+      {/* Restrained Brand Header (Section 6.1) */}
       <div className={styles.brand}>
         <div className={styles.brandIcon}>S</div>
         <div className={styles.brandTitle}>SCOF Operations</div>
       </div>
 
-      {/* Navigation Groups */}
+      {/* Primary Navigation: 7 Canonical Destinations (Section 5.1) */}
       <nav className={styles.nav}>
-        <div className={styles.sectionHeading}>Control Room</div>
-        {renderNavGroup(controlRoomItems)}
-
-        <div className={styles.sectionHeading}>Intelligence & Provenance</div>
-        {renderNavGroup(intelligenceItems)}
+        <div className={styles.sectionHeading}>Platform Workspaces</div>
+        {navigationItems.map((item) => {
+          const isActive = activeView === item.key;
+          return (
+            <button
+              key={item.key}
+              className={`${styles.navItem} ${isActive ? styles.navItemActive : ""}`}
+              onClick={() => onSelectView(item.key)}
+            >
+              <div className={styles.itemLeft}>
+                <span className={styles.navIcon}>{item.icon}</span>
+                <span>{item.label}</span>
+              </div>
+              <span className={styles.shortcutBadge}>{item.shortcut}</span>
+            </button>
+          );
+        })}
       </nav>
 
-      {/* macOS Minimal Footer */}
+      {/* Restrained Operations Footer (Section 6.1) */}
       <div className={styles.footer}>
-        <div className={styles.statusIndicator}>
-          <span className={styles.statusDot} />
-          <span>A2A Live</span>
+        <div className={styles.footerMeta}>
+          <div className={styles.statusIndicator}>
+            <span className={styles.statusDot} />
+            <span>A2A Protocol Live</span>
+          </div>
+          <span className={styles.profileBadge}>MVP-ELECTRONICS</span>
         </div>
-        <span className={styles.versionTag}>v1.0.0</span>
+
+        {onOpenSettings && (
+          <button
+            className={styles.settingsBtn}
+            onClick={onOpenSettings}
+            title="Settings & Diagnostics"
+            aria-label="Settings"
+          >
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="12" cy="12" r="3" />
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
+            </svg>
+            <span>Settings</span>
+          </button>
+        )}
       </div>
     </aside>
   );

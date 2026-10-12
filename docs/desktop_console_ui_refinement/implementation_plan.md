@@ -66,60 +66,57 @@ Every UI refinement phase must pass three automated verification gates:
 
 ## 3. Detailed Work Breakdown Structure
 
-### Phase U1: Shared Design Tokens, Reset & Material Foundation
+### Phase U1: Shared Design Tokens, Reset & Material Foundation (COMPLETED)
+- **Status**: Completed & Verified
 - **Target File**: `desktop/src/index.css`
 - **Scope & Objectives**:
-  1. Replace existing Apple frosted-blur variables with canonical tokens from Section 3.2 and 3.3 of `docs/desktop_console_ui_update.md`:
+  1. Replaced Apple frosted-blur variables with canonical tokens from Section 3.2 and 3.3 of `docs/desktop_console_ui_update.md`:
      - Surfaces: `--surface-canvas` (`#11161D`), `--surface-sidebar` (`#171D26`), `--surface-panel` (`#1B232E`), `--surface-raised` (`#222C39`), `--surface-subtle` (`#252F3C`).
      - Text: `--text-primary` (`#F2F5F8`), `--text-secondary` (`#AAB6C4`), `--text-muted` (`#8492A3`).
      - Borders: `--border-default` (`#303B49`), `--border-strong` (`#455264`).
      - Interactive: `--interactive-primary` (`#45A9F3`), `--interactive-hover` (`#1B354A`).
      - Status: `--status-success` (`#48C69A`), `--status-warning` (`#E9B45C`), `--status-critical` (`#F0747E`), `--status-info` (`#45A9F3`).
      - Brand accents: `--brand-navy` (`#0B2545`), `--brand-blue` (`#0E82D6`), `--brand-teal` (`#16A67E`), `--brand-slate` (`#CBD5E1`).
-  2. Normalize geometric corner radii:
+  2. Normalized geometric corner radii:
      - `--radius-sm`: `6px` (small controls, input fields, badges)
      - `--radius-md`: `9px` (standard cards, metric tiles)
      - `--radius-lg`: `12px` (inspector sheets, modal windows)
-     - Remove `--radius-full: 9999px` to prevent pill-shaped overuse.
-  3. Enforce 8px grid spacing scale: `--space-1` (`4px`), `--space-2` (`8px`), `--space-3` (`12px`), `--space-4` (`16px`), `--space-6` (`24px`), `--space-8` (`32px`), `--space-12` (`48px`).
-  4. Standardize typography:
+     - Removed `--radius-full: 9999px` to prevent pill-shaped overuse.
+  3. Enforced 8px grid spacing scale: `--space-1` (`4px`), `--space-2` (`8px`), `--space-3` (`12px`), `--space-4` (`16px`), `--space-6` (`24px`), `--space-8` (`32px`), `--space-12` (`48px`).
+  4. Standardized typography:
      - Set `font-variant-numeric: tabular-nums` across tables, metrics, and timestamps.
-     - Eliminate heavy letter-spacing and all-caps styling on general headings.
-  5. Remove all decorative blur filters and continuous animations.
+     - Eliminated heavy letter-spacing and all-caps styling on general headings.
+  5. Removed decorative blur filters and continuous animations.
+  6. Provided backward-compatible transitional aliases to maintain visual stability across all views.
 
 ---
 
-### Phase U2: Global Desktop Shell, Clean Sidebar, TopBar & Settings Dialog
+### Phase U2: Global Desktop Shell, Clean Sidebar, TopBar & Settings Dialog (COMPLETED)
+- **Status**: Completed & Verified
 - **Target Files**:
   - `desktop/src/components/layout/Sidebar.tsx` & `Sidebar.module.css`
   - `desktop/src/components/layout/TopBar.tsx` & `TopBar.module.css`
-  - `desktop/src/components/modals/SettingsModal.tsx` & `SettingsModal.module.css` (New)
+  - `desktop/src/components/modals/SettingsModal.tsx` & `SettingsModal.module.css`
+  - `desktop/src/components/modals/ShortcutsModal.tsx` & `ShortcutsModal.module.css`
   - `desktop/src/App.tsx` & `App.css`
 - **Scope & Objectives**:
   1. **Sidebar Navigation**:
-     - Replace saturated blue active block with subtle tint: `background: var(--surface-raised)` with thin `var(--brand-blue)` indicator bar and primary text weight.
-     - Establish the 7 canonical top-level navigation items:
-       1. Operations Overview (`Ctrl + 1`)
-       2. Decision Center (`Ctrl + 2`)
-       3. Scenario Launcher (`Ctrl + 3`)
-       4. Agent Command (`Ctrl + 4`)
-       5. What-If Simulation Lab (`Ctrl + 5`)
-       6. Reasoning Traces (`Ctrl + 6`)
-       7. Evaluation Matrix (`Ctrl + 7`)
-     - Clean grouping header ("Operations Workspace" & "Analytical Engine").
-     - Sidebar footer: Real connection status dot, compact profile tag (`MVP-ELECTRONICS`), and persistent **Settings** utility button.
-  2. **Page Header (TopBar)**:
-     - Display clean Page Title (24px, 600 weight) with one-line contextual subtext.
-     - Dedicated single primary contextual action area at top-right.
-     - Global status indicators: Backend connection (`Connected` / `Reconnecting` / `Offline`) derived from health check state, UTC clock with tabular numerals.
-     - Keyboard shortcuts HUD trigger (`?`).
-  3. **Settings Modal (`SettingsModal.tsx`)**:
-     - Create a persistent settings utility dialog with tabs:
-       - Appearance: Theme selection (Dark / Light / System).
-       - Connection Diagnostics: API endpoint health, WebSocket latency, service readiness.
-       - Active Profile: Metadata, topology node count, product line info.
-       - Keyboard Shortcuts: Reference table for platform navigation.
-       - About & Version: System version, build hash, engine release.
+     - Replaced saturated active state with calm surface highlight: `var(--surface-raised)` with thin `var(--brand-blue)` indicator bar and primary text weight.
+     - Implemented 7 canonical navigation items with keyboard hotkey chips (`Ctrl 1` to `Ctrl 7`).
+     - Replaced non-standard window traffic symbols with clean ASCII characters (`x`, `-`, `+`).
+     - Added clean operations footer with A2A protocol live indicator, `MVP-ELECTRONICS` domain badge, and Settings button.
+  2. **TopBar Header**:
+     - Removed frosted blur filter (`backdrop-filter: blur(20px)`), replacing with solid `--surface-canvas` and `--border-default`.
+     - Integrated dynamic view titles, active domain profile badge (`MVP-ELECTRONICS`), real health check connection status, and tabular numerals UTC clock.
+     - Retained shortcuts HUD trigger (`?`).
+  3. **Settings Dialog**:
+     - Created `SettingsModal.tsx` with tabs: Diagnostics (gateway, ports, brokers), Active Profile (Peninsular India electronics corridor specifications), Shortcuts, and Platform About.
+     - Wired up dialog state in `App.tsx` with `Esc` dismiss and backdrop click handler.
+  4. **Verification Gates Passed**:
+     - Tier 1: Health check OK (`http://localhost:8000/health`).
+     - Tier 2: Scenario Suite Verification (`scripts/verify_scenario_suite.py`) passed 100%.
+     - Tier 3: TypeScript and Vite build passed in 871ms with 0 errors.
+     - Zero-emoji scan: 0 flagged characters.
 
 ---
 
