@@ -63,7 +63,7 @@
 /* Workspace Grid */
 .workspaceGrid {
   display: grid;
-  grid-template-columns: 360px 1fr;
+  grid-template-columns: 380px 1fr;
   gap: var(--space-4);
   align-items: start;
   transition: grid-template-columns var(--transition-normal);
@@ -78,10 +78,10 @@
   background: var(--surface-panel);
   border: 1px solid var(--border-default);
   border-radius: var(--radius-lg);
-  padding: var(--space-5);
+  padding: var(--space-5, 20px);
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 16px;
   box-shadow: var(--shadow-sm);
 }
 
@@ -89,6 +89,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-default);
 }
 
 .configHeading {
@@ -209,7 +211,7 @@
   background: var(--surface-panel);
   border: 1px solid var(--border-default);
   border-radius: var(--radius-lg);
-  padding: var(--space-5);
+  padding: var(--space-5, 20px);
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -482,4 +484,10 @@
   color: var(--text-secondary);
   line-height: 1.45;
   margin: 0;
+}
+
+@media (max-width: 1024px) {
+  .workspaceGrid {
+    grid-template-columns: 1fr;
+  }
 }

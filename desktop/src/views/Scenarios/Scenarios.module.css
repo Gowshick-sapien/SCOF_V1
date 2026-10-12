@@ -1,7 +1,8 @@
 .workspaceWrapper {
   display: flex;
   width: 100%;
-  height: calc(100vh - var(--topbar-height));
+  height: 100%;
+  position: relative;
   overflow: hidden;
   background: var(--surface-canvas);
   user-select: none;
@@ -28,6 +29,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-shrink: 0;
 }
 
 .sectionTitle {
@@ -47,6 +49,7 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  flex-shrink: 0;
 }
 
 .filterTabs {
@@ -104,8 +107,12 @@
   background: var(--surface-panel);
   border: 1px solid var(--border-default);
   border-radius: var(--radius-lg);
-  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: auto;
+  flex: 1;
+  min-height: 220px;
   box-shadow: var(--shadow-sm);
+  overscroll-behavior: contain;
 }
 
 .scenarioTable {
@@ -124,6 +131,10 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.04em;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  white-space: nowrap;
 }
 
 .scenarioTable td {

@@ -51,6 +51,7 @@
   --space-2: 8px;              /* Tight control grouping */
   --space-3: 12px;             /* Compact component padding */
   --space-4: 16px;             /* Standard component padding */
+  --space-5: 20px;             /* Intermediate component and card padding */
   --space-6: 24px;             /* Section spacing */
   --space-8: 32px;             /* Major page grouping */
   --space-12: 48px;            /* Spacious separation */
