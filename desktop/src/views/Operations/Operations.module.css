@@ -1,12 +1,21 @@
-.container {
+.workspaceWrapper {
+  display: flex;
+  width: 100%;
+  height: calc(100vh - var(--topbar-height));
+  overflow: hidden;
+  background: var(--surface-canvas);
+  user-select: none;
+}
+
+.workspaceMain {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  overflow-y: auto;
   padding: var(--space-6);
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
-  height: calc(100vh - var(--topbar-height));
-  overflow-y: auto;
-  background: var(--surface-canvas);
-  user-select: none;
 }
 
 /* Operational KPI Grid */
@@ -14,6 +23,13 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 12px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 1100px) {
+  .metricsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 .metricCard {
@@ -74,13 +90,20 @@
   color: var(--text-secondary);
 }
 
-/* Main Grid: Left Topology Schematic + Right Side Inspector */
-.mainGrid {
+/* Container-Responsive Main Workspace Grids */
+.mainGridWide {
   display: grid;
-  grid-template-columns: 1.65fr 1.15fr;
+  grid-template-columns: minmax(560px, 1.85fr) minmax(320px, 1fr);
   gap: 14px;
   flex: 1;
-  min-height: 520px;
+  min-height: 480px;
+}
+
+.mainGridStacked {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  flex: 1;
 }
 
 /* Topology Section */
@@ -100,6 +123,12 @@
   justify-content: space-between;
 }
 
+.titleWithToggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 .sectionTitle {
   font-size: 13px;
   font-weight: 600;
@@ -115,6 +144,23 @@
   background: var(--surface-raised);
   color: var(--text-secondary);
   border: 1px solid var(--border-default);
+}
+
+.inspectorToggleBtn {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--interactive-primary);
+  background: rgba(14, 130, 214, 0.1);
+  border: 1px solid rgba(69, 169, 243, 0.3);
+  padding: 3px 10px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.inspectorToggleBtn:hover {
+  background: rgba(14, 130, 214, 0.18);
+  border-color: var(--interactive-primary);
 }
 
 /* Structured Legend */
@@ -170,100 +216,7 @@
   min-height: 420px;
 }
 
-/* Side Section */
-.sideSection {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-/* Entity Inspector Panel */
-.inspectorCard {
-  background: var(--surface-panel);
-  border: 1px solid var(--border-default);
-  border-radius: var(--radius-lg);
-  padding: var(--space-4);
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.inspectorHeader {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.inspectorTitle {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--text-primary);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.nodeTypeBadge {
-  font-size: 10px;
-  font-family: var(--font-mono);
-  font-weight: 600;
-  padding: 2px 6px;
-  border-radius: var(--radius-sm);
-  text-transform: uppercase;
-}
-
-.statusBadge {
-  font-size: 10px;
-  font-family: var(--font-mono);
-  font-weight: 600;
-  padding: 2px 7px;
-  border-radius: var(--radius-sm);
-  border: 1px solid transparent;
-}
-
-.statusNominal {
-  background: rgba(72, 198, 154, 0.12);
-  color: var(--status-success);
-  border-color: rgba(72, 198, 154, 0.25);
-}
-
-.statusElevated {
-  background: rgba(233, 180, 92, 0.12);
-  color: var(--status-warning);
-  border-color: rgba(233, 180, 92, 0.25);
-}
-
-.inspectorGrid {
-  display: grid;
-  grid-template-columns: 110px 1fr;
-  gap: 6px 12px;
-  padding: 10px;
-  background: var(--surface-raised);
-  border: 1px solid var(--border-default);
-  border-radius: var(--radius-sm);
-  font-size: 11px;
-}
-
-.inspectorLabel {
-  color: var(--text-muted);
-  font-weight: 500;
-}
-
-.inspectorValue {
-  color: var(--text-primary);
-  font-weight: 400;
-  font-variant-numeric: tabular-nums;
-  word-break: break-word;
-}
-
-.inspectorHint {
-  font-size: 10px;
-  color: var(--text-muted);
-  font-style: italic;
-  margin-top: 2px;
-}
-
-/* Alerts & Queue Card */
+/* Operational Alerts & Queue Card */
 .alertsCard {
   background: var(--surface-panel);
   border: 1px solid var(--border-default);
@@ -300,6 +253,7 @@
   align-items: center;
   font-size: 11px;
   font-weight: 600;
+  letter-spacing: 0.03em;
 }
 
 .alertHeaderSuccess {
@@ -311,7 +265,7 @@
 }
 
 .alertDescription {
-  font-size: 11px;
+  font-size: 12px;
   color: var(--text-secondary);
   line-height: 1.4;
 }
@@ -322,22 +276,33 @@
   flex-direction: column;
   gap: 8px;
   flex: 1;
-  overflow: hidden;
 }
 
 .decisionsHeader {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--text-primary);
+  align-items: center;
+  font-size: 11.5px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--border-subtle);
 }
 
 .decisionsCount {
-  font-size: 10px;
   font-family: var(--font-mono);
+  font-size: 10px;
   color: var(--text-muted);
+}
+
+.emptyState {
+  padding: 24px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-muted);
+  background: var(--surface-raised);
+  border-radius: var(--radius-sm);
+  border: 1px dashed var(--border-default);
 }
 
 .decisionList {
@@ -345,24 +310,25 @@
   flex-direction: column;
   gap: 8px;
   overflow-y: auto;
-  max-height: 190px;
+  max-height: 380px;
 }
 
 .decisionRow {
+  padding: 10px 12px;
   background: var(--surface-raised);
   border: 1px solid var(--border-default);
   border-radius: var(--radius-sm);
-  padding: 8px 10px;
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 6px;
   cursor: pointer;
-  transition: border-color var(--transition-fast), background-color var(--transition-fast);
+  transition: all var(--transition-fast);
 }
 
 .decisionRow:hover {
   background: var(--surface-subtle);
   border-color: var(--interactive-primary);
+  transform: translateY(-1px);
 }
 
 .decisionMeta {
@@ -372,56 +338,149 @@
 }
 
 .scenarioTag {
-  font-size: 11px;
   font-family: var(--font-mono);
+  font-size: 11px;
   font-weight: 600;
-  color: var(--interactive-primary);
+  color: var(--text-primary);
 }
 
 .tierTag {
-  font-size: 9.5px;
   font-family: var(--font-mono);
+  font-size: 9.5px;
   font-weight: 600;
-  padding: 2px 6px;
-  border-radius: var(--radius-sm);
-  text-transform: uppercase;
+  padding: 1px 6px;
+  border-radius: var(--radius-xs);
+  border: 1px solid transparent;
+}
+
+.tierEscalated {
+  background: rgba(240, 116, 126, 0.12);
+  color: var(--status-critical);
+  border-color: rgba(240, 116, 126, 0.3);
 }
 
 .tierFast {
   background: rgba(72, 198, 154, 0.12);
   color: var(--status-success);
-  border: 1px solid rgba(72, 198, 154, 0.25);
-}
-
-.tierEscalated {
-  background: rgba(233, 180, 92, 0.12);
-  color: var(--status-warning);
-  border: 1px solid rgba(233, 180, 92, 0.25);
+  border-color: rgba(72, 198, 154, 0.3);
 }
 
 .decisionRec {
-  font-size: 11.5px;
-  color: var(--text-secondary);
+  font-size: 12px;
+  color: var(--text-primary);
   line-height: 1.35;
+  font-weight: 400;
 }
 
 .decisionFooter {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 10px;
-  font-family: var(--font-mono);
+  font-size: 10.5px;
   color: var(--text-muted);
+  font-family: var(--font-mono);
 }
 
 .confidenceVal {
   color: var(--text-secondary);
-  font-variant-numeric: tabular-nums;
 }
 
-.emptyState {
-  padding: 16px;
-  text-align: center;
+/* Inspector Drawer Custom Content */
+.inspectorDrawerContent {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.inspectorDetailHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.facilityName {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.statusBadge {
+  font-size: 10px;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  padding: 2px 7px;
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+}
+
+.statusNominal {
+  background: rgba(72, 198, 154, 0.12);
+  color: var(--status-success);
+  border-color: rgba(72, 198, 154, 0.25);
+}
+
+.inspectorGrid {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 8px 12px;
+  padding: 12px;
+  background: var(--surface-raised);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-sm);
   font-size: 11px;
+}
+
+.inspectorLabel {
   color: var(--text-muted);
+  font-weight: 500;
+}
+
+.inspectorValue {
+  color: var(--text-primary);
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
+  word-break: break-word;
+}
+
+.inspectorCorridors {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.corridorHeading {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 4px;
+}
+
+.corridorList {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.corridorItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  color: var(--text-secondary);
+  padding: 6px 10px;
+  background: var(--surface-raised);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-xs);
+}
+
+.corridorDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--interactive-primary);
+  flex-shrink: 0;
 }
