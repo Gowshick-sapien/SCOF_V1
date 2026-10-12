@@ -1,75 +1,117 @@
 :root {
-  /* Apple HIG Dark Canvas & Surface Hierarchy */
-  --bg-primary: #0a0b0e;
-  --bg-surface: rgba(18, 20, 27, 0.78);
-  --bg-surface-hover: rgba(255, 255, 255, 0.05);
-  --bg-elevated: rgba(26, 29, 39, 0.75);
-  --bg-card: rgba(255, 255, 255, 0.032);
-  --bg-card-hover: rgba(255, 255, 255, 0.055);
-  --bg-sidebar: rgba(13, 15, 20, 0.82);
-  --bg-toolbar: rgba(15, 17, 23, 0.85);
+  /* ==========================================================================
+     SCOF Canonical Brand Palette (docs/desktop_console_ui_update.md Section 3.2)
+     ========================================================================== */
+  --brand-navy: #0B2545;       /* Primary identity, selected navigation emphasis */
+  --brand-blue: #0E82D6;       /* Interactive accent, focus, links, primary actions */
+  --brand-teal: #16A67E;       /* Positive resolution, resilience, verified healthy state */
+  --brand-slate: #CBD5E1;      /* Neutral supporting detail, dividers, inactive structure */
 
-  /* Apple Ultra-Thin Frosted Borders */
-  --border-subtle: rgba(255, 255, 255, 0.07);
-  --border-default: rgba(255, 255, 255, 0.12);
-  --border-focus: #0a84ff;
-  --border-active: rgba(10, 132, 255, 0.45);
+  /* ==========================================================================
+     Semantic Palette - Dark Theme Default (docs/desktop_console_ui_update.md Section 3.3)
+     ========================================================================== */
+  --surface-canvas: #11161D;   /* App workspace background */
+  --surface-sidebar: #171D26;  /* Sidebar / navigation region */
+  --surface-panel: #1B232E;    /* Cards, inspectors, sheets */
+  --surface-raised: #222C39;   /* Popovers, menus, raised surfaces */
+  --surface-subtle: #252F3C;   /* Quiet grouping and table headers */
 
-  /* Apple Typography Hierarchy */
-  --text-primary: #f5f5f7;
-  --text-secondary: #a1a1a6;
-  --text-muted: #6e6e73;
-  --text-inverse: #000000;
+  --text-primary: #F2F5F8;     /* Main content */
+  --text-secondary: #AAB6C4;   /* Supporting text */
+  --text-muted: #8492A3;       /* Timestamps, tertiary metadata */
+  --text-inverse: #11161D;     /* Dark text on bright badge */
 
-  /* Official Apple HIG System Accents */
-  --apple-blue: #0a84ff;
-  --apple-cyan: #64d2ff;
-  --apple-green: #30d158;
-  --apple-orange: #ff9f0a;
-  --apple-red: #ff453a;
-  --apple-purple: #bf5af2;
-  --apple-indigo: #5e5ce6;
+  --border-default: #303B49;   /* Panel boundaries and separators */
+  --border-strong: #455264;    /* Emphasized boundaries */
+  --border-subtle: #252F3C;    /* Subtle interior dividers */
 
-  /* Aliases for backward compatibility */
-  --accent-cyan: #0a84ff;
-  --accent-blue: #0a84ff;
-  --accent-green: #30d158;
-  --accent-amber: #ff9f0a;
-  --accent-red: #ff453a;
-  --accent-purple: #bf5af2;
+  --interactive-primary: #45A9F3; /* Links, primary button, focus */
+  --interactive-hover: #1B354A;   /* Hover surface */
 
-  --status-healthy: #30d158;
-  --status-warning: #ff9f0a;
-  --status-critical: #ff453a;
-  --status-offline: #6e6e73;
+  --status-success: #48C69A;   /* Completed / healthy / verified */
+  --status-warning: #E9B45C;   /* Caution / needs attention */
+  --status-critical: #F0747E;  /* Critical risk / failed / blocked */
+  --status-info: #45A9F3;      /* Informational / in progress */
+  --status-offline: #8492A3;   /* Disconnected / inactive */
 
-  /* macOS Soft Ambient Shadows */
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.2);
-  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.24);
-  --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.35);
-  --shadow-xl: 0 20px 48px rgba(0, 0, 0, 0.5);
+  /* ==========================================================================
+     Controlled Corner Radii Hierarchy (docs/desktop_console_ui_update.md Section 4.2)
+     ========================================================================== */
+  --radius-xs: 4px;            /* Micro badges */
+  --radius-sm: 6px;            /* Small controls, inputs, chips, buttons */
+  --radius-md: 9px;            /* Standard cards, metric tiles, table cards */
+  --radius-lg: 12px;           /* Large sheets, modal dialogues, inspectors */
+  --radius-xl: 14px;           /* Outer windows */
+  --radius-full: 9px;          /* Normalized from 9999px to prevent pill overuse */
 
-  /* Apple Typography Stack */
-  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", sans-serif;
+  /* ==========================================================================
+     8px Base Spacing Grid (docs/desktop_console_ui_update.md Section 4.4)
+     ========================================================================== */
+  --space-1: 4px;              /* Micro-spacing between icon and text */
+  --space-2: 8px;              /* Tight control grouping */
+  --space-3: 12px;             /* Compact component padding */
+  --space-4: 16px;             /* Standard component padding */
+  --space-6: 24px;             /* Section spacing */
+  --space-8: 32px;             /* Major page grouping */
+  --space-12: 48px;            /* Spacious separation */
+
+  /* ==========================================================================
+     Typography & Layout Scale (docs/desktop_console_ui_update.md Section 4.3)
+     ========================================================================== */
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-mono: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
 
-  /* Apple Geometric Corner Radii */
-  --radius-xs: 4px;
-  --radius-sm: 6px;
-  --radius-md: 10px;
-  --radius-lg: 14px;
-  --radius-xl: 18px;
-  --radius-full: 9999px;
-
-  /* Layout Constants */
   --sidebar-width: 250px;
   --topbar-height: 52px;
 
-  /* Apple Transitions */
-  --transition-fast: 0.12s cubic-bezier(0.16, 1, 0.3, 1);
-  --transition-normal: 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  /* ==========================================================================
+     Restrained Elevation & Subtle Shadows (Section 4.2)
+     ========================================================================== */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.25);
+  --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 6px 20px rgba(0, 0, 0, 0.45);
+  --shadow-xl: 0 12px 32px rgba(0, 0, 0, 0.55);
+
+  /* ==========================================================================
+     Transition Timing (Section 4.6: 120-200ms)
+     ========================================================================== */
+  --transition-fast: 120ms ease-out;
+  --transition-normal: 180ms ease-out;
+
+  /* ==========================================================================
+     Transitional Aliases for Existing Views (Preserves Core Rendering)
+     ========================================================================== */
+  --bg-primary: var(--surface-canvas);
+  --bg-surface: var(--surface-panel);
+  --bg-surface-hover: var(--surface-subtle);
+  --bg-elevated: var(--surface-raised);
+  --bg-card: var(--surface-panel);
+  --bg-card-hover: var(--surface-subtle);
+  --bg-sidebar: var(--surface-sidebar);
+  --bg-toolbar: var(--surface-canvas);
+
+  --border-focus: var(--interactive-primary);
+  --border-active: var(--border-strong);
+
+  --apple-blue: var(--brand-blue);
+  --apple-cyan: var(--interactive-primary);
+  --apple-green: var(--status-success);
+  --apple-orange: var(--status-warning);
+  --apple-red: var(--status-critical);
+  --apple-purple: #af52de;
+  --apple-indigo: #5e5ce6;
+
+  --accent-cyan: var(--interactive-primary);
+  --accent-blue: var(--brand-blue);
+  --accent-green: var(--status-success);
+  --accent-amber: var(--status-warning);
+  --accent-red: var(--status-critical);
+  --accent-purple: #af52de;
+
+  --status-healthy: var(--status-success);
 }
 
+/* Base Reset & Typography */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -78,16 +120,17 @@
 
 body {
   font-family: var(--font-sans);
-  background-color: var(--bg-primary);
+  background-color: var(--surface-canvas);
   color: var(--text-primary);
   overflow: hidden;
   user-select: none;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  letter-spacing: -0.011em;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.006em;
 }
 
-/* macOS Minimal Auto-Hiding Scrollbars */
+/* Minimal Discrete Scrollbars */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -98,12 +141,12 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.16);
-  border-radius: var(--radius-full);
+  background: var(--border-default);
+  border-radius: var(--radius-sm);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.28);
+  background: var(--border-strong);
 }
 
 button {
@@ -112,60 +155,60 @@ button {
   border: none;
   outline: none;
   background: transparent;
-  transition: all var(--transition-fast);
+  transition: background var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
 }
 
 input, textarea {
   font-family: inherit;
   outline: none;
-  border: 1px solid var(--border-subtle);
-  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-default);
+  background: var(--surface-raised);
   color: var(--text-primary);
-  border-radius: var(--radius-md);
-  transition: all var(--transition-fast);
+  border-radius: var(--radius-sm);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
 }
 
 input:focus, textarea:focus {
-  border-color: var(--border-focus);
-  box-shadow: 0 0 0 3px rgba(10, 132, 255, 0.25);
+  border-color: var(--interactive-primary);
+  box-shadow: 0 0 0 2px rgba(69, 169, 243, 0.2);
 }
 
-/* Global Dark macOS Dropdown & Option Styling */
+/* Restrained Enterprise Select Elements */
 select {
   font-family: inherit;
   outline: none;
-  background-color: #161922 !important;
-  color: #f5f5f7 !important;
+  background-color: var(--surface-raised) !important;
+  color: var(--text-primary) !important;
   border: 1px solid var(--border-default) !important;
-  border-radius: var(--radius-md) !important;
+  border-radius: var(--radius-sm) !important;
   padding: 8px 30px 8px 12px !important;
   font-size: 12px !important;
   appearance: none !important;
   -webkit-appearance: none !important;
   -moz-appearance: none !important;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23a1a1a6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238492A3' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") !important;
   background-repeat: no-repeat !important;
   background-position: right 10px center !important;
   background-size: 12px !important;
   cursor: pointer !important;
-  transition: all var(--transition-fast);
+  transition: border-color var(--transition-fast);
 }
 
 select:focus {
-  border-color: var(--apple-blue) !important;
-  box-shadow: 0 0 0 3px rgba(10, 132, 255, 0.25) !important;
+  border-color: var(--interactive-primary) !important;
+  box-shadow: 0 0 0 2px rgba(69, 169, 243, 0.2) !important;
 }
 
 select option, optgroup {
-  background-color: #1a1d26 !important;
-  color: #f5f5f7 !important;
-  padding: 10px 12px !important;
+  background-color: var(--surface-panel) !important;
+  color: var(--text-primary) !important;
+  padding: 8px 12px !important;
   font-size: 12px !important;
 }
 
 select option:hover,
 select option:focus,
 select option:checked {
-  background-color: #0a84ff !important;
+  background-color: var(--brand-blue) !important;
   color: #ffffff !important;
 }
