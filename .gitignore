@@ -44,4 +44,5 @@ target/
 **/src-tauri/target/
 **/gen/schemas/
 
-desktop/
+datasets/
+archive/
