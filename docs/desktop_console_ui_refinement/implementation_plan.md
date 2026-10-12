@@ -152,23 +152,29 @@ Every UI refinement phase must pass three automated verification gates:
 
 ---
 
-### Phase U4: Decision Center & Scenario Launcher
+### Phase U4: Decision Center & Scenario Launcher (COMPLETED)
+- **Status**: Completed & Verified
 - **Target Files**:
   - `desktop/src/views/DecisionCenter/DecisionCenterView.tsx` & `DecisionCenter.module.css`
   - `desktop/src/views/Scenarios/ScenariosView.tsx` & `Scenarios.module.css`
 - **Scope & Objectives**:
   1. **Decision Center Refinement**:
-     - Queue List: Display priority, scenario ID, confidence score (WCS), lifecycle status, and elapsed age.
-     - Implement explicit lifecycle status badges: `Proposed`, `Under review`, `Approved`, `Authorized`, `Executing`, `Completed`, `Rejected`, `Blocked`, `Failed`.
-     - Decision Inspector Pane:
-       - Operational Issue Summary.
-       - Recommended Action & Quantified Trade-Offs (Cost variance in INR, lead time impact).
-       - Specialist Agreement & Deliberation Claims (CD2F consensus breakdown).
-       - Policy Constraints & Trace Audit Links.
+     - Standardized Decision Stream queue on `--surface-panel` with tabular WCS confidence badges and explicit lifecycle tags (`COMPLETED` / `ESCALATED`).
+     - Detail Inspector featuring meta key-value grid (Lifecycle Status, Escalation Tier, Consensus Stability, Decision Method).
+     - Arbitrated consensus recommendation panel highlighted with 3px `var(--brand-blue)` accent bar.
+     - Chronological specialist deliberation log showing speaker names, statement classification chips (`PROPOSAL`, `OBJECTION`, `CONCESSION`, `CONSENSUS`), and tabular UTC timestamps.
+     - Preserved direct navigation to Reasoning Traces via `Explore Reasoning Trace` action button.
   2. **Scenario Launcher Modernization**:
-     - Maintain the full 25-scenario catalog with categorized segment filters (`All`, `Supplier`, `Demand`, `Transport`, `Weather & Systemic`).
-     - Replace slider gimmicks with precise numeric input fields and bounded unit steppers.
-     - Summary review card detailing affected topology node, shock parameters, and duration before dispatching.
+     - Preserved all 25 production scenarios with live API reconciliation and default fallback suite.
+     - Dynamic category tabs computing live counts across `All (25)`, `Supplier (8)`, `Demand (5)`, `Transport (9)`, and `Weather & Systemic (3)`.
+     - Replaced range sliders with precise 5-point segmented severity steppers accompanied by explicit operational risk descriptions.
+     - Added pre-dispatch summary review card outlining Scenario ID, Target Entity, Intensity, and Kafka bus routing.
+     - Integrated clear trigger confirmation panel with Event ID, Trace ID, and status feedback.
+  3. **Verification Gates Passed**:
+     - Tier 1: Health check OK (`http://localhost:8000/health`).
+     - Tier 2: Scenario Suite Verification (`scripts/verify_scenario_suite.py`) passed 100%.
+     - Tier 3: Vite and TypeScript build compiled in 893ms with 0 errors.
+     - Zero-emoji scan: 0 flagged characters.
 
 ---
 

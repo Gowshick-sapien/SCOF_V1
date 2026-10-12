@@ -43,7 +43,7 @@ export const DecisionCenterView: React.FC<DecisionCenterViewProps> = ({
     }
   }, [selectedDecisionId]);
 
-  // Merge live decisions
+  // Merge live decisions from event bus
   const allDecisions = [...decisions];
   liveEvents.forEach((ev) => {
     if (ev.type === "completed" && ev.payload.decision_record) {
@@ -56,9 +56,16 @@ export const DecisionCenterView: React.FC<DecisionCenterViewProps> = ({
 
   const activeDecision = allDecisions.find((d) => d.decision_id === activeId) || allDecisions[0];
 
+  const getLifecycleStatus = (dec: DecisionRecord) => {
+    if (dec.escalation_tier === "HUMAN_ESCALATION") {
+      return { label: "ESCALATED", styleClass: styles.statusEscalated };
+    }
+    return { label: "COMPLETED", styleClass: styles.statusCompleted };
+  };
+
   return (
     <div className={styles.container}>
-      {/* Left Column: Decision Feed */}
+      {/* Master Decision Stream (Left Column) */}
       <div className={styles.leftColumn}>
         <div className={styles.columnHeader}>
           <span className={styles.columnTitle}>Decisions Stream</span>
@@ -73,6 +80,11 @@ export const DecisionCenterView: React.FC<DecisionCenterViewProps> = ({
           ) : (
             allDecisions.map((dec) => {
               const isSelected = dec.decision_id === activeDecision?.decision_id;
+              const lifecycle = getLifecycleStatus(dec);
+              const formattedTime = new Date(dec.timestamp)
+                .toISOString()
+                .substring(11, 19) + " UTC";
+
               return (
                 <div
                   key={dec.decision_id}
@@ -81,16 +93,29 @@ export const DecisionCenterView: React.FC<DecisionCenterViewProps> = ({
                 >
                   <div className={styles.feedCardHeader}>
                     <span className={styles.scenarioTag}>{dec.scenario_id}</span>
-                    <span className={styles.confidenceBadge}>
-                      {(dec.decision_confidence * 100).toFixed(1)}% WCS
-                    </span>
+                    <div className={styles.headerBadges}>
+                      <span className={`${styles.statusTag} ${lifecycle.styleClass}`}>
+                        {lifecycle.label}
+                      </span>
+                      <span className={styles.confidenceBadge}>
+                        {(dec.decision_confidence * 100).toFixed(1)}% WCS
+                      </span>
+                    </div>
                   </div>
                   <div className={styles.recommendationSnippet}>
-                    {dec.final_recommendation || "No recommendation"}
+                    {dec.final_recommendation || "Consensus action recommended"}
                   </div>
                   <div className={styles.feedCardFooter}>
-                    <span>{dec.escalation_tier}</span>
-                    <span>{new Date(dec.timestamp).toLocaleTimeString()}</span>
+                    <span
+                      className={`${styles.tierTag} ${
+                        dec.escalation_tier === "HUMAN_ESCALATION"
+                          ? styles.tierHuman
+                          : styles.tierFast
+                      }`}
+                    >
+                      {dec.escalation_tier}
+                    </span>
+                    <span>{formattedTime}</span>
                   </div>
                 </div>
               );
@@ -99,10 +124,10 @@ export const DecisionCenterView: React.FC<DecisionCenterViewProps> = ({
         </div>
       </div>
 
-      {/* Right Column: Selected Decision Detail Inspection */}
+      {/* Selected Decision Detail Inspection (Right Column) */}
       <div className={styles.detailColumn}>
         {!activeDecision ? (
-          <div className={styles.emptyState}>Select a decision from the feed to view details.</div>
+          <div className={styles.emptyState}>Select a decision from the stream to view details.</div>
         ) : (
           <>
             <div className={styles.detailHeader}>
@@ -111,7 +136,9 @@ export const DecisionCenterView: React.FC<DecisionCenterViewProps> = ({
                   <h3 className={styles.detailTitle}>
                     Scenario: {activeDecision.scenario_id.toUpperCase()}
                   </h3>
-                  <span className={styles.decisionIdTag}>ID: {activeDecision.decision_id}</span>
+                  <span className={styles.decisionIdTag}>
+                    ID: {activeDecision.decision_id}
+                  </span>
                 </div>
                 {onOpenTrace && (
                   <button
@@ -125,13 +152,22 @@ export const DecisionCenterView: React.FC<DecisionCenterViewProps> = ({
 
               <div className={styles.metaGrid}>
                 <div className={styles.metaItem}>
+                  <span className={styles.metaLabel}>Lifecycle Status</span>
+                  <span className={styles.metaValue}>
+                    {activeDecision.escalation_tier === "HUMAN_ESCALATION"
+                      ? "Escalated"
+                      : "Completed"}
+                  </span>
+                </div>
+                <div className={styles.metaItem}>
                   <span className={styles.metaLabel}>Escalation Tier</span>
                   <span className={styles.metaValue}>{activeDecision.escalation_tier}</span>
                 </div>
                 <div className={styles.metaItem}>
                   <span className={styles.metaLabel}>Consensus Stability</span>
                   <span className={styles.metaValue}>
-                    {activeDecision.weighted_consensus_stability !== null && activeDecision.weighted_consensus_stability !== undefined
+                    {activeDecision.weighted_consensus_stability !== null &&
+                    activeDecision.weighted_consensus_stability !== undefined
                       ? `${(activeDecision.weighted_consensus_stability * 100).toFixed(1)}%`
                       : `${(activeDecision.decision_confidence * 100).toFixed(1)}%`}
                   </span>
@@ -140,14 +176,10 @@ export const DecisionCenterView: React.FC<DecisionCenterViewProps> = ({
                   <span className={styles.metaLabel}>Decision Method</span>
                   <span className={styles.metaValue}>{activeDecision.decision_method || "CD2F"}</span>
                 </div>
-                <div className={styles.metaItem}>
-                  <span className={styles.metaLabel}>Profile Scope</span>
-                  <span className={styles.metaValue}>{activeDecision.profile_name || "mvp-electronics"}</span>
-                </div>
               </div>
             </div>
 
-            {/* Winning Recommendation Banner */}
+            {/* Arbitrated Consensus Recommendation Panel */}
             <div className={styles.winningBanner}>
               <span className={styles.winningLabel}>Arbitrated Consensus Recommendation</span>
               <p className={styles.winningText}>
@@ -155,22 +187,25 @@ export const DecisionCenterView: React.FC<DecisionCenterViewProps> = ({
               </p>
             </div>
 
-            {/* AI Meeting Log Timeline */}
+            {/* Specialist Meeting Log Deliberation */}
             <div className={styles.section}>
-              <span className={styles.sectionTitle}>AI Meeting Log & Specialist Statements</span>
+              <span className={styles.sectionTitle}>Deliberation Record & Specialist Claims</span>
               <div className={styles.meetingLogTimeline}>
                 {activeDecision.meeting_log_entries && activeDecision.meeting_log_entries.length > 0 ? (
-                  activeDecision.meeting_log_entries.map((entry: MeetingLogEntry, idx: number) => (
-                    <div key={idx} className={styles.logEntry}>
-                      <div className={styles.logSpeaker}>
-                        <span>{entry.speaker} ({entry.statement_type})</span>
-                        <span className={styles.logTime}>
-                          {new Date(entry.timestamp).toLocaleTimeString()}
-                        </span>
+                  activeDecision.meeting_log_entries.map((entry: MeetingLogEntry, idx: number) => {
+                    const entryTime = new Date(entry.timestamp)
+                      .toISOString()
+                      .substring(11, 19) + " UTC";
+                    return (
+                      <div key={idx} className={styles.logEntry}>
+                        <div className={styles.logSpeaker}>
+                          <span>{entry.speaker} ({entry.statement_type})</span>
+                          <span className={styles.logTime}>{entryTime}</span>
+                        </div>
+                        <div className={styles.logContent}>{entry.content}</div>
                       </div>
-                      <div className={styles.logContent}>{entry.content}</div>
-                    </div>
-                  ))
+                    );
+                  })
                 ) : (
                   <div className={styles.emptyState}>No meeting log entries available for this record.</div>
                 )}

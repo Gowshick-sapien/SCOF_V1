@@ -44,6 +44,14 @@ const TARGET_ENTITY_OPTIONS = [
   { value: "global", label: "global (South Indian Multi-Tier Supply Network)" },
 ];
 
+const SEVERITY_DESCRIPTIONS: Record<number, string> = {
+  1: "Level 1: Nominal baseline operating conditions",
+  2: "Level 2: Minor operational schedule variance",
+  3: "Level 3: Moderate tier-1 delivery or demand deviation",
+  4: "Level 4: Acute localized disruption requiring CD2F arbitration",
+  5: "Level 5: Critical corridor or plant shutdown / severe shock",
+};
+
 const DEFAULT_SCENARIOS: ScenarioItem[] = [
   {
     scenario_id: "scen-01",
@@ -298,6 +306,7 @@ export const ScenariosView: React.FC = () => {
       .catch(() => {
         // Fall back to predefined defaults
       });
+
     return () => {
       mounted = false;
     };
@@ -336,12 +345,39 @@ export const ScenariosView: React.FC = () => {
     }
   };
 
+  const supplierCount = useMemo(
+    () => scenarios.filter((s) => s.disruption_type === "supplier_delay").length,
+    [scenarios]
+  );
+  const demandCount = useMemo(
+    () => scenarios.filter((s) => s.disruption_type === "demand_spike").length,
+    [scenarios]
+  );
+  const transportCount = useMemo(
+    () => scenarios.filter((s) => s.disruption_type === "transport_failure").length,
+    [scenarios]
+  );
+  const weatherCount = useMemo(
+    () =>
+      scenarios.filter(
+        (s) =>
+          ["adverse_weather", "none"].includes(s.disruption_type) ||
+          s.scenario_id === "scen-25"
+      ).length,
+    [scenarios]
+  );
+
   const filteredScenarios = useMemo(() => {
     return scenarios.filter((scen) => {
       if (selectedCategory === "supplier" && scen.disruption_type !== "supplier_delay") return false;
       if (selectedCategory === "demand" && scen.disruption_type !== "demand_spike") return false;
       if (selectedCategory === "transport" && scen.disruption_type !== "transport_failure") return false;
-      if (selectedCategory === "weather_systemic" && !["adverse_weather", "none"].includes(scen.disruption_type) && scen.scenario_id !== "scen-25") return false;
+      if (
+        selectedCategory === "weather_systemic" &&
+        !["adverse_weather", "none"].includes(scen.disruption_type) &&
+        scen.scenario_id !== "scen-25"
+      )
+        return false;
 
       if (searchQuery.trim()) {
         const q = searchQuery.toLowerCase();
@@ -357,10 +393,10 @@ export const ScenariosView: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      {/* Left Column: Scenario Catalog */}
+      {/* Scenario Catalog (Left Column) */}
       <div className={styles.libraryColumn}>
         <div className={styles.sectionHeader}>
-          <span className={styles.sectionTitle}>Scenario Library</span>
+          <span className={styles.sectionTitle}>Scenario Catalog</span>
           <span style={{ fontSize: "11px", color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}>
             {filteredScenarios.length} OF {scenarios.length} SCENARIOS DISPLAYED
           </span>
@@ -379,31 +415,31 @@ export const ScenariosView: React.FC = () => {
               className={`${styles.tabBtn} ${selectedCategory === "supplier" ? styles.tabBtnActive : ""}`}
               onClick={() => setSelectedCategory("supplier")}
             >
-              Supplier (8)
+              Supplier ({supplierCount})
             </button>
             <button
               className={`${styles.tabBtn} ${selectedCategory === "demand" ? styles.tabBtnActive : ""}`}
               onClick={() => setSelectedCategory("demand")}
             >
-              Demand (5)
+              Demand ({demandCount})
             </button>
             <button
               className={`${styles.tabBtn} ${selectedCategory === "transport" ? styles.tabBtnActive : ""}`}
               onClick={() => setSelectedCategory("transport")}
             >
-              Transport (9)
+              Transport ({transportCount})
             </button>
             <button
               className={`${styles.tabBtn} ${selectedCategory === "weather_systemic" ? styles.tabBtnActive : ""}`}
               onClick={() => setSelectedCategory("weather_systemic")}
             >
-              Weather & Systemic (3)
+              Weather & Systemic ({weatherCount})
             </button>
           </div>
           <input
             type="text"
             className={styles.searchInput}
-            placeholder="Search scenarios..."
+            placeholder="Search scenarios by ID, name, facility, or description..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
@@ -447,7 +483,7 @@ export const ScenariosView: React.FC = () => {
                     <td>
                       <span className={styles.disruptionTag}>{scen.disruption_type}</span>
                     </td>
-                    <td style={{ fontFamily: "var(--font-mono)", fontSize: "12px" }}>
+                    <td style={{ fontFamily: "var(--font-mono)", fontSize: "11.5px" }}>
                       {scen.target_entity}
                     </td>
                     <td style={{ fontFamily: "var(--font-mono)" }} className={severityClass}>
@@ -478,14 +514,14 @@ export const ScenariosView: React.FC = () => {
         </div>
       </div>
 
-      {/* Right Column: Scenario Trigger Launcher */}
+      {/* Launcher Parameter Form (Right Column) */}
       <div className={styles.launcherColumn}>
         <div className={styles.formCard}>
-          <div className={styles.sectionHeader} style={{ padding: 0, border: "none" }}>
-            <span className={styles.sectionTitle}>Disruption Trigger Launcher</span>
+          <div className={styles.sectionHeader} style={{ padding: 0, border: "none", background: "transparent" }}>
+            <span className={styles.sectionTitle}>Disruption Trigger Configuration</span>
           </div>
 
-          {/* Scenario Selector */}
+          {/* Active Scenario Selector */}
           <div className={styles.formGroup}>
             <label className={styles.label}>Active Scenario</label>
             <select
@@ -524,7 +560,7 @@ export const ScenariosView: React.FC = () => {
 
           {/* Target Node Selector */}
           <div className={styles.formGroup}>
-            <label className={styles.label}>Target Node</label>
+            <label className={styles.label}>Target Node / Corridor</label>
             <select
               className={styles.select}
               value={customTarget}
@@ -538,19 +574,43 @@ export const ScenariosView: React.FC = () => {
             </select>
           </div>
 
-          {/* Severity Level Slider */}
+          {/* Precise Segmented Severity Stepper */}
           <div className={styles.formGroup}>
-            <label className={styles.label}>Severity Level</label>
-            <div className={styles.sliderRow}>
-              <input
-                type="range"
-                min="1"
-                max="5"
-                value={severity}
-                onChange={(e) => setSeverity(Number(e.target.value))}
-                className={styles.slider}
-              />
-              <span className={styles.sliderValue}>{severity} / 5</span>
+            <label className={styles.label}>Severity Level (1 to 5)</label>
+            <div className={styles.severitySegmented}>
+              {[1, 2, 3, 4, 5].map((lvl) => (
+                <button
+                  key={lvl}
+                  type="button"
+                  className={`${styles.severityBtn} ${severity === lvl ? styles.severityBtnActive : ""}`}
+                  onClick={() => setSeverity(lvl)}
+                >
+                  {lvl}
+                </button>
+              ))}
+            </div>
+            <div className={styles.severityDescription}>
+              {SEVERITY_DESCRIPTIONS[severity]}
+            </div>
+          </div>
+
+          {/* Summary Review Card */}
+          <div className={styles.summaryCard}>
+            <div className={styles.summaryRow}>
+              <span className={styles.summaryLabel}>Scenario ID</span>
+              <span className={styles.summaryValue}>{selectedScenario.scenario_id}</span>
+            </div>
+            <div className={styles.summaryRow}>
+              <span className={styles.summaryLabel}>Target Entity</span>
+              <span className={styles.summaryValue}>{customTarget}</span>
+            </div>
+            <div className={styles.summaryRow}>
+              <span className={styles.summaryLabel}>Shock Intensity</span>
+              <span className={styles.summaryValue}>Level {severity} / 5</span>
+            </div>
+            <div className={styles.summaryRow}>
+              <span className={styles.summaryLabel}>Routing Bus</span>
+              <span className={styles.summaryValue}>Kafka :9092 (disruptions.triggered)</span>
             </div>
           </div>
 
@@ -562,7 +622,7 @@ export const ScenariosView: React.FC = () => {
           >
             {isTriggering
               ? "Publishing Disruption to Kafka Bus..."
-              : `Trigger Disruption: [${selectedScenario.scenario_id.toUpperCase()}] ${selectedScenario.name}`}
+              : `Trigger Disruption: [${selectedScenario.scenario_id.toUpperCase()}]`}
           </button>
         </div>
 
@@ -576,7 +636,7 @@ export const ScenariosView: React.FC = () => {
               <span className={styles.statusItem}>Trace ID: {triggerResult.trace_id}</span>
             )}
             {triggerResult.status && (
-              <span className={styles.statusItem} style={{ color: "var(--accent-cyan)", fontWeight: "bold" }}>
+              <span className={styles.statusItem} style={{ color: "var(--brand-teal)", fontWeight: "600" }}>
                 Status: {triggerResult.status}
               </span>
             )}
