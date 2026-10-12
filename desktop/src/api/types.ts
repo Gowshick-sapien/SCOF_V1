@@ -108,6 +108,11 @@ export interface WhatIfRunResponse {
   whatif_id: string;
   trace_id: string;
   status: string;
+  stockout_risk_delta?: string;
+  lead_time_impact?: string;
+  cost_variance?: string;
+  recommendation?: string;
+  consensus_status?: string;
 }
 
 export interface WhatIfResult {

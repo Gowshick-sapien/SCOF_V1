@@ -117,8 +117,13 @@ export const ApiClient = {
     const body = typeof requestOrScenario === "string" 
       ? { scenario_id: requestOrScenario, severity_override: severityOverride }
       : { 
+          base_scenario_id: requestOrScenario.base_scenario_id || requestOrScenario.scenario_id,
           scenario_id: requestOrScenario.base_scenario_id || requestOrScenario.scenario_id,
-          severity_override: requestOrScenario.overrides?.severity || severityOverride
+          disruption_type: requestOrScenario.overrides?.disruption_type,
+          target_entity: requestOrScenario.overrides?.target_entity,
+          severity: requestOrScenario.overrides?.severity || severityOverride,
+          severity_override: requestOrScenario.overrides?.severity || severityOverride,
+          overrides: requestOrScenario.overrides,
         };
     return fetchApi<WhatIfRunResponse>("/whatif/run", {
       method: "POST",
