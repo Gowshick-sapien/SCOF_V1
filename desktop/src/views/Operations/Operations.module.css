@@ -1,97 +1,97 @@
 .container {
-  padding: 24px;
+  padding: var(--space-6);
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: var(--space-4);
   height: calc(100vh - var(--topbar-height));
   overflow-y: auto;
+  background: var(--surface-canvas);
   user-select: none;
 }
 
-/* macOS Widget Grid */
+/* Operational KPI Grid */
 .metricsGrid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 14px;
+  gap: 12px;
 }
 
 .metricCard {
-  background: var(--bg-card);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-lg);
-  padding: 18px 20px;
+  background: var(--surface-panel);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  box-shadow: var(--shadow-sm);
-  transition: all var(--transition-normal);
+  gap: 8px;
+  transition: border-color var(--transition-fast);
 }
 
 .metricCard:hover {
-  background: var(--bg-card-hover);
-  border-color: var(--border-default);
-  transform: translateY(-1px);
+  border-color: var(--border-strong);
+}
+
+.metricHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .metricLabel {
   font-size: 11px;
   font-weight: 500;
-  color: var(--text-muted);
-  letter-spacing: 0.02em;
-}
-
-.metricValueRow {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
 .metricValue {
-  font-size: 28px;
+  font-size: 26px;
   font-weight: 600;
-  font-family: var(--font-sans);
   color: var(--text-primary);
-  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.15;
 }
 
-.metricSubtext {
+.metricBenchmark {
   font-size: 11px;
-  color: var(--apple-green);
-  font-weight: 500;
+  font-weight: 400;
+  color: var(--text-muted);
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
 }
 
-.metricSubtextWarning {
-  color: var(--apple-orange);
+.metricBenchmarkSuccess {
+  color: var(--status-success);
 }
 
-.metricSubtextCritical {
-  color: var(--apple-red);
+.metricBenchmarkWarning {
+  color: var(--status-warning);
 }
 
+.metricBenchmarkNeutral {
+  color: var(--text-secondary);
+}
+
+/* Main Grid: Left Topology Schematic + Right Side Inspector */
 .mainGrid {
   display: grid;
-  grid-template-columns: 2fr 1.15fr;
-  gap: 16px;
+  grid-template-columns: 1.65fr 1.15fr;
+  gap: 14px;
   flex: 1;
-  min-height: 480px;
+  min-height: 520px;
 }
 
-/* Apple Maps Dark Topology Section */
+/* Topology Section */
 .topologySection {
-  background: var(--bg-card);
-  backdrop-filter: blur(20px);
-  border: 1px solid var(--border-subtle);
+  background: var(--surface-panel);
+  border: 1px solid var(--border-default);
   border-radius: var(--radius-lg);
-  padding: 18px 20px;
+  padding: var(--space-4);
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  box-shadow: var(--shadow-sm);
+  gap: 12px;
 }
 
 .sectionHeader {
@@ -104,91 +104,240 @@
   font-size: 13px;
   font-weight: 600;
   color: var(--text-primary);
-  letter-spacing: -0.01em;
 }
 
 .sectionBadge {
   font-size: 10px;
-  padding: 3px 8px;
-  border-radius: var(--radius-full);
-  background: rgba(255, 255, 255, 0.05);
-  color: var(--text-secondary);
   font-family: var(--font-mono);
-  border: 1px solid var(--border-subtle);
+  font-weight: 500;
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+  background: var(--surface-raised);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-default);
 }
 
-.topologyVisualizer {
+/* Structured Legend */
+.topologyLegend {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 12px;
+  background: var(--surface-subtle);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-sm);
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+
+.legendGroup {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.legendIcon {
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+}
+
+.legendLine {
+  width: 16px;
+  height: 2px;
+  display: inline-block;
+}
+
+/* Topology SVG Canvas */
+.topologyCanvas {
   flex: 1;
-  background: #0d0f14;
-  border: 1px solid var(--border-subtle);
+  background: #0f141b;
+  border: 1px solid var(--border-default);
   border-radius: var(--radius-md);
   position: relative;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 380px;
+  min-height: 420px;
 }
 
+/* Side Section */
 .sideSection {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
 }
 
-.alertsCard {
-  background: var(--bg-card);
-  backdrop-filter: blur(20px);
-  border: 1px solid var(--border-subtle);
+/* Entity Inspector Panel */
+.inspectorCard {
+  background: var(--surface-panel);
+  border: 1px solid var(--border-default);
   border-radius: var(--radius-lg);
-  padding: 16px 18px;
+  padding: var(--space-4);
   display: flex;
   flex-direction: column;
   gap: 10px;
-  box-shadow: var(--shadow-sm);
 }
 
-.alertItem {
-  background: rgba(255, 69, 58, 0.08);
-  border: 1px solid rgba(255, 69, 58, 0.2);
-  padding: 10px 14px;
-  border-radius: var(--radius-md);
+.inspectorHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.inspectorTitle {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nodeTypeBadge {
+  font-size: 10px;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+  text-transform: uppercase;
+}
+
+.statusBadge {
+  font-size: 10px;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  padding: 2px 7px;
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+}
+
+.statusNominal {
+  background: rgba(72, 198, 154, 0.12);
+  color: var(--status-success);
+  border-color: rgba(72, 198, 154, 0.25);
+}
+
+.statusElevated {
+  background: rgba(233, 180, 92, 0.12);
+  color: var(--status-warning);
+  border-color: rgba(233, 180, 92, 0.25);
+}
+
+.inspectorGrid {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 6px 12px;
+  padding: 10px;
+  background: var(--surface-raised);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-sm);
+  font-size: 11px;
+}
+
+.inspectorLabel {
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.inspectorValue {
+  color: var(--text-primary);
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
+  word-break: break-word;
+}
+
+.inspectorHint {
+  font-size: 10px;
+  color: var(--text-muted);
+  font-style: italic;
+  margin-top: 2px;
+}
+
+/* Alerts & Queue Card */
+.alertsCard {
+  background: var(--surface-panel);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+}
+
+.alertBanner {
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
   display: flex;
   flex-direction: column;
   gap: 4px;
+  border: 1px solid transparent;
 }
 
-.alertItemSuccess {
-  background: rgba(48, 209, 88, 0.08);
-  border: 1px solid rgba(48, 209, 88, 0.2);
+.alertBannerSuccess {
+  background: rgba(72, 198, 154, 0.08);
+  border-color: rgba(72, 198, 154, 0.22);
+}
+
+.alertBannerActive {
+  background: rgba(240, 116, 126, 0.08);
+  border-color: rgba(240, 116, 126, 0.25);
 }
 
 .alertHeader {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   font-size: 11px;
   font-weight: 600;
-  color: var(--text-primary);
 }
 
-.alertText {
-  font-size: 12px;
+.alertHeaderSuccess {
+  color: var(--status-success);
+}
+
+.alertHeaderActive {
+  color: var(--status-critical);
+}
+
+.alertDescription {
+  font-size: 11px;
   color: var(--text-secondary);
   line-height: 1.4;
 }
 
-.decisionsCard {
-  background: var(--bg-card);
-  backdrop-filter: blur(20px);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-lg);
-  padding: 16px 18px;
+/* Decisions Section */
+.decisionsSection {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
   flex: 1;
   overflow: hidden;
-  box-shadow: var(--shadow-sm);
+}
+
+.decisionsHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.decisionsCount {
+  font-size: 10px;
+  font-family: var(--font-mono);
+  color: var(--text-muted);
 }
 
 .decisionList {
@@ -196,24 +345,24 @@
   flex-direction: column;
   gap: 8px;
   overflow-y: auto;
-  flex: 1;
+  max-height: 190px;
 }
 
 .decisionRow {
-  background: rgba(255, 255, 255, 0.025);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-md);
-  padding: 10px 12px;
+  background: var(--surface-raised);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-sm);
+  padding: 8px 10px;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 5px;
   cursor: pointer;
-  transition: all var(--transition-fast);
+  transition: border-color var(--transition-fast), background-color var(--transition-fast);
 }
 
 .decisionRow:hover {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(10, 132, 255, 0.4);
+  background: var(--surface-subtle);
+  border-color: var(--interactive-primary);
 }
 
 .decisionMeta {
@@ -226,87 +375,53 @@
   font-size: 11px;
   font-family: var(--font-mono);
   font-weight: 600;
-  color: var(--apple-blue);
+  color: var(--interactive-primary);
 }
 
-.tierBadge {
-  font-size: 10px;
-  font-weight: 600;
-  padding: 2px 7px;
-  border-radius: var(--radius-full);
-  text-transform: uppercase;
+.tierTag {
+  font-size: 9.5px;
   font-family: var(--font-mono);
-}
-
-.tierEscalated {
-  background: rgba(255, 159, 10, 0.12);
-  color: var(--apple-orange);
-  border: 1px solid rgba(255, 159, 10, 0.25);
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+  text-transform: uppercase;
 }
 
 .tierFast {
-  background: rgba(48, 209, 88, 0.12);
-  color: var(--apple-green);
-  border: 1px solid rgba(48, 209, 88, 0.25);
+  background: rgba(72, 198, 154, 0.12);
+  color: var(--status-success);
+  border: 1px solid rgba(72, 198, 154, 0.25);
+}
+
+.tierEscalated {
+  background: rgba(233, 180, 92, 0.12);
+  color: var(--status-warning);
+  border: 1px solid rgba(233, 180, 92, 0.25);
 }
 
 .decisionRec {
-  font-size: 12px;
+  font-size: 11.5px;
   color: var(--text-secondary);
-  line-height: 1.4;
+  line-height: 1.35;
 }
 
 .decisionFooter {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   font-size: 10px;
-  color: var(--text-muted);
   font-family: var(--font-mono);
+  color: var(--text-muted);
 }
 
-.topologyLegend {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 8px 12px;
-  background: rgba(255, 255, 255, 0.03);
-  border-radius: var(--radius-sm);
-  border: 1px solid var(--border-subtle);
-  font-size: 11px;
+.confidenceVal {
   color: var(--text-secondary);
+  font-variant-numeric: tabular-nums;
 }
 
-.legendItem {
-  display: flex;
-  align-items: center;
-  gap: 6px;
+.emptyState {
+  padding: 16px;
+  text-align: center;
+  font-size: 11px;
+  color: var(--text-muted);
 }
-
-.legendDot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  display: inline-block;
-}
-
-.nodeDetailsHud {
-  position: absolute;
-  bottom: 12px;
-  left: 12px;
-  right: 12px;
-  background: rgba(13, 15, 20, 0.92);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: var(--radius-md);
-  padding: 10px 14px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  animation: fadeIn 0.15s ease-out;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(4px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
