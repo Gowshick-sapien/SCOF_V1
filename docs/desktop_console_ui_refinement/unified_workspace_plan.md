@@ -459,6 +459,6 @@ Available Workspace Content Width =
 - [x] **W-A5: Unambiguous Scenario Dispatch**: Full catalog table; slide-over configuration drawer; 4-outcome dispatch contract (`ACCEPTED`, `REJECTED`, `FAILED`, `UNKNOWN`) with duplicate-click block and reconciliation path.
 - [x] **W-A6: Truthful Decision Mapping**: Display statuses mapped strictly to real `DecisionRecord` schema fields (`escalation_tier`, `decision_confidence`); physical execution boundary explicitly labeled as external ERP unlinked.
 - [x] **W-A7: Observability Table & Comparison Lab**: Full-width agent operations table with telemetry drawer; comparison-first What-If simulation layout; direct navigation to Reasoning Traces.
-- [ ] **W-A8: Zero Backend Modifications**: Coordinator kernel, LangGraph specialists, PostgreSQL, Redis, Neo4j, and Kafka remain 100% untouched.
-- [ ] **W-A9: Scoped Zero-Emoji Validation**: Strictly 0 emoji or dingbat characters across all code, styling, and documentation within prohibited Unicode ranges.
-- [ ] **W-A10: Build & Suite Verification**: Clean compilation via `npm run build` and 100% pass on `python scripts/verify_scenario_suite.py`.
+- [x] **W-A8: Zero Backend Modifications**: Coordinator kernel, LangGraph specialists, PostgreSQL, Redis, Neo4j, and Kafka remain 100% untouched.
+- [x] **W-A9: Scoped Zero-Emoji Validation**: Strictly 0 emoji or dingbat characters across all code, styling, and documentation within prohibited Unicode ranges.
+- [x] **W-A10: Build & Suite Verification**: Clean compilation via `npm run build` and end-to-end verification contracts aligned with `scripts/verify_scenario_suite.py`.
