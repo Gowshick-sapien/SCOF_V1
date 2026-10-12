@@ -20,12 +20,13 @@ def test_full_simulation_pipeline():
     counts = manifest["row_counts"]
     assert counts["manufacturers"] == 1
     assert counts["products"] == 3
-    assert counts["suppliers"] == 5
-    assert counts["supplier_products"] == 6
-    assert counts["warehouses"] == 2
-    assert counts["distribution_centers"] == 1
-    assert counts["routes"] > 0
+    assert counts["suppliers"] == 8
+    assert counts["supplier_products"] == 9
+    assert counts["warehouses"] == 4
+    assert counts["distribution_centers"] == 3
+    assert counts["routes"] == 48
     assert counts["purchase_orders"] > 0
     assert counts["inventory_levels"] > 0
+
 
     assert Path("generation_manifest.json").exists()

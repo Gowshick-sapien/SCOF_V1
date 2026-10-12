@@ -86,7 +86,12 @@ class DBWriter:
                         """
                         INSERT INTO scof.suppliers (id, name, reliability_profile, base_lead_time_days, latitude, longitude)
                         VALUES (%s, %s, %s, %s, %s, %s)
-                        ON CONFLICT (id) DO UPDATE SET name = EXCLUDED.name, reliability_profile = EXCLUDED.reliability_profile;
+                        ON CONFLICT (id) DO UPDATE SET
+                            name = EXCLUDED.name,
+                            reliability_profile = EXCLUDED.reliability_profile,
+                            base_lead_time_days = EXCLUDED.base_lead_time_days,
+                            latitude = EXCLUDED.latitude,
+                            longitude = EXCLUDED.longitude;
                         """,
                         (
                             sup["id"],
@@ -108,7 +113,9 @@ class DBWriter:
                         ) VALUES (%s, %s, %s, %s, %s, %s)
                         ON CONFLICT (supplier_id, product_id) DO UPDATE SET
                             unit_cost = EXCLUDED.unit_cost,
-                            is_preferred_supplier = EXCLUDED.is_preferred_supplier;
+                            is_preferred_supplier = EXCLUDED.is_preferred_supplier,
+                            minimum_order_qty = EXCLUDED.minimum_order_qty,
+                            lead_time_override_days = EXCLUDED.lead_time_override_days;
                         """,
                         (
                             sp["supplier_id"],
@@ -126,7 +133,11 @@ class DBWriter:
                         """
                         INSERT INTO scof.warehouses (id, name, capacity_units, latitude, longitude)
                         VALUES (%s, %s, %s, %s, %s)
-                        ON CONFLICT (id) DO UPDATE SET name = EXCLUDED.name, capacity_units = EXCLUDED.capacity_units;
+                        ON CONFLICT (id) DO UPDATE SET
+                            name = EXCLUDED.name,
+                            capacity_units = EXCLUDED.capacity_units,
+                            latitude = EXCLUDED.latitude,
+                            longitude = EXCLUDED.longitude;
                         """,
                         (wh["id"], wh["name"], wh["capacity_units"], wh["latitude"], wh["longitude"]),
                     )
@@ -137,7 +148,10 @@ class DBWriter:
                         """
                         INSERT INTO scof.distribution_centers (id, name, latitude, longitude)
                         VALUES (%s, %s, %s, %s)
-                        ON CONFLICT (id) DO UPDATE SET name = EXCLUDED.name;
+                        ON CONFLICT (id) DO UPDATE SET
+                            name = EXCLUDED.name,
+                            latitude = EXCLUDED.latitude,
+                            longitude = EXCLUDED.longitude;
                         """,
                         (dc["id"], dc["name"], dc["latitude"], dc["longitude"]),
                     )
