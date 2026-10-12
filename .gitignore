@@ -43,3 +43,5 @@ Thumbs.db
 target/
 **/src-tauri/target/
 **/gen/schemas/
+
+desktop/
