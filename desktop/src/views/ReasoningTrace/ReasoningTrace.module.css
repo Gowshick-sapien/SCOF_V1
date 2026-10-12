@@ -13,21 +13,57 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-3);
   padding-bottom: 12px;
   border-bottom: 1px solid var(--border-default);
 }
 
+.headerInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
 .title {
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 600;
   color: var(--text-primary);
   margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.headerMetaRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+}
+
+.traceIdTag {
+  color: var(--interactive-primary);
+}
+
+.metaDivider {
+  color: var(--border-default);
+}
+
+.metaSnippet {
+  color: var(--text-secondary);
+  font-variant-numeric: tabular-nums;
 }
 
 .selectorRow {
   display: flex;
   align-items: center;
   gap: 10px;
+}
+
+.selectorLabel {
+  font-size: 11px;
+  color: var(--text-muted);
 }
 
 .select {
@@ -59,13 +95,20 @@
   padding: 6px 10px !important;
 }
 
+.emptyState {
+  color: var(--text-muted);
+  padding: 48px;
+  text-align: center;
+  font-size: 12.5px;
+}
+
 /* Chronological Runtime Pipeline */
 .pipeline {
   display: flex;
   flex-direction: column;
   gap: 16px;
   position: relative;
-  max-width: 900px;
+  max-width: 960px;
   margin: 0 auto;
   width: 100%;
 }
@@ -75,7 +118,7 @@
   position: absolute;
   left: 20px;
   top: 24px;
-  bottom: 24px;
+  bottom: 80px;
   width: 2px;
   background: var(--border-default);
 }
@@ -96,7 +139,7 @@
   align-items: center;
   justify-content: center;
   font-weight: 600;
-  font-size: 13px;
+  font-size: 12px;
   color: var(--text-muted);
   flex-shrink: 0;
   z-index: 2;
@@ -130,6 +173,7 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  box-shadow: var(--shadow-sm);
 }
 
 .nodeHeader {
@@ -139,24 +183,69 @@
 }
 
 .nodeTitle {
-  font-size: 13px;
+  font-size: 12.5px;
   font-weight: 600;
   color: var(--text-primary);
 }
 
 .nodeBadge {
-  font-size: 10px;
+  font-size: 9.5px;
   padding: 2px 7px;
   border-radius: var(--radius-sm);
   background: var(--surface-raised);
   color: var(--interactive-primary);
   border: 1px solid var(--border-default);
   font-family: var(--font-mono);
+  text-transform: uppercase;
 }
 
+.badgeNominal {
+  background: rgba(72, 198, 154, 0.1);
+  color: var(--status-success);
+  border-color: rgba(72, 198, 154, 0.25);
+}
+
+.badgeEscalated {
+  background: rgba(233, 180, 92, 0.1);
+  color: var(--status-warning);
+  border-color: rgba(233, 180, 92, 0.25);
+}
+
+.nodeDesc {
+  font-size: 12.5px;
+  color: var(--text-secondary);
+  line-height: 1.45;
+  margin: 0;
+}
+
+.phase1Meta {
+  display: flex;
+  gap: 20px;
+  padding: 8px 12px;
+  background: var(--surface-raised);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-sm);
+  font-size: 11px;
+}
+
+.phase1Item {
+  display: flex;
+  gap: 6px;
+  font-family: var(--font-mono);
+}
+
+.phase1Label {
+  color: var(--text-muted);
+}
+
+.phase1Val {
+  color: var(--text-primary);
+}
+
+/* Claims Grid in Phase 2 */
 .claimsGrid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 10px;
 }
 
@@ -167,7 +256,13 @@
   padding: 10px 12px;
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 6px;
+}
+
+.claimHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .claimAgent {
@@ -175,6 +270,13 @@
   font-weight: 600;
   font-family: var(--font-mono);
   color: var(--interactive-primary);
+}
+
+.claimConfidence {
+  font-size: 9.5px;
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  color: var(--text-muted);
 }
 
 .claimText {
@@ -193,9 +295,9 @@
   font-variant-numeric: tabular-nums;
   border-top: 1px solid var(--border-default);
   padding-top: 6px;
-  margin-top: 2px;
 }
 
+/* Step list in Phase 3 */
 .stepList {
   display: flex;
   flex-direction: column;
@@ -210,7 +312,7 @@
   font-size: 12px;
   color: var(--text-secondary);
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 10px;
 }
 
@@ -221,4 +323,133 @@
   font-size: 11px;
   min-width: 24px;
   font-variant-numeric: tabular-nums;
+  margin-top: 2px;
+}
+
+.stepContentCol {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.stepText {
+  line-height: 1.4;
+}
+
+/* Phase 4 Decision Highlight */
+.decisionHighlightBox {
+  background: var(--surface-raised);
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-default);
+  border-left: 3px solid var(--interactive-primary);
+}
+
+.decisionHighlightLabel {
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 11.5px;
+  margin-bottom: 4px;
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.decisionHighlightText {
+  color: var(--interactive-primary);
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.escalationRationaleText {
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+/* Expandable Raw JSON Accordion */
+.rawJsonSection {
+  margin-top: 8px;
+}
+
+.jsonDetails {
+  background: var(--surface-panel);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.jsonSummary {
+  padding: 10px 14px;
+  font-size: 11.5px;
+  font-weight: 600;
+  font-family: var(--font-mono);
+  color: var(--text-secondary);
+  cursor: pointer;
+  background: var(--surface-subtle);
+  user-select: none;
+  outline: none;
+}
+
+.jsonSummary:hover {
+  color: var(--interactive-primary);
+}
+
+.jsonPre {
+  margin: 0;
+  padding: 14px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1.45;
+  color: var(--text-primary);
+  background: var(--surface-canvas);
+  overflow-x: auto;
+  max-height: 380px;
+  border-top: 1px solid var(--border-default);
+}
+
+.stepRawDetails {
+  margin-top: 4px;
+}
+
+.stepRawSummary {
+  font-size: 10px;
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+  cursor: pointer;
+  user-select: none;
+}
+
+.stepRawSummary:hover {
+  color: var(--interactive-primary);
+}
+
+.stepRawPre {
+  margin: 4px 0 0 0;
+  padding: 6px 8px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  line-height: 1.35;
+  color: var(--text-secondary);
+  background: var(--surface-canvas);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-xs);
+  overflow-x: auto;
+  max-height: 160px;
+}
+
+.stepRawDetailsInline {
+  margin-top: 4px;
+}
+
+.stepRawSummaryInline {
+  font-size: 10px;
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+  cursor: pointer;
+  user-select: none;
+}
+
+.stepRawSummaryInline:hover {
+  color: var(--interactive-primary);
 }

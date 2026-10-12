@@ -38,21 +38,35 @@ export const ReasoningTraceView: React.FC<ReasoningTraceViewProps> = ({
   }, [selectedDecisionId]);
 
   const activeDecision = decisions.find((d) => d.decision_id === activeId) || decisions[0];
-
   const steps = activeDecision?.reasoning_trail || [];
 
   return (
     <div className={styles.container}>
+      {/* Trace Explorer Header */}
       <div className={styles.header}>
-        <div>
+        <div className={styles.headerInfo}>
           <h3 className={styles.title}>Reasoning Trace Explorer (CD2F Provenance)</h3>
-          <span style={{ fontSize: "12px", color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}>
-            Trace ID: {activeDecision?.trace_id || "trace-pending"}
-          </span>
+          <div className={styles.headerMetaRow}>
+            <span className={styles.traceIdTag}>
+              TRACE ID: {activeDecision?.trace_id || "trace-pending"}
+            </span>
+            {activeDecision && (
+              <>
+                <span className={styles.metaDivider}>|</span>
+                <span className={styles.metaSnippet}>
+                  METHOD: {activeDecision.decision_method || "CD2F"}
+                </span>
+                <span className={styles.metaDivider}>|</span>
+                <span className={styles.metaSnippet}>
+                  CONFIDENCE: {(activeDecision.decision_confidence * 100).toFixed(1)}%
+                </span>
+              </>
+            )}
+          </div>
         </div>
 
         <div className={styles.selectorRow}>
-          <span style={{ fontSize: "12px", color: "var(--text-muted)" }}>Inspect Decision:</span>
+          <span className={styles.selectorLabel}>Inspect Decision:</span>
           <select
             className={styles.select}
             value={activeDecision?.decision_id || ""}
@@ -60,7 +74,7 @@ export const ReasoningTraceView: React.FC<ReasoningTraceViewProps> = ({
           >
             {decisions.map((d) => (
               <option key={d.decision_id} value={d.decision_id}>
-                {d.scenario_id.toUpperCase()} - {d.decision_id.substring(0, 8)}... ({(d.decision_confidence * 100).toFixed(0)}%)
+                {d.scenario_id.toUpperCase()} - {d.decision_id.substring(0, 8)} ({(d.decision_confidence * 100).toFixed(0)}% WCS)
               </option>
             ))}
           </select>
@@ -68,8 +82,8 @@ export const ReasoningTraceView: React.FC<ReasoningTraceViewProps> = ({
       </div>
 
       {!activeDecision ? (
-        <div style={{ color: "var(--text-muted)", padding: "40px", textAlign: "center" }}>
-          No reasoning trace records available. Trigger a scenario to generate arbitration traces.
+        <div className={styles.emptyState}>
+          No reasoning trace records available. Trigger a scenario from the Scenario Catalog to generate multi-agent arbitration traces.
         </div>
       ) : (
         <div className={styles.pipeline}>
@@ -81,9 +95,19 @@ export const ReasoningTraceView: React.FC<ReasoningTraceViewProps> = ({
                 <span className={styles.nodeTitle}>Phase 1: Disruption Context & Targeting</span>
                 <span className={styles.nodeBadge}>KAFKA EVENT INGEST</span>
               </div>
-              <p style={{ fontSize: "13px", color: "var(--text-secondary)" }}>
-                Scenario <strong>{activeDecision.scenario_id}</strong> triggered. Coordinator discovered 4 specialist agents on A2A protocol and resolved target specialists.
+              <p className={styles.nodeDesc}>
+                Disruption scenario <strong>{activeDecision.scenario_id.toUpperCase()}</strong> ingested via Kafka bus. SCOF Coordinator initialized arbitration, discovered registered specialists on A2A protocol, and published target context envelope.
               </p>
+              <div className={styles.phase1Meta}>
+                <div className={styles.phase1Item}>
+                  <span className={styles.phase1Label}>Consensus Bundle:</span>
+                  <span className={styles.phase1Val}>{activeDecision.consensus_bundle_id || "bundle-default"}</span>
+                </div>
+                <div className={styles.phase1Item}>
+                  <span className={styles.phase1Label}>Source Envelope:</span>
+                  <span className={styles.phase1Val}>{activeDecision.source_bundle_id || "envelope-default"}</span>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -101,12 +125,24 @@ export const ReasoningTraceView: React.FC<ReasoningTraceViewProps> = ({
                   .filter((s: any) => s.step_type === "CLAIM")
                   .map((claimStep: any, idx: number) => (
                     <div key={idx} className={styles.claimBox}>
-                      <span className={styles.claimAgent}>{claimStep.data.agent_id}</span>
-                      <p className={styles.claimText}>{claimStep.data.recommendation}</p>
-                      <div className={styles.claimMeta}>
-                        <span>Confidence: {((claimStep.data.stated_confidence || 0) * 100).toFixed(1)}%</span>
-                        <span>Impact: {claimStep.data.parsed_impact_level}</span>
+                      <div className={styles.claimHeader}>
+                        <span className={styles.claimAgent}>{claimStep.data?.agent_id || "specialist"}</span>
+                        <span className={styles.claimConfidence}>
+                          {((claimStep.data?.stated_confidence || 0) * 100).toFixed(1)}% CONF
+                        </span>
                       </div>
+                      <p className={styles.claimText}>{claimStep.data?.recommendation || claimStep.content}</p>
+                      <div className={styles.claimMeta}>
+                        <span>Impact: {claimStep.data?.parsed_impact_level || "EVALUATED"}</span>
+                        <span>Step #{claimStep.step_index || idx + 1}</span>
+                      </div>
+                      {/* Expandable Raw Claim JSON */}
+                      <details className={styles.stepRawDetails}>
+                        <summary className={styles.stepRawSummary}>View Raw Claim JSON</summary>
+                        <pre className={styles.stepRawPre}>
+                          {JSON.stringify(claimStep.data || claimStep, null, 2)}
+                        </pre>
+                      </details>
                     </div>
                   ))}
               </div>
@@ -128,7 +164,18 @@ export const ReasoningTraceView: React.FC<ReasoningTraceViewProps> = ({
                   .map((step: any, idx: number) => (
                     <div key={idx} className={styles.stepItem}>
                       <span className={styles.stepIndex}>#{step.step_index}</span>
-                      <span>{step.content}</span>
+                      <div className={styles.stepContentCol}>
+                        <span className={styles.stepText}>{step.content}</span>
+                        {/* Expandable Step Payload */}
+                        {step.data && (
+                          <details className={styles.stepRawDetailsInline}>
+                            <summary className={styles.stepRawSummaryInline}>Raw Step JSON</summary>
+                            <pre className={styles.stepRawPre}>
+                              {JSON.stringify(step.data, null, 2)}
+                            </pre>
+                          </details>
+                        )}
+                      </div>
                     </div>
                   ))}
               </div>
@@ -149,33 +196,44 @@ export const ReasoningTraceView: React.FC<ReasoningTraceViewProps> = ({
             <div className={styles.nodeBody}>
               <div className={styles.nodeHeader}>
                 <span className={styles.nodeTitle}>Phase 4: Policy Evaluation & Escalation</span>
-                <span className={styles.nodeBadge}>{activeDecision.escalation_tier}</span>
+                <span className={`${styles.nodeBadge} ${
+                  activeDecision.escalation_tier === "HUMAN_ESCALATION"
+                    ? styles.badgeEscalated
+                    : styles.badgeNominal
+                }`}>
+                  {activeDecision.escalation_tier}
+                </span>
               </div>
 
-              <div
-                style={{
-                  background: "var(--surface-raised)",
-                  padding: "12px 14px",
-                  borderRadius: "var(--radius-sm)",
-                  border: "1px solid var(--border-default)",
-                }}
-              >
-                <div style={{ fontWeight: 600, color: "var(--text-primary)", marginBottom: "4px" }}>
-                  Selected Recommendation (WCS: {(activeDecision.decision_confidence * 100).toFixed(1)}%):
+              <div className={styles.decisionHighlightBox}>
+                <div className={styles.decisionHighlightLabel}>
+                  Selected Recommendation (Stability: {(activeDecision.decision_confidence * 100).toFixed(1)}%):
                 </div>
-                <div style={{ color: "var(--interactive-primary)", fontSize: "13px", lineHeight: "1.4" }}>
-                  "{activeDecision.final_recommendation}"
+                <div className={styles.decisionHighlightText}>
+                  "{activeDecision.final_recommendation || "Consensus action approved"}"
                 </div>
               </div>
 
               {steps
                 .filter((s: any) => s.step_type === "ESCALATION")
                 .map((esc: any, idx: number) => (
-                  <div key={idx} style={{ fontSize: "12px", color: "var(--text-muted)" }}>
+                  <div key={idx} className={styles.escalationRationaleText}>
                     {esc.content}
                   </div>
                 ))}
             </div>
+          </div>
+
+          {/* Expandable Complete Decision Record JSON Payload */}
+          <div className={styles.rawJsonSection}>
+            <details className={styles.jsonDetails}>
+              <summary className={styles.jsonSummary}>
+                Expand Complete Decision Record Raw JSON Payload ({activeDecision.decision_id})
+              </summary>
+              <pre className={styles.jsonPre}>
+                {JSON.stringify(activeDecision, null, 2)}
+              </pre>
+            </details>
           </div>
         </div>
       )}

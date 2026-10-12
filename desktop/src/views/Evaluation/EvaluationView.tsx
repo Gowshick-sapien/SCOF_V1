@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { apiClient } from "../../api/client";
-import { BenchmarkSummaryResponse, CategoryBenchmarkResponse } from "../../api/types";
+import type { BenchmarkSummaryResponse, CategoryBenchmarkResponse } from "../../api/types";
 import styles from "./Evaluation.module.css";
 
 export const EvaluationView: React.FC = () => {
@@ -49,31 +49,38 @@ export const EvaluationView: React.FC = () => {
     }
   };
 
+  const formattedTimestamp = benchmarkData?.timestamp
+    ? new Date(benchmarkData.timestamp).toISOString().substring(11, 19) + " UTC"
+    : "NOMINAL";
+
   return (
     <div className={styles.container}>
       {/* Top Header */}
       <div className={styles.sectionHeader}>
-        <div>
+        <div className={styles.headerInfoGroup}>
           <span className={styles.sectionTitle}>Evaluation & Benchmarking Engine</span>
-          <div style={{ fontSize: "11px", color: "var(--text-muted)", fontFamily: "var(--font-mono)", marginTop: "4px" }}>
-            DATASET: {benchmarkData?.dataset_name || "benchmark_suite.json"} | STATUS:{" "}
-            <span className={styles.statusBadge}>{benchmarkData?.status || "VALIDATED"}</span>
+          <div className={styles.headerMetaRow}>
+            <span>DATASET: {benchmarkData?.dataset_name || "benchmark_suite.json"}</span>
+            <span className={styles.metaDivider}>|</span>
+            <span>
+              STATUS: <span className={styles.statusBadge}>{benchmarkData?.status || "VALIDATED"}</span>
+            </span>
             {benchmarkData?.eval_run_id && (
-              <span style={{ marginLeft: "10px", color: "var(--text-secondary)" }}>
-                RUN: <span style={{ color: "var(--interactive-primary)" }}>{benchmarkData.eval_run_id}</span>
-              </span>
+              <>
+                <span className={styles.metaDivider}>|</span>
+                <span>
+                  RUN: <span className={styles.runIdVal}>{benchmarkData.eval_run_id}</span>
+                </span>
+              </>
             )}
-            {benchmarkData?.timestamp && (
-              <span style={{ marginLeft: "10px", color: "var(--text-secondary)" }}>
-                UPDATED: {new Date(benchmarkData.timestamp).toLocaleTimeString()}
-              </span>
-            )}
+            <span className={styles.metaDivider}>|</span>
+            <span>UPDATED: {formattedTimestamp}</span>
           </div>
         </div>
 
-        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+        <div className={styles.headerActions}>
           {error && (
-            <span style={{ fontSize: "11px", color: "var(--status-critical)", fontFamily: "var(--font-mono)" }}>
+            <span className={styles.errorText}>
               {error}
             </span>
           )}
@@ -81,13 +88,15 @@ export const EvaluationView: React.FC = () => {
             className={styles.runBtn}
             onClick={handleReevaluate}
             disabled={isReevaluating || loading}
+            title="Re-execute multi-agent benchmark evaluation suite"
+            aria-label="Re-run Evaluation Suite"
           >
-            {isReevaluating ? "Evaluating..." : "Re-run Evaluation"}
+            {isReevaluating ? "Evaluating Suite..." : "Re-run Evaluation Suite"}
           </button>
         </div>
       </div>
 
-      {/* KPI Cards */}
+      {/* KPI Calibration Summary Cards */}
       <div className={styles.calibrationGrid}>
         <div className={styles.calCard}>
           <span className={styles.calLabel}>Inter-Agent Agreement Kappa</span>
@@ -101,7 +110,7 @@ export const EvaluationView: React.FC = () => {
 
         <div className={styles.calCard}>
           <span className={styles.calLabel}>Fast-Path Resolution P90</span>
-          <span className={styles.calValue} style={{ color: "var(--interactive-primary)" }}>
+          <span className={`${styles.calValue} ${styles.calValBlue}`}>
             {benchmarkData?.calibration_metrics?.fast_path_latency_p90_ms !== undefined
               ? `${Math.round(benchmarkData.calibration_metrics.fast_path_latency_p90_ms)}ms`
               : "330ms"}
@@ -111,22 +120,25 @@ export const EvaluationView: React.FC = () => {
 
         <div className={styles.calCard}>
           <span className={styles.calLabel}>Stockout Risk Reduction</span>
-          <span className={styles.calValue} style={{ color: "var(--status-success)" }}>
+          <span className={`${styles.calValue} ${styles.calValGreen}`}>
             {benchmarkData?.calibration_metrics?.stockout_reduction_pct !== undefined
               ? `${benchmarkData.calibration_metrics.stockout_reduction_pct.toFixed(1)}%`
               : "42.0%"}
           </span>
-          <span className={styles.calSubtext}>Empirical supply chain risk reduction</span>
+          <span className={styles.calSubtext}>Empirical supply chain risk reduction vs unassisted baseline</span>
         </div>
       </div>
 
-      {/* Benchmark Summary Table */}
+      {/* Benchmark Summary Table: Comparative Arbitration Matrix */}
       <div className={styles.benchmarkCard}>
-        <div className={styles.sectionHeader} style={{ padding: 0, border: "none" }}>
-          <span className={styles.sectionTitle}>Arbitration Methods Comparative Matrix</span>
-          <span style={{ fontSize: "11px", color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}>
-            IDENTICAL CLAIM BUNDLES
-          </span>
+        <div className={styles.cardHeader}>
+          <div className={styles.cardHeaderLeft}>
+            <span className={styles.cardTitle}>Arbitration Methods Comparative Matrix</span>
+            <span className={styles.cardSubtitle}>
+              BENCHMARK EVALUATION OVER IDENTICAL CLAIM BUNDLES
+            </span>
+          </div>
+          <span className={styles.benchmarkStandardBadge}>EMPIRICAL PROTOCOL</span>
         </div>
 
         <div className={styles.tableWrapper}>
@@ -135,8 +147,8 @@ export const EvaluationView: React.FC = () => {
               <tr>
                 <th>Decision Arbitration Method</th>
                 <th>Recommendation Accuracy</th>
-                <th>Weighted Consensus Stability</th>
-                <th>Median Latency</th>
+                <th>Consensus Stability (WCS)</th>
+                <th>Median Latency (P50)</th>
                 <th>Human Escalation Rate</th>
               </tr>
             </thead>
@@ -144,21 +156,26 @@ export const EvaluationView: React.FC = () => {
               {benchmarkData?.benchmark_results && benchmarkData.benchmark_results.length > 0 ? (
                 benchmarkData.benchmark_results.map((row, idx) => (
                   <tr key={idx} className={idx === 0 ? styles.highlightRow : ""}>
-                    <td className={idx === 0 ? styles.methodTag : ""}>{row.method}</td>
-                    <td style={{ fontFamily: "var(--font-mono)", fontWeight: idx === 0 ? "bold" : "normal" }}>
+                    <td className={styles.methodCell}>
+                      <span className={idx === 0 ? styles.methodTagPrimary : styles.methodTag}>
+                        {row.method}
+                      </span>
+                      {idx === 0 && <span className={styles.bestMethodBadge}>PRIMARY PROTOCOL</span>}
+                    </td>
+                    <td className={styles.numericCellBold}>
                       {(row.accuracy * 100).toFixed(1)}%
                     </td>
-                    <td style={{ fontFamily: "var(--font-mono)" }}>{row.wcs_stability.toFixed(3)}</td>
-                    <td style={{ fontFamily: "var(--font-mono)" }}>{Math.round(row.latency_ms)}ms</td>
-                    <td style={{ fontFamily: "var(--font-mono)" }}>
+                    <td className={styles.numericCell}>{row.wcs_stability.toFixed(3)}</td>
+                    <td className={styles.numericCell}>{Math.round(row.latency_ms)}ms</td>
+                    <td className={styles.numericCell}>
                       {row.human_escalation_pct.toFixed(1)}%
                     </td>
                   </tr>
                 ))
               ) : (
                 <tr>
-                  <td colSpan={5} style={{ textAlign: "center", padding: "20px", color: "var(--text-muted)" }}>
-                    {loading ? "Loading benchmark metrics..." : "No benchmark data available."}
+                  <td colSpan={5} className={styles.emptyTable}>
+                    {loading ? "Loading benchmark comparative metrics..." : "No benchmark data available."}
                   </td>
                 </tr>
               )}
@@ -169,13 +186,16 @@ export const EvaluationView: React.FC = () => {
 
       {/* Category Breakdown Table */}
       <div className={styles.benchmarkCard}>
-        <div className={styles.sectionHeader} style={{ padding: 0, border: "none" }}>
-          <span className={styles.sectionTitle}>
-            Disruption Domain Categorical Performance Breakdown (20 Scenarios)
-          </span>
-          <span style={{ fontSize: "11px", color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}>
-            4 CORE DISRUPTION CATEGORIES
-          </span>
+        <div className={styles.cardHeader}>
+          <div className={styles.cardHeaderLeft}>
+            <span className={styles.cardTitle}>
+              Disruption Domain Categorical Performance Breakdown (20 Scenarios)
+            </span>
+            <span className={styles.cardSubtitle}>
+              4 CORE PENINSULAR DISRUPTION CATEGORIES
+            </span>
+          </div>
+          <span className={styles.benchmarkStandardBadge}>20 BENCHMARK TESTS</span>
         </div>
 
         <div className={styles.tableWrapper}>
@@ -198,20 +218,20 @@ export const EvaluationView: React.FC = () => {
                     <td>
                       <span className={styles.categoryTag}>{cat.category}</span>
                     </td>
-                    <td style={{ fontFamily: "var(--font-mono)" }}>{cat.scenario_count}</td>
-                    <td style={{ fontFamily: "var(--font-mono)", fontWeight: "600", color: "var(--status-success)" }}>
+                    <td className={styles.numericCell}>{cat.scenario_count}</td>
+                    <td className={`${styles.numericCellBold} ${styles.valGreen}`}>
                       {(cat.accuracy * 100).toFixed(1)}%
                     </td>
-                    <td style={{ fontFamily: "var(--font-mono)" }}>{cat.wcs_stability.toFixed(3)}</td>
-                    <td style={{ fontFamily: "var(--font-mono)" }}>{Math.round(cat.latency_p50_ms)}ms</td>
-                    <td style={{ fontFamily: "var(--font-mono)" }}>{cat.fast_path_pct.toFixed(1)}%</td>
-                    <td style={{ fontFamily: "var(--font-mono)" }}>{cat.conflict_intensity.toFixed(3)}</td>
+                    <td className={styles.numericCell}>{cat.wcs_stability.toFixed(3)}</td>
+                    <td className={styles.numericCell}>{Math.round(cat.latency_p50_ms)}ms</td>
+                    <td className={styles.numericCell}>{cat.fast_path_pct.toFixed(1)}%</td>
+                    <td className={styles.numericCell}>{cat.conflict_intensity.toFixed(3)}</td>
                   </tr>
                 ))
               ) : (
                 <tr>
-                  <td colSpan={7} style={{ textAlign: "center", padding: "20px", color: "var(--text-muted)" }}>
-                    {loading ? "Loading categorical breakdown..." : "No category data available."}
+                  <td colSpan={7} className={styles.emptyTable}>
+                    {loading ? "Loading categorical breakdown..." : "No categorical data available."}
                   </td>
                 </tr>
               )}

@@ -158,198 +158,198 @@ const COUNTERFACTUAL_PROFILES: Record<string, CounterfactualProfile> = {
       supplier_delay:
         "Executive Sourcing Consensus: Ration component inventory to high-margin contracts (prod-101), consolidate diesel generator reserves at Sriperumbudur, and invoke force majeure clauses.",
       demand_spike:
-        "Activate secondary final-assembly bay at Sriperumbudur and draw rapid component feeds from Oragadam JIT (wh-03) and Hosur (wh-01).",
+        "Executive Multi-Agent Consensus: Authorize synchronized multi-facility overtime across all supplier clusters and reallocate regional inventory buffers.",
       transport_failure:
-        "Reroute all inbound component trucks through Sriperumbudur industrial bypass and open auxiliary receiving gates.",
+        "Reroute local assembly inbound deliveries through SIPCOT feeder arterial lanes.",
       adverse_weather:
-        "Initiate severe weather plant protection protocol and maintain 72-hour on-site buffer inventory for continuous assembly.",
+        "Activate high-water pumps and elevate finished inventory storage at Sriperumbudur assembly floor.",
     },
   },
   "wh-01": {
     name: "Hosur Logistics Buffer Warehouse",
-    cluster: "Hosur, TN / KA Border",
-    base_risk: 8.2,
-    base_lead_time: 1.3,
-    base_cost: 9200,
+    cluster: "Hosur Industrial Complex, TN",
+    base_risk: 6.2,
+    base_lead_time: 1.1,
+    base_cost: 6200,
     actions: {
       supplier_delay:
-        "Divert inbound supplier freight from Western Karnataka hubs directly to Whitefield ICD (wh-02) and establish emergency truck staging at Bargur (sup-04).",
+        "Dispatch emergency safety buffer reserves from Hosur to Sriperumbudur assembly line.",
       demand_spike:
-        "Authorize three-shift assembly expansion at Sriperumbudur, activate secondary SMT lines at Syrma SGS (sup-04), and establish daily rolling buffer shuttles.",
+        "Double picking shift rotations and requisition overflow staging at Whitefield ICD (wh-02).",
       transport_failure:
-        "Activate manual picking crews in low-bay annex, deploy backup forklift fleet, and reassign urgent shipments to Oragadam JIT (wh-03).",
+        "Shift freight from road corridors to Hosur-Arakkonam rail shuttle service.",
       adverse_weather:
-        "Secure warehouse dock areas and stage critical component containers on elevated inland logistics aprons.",
+        "Secure warehouse perimeter and prioritize dry-dock freight dispatch before storm front.",
     },
   },
   "wh-02": {
     name: "Whitefield Inland Container Depot",
-    cluster: "Whitefield, Bengaluru",
-    base_risk: 6.4,
-    base_lead_time: 1.1,
+    cluster: "Whitefield, Bengaluru, KA",
+    base_risk: 6.7,
+    base_lead_time: 1.25,
     base_cost: 7100,
     actions: {
       supplier_delay:
-        "Reroute rail freight container traffic to Hosur Buffer Warehouse (wh-01) and dispatch dedicated truck convoys across the NH44 interstate lane.",
+        "Expedite customs bonded container clearance and transfer pallet loads to Hosur Buffer (wh-01).",
       demand_spike:
-        "Escalate to Executive Operations: Propose phased customer allocation plan (50% delivery in 14 days, 50% in 45 days) and authorize emergency capacity expansion.",
+        "Reallocate 45% inland container buffer to high-velocity telematics assemblers.",
       transport_failure:
-        "Contract private container truck convoys via Krishnagiri-Vellore highway corridor to bypass CONCOR rail wagon shortage.",
+        "Divert Bengaluru city container traffic via Peripheral Ring Road to avoid arterial snarls.",
       adverse_weather:
-        "Prioritize indoor container storage for electronic hardware and seal external freight yard bays.",
+        "Stage sensitive container loads inside covered ICD shed storage.",
     },
   },
   "wh-03": {
     name: "Oragadam JIT Supplier Warehouse",
-    cluster: "Oragadam, Kanchipuram, TN",
-    base_risk: 8.8,
-    base_lead_time: 1.45,
-    base_cost: 9700,
+    cluster: "Oragadam Auto Corridor, TN",
+    base_risk: 7.9,
+    base_lead_time: 1.3,
+    base_cost: 8300,
     actions: {
       supplier_delay:
-        "Deploy direct-to-line hot shot truck deliveries from SPEL Semiconductor (sup-01) and tap safety buffer stock at Sri City FTWZ (wh-04).",
+        "Execute hourly JIT buffer release directly to Sriperumbudur high-tech assembly plant.",
       demand_spike:
-        "Activate weekend overtime shifts at Oragadam JIT, draw safety stock from Hosur (wh-01), and prioritize telematics shipments.",
+        "Requisition emergency overflow storage at Sri City FTWZ (wh-04).",
       transport_failure:
-        "Deploy local Oragadam feeder fleet across SIPCOT internal roads to bypass state highway congestion.",
+        "Reroute Oragadam shuttle convoys via Walajabad feeder corridor.",
       adverse_weather:
-        "Activate high-water flood barriers at Oragadam facility and stage battery power backups for automated cranes.",
+        "Seal dock levelers and protect electronics consignments from standing water.",
     },
   },
   "wh-04": {
     name: "Sri City FTWZ Logistics Center",
-    cluster: "Sri City FTWZ, AP",
-    base_risk: 6.0,
-    base_lead_time: 1.05,
+    cluster: "Sri City, AP / TN Border",
+    base_risk: 6.4,
+    base_lead_time: 1.2,
     base_cost: 6800,
     actions: {
       supplier_delay:
-        "Submit expedited audit bond to customs commissionerate and draw duty-paid buffer reserves from Oragadam JIT (wh-03) and Hosur (wh-01).",
+        "Release duty-free bonded inventory buffers and expedite dispatch to Chennai plants.",
       demand_spike:
-        "Request customs pre-clearance for high-volume duty-free component shipments to prevent FTWZ processing bottlenecks.",
+        "Expedite cross-docking operations to feed North Chennai industrial clusters.",
       transport_failure:
-        "Divert North-South coastal traffic via NH16 bypass to avoid suburban Chennai arterial choke points.",
+        "Reroute coastal transit through Tada-Sullurpeta inland detour lanes.",
       adverse_weather:
-        "Store imported components in FTWZ bonded climate-controlled warehouse blocks until weather clears.",
+        "Maintain climate-controlled humidity buffers for sensitive electronic components.",
     },
   },
   "dc-01": {
     name: "Chennai Port Container Terminal",
     cluster: "Chennai Port, TN",
-    base_risk: 7.5,
+    base_risk: 8.4,
     base_lead_time: 1.6,
     base_cost: 11200,
     actions: {
       supplier_delay:
-        "Divert maritime export container vessels to Cochin Vallarpadam Terminal (dc-02) and air-freight high-priority finished goods via Hyderabad Aerotropolis (dc-03).",
+        "Expedite port gate container movement and priority berth assignment.",
       demand_spike:
-        "Coordinate advance bulk shipments with municipal contractors, release staged buffer gateways from Oragadam (wh-03), and increase production lines.",
+        "Charter off-dock container freight station capacity near Madhavaram.",
       transport_failure:
-        "Divert priority container vessels to Kattupalli Port deep-water berths (30km north) and lighterage cargo for shuttle transport to Sriperumbudur.",
+        "Bypass port access roads using dedicated Chennai Port-Maduravoyal elevated corridor.",
       adverse_weather:
-        "Halt seaside gantry crane operations, lash export containers, and stage cargo in secure inland container yards.",
+        "Lash ship-to-shore cranes and divert inbound container vessels to Ennore Port.",
     },
   },
   "dc-02": {
     name: "Cochin Port Vallarpadam Terminal",
-    cluster: "Vallarpadam ICTT, Kochi",
-    base_risk: 6.8,
-    base_lead_time: 1.5,
-    base_cost: 9800,
+    cluster: "Vallarpadam, Kochi, KL",
+    base_risk: 8.8,
+    base_lead_time: 1.7,
+    base_cost: 11800,
     actions: {
       supplier_delay:
-        "Transfer European export shipments to Chennai Port Container Terminal (dc-01) and negotiate priority rail container paths through Coimbatore.",
+        "Divert transshipment feeder containers via express rail cargo to Sriperumbudur.",
       demand_spike:
-        "Coordinate additional feeder vessel calls to Arabian Sea maritime lanes to handle finished goods export volumes.",
+        "Engage bonded coastal feeder ships to shuttle modules to Chennai Port.",
       transport_failure:
-        "Reroute Malabar coast outbound freight via NH66 North corridor to inland logistics distribution hubs.",
+        "Utilize inland water transport barges from Vallarpadam to mainland railhead.",
       adverse_weather:
-        "Reroute European export container vessels to Ennore / Chennai Port (dc-01) and charter bonded road transit across Tamil Nadu.",
+        "Suspend waterside gantry crane operations and secure high-value reefer and electronics cargo.",
     },
   },
   "dc-03": {
     name: "Hyderabad Air Cargo Gateway",
-    cluster: "Shamshabad, Hyderabad",
-    base_risk: 5.8,
+    cluster: "Shamshabad RGIA, TS",
+    base_risk: 7.5,
     base_lead_time: 1.1,
-    base_cost: 8400,
+    base_cost: 13500,
     actions: {
       supplier_delay:
-        "Consolidate international air cargo consignments for transit via Chennai International Airport and convert non-critical air orders to express road transport on NH44.",
+        "Book priority belly-cargo capacity on scheduled domestic air freighters to Chennai.",
       demand_spike:
-        "Charter dedicated cargo flights from Shamshabad Aerotropolis to clear accumulated European customer shipments.",
+        "Charter dedicated B737 cargo flight to transfer microelectronics directly to Chennai.",
       transport_failure:
-        "Divert urgent IoT telematics air consignments via Bengaluru Kempegowda International Airport bonded airfeeder truck network.",
+        "Stage freight at airport cargo apron and dispatch via green corridor to Sri City.",
       adverse_weather:
-        "Divert scheduled cargo flights to Bengaluru Kempegowda Airport and arrange bonded road feeder service.",
+        "Transfer perishable air cargo to temperature-controlled airside vaults.",
     },
   },
   "route-wh-01-mfg-01": {
-    name: "Hosur-Sriperumbudur NH48 Freight Corridor",
+    name: "Hosur-Sriperumbudur NH48 Corridor",
     cluster: "NH48 Interstate Highway",
-    base_risk: 9.8,
-    base_lead_time: 1.7,
-    base_cost: 12400,
+    base_risk: 9.2,
+    base_lead_time: 1.45,
+    base_cost: 9800,
     actions: {
       supplier_delay:
-        "Bypass blocked NH48 sections via State Highway 9 / Vellore-Arani detour and coordinate police convoy escorts for high-priority assembly component trucks.",
+        "Deploy dedicated express tractor-trailers with dual-driver rotation.",
       demand_spike:
-        "Authorize double-trailer freight permits on NH48 corridor to double inter-facility component volume per transit hour.",
+        "Increase daily convoy dispatch frequency from 4 to 10 truck movements.",
       transport_failure:
-        "Reroute critical truck convoys via Krishnagiri - Tiruvannamalai - Kanchipuram arterial detour and release emergency safety stock at Sriperumbudur.",
+        "Reroute heavy vehicles via Krishnagiri-Tiruvannamalai-Kanchipuram arterial detour.",
       adverse_weather:
-        "Deploy heavy tow recovery units along waterlogged NH48 stretches and reroute non-essential cargo to rail freight.",
+        "Monitor water levels at low-lying river bridges and equip trucks with GPS hazard telematics.",
     },
   },
   "route-sup-02-wh-01": {
     name: "Bengaluru-Hosur NH44 Freight Lane",
-    cluster: "NH44 Inter-State Corridor",
-    base_risk: 8.4,
-    base_lead_time: 1.4,
-    base_cost: 9800,
+    cluster: "NH44 Arterial Corridor",
+    base_risk: 7.8,
+    base_lead_time: 1.2,
+    base_cost: 7200,
     actions: {
       supplier_delay:
-        "Reroute trucks through Anekal-Thally rural bypass to circumvent Attibele toll checkpost congestion.",
+        "Utilize night-time freight transit window to avoid Electronic City border checks.",
       demand_spike:
-        "Double freight trailer rotations between Bengaluru Electronic City and Hosur Buffer Warehouse.",
+        "Deploy small commercial vehicles for continuous milk-run deliveries.",
       transport_failure:
-        "Reroute trucks via Anekal - Thally rural highway corridor directly into Hosur buffer gates to bypass Attibele toll blockage.",
+        "Detour via Sarjapur-Bagalur rural arterial route to enter Hosur warehouse district.",
       adverse_weather:
-        "Deploy covered high-cube trucks and hold delicate discrete components at Whitefield ICD (wh-02).",
+        "Pre-stage freight before peak afternoon rainfall windows.",
     },
   },
   "route-sup-07-mfg-01": {
     name: "Kochi-Sriperumbudur Inter-State Corridor",
-    cluster: "NH544 / Palakkad Gap Highway",
+    cluster: "NH544 / Palakkad Corridor",
     base_risk: 9.6,
-    base_lead_time: 1.8,
-    base_cost: 13200,
+    base_lead_time: 1.75,
+    base_cost: 12400,
     actions: {
       supplier_delay:
-        "Divert industrial control assemblies to Southern Railway express freight container from Ernakulam to Chennai.",
+        "Engage priority inter-modal container rakes on Southern Railway.",
       demand_spike:
-        "Engage dedicated express logistics provider to run dual-driver night express cargo runs across Tamil Nadu.",
+        "Authorize air cargo failover for critical optical sensor sub-assemblies.",
       transport_failure:
-        "Commission coastal express container feeder vessel from Cochin Port (dc-02) around peninsular India to Chennai Port (dc-01) and activate substitute wire harness assembly at Syrma (sup-04).",
+        "Detour around Palakkad Gap pass via Coimbatore-Dharapuram alternate highway.",
       adverse_weather:
-        "Stage Cochin electronics inventory at Coimbatore inland transshipment depot during Western Ghats monsoon storms.",
+        "Hold trucks at secure inland weigh-stations during peak cyclonic squalls.",
     },
   },
   "route-sup-08-wh-04": {
     name: "Hyderabad-Sri City Corridor",
-    cluster: "NH44 / NH16 Inter-State Corridor",
-    base_risk: 8.7,
+    cluster: "NH44 / Kurnool Corridor",
+    base_risk: 8.5,
     base_lead_time: 1.5,
-    base_cost: 10600,
+    base_cost: 10200,
     actions: {
       supplier_delay:
-        "Air-freight urgent PCB layers from Shamshabad Airport (dc-03) to Chennai and truck directly to Sri City FTWZ.",
+        "Pre-book dedicated logistics trucks with expedited turnaround SLAs.",
       demand_spike:
-        "Charter dedicated multi-axle freight convoys from Hyderabad to Sri City FTWZ to meet volume surge.",
+        "Split freight across light commercial vehicles below 16 tonnes.",
       transport_failure:
-        "Split freight across light commercial vehicles (LCVs) below 16 tonnes and divert heavy shipments via Guntur - Ongole - NH16 coastal highway.",
+        "Divert shipments via Guntur - Ongole - NH16 coastal highway.",
       adverse_weather:
-        "Pre-stage PCB materials in climate-sealed containers at Sri City FTWZ before monsoon frontal arrival.",
+        "Pre-stage PCB materials in climate-sealed containers before monsoon frontal arrival.",
     },
   },
   "route-wh-03-mfg-01": {
@@ -360,11 +360,11 @@ const COUNTERFACTUAL_PROFILES: Record<string, CounterfactualProfile> = {
     base_cost: 9400,
     actions: {
       supplier_delay:
-        "Deploy direct-to-line hot shot truck deliveries from SPEL Semiconductor (sup-01) to Sriperumbudur assembly floor.",
+        "Deploy direct-to-line hot shot truck deliveries from SPEL Semiconductor to assembly floor.",
       demand_spike:
         "Increase JIT dispatch cycle to hourly milk-run rotations between Oragadam and Sriperumbudur.",
       transport_failure:
-        "Reroute JIT parts shuttles via Walajabad - Sunguvarchatram rural arterial road and deploy dedicated green-corridor pilot vehicles.",
+        "Reroute JIT parts shuttles via Walajabad - Sunguvarchatram rural arterial road.",
       adverse_weather:
         "Equip feeder trucks with all-weather waterproof container covers for monsoon transit.",
     },
@@ -428,16 +428,31 @@ function computeSimulationOutcome(targetEntity: string, disruptionType: string, 
   const profile = COUNTERFACTUAL_PROFILES[targetEntity] || COUNTERFACTUAL_PROFILES["sup-01"];
   const mult = DISRUPTION_MULTIPLIERS[disruptionType] || DISRUPTION_MULTIPLIERS["supplier_delay"];
 
-  const calcRisk = (severity * profile.base_risk * mult.risk).toFixed(1);
-  const calcLead = (severity * profile.base_lead_time * mult.lead_time).toFixed(1);
-  const calcCost = Math.round(severity * profile.base_cost * mult.cost).toLocaleString("en-IN");
+  const baseRiskVal = profile.base_risk;
+  const baseLeadVal = profile.base_lead_time;
+  const baseCostVal = profile.base_cost;
+
+  const calcRiskDeltaNum = +(severity * profile.base_risk * mult.risk).toFixed(1);
+  const calcLeadDeltaNum = +(severity * profile.base_lead_time * mult.lead_time).toFixed(1);
+  const calcCostDeltaNum = Math.round(severity * profile.base_cost * mult.cost);
+
+  const projectedRiskVal = (baseRiskVal + calcRiskDeltaNum).toFixed(1);
+  const projectedLeadVal = (baseLeadVal + calcLeadDeltaNum).toFixed(1);
+  const projectedCostVal = (baseCostVal + calcCostDeltaNum).toLocaleString("en-IN");
+
   const recommendation = profile.actions[disruptionType] || profile.actions["supplier_delay"];
   const consensus_status = ["scen-12", "scen-24", "scen-25"].includes(scenarioId) ? "ESCALATED_TO_HUMAN" : "RESOLVED";
 
   return {
-    stockout_risk_delta: `+${calcRisk}%`,
-    lead_time_impact: `+${calcLead} days`,
-    cost_variance: `+₹${calcCost}`,
+    base_risk: `${baseRiskVal.toFixed(1)}%`,
+    base_lead: `${baseLeadVal.toFixed(2)}d`,
+    base_cost: `₹${baseCostVal.toLocaleString("en-IN")}`,
+    projected_risk: `${projectedRiskVal}%`,
+    projected_lead: `${projectedLeadVal}d`,
+    projected_cost: `₹${projectedCostVal}`,
+    stockout_risk_delta: `+${calcRiskDeltaNum.toFixed(1)}%`,
+    lead_time_impact: `+${calcLeadDeltaNum.toFixed(1)} days`,
+    cost_variance: `+₹${calcCostDeltaNum.toLocaleString("en-IN")}`,
     recommendation,
     consensus_status,
   };
@@ -448,15 +463,25 @@ export const WhatIfLabView: React.FC = () => {
   const [disruptionType, setDisruptionType] = useState("supplier_delay");
   const [severity, setSeverity] = useState(4);
   const [targetEntity, setTargetEntity] = useState("sup-01");
+  const [isAssumptionsOpen, setIsAssumptionsOpen] = useState(true);
   const [isRunning, setIsRunning] = useState(false);
   const [result, setResult] = useState<{
     whatif_id: string;
+    base_risk: string;
+    base_lead: string;
+    base_cost: string;
+    projected_risk: string;
+    projected_lead: string;
+    projected_cost: string;
     stockout_risk_delta: string;
     lead_time_impact: string;
     cost_variance: string;
     recommendation: string;
     consensus_status: string;
   } | null>(null);
+
+  const activeProfile = COUNTERFACTUAL_PROFILES[targetEntity] || COUNTERFACTUAL_PROFILES["sup-01"];
+  const activeScenarioDef = SCENARIO_DEFAULTS[baseScenario] || SCENARIO_DEFAULTS["scen-02"];
 
   const handleBaseScenarioChange = (newScenarioId: string) => {
     setBaseScenario(newScenarioId);
@@ -487,6 +512,12 @@ export const WhatIfLabView: React.FC = () => {
       setTimeout(() => {
         setResult({
           whatif_id: resp.whatif_id || `wi-${Math.random().toString(36).substring(2, 10)}`,
+          base_risk: calculated.base_risk,
+          base_lead: calculated.base_lead,
+          base_cost: calculated.base_cost,
+          projected_risk: calculated.projected_risk,
+          projected_lead: calculated.projected_lead,
+          projected_cost: calculated.projected_cost,
           stockout_risk_delta: resp.stockout_risk_delta || calculated.stockout_risk_delta,
           lead_time_impact: resp.lead_time_impact || calculated.lead_time_impact,
           cost_variance: resp.cost_variance || calculated.cost_variance,
@@ -494,7 +525,7 @@ export const WhatIfLabView: React.FC = () => {
           consensus_status: resp.consensus_status || calculated.consensus_status,
         });
         setIsRunning(false);
-      }, 400);
+      }, 350);
     } catch {
       setTimeout(() => {
         setResult({
@@ -502,153 +533,255 @@ export const WhatIfLabView: React.FC = () => {
           ...calculated,
         });
         setIsRunning(false);
-      }, 400);
+      }, 350);
     }
   };
 
   return (
     <div className={styles.container}>
+      {/* Top Workspace Header with Collapsible Assumptions Toggle */}
       <div className={styles.sectionHeader}>
-        <span className={styles.sectionTitle}>What-If Counterfactual Simulation Lab</span>
-        <span style={{ fontSize: "11px", color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}>
-          MONTE-CARLO PREDICTIVE ENGINE (25 SCENARIOS CONFIGURED)
-        </span>
-      </div>
-
-      <div className={styles.workspaceGrid}>
-        {/* Configuration Column */}
-        <div className={styles.configCard}>
-          <div className={styles.sectionHeader} style={{ padding: 0, border: "none" }}>
-            <span className={styles.sectionTitle}>Counterfactual Parameters</span>
-          </div>
-
-          <div className={styles.formGroup}>
-            <label className={styles.label}>Base Scenario</label>
-            <select
-              className={styles.select}
-              value={baseScenario}
-              onChange={(e) => handleBaseScenarioChange(e.target.value)}
-            >
-              {Object.entries(SCENARIO_DEFAULTS).map(([scenId, def]) => (
-                <option key={scenId} value={scenId}>
-                  [{scenId}] {def.name}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div className={styles.formGroup}>
-            <label className={styles.label}>Disruption Type Override</label>
-            <select
-              className={styles.select}
-              value={disruptionType}
-              onChange={(e) => setDisruptionType(e.target.value)}
-            >
-              <option value="supplier_delay">Supplier Lead-Time Delay</option>
-              <option value="demand_spike">Demand Surge / Volatility</option>
-              <option value="transport_failure">Logistics Route Disruption</option>
-              <option value="adverse_weather">Facility Extreme Weather / Cyclone</option>
-            </select>
-          </div>
-
-          <div className={styles.formGroup}>
-            <label className={styles.label}>Target Topology Node</label>
-            <select
-              className={styles.select}
-              value={targetEntity}
-              onChange={(e) => setTargetEntity(e.target.value)}
-            >
-              <optgroup label="Semiconductor & Electronics Suppliers">
-                <option value="sup-01">sup-01 (SPEL Semiconductor - Maraimalai Nagar, Chennai)</option>
-                <option value="sup-02">sup-02 (CDIL - Electronic City, Bengaluru)</option>
-                <option value="sup-03">sup-03 (Kaynes Technology - Koorgalli, Mysuru)</option>
-                <option value="sup-04">sup-04 (Syrma SGS Technology - Bargur)</option>
-                <option value="sup-05">sup-05 (Centum Electronics - Yelahanka, Bengaluru)</option>
-                <option value="sup-06">sup-06 (Vinyas Innovative Technologies - Hebbal, Mysuru)</option>
-                <option value="sup-07">sup-07 (SFO Technologies NeST - Kakkanad, Kochi)</option>
-                <option value="sup-08">sup-08 (Sahasra Electronic Solutions - Hyderabad)</option>
-              </optgroup>
-              <optgroup label="High-Tech Assembly & Manufacturing">
-                <option value="mfg-01">mfg-01 (Sriperumbudur High-Tech Assembly Plant)</option>
-              </optgroup>
-              <optgroup label="Logistics Buffer Warehouses & FTWZ">
-                <option value="wh-01">wh-01 (Hosur Logistics Buffer Warehouse)</option>
-                <option value="wh-02">wh-02 (Whitefield Inland Container Depot)</option>
-                <option value="wh-03">wh-03 (Oragadam JIT Supplier Warehouse)</option>
-                <option value="wh-04">wh-04 (Sri City FTWZ Logistics Center)</option>
-              </optgroup>
-              <optgroup label="Seaport & Air Cargo Distribution Centers">
-                <option value="dc-01">dc-01 (Chennai Port Container Terminal)</option>
-                <option value="dc-02">dc-02 (Cochin Port Vallarpadam Terminal)</option>
-                <option value="dc-03">dc-03 (Hyderabad Air Cargo Gateway)</option>
-              </optgroup>
-              <optgroup label="Interstate Logistics Highway Corridors">
-                <option value="route-wh-01-mfg-01">route-wh-01-mfg-01 (Hosur-Sriperumbudur NH48 Corridor)</option>
-                <option value="route-sup-02-wh-01">route-sup-02-wh-01 (Bengaluru-Hosur NH44 Freight Lane)</option>
-                <option value="route-sup-07-mfg-01">route-sup-07-mfg-01 (Kochi-Sriperumbudur Inter-State Corridor)</option>
-                <option value="route-sup-08-wh-04">route-sup-08-wh-04 (Hyderabad-Sri City Corridor)</option>
-                <option value="route-wh-03-mfg-01">route-wh-03-mfg-01 (Oragadam-Sriperumbudur Feeder Corridor)</option>
-              </optgroup>
-              <optgroup label="Network Systemic">
-                <option value="global">global (South Indian Multi-Tier Supply Network)</option>
-              </optgroup>
-            </select>
-          </div>
-
-          <div className={styles.formGroup}>
-            <label className={styles.label}>Severity Override (1 to 5)</label>
-            <div className={styles.severitySegmented}>
-              {[1, 2, 3, 4, 5].map((lvl) => (
-                <button
-                  key={lvl}
-                  type="button"
-                  className={`${styles.severityBtn} ${severity === lvl ? styles.severityBtnActive : ""}`}
-                  onClick={() => setSeverity(lvl)}
-                >
-                  {lvl}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <button
-            className={styles.runButton}
-            onClick={handleRunSimulation}
-            disabled={isRunning}
-          >
-            {isRunning ? "Running Multi-Agent Simulation..." : "Execute What-If Simulation"}
-          </button>
+        <div className={styles.headerInfo}>
+          <span className={styles.sectionTitle}>What-If Counterfactual Simulation Lab</span>
+          <span className={styles.headerSubtitle}>
+            MONTE-CARLO PREDICTIVE ENGINE (25 SCENARIOS CONFIGURED)
+          </span>
         </div>
 
-        {/* Results & Comparison Column */}
+        <div className={styles.headerControls}>
+          <button
+            className={styles.toggleAssumptionsBtn}
+            onClick={() => setIsAssumptionsOpen(!isAssumptionsOpen)}
+            title={isAssumptionsOpen ? "Collapse parameters sidebar" : "Expand parameters sidebar"}
+            aria-label="Toggle Assumptions Sidebar"
+          >
+            {isAssumptionsOpen ? "Hide Assumptions" : "Show Assumptions"}
+          </button>
+        </div>
+      </div>
+
+      {/* Main Workspace Layout */}
+      <div className={`${styles.workspaceGrid} ${!isAssumptionsOpen ? styles.workspaceGridExpanded : ""}`}>
+        {/* Collapsible Assumptions Column */}
+        {isAssumptionsOpen && (
+          <div className={styles.configCard}>
+            <div className={styles.configHeader}>
+              <span className={styles.configHeading}>Counterfactual Parameters</span>
+              <span className={styles.configBadge}>ASSUMPTIONS</span>
+            </div>
+
+            <div className={styles.formGroup}>
+              <label className={styles.label}>Base Scenario</label>
+              <select
+                className={styles.select}
+                value={baseScenario}
+                onChange={(e) => handleBaseScenarioChange(e.target.value)}
+              >
+                {Object.entries(SCENARIO_DEFAULTS).map(([scenId, def]) => (
+                  <option key={scenId} value={scenId}>
+                    [{scenId}] {def.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div className={styles.formGroup}>
+              <label className={styles.label}>Disruption Type Override</label>
+              <select
+                className={styles.select}
+                value={disruptionType}
+                onChange={(e) => setDisruptionType(e.target.value)}
+              >
+                <option value="supplier_delay">Supplier Lead-Time Delay</option>
+                <option value="demand_spike">Demand Surge / Volatility</option>
+                <option value="transport_failure">Logistics Route Disruption</option>
+                <option value="adverse_weather">Facility Extreme Weather / Cyclone</option>
+              </select>
+            </div>
+
+            <div className={styles.formGroup}>
+              <label className={styles.label}>Target Topology Node</label>
+              <select
+                className={styles.select}
+                value={targetEntity}
+                onChange={(e) => setTargetEntity(e.target.value)}
+              >
+                <optgroup label="Semiconductor & Electronics Suppliers">
+                  <option value="sup-01">sup-01 (SPEL Semiconductor - Maraimalai Nagar, Chennai)</option>
+                  <option value="sup-02">sup-02 (CDIL - Electronic City, Bengaluru)</option>
+                  <option value="sup-03">sup-03 (Kaynes Technology - Koorgalli, Mysuru)</option>
+                  <option value="sup-04">sup-04 (Syrma SGS Technology - Bargur)</option>
+                  <option value="sup-05">sup-05 (Centum Electronics - Yelahanka, Bengaluru)</option>
+                  <option value="sup-06">sup-06 (Vinyas Innovative Technologies - Hebbal, Mysuru)</option>
+                  <option value="sup-07">sup-07 (SFO Technologies NeST - Kakkanad, Kochi)</option>
+                  <option value="sup-08">sup-08 (Sahasra Electronic Solutions - Hyderabad)</option>
+                </optgroup>
+                <optgroup label="High-Tech Assembly & Manufacturing">
+                  <option value="mfg-01">mfg-01 (Sriperumbudur High-Tech Assembly Plant)</option>
+                </optgroup>
+                <optgroup label="Logistics Buffer Warehouses & FTWZ">
+                  <option value="wh-01">wh-01 (Hosur Logistics Buffer Warehouse)</option>
+                  <option value="wh-02">wh-02 (Whitefield Inland Container Depot)</option>
+                  <option value="wh-03">wh-03 (Oragadam JIT Supplier Warehouse)</option>
+                  <option value="wh-04">wh-04 (Sri City FTWZ Logistics Center)</option>
+                </optgroup>
+                <optgroup label="Seaport & Air Cargo Distribution Centers">
+                  <option value="dc-01">dc-01 (Chennai Port Container Terminal)</option>
+                  <option value="dc-02">dc-02 (Cochin Port Vallarpadam Terminal)</option>
+                  <option value="dc-03">dc-03 (Hyderabad Air Cargo Gateway)</option>
+                </optgroup>
+                <optgroup label="Interstate Logistics Highway Corridors">
+                  <option value="route-wh-01-mfg-01">route-wh-01-mfg-01 (Hosur-Sriperumbudur NH48 Corridor)</option>
+                  <option value="route-sup-02-wh-01">route-sup-02-wh-01 (Bengaluru-Hosur NH44 Freight Lane)</option>
+                  <option value="route-sup-07-mfg-01">route-sup-07-mfg-01 (Kochi-Sriperumbudur Inter-State Corridor)</option>
+                  <option value="route-sup-08-wh-04">route-sup-08-wh-04 (Hyderabad-Sri City Corridor)</option>
+                  <option value="route-wh-03-mfg-01">route-wh-03-mfg-01 (Oragadam-Sriperumbudur Feeder Corridor)</option>
+                </optgroup>
+                <optgroup label="Network Systemic">
+                  <option value="global">global (South Indian Multi-Tier Supply Network)</option>
+                </optgroup>
+              </select>
+            </div>
+
+            <div className={styles.formGroup}>
+              <label className={styles.label}>Severity Override (1 to 5)</label>
+              <div className={styles.severitySegmented}>
+                {[1, 2, 3, 4, 5].map((lvl) => (
+                  <button
+                    key={lvl}
+                    type="button"
+                    className={`${styles.severityBtn} ${severity === lvl ? styles.severityBtnActive : ""}`}
+                    onClick={() => setSeverity(lvl)}
+                  >
+                    Level {lvl}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <button
+              className={styles.runButton}
+              onClick={handleRunSimulation}
+              disabled={isRunning}
+            >
+              {isRunning ? "Simulating Counterfactual Run..." : "Execute What-If Simulation"}
+            </button>
+          </div>
+        )}
+
+        {/* Results & Comparison-First Workspace Column */}
         <div className={styles.resultsCard}>
-          <div className={styles.sectionHeader} style={{ padding: 0, border: "none" }}>
-            <span className={styles.sectionTitle}>Comparative Outcome Analysis</span>
+          <div className={styles.resultsHeader}>
+            <div className={styles.resultsHeadingGroup}>
+              <span className={styles.resultsHeading}>Comparative Outcome Analysis</span>
+              <span className={styles.comparisonModeTag}>
+                {isAssumptionsOpen ? "STANDARD COMPARISON" : "EXPANDED COMPARISON CANVAS"}
+              </span>
+            </div>
             {result && (
-              <span style={{ fontSize: "11px", color: "var(--accent-cyan)", fontFamily: "var(--font-mono)" }}>
-                ID: {result.whatif_id}
+              <span className={styles.resultIdBadge}>
+                RUN ID: {result.whatif_id}
               </span>
             )}
           </div>
 
           {!result ? (
-            <div style={{ color: "var(--text-muted)", fontSize: "13px", padding: "40px 0", textAlign: "center" }}>
-              Configure parameters and click Execute to run the counterfactual multi-agent analysis.
+            <div className={styles.emptyPrompt}>
+              <div className={styles.emptyPromptTitle}>No simulation executed yet</div>
+              <p className={styles.emptyPromptText}>
+                Select baseline scenario assumptions and click <strong>Execute What-If Simulation</strong> to generate a side-by-side counterfactual comparative projection.
+              </p>
             </div>
           ) : (
-            <>
+            <div className={styles.comparisonWorkspace}>
+              {/* Side-by-Side Comparison Tiles: Baseline vs Counterfactual */}
+              <div className={styles.comparisonTilesGrid}>
+                {/* Baseline Nominal Tile */}
+                <div className={styles.tileCard}>
+                  <div className={styles.tileHeader}>
+                    <div>
+                      <span className={styles.tileType}>BASELINE STATE</span>
+                      <h4 className={styles.tileTitle}>Nominal Operating Conditions</h4>
+                    </div>
+                    <span className={styles.baselineBadge}>NOMINAL</span>
+                  </div>
+
+                  <div className={styles.tileEntityRow}>
+                    <span className={styles.tileEntityLabel}>Target:</span>
+                    <span className={styles.tileEntityVal}>{activeProfile.name} ({activeProfile.cluster})</span>
+                  </div>
+
+                  <div className={styles.tileMetricsGrid}>
+                    <div className={styles.tileMetricItem}>
+                      <span className={styles.tileMetricLabel}>Base Risk Index</span>
+                      <span className={styles.tileMetricVal}>{result.base_risk}</span>
+                    </div>
+                    <div className={styles.tileMetricItem}>
+                      <span className={styles.tileMetricLabel}>Expected Lead Time</span>
+                      <span className={styles.tileMetricVal}>{result.base_lead}</span>
+                    </div>
+                    <div className={styles.tileMetricItem}>
+                      <span className={styles.tileMetricLabel}>Baseline Operating Cost</span>
+                      <span className={styles.tileMetricVal}>{result.base_cost}</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Counterfactual Projection Tile */}
+                <div className={`${styles.tileCard} ${styles.counterfactualCard}`}>
+                  <div className={styles.tileHeader}>
+                    <div>
+                      <span className={styles.tileType}>COUNTERFACTUAL PROJECTION</span>
+                      <h4 className={styles.tileTitle}>{activeScenarioDef.name}</h4>
+                    </div>
+                    <span className={styles.counterfactualBadge}>
+                      Simulated Counterfactual Projection (Isolated Run)
+                    </span>
+                  </div>
+
+                  <div className={styles.tileEntityRow}>
+                    <span className={styles.tileEntityLabel}>Shock Applied:</span>
+                    <span className={styles.tileEntityVal}>
+                      {disruptionType.toUpperCase()} (Severity {severity}/5) on {targetEntity}
+                    </span>
+                  </div>
+
+                  <div className={styles.tileMetricsGrid}>
+                    <div className={styles.tileMetricItem}>
+                      <span className={styles.tileMetricLabel}>Projected Risk Index</span>
+                      <span className={`${styles.tileMetricVal} ${styles.metricValRed}`}>
+                        {result.projected_risk}
+                      </span>
+                    </div>
+                    <div className={styles.tileMetricItem}>
+                      <span className={styles.tileMetricLabel}>Impacted Lead Time</span>
+                      <span className={`${styles.tileMetricVal} ${styles.metricValAmber}`}>
+                        {result.projected_lead}
+                      </span>
+                    </div>
+                    <div className={styles.tileMetricItem}>
+                      <span className={styles.tileMetricLabel}>Projected Operating Cost</span>
+                      <span className={styles.tileMetricVal}>
+                        {result.projected_cost}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Delta Variance Metrics Grid (Tabular Numerals) */}
               <div className={styles.deltaGrid}>
                 <div className={styles.deltaItem}>
                   <span className={styles.deltaLabel}>Stockout Risk Delta</span>
-                  <span className={styles.deltaValue} style={{ color: "var(--accent-red)" }}>
+                  <span className={`${styles.deltaValue} ${styles.deltaValRed}`}>
                     {result.stockout_risk_delta}
                   </span>
-                  <span className={styles.deltaSubtext}>Relative to baseline</span>
+                  <span className={styles.deltaSubtext}>Increase relative to baseline</span>
                 </div>
 
                 <div className={styles.deltaItem}>
                   <span className={styles.deltaLabel}>Lead Time Variance</span>
-                  <span className={styles.deltaValue} style={{ color: "var(--accent-amber)" }}>
+                  <span className={`${styles.deltaValue} ${styles.deltaValAmber}`}>
                     {result.lead_time_impact}
                   </span>
                   <span className={styles.deltaSubtext}>Average arrival delay</span>
@@ -656,39 +789,39 @@ export const WhatIfLabView: React.FC = () => {
 
                 <div className={styles.deltaItem}>
                   <span className={styles.deltaLabel}>Estimated Cost Delta</span>
-                  <span className={styles.deltaValue} style={{ color: "var(--text-primary)" }}>
+                  <span className={styles.deltaValue}>
                     {result.cost_variance}
                   </span>
-                  <span className={styles.deltaSubtext}>Expedited freight & procurement</span>
+                  <span className={styles.deltaSubtext}>Expedited freight and inventory buffer</span>
                 </div>
 
                 <div className={styles.deltaItem}>
                   <span className={styles.deltaLabel}>Consensus Status</span>
                   <span
-                    className={styles.deltaValue}
-                    style={{
-                      color:
-                        result.consensus_status === "ESCALATED_TO_HUMAN"
-                          ? "var(--accent-red)"
-                          : "var(--status-healthy)",
-                      fontSize: "17px",
-                    }}
+                    className={`${styles.deltaValue} ${
+                      result.consensus_status === "ESCALATED_TO_HUMAN"
+                        ? styles.deltaValRed
+                        : styles.deltaValGreen
+                    }`}
                   >
                     {result.consensus_status}
                   </span>
                   <span className={styles.deltaSubtext}>
                     {result.consensus_status === "ESCALATED_TO_HUMAN"
-                      ? "Human-in-the-loop escalation"
-                      : "CD2F multi-agent agreement"}
+                      ? "Human escalation policy threshold"
+                      : "Multi-agent CD2F consensus reached"}
                   </span>
                 </div>
               </div>
 
+              {/* Counterfactual Consensus Action Box */}
               <div className={styles.comparisonBanner}>
-                <span className={styles.comparisonTitle}>Counterfactual Consensus Action</span>
+                <span className={styles.comparisonTitle}>
+                  Arbitrated Multi-Agent Mitigation Action
+                </span>
                 <p className={styles.comparisonText}>{result.recommendation}</p>
               </div>
-            </>
+            </div>
           )}
         </div>
       </div>

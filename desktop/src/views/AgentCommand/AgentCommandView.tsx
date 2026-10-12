@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styles from "./AgentCommand.module.css";
 import { useAgentActivity } from "../../hooks/useAgentActivity";
 import type { AgentActivityPayload } from "../../api/types";
+import { ContextualDrawer } from "../../components/common/ContextualDrawer";
 
 interface SpecialistAgent {
   id: string;
@@ -44,7 +45,30 @@ const SPECIALIST_AGENTS: SpecialistAgent[] = [
 
 export const AgentCommandView: React.FC = () => {
   const activities = useAgentActivity();
-  const [selectedAgentId, setSelectedAgentId] = useState<string>(SPECIALIST_AGENTS[0].id);
+  const [selectedAgentId, setSelectedAgentId] = useState<string | null>(null);
+  const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [containerWidth, setContainerWidth] = useState<number>(1200);
+
+  useEffect(() => {
+    if (!containerRef.current) return;
+    const updateSize = () => {
+      if (containerRef.current) {
+        setContainerWidth(containerRef.current.clientWidth);
+      }
+    };
+    updateSize();
+
+    const ro = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        setContainerWidth(entry.contentRect.width);
+      }
+    });
+    ro.observe(containerRef.current);
+    return () => ro.disconnect();
+  }, []);
+
+  const drawerMode = containerWidth >= 1100 ? "docked" : "overlay";
 
   // Find latest state per agent
   const getAgentStatus = (agentId: string) => {
@@ -57,22 +81,33 @@ export const AgentCommandView: React.FC = () => {
     };
   };
 
-  const selectedAgent =
-    SPECIALIST_AGENTS.find((a) => a.id === selectedAgentId) || SPECIALIST_AGENTS[0];
-  const selectedTelemetry = getAgentStatus(selectedAgent.id);
+  const selectedAgent = SPECIALIST_AGENTS.find((a) => a.id === selectedAgentId);
+  const selectedTelemetry = selectedAgent ? getAgentStatus(selectedAgent.id) : null;
+
+  const handleSelectAgent = (agentId: string) => {
+    setSelectedAgentId(agentId);
+    setIsDrawerOpen(true);
+  };
+
+  const agentActivities = selectedAgent
+    ? activities.filter((a) => a.agent_id === selectedAgent.id)
+    : [];
 
   return (
-    <div className={styles.container}>
-      <div className={styles.sectionHeader}>
-        <span className={styles.sectionTitle}>Autonomous Specialist Agents (A2A Network)</span>
-        <span style={{ fontSize: "11px", color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}>
-          {SPECIALIST_AGENTS.length} SPECIALISTS REGISTERED ON PROTOCOL
-        </span>
-      </div>
+    <div className={styles.workspaceWrapper} ref={containerRef}>
+      <div className={styles.workspaceMain}>
+        {/* Section Header */}
+        <div className={styles.sectionHeader}>
+          <div className={styles.headerTitleGroup}>
+            <span className={styles.sectionTitle}>Autonomous Specialist Agents (A2A Network)</span>
+            <span className={styles.agentCounter}>
+              {SPECIALIST_AGENTS.length} SPECIALISTS REGISTERED ON PROTOCOL
+            </span>
+          </div>
+          <span className={styles.protocolBadge}>A2A JSON-RPC 2.0</span>
+        </div>
 
-      {/* Main Grid: Left Operations Table + Right Specialist Inspector */}
-      <div className={styles.mainGrid}>
-        {/* Operations Data Table */}
+        {/* Full-Width Operations Data Table */}
         <div className={styles.tableCard}>
           <div className={styles.tableWrapper}>
             <table className={styles.agentTable}>
@@ -83,12 +118,14 @@ export const AgentCommandView: React.FC = () => {
                   <th>Status</th>
                   <th>Endpoint</th>
                   <th>Latency</th>
+                  <th>Capabilities</th>
+                  <th style={{ textAlign: "right" }}>Action</th>
                 </tr>
               </thead>
               <tbody>
                 {SPECIALIST_AGENTS.map((agent) => {
                   const { status, latency } = getAgentStatus(agent.id);
-                  const isSelected = agent.id === selectedAgentId;
+                  const isSelected = agent.id === selectedAgentId && isDrawerOpen;
                   const isCompleted = status === "COMPLETED";
                   const isRunning = status === "RUNNING";
                   const isDispatched = status === "DISPATCHED";
@@ -97,11 +134,12 @@ export const AgentCommandView: React.FC = () => {
                     <tr
                       key={agent.id}
                       className={`${styles.agentRow} ${isSelected ? styles.agentRowSelected : ""}`}
-                      onClick={() => setSelectedAgentId(agent.id)}
+                      onClick={() => handleSelectAgent(agent.id)}
                     >
                       <td className={styles.agentId}>{agent.id}</td>
                       <td>
-                        <div style={{ fontWeight: 600, color: "var(--text-primary)" }}>{agent.name}</div>
+                        <div className={styles.agentName}>{agent.name}</div>
+                        <div className={styles.agentRoleSub}>{agent.role}</div>
                       </td>
                       <td>
                         <span
@@ -118,11 +156,33 @@ export const AgentCommandView: React.FC = () => {
                           {status}
                         </span>
                       </td>
-                      <td style={{ fontFamily: "var(--font-mono)", fontSize: "11.5px" }}>
-                        :{agent.endpoint.split(":").pop()}
+                      <td className={styles.endpointCell}>
+                        {agent.endpoint}
                       </td>
                       <td className={styles.latencyValue}>
                         {latency ? `${Math.round(latency)}ms` : "Ready"}
+                      </td>
+                      <td>
+                        <div className={styles.skillChipsInline}>
+                          {agent.skills.map((s) => (
+                            <span key={s} className={styles.inlineSkillBadge}>
+                              {s}
+                            </span>
+                          ))}
+                        </div>
+                      </td>
+                      <td style={{ textAlign: "right" }}>
+                        <button
+                          className={styles.inspectBtn}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleSelectAgent(agent.id);
+                          }}
+                          title={`Inspect telemetry for ${agent.name}`}
+                          aria-label={`Inspect ${agent.name}`}
+                        >
+                          Inspect
+                        </button>
                       </td>
                     </tr>
                   );
@@ -132,97 +192,136 @@ export const AgentCommandView: React.FC = () => {
           </div>
         </div>
 
-        {/* Right Telemetry Inspector Panel */}
-        <div className={styles.inspectorCard}>
-          <div className={styles.inspectorHeader}>
-            <span className={styles.inspectorTitle}>Specialist Telemetry Inspector</span>
-            <span
-              className={`${styles.statusPill} ${
-                selectedTelemetry.status === "COMPLETED"
-                  ? styles.statusCompleted
-                  : selectedTelemetry.status === "RUNNING"
-                  ? styles.statusRunning
-                  : styles.statusIdle
-              }`}
-            >
-              {selectedTelemetry.status}
+        {/* Live Activity Event Feed */}
+        <div className={styles.historyCard}>
+          <div className={styles.sectionHeader}>
+            <span className={styles.sectionTitle}>Live Activity Event Feed</span>
+            <span className={styles.eventCounter}>
+              {activities.length} EVENTS RECORDED
             </span>
           </div>
 
-          <div className={styles.metaGrid}>
-            <span className={styles.metaLabel}>Specialist ID</span>
-            <span className={styles.metaValue}>{selectedAgent.id}</span>
+          <div className={styles.timeline}>
+            {activities.length === 0 ? (
+              <div className={styles.emptyFeed}>
+                No recent agent events. Trigger a scenario from the Scenario Catalog to observe real-time execution.
+              </div>
+            ) : (
+              activities.map((act: AgentActivityPayload, idx: number) => {
+                const formattedTime = act.timestamp
+                  ? new Date(act.timestamp).toISOString().substring(11, 19) + " UTC"
+                  : "Live";
 
-            <span className={styles.metaLabel}>Designation</span>
-            <span className={styles.metaValue}>{selectedAgent.name}</span>
-
-            <span className={styles.metaLabel}>Endpoint URI</span>
-            <span className={styles.metaValue}>{selectedAgent.endpoint}</span>
-
-            <span className={styles.metaLabel}>Last Latency</span>
-            <span className={styles.metaValue}>
-              {selectedTelemetry.latency ? `${Math.round(selectedTelemetry.latency)}ms` : "Standby"}
-            </span>
-          </div>
-
-          <div>
-            <span className={styles.metaLabel} style={{ display: "block", marginBottom: 6 }}>
-              Specialization Scope
-            </span>
-            <div className={styles.roleBox}>{selectedAgent.role}</div>
-          </div>
-
-          <div>
-            <span className={styles.metaLabel} style={{ display: "block", marginBottom: 6 }}>
-              Registered A2A Capabilities
-            </span>
-            <div className={styles.skillsContainer}>
-              {selectedAgent.skills.map((skill) => (
-                <span key={skill} className={styles.skillBadge}>
-                  {skill}
-                </span>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Live Activity Event Feed */}
-      <div className={styles.historyCard}>
-        <div className={styles.sectionHeader}>
-          <span className={styles.sectionTitle}>Live Activity Event Feed</span>
-          <span style={{ fontSize: "11px", color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}>
-            {activities.length} EVENTS RECORDED
-          </span>
-        </div>
-
-        <div className={styles.timeline}>
-          {activities.length === 0 ? (
-            <div style={{ color: "var(--text-muted)", fontSize: "12px", padding: "10px 0" }}>
-              No recent agent events. Trigger a scenario from the Scenario Launcher tab to observe real-time execution.
-            </div>
-          ) : (
-            activities.map((act: AgentActivityPayload, idx: number) => {
-              const formattedTime = act.timestamp
-                ? new Date(act.timestamp).toISOString().substring(11, 19) + " UTC"
-                : "Live";
-
-              return (
-                <div key={idx} className={styles.timelineItem}>
-                  <div className={styles.timelineLeft}>
-                    <span className={styles.timelineAgent}>{act.agent_id}</span>
-                    <span className={styles.timelineMessage}>
-                      Status changed to <strong style={{ color: "var(--interactive-primary)" }}>{act.status}</strong>
-                      {act.latency_ms ? ` (${Math.round(act.latency_ms)}ms)` : ""}
-                    </span>
+                return (
+                  <div key={idx} className={styles.timelineItem}>
+                    <div className={styles.timelineLeft}>
+                      <span className={styles.timelineAgent}>{act.agent_id}</span>
+                      <span className={styles.timelineMessage}>
+                        Status transitioned to <strong className={styles.statusHighlight}>{act.status}</strong>
+                        {act.latency_ms ? ` (${Math.round(act.latency_ms)}ms)` : ""}
+                      </span>
+                    </div>
+                    <span className={styles.timelineTime}>{formattedTime}</span>
                   </div>
-                  <span className={styles.timelineTime}>{formattedTime}</span>
-                </div>
-              );
-            })
-          )}
+                );
+              })
+            )}
+          </div>
         </div>
       </div>
+
+      {/* Contextual Telemetry Drawer */}
+      {selectedAgent && selectedTelemetry && (
+        <ContextualDrawer
+          isOpen={isDrawerOpen}
+          title={selectedAgent.name}
+          badge={selectedAgent.id}
+          mode={drawerMode}
+          onClose={() => setIsDrawerOpen(false)}
+        >
+          <div className={styles.drawerContent}>
+            <div className={styles.drawerSection}>
+              <div className={styles.drawerHeaderStatus}>
+                <span className={styles.drawerSectionLabel}>Operating Status</span>
+                <span
+                  className={`${styles.statusPill} ${
+                    selectedTelemetry.status === "COMPLETED"
+                      ? styles.statusCompleted
+                      : selectedTelemetry.status === "RUNNING"
+                      ? styles.statusRunning
+                      : styles.statusIdle
+                  }`}
+                >
+                  {selectedTelemetry.status}
+                </span>
+              </div>
+            </div>
+
+            <div className={styles.drawerSection}>
+              <span className={styles.drawerSectionLabel}>Endpoint & Network Metadata</span>
+              <div className={styles.metaGrid}>
+                <div className={styles.metaRow}>
+                  <span className={styles.metaLabel}>Endpoint URI:</span>
+                  <span className={styles.metaValue}>{selectedAgent.endpoint}</span>
+                </div>
+                <div className={styles.metaRow}>
+                  <span className={styles.metaLabel}>Specialist ID:</span>
+                  <span className={styles.metaValue}>{selectedAgent.id}</span>
+                </div>
+                <div className={styles.metaRow}>
+                  <span className={styles.metaLabel}>Current Latency:</span>
+                  <span className={styles.metaValue}>
+                    {selectedTelemetry.latency ? `${Math.round(selectedTelemetry.latency)}ms` : "Standby"}
+                  </span>
+                </div>
+                <div className={styles.metaRow}>
+                  <span className={styles.metaLabel}>Protocol Version:</span>
+                  <span className={styles.metaValue}>A2A 1.0 (gRPC / HTTP REST)</span>
+                </div>
+              </div>
+            </div>
+
+            <div className={styles.drawerSection}>
+              <span className={styles.drawerSectionLabel}>Specialization Scope</span>
+              <div className={styles.roleBox}>{selectedAgent.role}</div>
+            </div>
+
+            <div className={styles.drawerSection}>
+              <span className={styles.drawerSectionLabel}>Registered A2A Capabilities</span>
+              <div className={styles.skillsContainer}>
+                {selectedAgent.skills.map((skill) => (
+                  <span key={skill} className={styles.skillBadge}>
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div className={styles.drawerSection}>
+              <span className={styles.drawerSectionLabel}>Specialist Execution History</span>
+              {agentActivities.length === 0 ? (
+                <div className={styles.emptyDrawerHistory}>
+                  No recent execution events logged for {selectedAgent.id}.
+                </div>
+              ) : (
+                <div className={styles.drawerHistoryList}>
+                  {agentActivities.slice(0, 5).map((act, idx) => (
+                    <div key={idx} className={styles.drawerHistoryItem}>
+                      <span className={styles.drawerHistoryStatus}>{act.status}</span>
+                      <span className={styles.drawerHistoryLatency}>
+                        {act.latency_ms ? `${Math.round(act.latency_ms)}ms` : ""}
+                      </span>
+                      <span className={styles.drawerHistoryTime}>
+                        {act.timestamp ? new Date(act.timestamp).toISOString().substring(11, 19) + " UTC" : "Live"}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        </ContextualDrawer>
+      )}
     </div>
   );
 };

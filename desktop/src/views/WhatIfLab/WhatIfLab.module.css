@@ -13,18 +13,64 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.headerInfo {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
 }
 
 .sectionTitle {
   font-size: 13px;
   font-weight: 600;
   color: var(--text-primary);
+  letter-spacing: -0.01em;
 }
 
+.headerSubtitle {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.headerControls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.toggleAssumptionsBtn {
+  background: var(--surface-panel);
+  border: 1px solid var(--border-default);
+  color: var(--text-secondary);
+  font-size: 11.5px;
+  padding: 5px 12px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.toggleAssumptionsBtn:hover {
+  background: var(--surface-subtle);
+  border-color: var(--interactive-primary);
+  color: var(--interactive-primary);
+}
+
+/* Workspace Grid */
 .workspaceGrid {
   display: grid;
-  grid-template-columns: 1fr 1.15fr;
+  grid-template-columns: 360px 1fr;
   gap: var(--space-4);
+  align-items: start;
+  transition: grid-template-columns var(--transition-normal);
+}
+
+.workspaceGridExpanded {
+  grid-template-columns: 1fr;
 }
 
 /* Parameters Configuration Card */
@@ -36,6 +82,30 @@
   display: flex;
   flex-direction: column;
   gap: 14px;
+  box-shadow: var(--shadow-sm);
+}
+
+.configHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.configHeading {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.configBadge {
+  font-size: 9.5px;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  color: var(--text-muted);
+  background: var(--surface-raised);
+  border: 1px solid var(--border-default);
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
 }
 
 .formGroup {
@@ -93,7 +163,7 @@
   color: var(--text-secondary);
   padding: 6px 0;
   border-radius: var(--radius-sm);
-  font-size: 12px;
+  font-size: 11px;
   font-family: var(--font-mono);
   font-weight: 600;
   cursor: pointer;
@@ -107,8 +177,8 @@
 }
 
 .severityBtnActive {
-  background: var(--interactive-hover);
-  border-color: var(--brand-blue);
+  background: rgba(69, 169, 243, 0.15);
+  border-color: var(--interactive-primary);
   color: var(--interactive-primary);
 }
 
@@ -142,12 +212,204 @@
   padding: var(--space-5);
   display: flex;
   flex-direction: column;
+  gap: 16px;
+  box-shadow: var(--shadow-sm);
+}
+
+.resultsHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-default);
+}
+
+.resultsHeadingGroup {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.resultsHeading {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.comparisonModeTag {
+  font-size: 9.5px;
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+  background: var(--surface-raised);
+  border: 1px solid var(--border-default);
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+}
+
+.resultIdBadge {
+  font-size: 11px;
+  color: var(--accent-cyan, #4cc9f0);
+  font-family: var(--font-mono);
+}
+
+.emptyPrompt {
+  padding: 48px 24px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.emptyPromptTitle {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.emptyPromptText {
+  font-size: 12px;
+  color: var(--text-muted);
+  max-width: 440px;
+  line-height: 1.45;
+  margin: 0;
+}
+
+.comparisonWorkspace {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Side-by-Side Comparison Tiles */
+.comparisonTilesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 14px;
 }
 
+.tileCard {
+  background: var(--surface-raised);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.counterfactualCard {
+  border-color: rgba(69, 169, 243, 0.35);
+  background: rgba(69, 169, 243, 0.03);
+}
+
+.tileHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.tileType {
+  font-size: 10px;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+  display: block;
+  margin-bottom: 2px;
+}
+
+.tileTitle {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.baselineBadge {
+  font-size: 9.5px;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  color: var(--status-success);
+  background: rgba(72, 198, 154, 0.12);
+  border: 1px solid rgba(72, 198, 154, 0.25);
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+}
+
+.counterfactualBadge {
+  font-size: 9.5px;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  color: var(--interactive-primary);
+  background: rgba(69, 169, 243, 0.12);
+  border: 1px solid rgba(69, 169, 243, 0.25);
+  padding: 2px 7px;
+  border-radius: var(--radius-sm);
+  text-align: right;
+  line-height: 1.3;
+}
+
+.tileEntityRow {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  font-size: 11.5px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border-default);
+}
+
+.tileEntityLabel {
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.tileEntityVal {
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+}
+
+.tileMetricsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.tileMetricItem {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.tileMetricLabel {
+  font-size: 10px;
+  color: var(--text-muted);
+}
+
+.tileMetricVal {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.metricValRed {
+  color: var(--status-critical, #ff5c5c);
+}
+
+.metricValAmber {
+  color: var(--status-warning, #f5a623);
+}
+
+/* Delta Variance Grid */
 .deltaGrid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 10px;
 }
 
@@ -170,11 +432,24 @@
 }
 
 .deltaValue {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 600;
   color: var(--text-primary);
+  font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
   line-height: 1.2;
+}
+
+.deltaValRed {
+  color: var(--status-critical, #ff5c5c);
+}
+
+.deltaValAmber {
+  color: var(--status-warning, #f5a623);
+}
+
+.deltaValGreen {
+  color: var(--status-success, #48c69a);
 }
 
 .deltaSubtext {
@@ -182,21 +457,22 @@
   color: var(--text-secondary);
 }
 
+/* Counterfactual Consensus Action Banner */
 .comparisonBanner {
   background: var(--surface-raised);
   border: 1px solid var(--border-default);
-  border-left: 3px solid var(--brand-teal);
+  border-left: 3px solid var(--interactive-primary);
   border-radius: var(--radius-sm);
-  padding: 12px 14px;
+  padding: 12px 16px;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 5px;
 }
 
 .comparisonTitle {
   font-size: 11px;
   font-weight: 600;
-  color: var(--brand-teal);
+  color: var(--interactive-primary);
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }

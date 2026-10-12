@@ -1,34 +1,64 @@
-.container {
+.workspaceWrapper {
+  display: flex;
+  height: calc(100vh - var(--topbar-height));
+  position: relative;
+  overflow: hidden;
+  background: var(--surface-canvas);
+}
+
+.workspaceMain {
+  flex: 1;
   padding: var(--space-6);
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
-  height: calc(100vh - var(--topbar-height));
   overflow-y: auto;
-  background: var(--surface-canvas);
   user-select: none;
+  min-width: 0;
 }
 
 .sectionHeader {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.headerTitleGroup {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
 }
 
 .sectionTitle {
   font-size: 13px;
   font-weight: 600;
   color: var(--text-primary);
+  letter-spacing: -0.01em;
 }
 
-.mainGrid {
-  display: grid;
-  grid-template-columns: 1.6fr 1fr;
-  gap: 14px;
-  min-height: 380px;
+.agentCounter,
+.eventCounter {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
 }
 
-/* Operations Table Card (Left) */
+.protocolBadge {
+  font-size: 10px;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  color: var(--interactive-primary);
+  background: rgba(69, 169, 243, 0.1);
+  border: 1px solid rgba(69, 169, 243, 0.25);
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+  text-transform: uppercase;
+}
+
+/* Operations Table Card (Full-Width) */
 .tableCard {
   background: var(--surface-panel);
   border: 1px solid var(--border-default);
@@ -36,9 +66,11 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  box-shadow: var(--shadow-sm);
 }
 
 .tableWrapper {
+  overflow-x: auto;
   overflow-y: auto;
   flex: 1;
 }
@@ -62,10 +94,11 @@
   position: sticky;
   top: 0;
   z-index: 1;
+  white-space: nowrap;
 }
 
 .agentTable td {
-  padding: 10px 14px;
+  padding: 11px 14px;
   border-bottom: 1px solid var(--border-default);
   color: var(--text-secondary);
   vertical-align: middle;
@@ -81,7 +114,7 @@
 }
 
 .agentRowSelected {
-  background: var(--surface-subtle);
+  background: rgba(69, 169, 243, 0.07);
 }
 
 .agentRowSelected td:first-child {
@@ -92,6 +125,27 @@
   font-family: var(--font-mono);
   font-weight: 600;
   color: var(--interactive-primary);
+  white-space: nowrap;
+}
+
+.agentName {
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+}
+
+.agentRoleSub {
+  font-size: 11px;
+  color: var(--text-muted);
+  max-width: 480px;
+  line-height: 1.3;
+}
+
+.endpointCell {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  white-space: nowrap;
 }
 
 .statusPill {
@@ -103,6 +157,7 @@
   text-transform: uppercase;
   display: inline-block;
   border: 1px solid transparent;
+  white-space: nowrap;
 }
 
 .statusCompleted {
@@ -133,77 +188,41 @@
   font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
   color: var(--text-primary);
+  white-space: nowrap;
 }
 
-/* Specialist Telemetry Inspector (Right) */
-.inspectorCard {
-  background: var(--surface-panel);
-  border: 1px solid var(--border-default);
-  border-radius: var(--radius-lg);
-  padding: var(--space-4);
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.inspectorHeader {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.inspectorTitle {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--text-primary);
-}
-
-.metaGrid {
-  display: grid;
-  grid-template-columns: 100px 1fr;
-  gap: 6px 12px;
-  padding: 10px;
-  background: var(--surface-raised);
-  border: 1px solid var(--border-default);
-  border-radius: var(--radius-sm);
-  font-size: 11px;
-}
-
-.metaLabel {
-  color: var(--text-muted);
-  font-weight: 500;
-}
-
-.metaValue {
-  color: var(--text-primary);
-  word-break: break-all;
-  font-family: var(--font-mono);
-}
-
-.roleBox {
-  padding: 10px 12px;
-  background: var(--surface-raised);
-  border: 1px solid var(--border-default);
-  border-radius: var(--radius-sm);
-  font-size: 11.5px;
-  color: var(--text-secondary);
-  line-height: 1.4;
-}
-
-.skillsContainer {
+.skillChipsInline {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: 4px;
 }
 
-.skillBadge {
-  background: var(--surface-subtle);
+.inlineSkillBadge {
+  background: var(--surface-raised);
+  border: 1px solid var(--border-default);
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  padding: 1px 6px;
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+}
+
+.inspectBtn {
+  background: var(--surface-raised);
   border: 1px solid var(--border-default);
   color: var(--text-secondary);
-  padding: 3px 8px;
+  font-size: 11px;
+  padding: 4px 10px;
   border-radius: var(--radius-sm);
-  font-family: var(--font-mono);
-  font-size: 10.5px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.inspectBtn:hover {
+  background: var(--surface-subtle);
+  border-color: var(--interactive-primary);
+  color: var(--interactive-primary);
 }
 
 /* Event Feed Section (Bottom) */
@@ -215,13 +234,20 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  box-shadow: var(--shadow-sm);
+}
+
+.emptyFeed {
+  color: var(--text-muted);
+  font-size: 12px;
+  padding: 10px 0;
 }
 
 .timeline {
   display: flex;
   flex-direction: column;
   gap: 6px;
-  max-height: 180px;
+  max-height: 200px;
   overflow-y: auto;
 }
 
@@ -252,8 +278,138 @@
   color: var(--text-secondary);
 }
 
+.statusHighlight {
+  color: var(--interactive-primary);
+  font-weight: 600;
+}
+
 .timelineTime {
   color: var(--text-muted);
   font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* Contextual Telemetry Drawer Content */
+.drawerContent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.drawerSection {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.drawerSectionLabel {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+}
+
+.drawerHeaderStatus {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border-default);
+}
+
+.metaGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px 12px;
+  background: var(--surface-raised);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-sm);
+  font-size: 11.5px;
+}
+
+.metaRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.metaLabel {
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.metaValue {
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  word-break: break-all;
+}
+
+.roleBox {
+  padding: 10px 12px;
+  background: var(--surface-raised);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.45;
+}
+
+.skillsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.skillBadge {
+  background: var(--surface-raised);
+  border: 1px solid var(--border-default);
+  color: var(--text-primary);
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+
+.emptyDrawerHistory {
+  color: var(--text-muted);
+  font-size: 11.5px;
+  padding: 8px 0;
+}
+
+.drawerHistoryList {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.drawerHistoryItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 10px;
+  background: var(--surface-raised);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-sm);
+  font-size: 11px;
+  font-family: var(--font-mono);
+}
+
+.drawerHistoryStatus {
+  font-weight: 600;
+  color: var(--interactive-primary);
+}
+
+.drawerHistoryLatency {
+  color: var(--text-secondary);
+  font-variant-numeric: tabular-nums;
+}
+
+.drawerHistoryTime {
+  color: var(--text-muted);
   font-variant-numeric: tabular-nums;
 }
