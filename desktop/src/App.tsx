@@ -10,7 +10,6 @@ import { AgentCommandView } from "./views/AgentCommand/AgentCommandView";
 import { WhatIfLabView } from "./views/WhatIfLab/WhatIfLabView";
 import { ReasoningTraceView } from "./views/ReasoningTrace/ReasoningTraceView";
 import { EvaluationView } from "./views/Evaluation/EvaluationView";
-import { AIChatDrawer } from "./components/chat/AIChatDrawer";
 import { ShortcutsModal } from "./components/modals/ShortcutsModal";
 import { ErrorBoundary } from "./components/common/ErrorBoundary";
 import { ConnectionBanner } from "./components/common/ConnectionBanner";
@@ -33,7 +32,6 @@ function App() {
   useAgentActivity();
   const [activeView, setActiveView] = useState<ViewKey>("operations");
   const [selectedDecisionId, setSelectedDecisionId] = useState<string | undefined>();
-  const [isChatOpen, setIsChatOpen] = useState<boolean>(false);
   const [isShortcutsOpen, setIsShortcutsOpen] = useState<boolean>(false);
 
   const handleSelectDecision = (decisionId: string) => {
@@ -48,12 +46,10 @@ function App() {
 
   const handleEscape = () => {
     if (isShortcutsOpen) setIsShortcutsOpen(false);
-    else if (isChatOpen) setIsChatOpen(false);
   };
 
   useKeyboardShortcuts({
     onSelectView: (view) => setActiveView(view),
-    onToggleChat: () => setIsChatOpen((prev) => !prev),
     onToggleShortcutsModal: () => setIsShortcutsOpen((prev) => !prev),
     onEscape: handleEscape,
   });
@@ -66,8 +62,6 @@ function App() {
         <div className="mainArea">
           <TopBar
             currentViewLabel={VIEW_LABELS[activeView]}
-            isChatOpen={isChatOpen}
-            onToggleChat={() => setIsChatOpen(!isChatOpen)}
             onOpenShortcuts={() => setIsShortcutsOpen(true)}
           />
 
@@ -93,11 +87,6 @@ function App() {
               {activeView === "evaluation" && <EvaluationView />}
             </ErrorBoundary>
           </main>
-
-          <AIChatDrawer
-            isOpen={isChatOpen}
-            onClose={() => setIsChatOpen(false)}
-          />
 
           <ShortcutsModal
             isOpen={isShortcutsOpen}

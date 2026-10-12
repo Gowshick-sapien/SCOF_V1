@@ -4,15 +4,13 @@ import { useConnection } from "../../state/connection";
 
 interface TopBarProps {
   currentViewLabel: string;
-  isChatOpen: boolean;
-  onToggleChat: () => void;
+  isChatOpen?: boolean;
+  onToggleChat?: () => void;
   onOpenShortcuts?: () => void;
 }
 
 export const TopBar: React.FC<TopBarProps> = ({
   currentViewLabel,
-  isChatOpen,
-  onToggleChat,
   onOpenShortcuts,
 }) => {
   const { state } = useConnection();
@@ -70,18 +68,6 @@ export const TopBar: React.FC<TopBarProps> = ({
             ?
           </button>
         )}
-
-        <button
-          className={`${styles.chatToggleBtn} ${isChatOpen ? styles.chatToggleBtnActive : ""}`}
-          onClick={onToggleChat}
-          title="AI Assistant (Ctrl + K)"
-        >
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-          </svg>
-          <span>Intelligence</span>
-          <span className={styles.keyBadge}>⌘K</span>
-        </button>
       </div>
     </header>
   );

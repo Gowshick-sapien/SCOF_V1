@@ -3,7 +3,7 @@ import type { ViewKey } from "../components/layout/Sidebar";
 
 interface KeyboardShortcutsOptions {
   onSelectView: (view: ViewKey) => void;
-  onToggleChat: () => void;
+  onToggleChat?: () => void;
   onToggleShortcutsModal: () => void;
   onEscape: () => void;
 }
@@ -38,8 +38,8 @@ export function useKeyboardShortcuts({
         return;
       }
 
-      // Allow Ctrl+K or Cmd+K anywhere (even from inputs)
-      if ((e.ctrlKey || e.metaKey) && (e.key === "k" || e.key === "K" || e.key === "/")) {
+      // Allow Ctrl+K or Cmd+K anywhere (even from inputs) if onToggleChat is provided
+      if (onToggleChat && (e.ctrlKey || e.metaKey) && (e.key === "k" || e.key === "K" || e.key === "/")) {
         e.preventDefault();
         onToggleChat();
         return;

@@ -51,10 +51,6 @@ export const ShortcutsModal: React.FC<ShortcutsModalProps> = ({ isOpen, onClose 
                 <span className={styles.label}>Evaluation Matrix</span>
                 <kbd className={styles.kbd}>Ctrl + 7</kbd>
               </div>
-              <div className={styles.shortcutItem}>
-                <span className={styles.label}>AI Assistant Drawer</span>
-                <kbd className={styles.kbd}>Ctrl + K</kbd>
-              </div>
             </div>
           </div>
 
