@@ -154,16 +154,16 @@ export const ReasoningTraceView: React.FC<ReasoningTraceViewProps> = ({
 
               <div
                 style={{
-                  background: "var(--bg-surface)",
+                  background: "var(--surface-raised)",
                   padding: "12px 14px",
-                  borderRadius: "var(--radius-md)",
-                  border: "1px solid var(--border-subtle)",
+                  borderRadius: "var(--radius-sm)",
+                  border: "1px solid var(--border-default)",
                 }}
               >
-                <div style={{ fontWeight: 700, color: "var(--text-primary)", marginBottom: "4px" }}>
+                <div style={{ fontWeight: 600, color: "var(--text-primary)", marginBottom: "4px" }}>
                   Selected Recommendation (WCS: {(activeDecision.decision_confidence * 100).toFixed(1)}%):
                 </div>
-                <div style={{ color: "var(--accent-cyan)", fontSize: "13px", lineHeight: "1.4" }}>
+                <div style={{ color: "var(--interactive-primary)", fontSize: "13px", lineHeight: "1.4" }}>
                   "{activeDecision.final_recommendation}"
                 </div>
               </div>

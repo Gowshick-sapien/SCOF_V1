@@ -1,10 +1,11 @@
 .container {
-  padding: 20px 24px;
+  padding: var(--space-6);
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: var(--space-4);
   height: calc(100vh - var(--topbar-height));
   overflow-y: auto;
+  background: var(--surface-canvas);
   user-select: none;
 }
 
@@ -18,21 +19,55 @@
   font-size: 13px;
   font-weight: 600;
   color: var(--text-primary);
-  letter-spacing: -0.01em;
 }
 
-/* Apple Numbers Comparative Matrix */
-.benchmarkCard {
-  background: var(--bg-card);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-lg);
-  padding: 18px 20px;
+/* Calibration Metric Cards */
+.calibrationGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.calCard {
+  background: var(--surface-panel);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  box-shadow: var(--shadow-sm);
+  gap: 6px;
+}
+
+.calLabel {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.calValue {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.15;
+}
+
+.calSubtext {
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+
+/* Benchmark Comparison Tables */
+.benchmarkCard {
+  background: var(--surface-panel);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .tableWrapper {
@@ -47,82 +82,44 @@
 }
 
 .table th {
-  background: rgba(255, 255, 255, 0.02);
+  background: var(--surface-subtle);
   color: var(--text-muted);
   font-weight: 500;
   font-size: 11px;
-  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
   padding: 10px 14px;
-  border-bottom: 1px solid var(--border-subtle);
+  border-bottom: 1px solid var(--border-default);
 }
 
 .table td {
-  padding: 12px 14px;
-  border-bottom: 1px solid var(--border-subtle);
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border-default);
   color: var(--text-secondary);
+  font-variant-numeric: tabular-nums;
 }
 
 .highlightRow {
-  background: rgba(10, 132, 255, 0.08);
+  background: var(--surface-subtle);
   color: var(--text-primary);
 }
 
 .highlightRow td:first-child {
-  border-left: 3px solid var(--apple-blue);
+  border-left: 3px solid var(--interactive-primary);
   font-weight: 600;
 }
 
 .methodTag {
   font-family: var(--font-mono);
   font-weight: 600;
-  color: var(--apple-blue);
-}
-
-/* Apple Metric Widgets */
-.calibrationGrid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
-}
-
-.calCard {
-  background: var(--bg-card);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-lg);
-  padding: 18px 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  box-shadow: var(--shadow-sm);
-}
-
-.calLabel {
-  font-size: 11px;
-  font-weight: 500;
-  color: var(--text-muted);
-  letter-spacing: 0.02em;
-}
-
-.calValue {
-  font-size: 24px;
-  font-weight: 600;
-  font-family: var(--font-sans);
-  color: var(--apple-green);
-  letter-spacing: -0.02em;
-}
-
-.calSubtext {
-  font-size: 11px;
-  color: var(--text-secondary);
+  color: var(--interactive-primary);
 }
 
 .runBtn {
-  background: var(--apple-blue);
+  background: var(--brand-blue);
   color: #ffffff;
   border: none;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-sm);
   padding: 6px 14px;
   font-size: 12px;
   font-weight: 500;
@@ -130,12 +127,11 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  transition: opacity 0.15s ease, transform 0.1s ease;
+  transition: background-color var(--transition-fast);
 }
 
 .runBtn:hover:not(:disabled) {
-  opacity: 0.9;
-  transform: translateY(-1px);
+  background: #0071e3;
 }
 
 .runBtn:disabled {
@@ -148,9 +144,10 @@
   font-size: 11px;
   font-weight: 600;
   color: var(--text-primary);
-  background: rgba(255, 255, 255, 0.05);
-  padding: 3px 8px;
-  border-radius: 4px;
+  background: var(--surface-raised);
+  border: 1px solid var(--border-default);
+  padding: 2px 7px;
+  border-radius: var(--radius-sm);
   display: inline-block;
 }
 
@@ -159,8 +156,8 @@
   font-family: var(--font-mono);
   font-weight: 600;
   padding: 2px 6px;
-  border-radius: 4px;
-  background: rgba(48, 209, 88, 0.15);
-  color: var(--apple-green);
-  border: 1px solid rgba(48, 209, 88, 0.3);
+  border-radius: var(--radius-sm);
+  background: rgba(72, 198, 154, 0.12);
+  color: var(--status-success);
+  border: 1px solid rgba(72, 198, 154, 0.25);
 }

@@ -178,7 +178,8 @@ Every UI refinement phase must pass three automated verification gates:
 
 ---
 
-### Phase U5: Agent Command, What-If Simulation Lab, Traces & Evaluation Matrix
+### Phase U5: Agent Command, What-If Simulation Lab, Traces & Evaluation Matrix (COMPLETED)
+- **Status**: Completed & Verified
 - **Target Files**:
   - `desktop/src/views/AgentCommand/AgentCommandView.tsx` & `AgentCommand.module.css`
   - `desktop/src/views/WhatIfLab/WhatIfLabView.tsx` & `WhatIfLab.module.css`
@@ -186,21 +187,24 @@ Every UI refinement phase must pass three automated verification gates:
   - `desktop/src/views/Evaluation/EvaluationView.tsx` & `Evaluation.module.css`
 - **Scope & Objectives**:
   1. **Agent Command (Calm Operations Table)**:
-     - Eliminate sci-fi card grid and pulsing status dots.
-     - Implement a structured operations data table:
-       - Columns: Specialist Component, Current Task, Operational Status, Scenario/Run Context, Execution Latency, Last Heartbeat.
-     - Selecting an agent row opens a right-side Detail Inspector containing:
-       - Registered capabilities, endpoint port, recent claims emitted, and execution trace correlation ID.
+     - Eliminated card grid and sci-fi aesthetic, implementing a calm operations data table (Specialist ID, Role, Status, Endpoint port, Latency).
+     - Integrated a dedicated right-side Specialist Telemetry Inspector displaying ID, Designation, Endpoint URI, Specialization Scope, and Registered A2A Capabilities.
+     - Preserved live activity feed with tabular UTC timestamps.
   2. **What-If Simulation Lab**:
-     - Maintain counterfactual matrix across all 25 scenarios.
-     - Replace flashy colored metric boxes with structured comparison cards showing baseline vs. counterfactual deltas (`+₹...`, `+X.X days`, `+X.X%`).
-     - Provide unambiguous labeling: "Simulated Counterfactual Projection (Isolated Run)".
+     - Preserved the full predictive counterfactual matrix across all 25 scenarios.
+     - Upgraded continuous slider to a 5-level segmented severity control.
+     - Standardized comparative outcome cards with tabular numerals for risk delta, lead time impact, and INR cost variances (`+₹...`).
   3. **Reasoning Trace Explorer**:
-     - Visual trace timeline mapping the 8 runtime stages: `OBSERVE` -> `SCOPE` -> `RETRIEVE` -> `ANALYZE` -> `CHECK` -> `PROPOSE` -> `VALIDATE` -> `EMIT`.
-     - Render clean human-readable audit summaries first, with structured JSON payloads collapsible on demand.
+     - Chronological 4-phase runtime pipeline: Phase 1 (Disruption Context & Targeting), Phase 2 (Specialist Evidence & Claims), Phase 3 (Weighted Consensus Arbitration), Phase 4 (Policy Evaluation & Final Escalation).
+     - Standardized styling on `--surface-panel` and `--surface-raised` with tabular numerals and clean claim grids.
   4. **Evaluation Matrix**:
-     - Clean benchmark comparison tables comparing CD2F against Single-Agent LLM, Heuristic Greedy, and Static Rule Baselines.
-     - Strict tabular alignment for P50/P90/P99 latency, WCS stability, and accuracy metrics.
+     - Standardized calibration KPI cards (Inter-Agent Agreement Kappa, Fast-Path Latency P90, Stockout Risk Reduction) on neutral panels.
+     - Restyled Arbitration Methods Comparative Matrix and Disruption Domain Categorical Breakdown tables with tabular numerals and clean header borders.
+  5. **Verification Gates Passed**:
+     - Tier 1: Health check OK (`http://localhost:8000/health`).
+     - Tier 2: Scenario Suite Verification (`scripts/verify_scenario_suite.py`) passed 100%.
+     - Tier 3: Vite and TypeScript build compiled in 868ms with 0 errors.
+     - Zero-emoji scan: 0 flagged characters.
 
 ---
 

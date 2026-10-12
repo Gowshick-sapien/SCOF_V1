@@ -1,10 +1,11 @@
 .container {
-  padding: 20px 24px;
+  padding: var(--space-6);
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: var(--space-4);
   height: calc(100vh - var(--topbar-height));
   overflow-y: auto;
+  background: var(--surface-canvas);
   user-select: none;
 }
 
@@ -18,152 +19,146 @@
   font-size: 13px;
   font-weight: 600;
   color: var(--text-primary);
-  letter-spacing: -0.01em;
 }
 
 .workspaceGrid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
+  grid-template-columns: 1fr 1.15fr;
+  gap: var(--space-4);
 }
 
-/* Apple Configuration Card */
+/* Parameters Configuration Card */
 .configCard {
-  background: var(--bg-card);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid var(--border-subtle);
+  background: var(--surface-panel);
+  border: 1px solid var(--border-default);
   border-radius: var(--radius-lg);
-  padding: 22px;
+  padding: var(--space-5);
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  box-shadow: var(--shadow-sm);
+  gap: 14px;
 }
 
 .formGroup {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 5px;
 }
 
 .label {
   font-size: 11px;
   font-weight: 500;
-  color: var(--text-muted);
-  letter-spacing: 0.02em;
-}
-
-.input {
-  background: rgba(255, 255, 255, 0.035);
-  border: 1px solid var(--border-subtle);
-  color: var(--text-primary);
-  padding: 9px 12px;
-  border-radius: var(--radius-md);
-  font-size: 12px;
-  font-family: inherit;
-  transition: all var(--transition-fast);
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
 .select {
-  background-color: #161922 !important;
+  background-color: var(--surface-raised) !important;
   border: 1px solid var(--border-default) !important;
-  color: #f5f5f7 !important;
-  padding: 9px 32px 9px 12px !important;
-  border-radius: var(--radius-md) !important;
+  color: var(--text-primary) !important;
+  padding: 8px 30px 8px 10px !important;
+  border-radius: var(--radius-sm) !important;
   font-size: 12px !important;
   font-family: inherit;
   cursor: pointer;
+  outline: none;
   appearance: none;
   -webkit-appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23a1a1a6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238492A3' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 10px center;
   background-size: 12px;
-  transition: all var(--transition-fast);
+  transition: border-color var(--transition-fast);
+}
+
+.select:focus {
+  border-color: var(--interactive-primary) !important;
 }
 
 .select option {
-  background-color: #1a1d26 !important;
-  color: #f5f5f7 !important;
-  padding: 8px 12px !important;
+  background-color: var(--surface-raised) !important;
+  color: var(--text-primary) !important;
+  padding: 6px 10px !important;
 }
 
-.input:focus, .select:focus {
-  border-color: var(--apple-blue) !important;
-  box-shadow: 0 0 0 3px rgba(10, 132, 255, 0.2) !important;
+.severitySegmented {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 6px;
 }
 
-.sliderRow {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.slider {
-  flex: 1;
-  accent-color: var(--apple-blue);
-  height: 4px;
-}
-
-.sliderValue {
+.severityBtn {
+  background: var(--surface-raised);
+  border: 1px solid var(--border-default);
+  color: var(--text-secondary);
+  padding: 6px 0;
+  border-radius: var(--radius-sm);
+  font-size: 12px;
   font-family: var(--font-mono);
-  font-size: 13px;
   font-weight: 600;
-  color: var(--apple-blue);
-  min-width: 24px;
+  cursor: pointer;
+  text-align: center;
+  transition: all var(--transition-fast);
+}
+
+.severityBtn:hover {
+  background: var(--surface-subtle);
+  color: var(--text-primary);
+}
+
+.severityBtnActive {
+  background: var(--interactive-hover);
+  border-color: var(--brand-blue);
+  color: var(--interactive-primary);
 }
 
 .runButton {
-  background: var(--apple-blue);
+  background: var(--brand-blue);
   color: #ffffff;
-  padding: 11px 16px;
-  border-radius: var(--radius-md);
+  padding: 10px 16px;
+  border-radius: var(--radius-sm);
   font-weight: 600;
-  font-size: 13px;
-  transition: all var(--transition-fast);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
-  margin-top: 6px;
+  font-size: 12.5px;
+  border: none;
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+  margin-top: 4px;
 }
 
 .runButton:hover {
   background: #0071e3;
-  box-shadow: 0 2px 8px rgba(10, 132, 255, 0.35);
 }
 
 .runButton:disabled {
-  opacity: 0.45;
+  opacity: 0.6;
   cursor: not-allowed;
 }
 
-/* Apple Results Inspection Card */
+/* Results & Comparison Card */
 .resultsCard {
-  background: var(--bg-card);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid var(--border-subtle);
+  background: var(--surface-panel);
+  border: 1px solid var(--border-default);
   border-radius: var(--radius-lg);
-  padding: 22px;
+  padding: var(--space-5);
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  box-shadow: var(--shadow-sm);
+  gap: 14px;
 }
 
 .deltaGrid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
+  gap: 10px;
 }
 
 .deltaItem {
-  background: rgba(255, 255, 255, 0.025);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-md);
-  padding: 14px;
+  background: var(--surface-raised);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 4px;
 }
 
 .deltaLabel {
@@ -171,41 +166,44 @@
   font-weight: 500;
   color: var(--text-muted);
   text-transform: uppercase;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.04em;
 }
 
 .deltaValue {
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 600;
-  font-family: var(--font-sans);
-  color: var(--apple-blue);
-  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.2;
 }
 
 .deltaSubtext {
-  font-size: 11px;
+  font-size: 10.5px;
   color: var(--text-secondary);
 }
 
 .comparisonBanner {
-  background: rgba(191, 90, 242, 0.08);
-  border: 1px solid rgba(191, 90, 242, 0.25);
-  border-radius: var(--radius-md);
-  padding: 14px 16px;
+  background: var(--surface-raised);
+  border: 1px solid var(--border-default);
+  border-left: 3px solid var(--brand-teal);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 4px;
 }
 
 .comparisonTitle {
   font-size: 11px;
   font-weight: 600;
-  color: var(--apple-purple);
-  letter-spacing: 0.02em;
+  color: var(--brand-teal);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
 .comparisonText {
   font-size: 12px;
   color: var(--text-secondary);
   line-height: 1.45;
+  margin: 0;
 }

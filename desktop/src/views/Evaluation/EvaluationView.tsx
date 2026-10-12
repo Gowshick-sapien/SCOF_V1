@@ -60,7 +60,7 @@ export const EvaluationView: React.FC = () => {
             <span className={styles.statusBadge}>{benchmarkData?.status || "VALIDATED"}</span>
             {benchmarkData?.eval_run_id && (
               <span style={{ marginLeft: "10px", color: "var(--text-secondary)" }}>
-                RUN: <span style={{ color: "var(--accent-cyan)" }}>{benchmarkData.eval_run_id}</span>
+                RUN: <span style={{ color: "var(--interactive-primary)" }}>{benchmarkData.eval_run_id}</span>
               </span>
             )}
             {benchmarkData?.timestamp && (
@@ -73,7 +73,7 @@ export const EvaluationView: React.FC = () => {
 
         <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
           {error && (
-            <span style={{ fontSize: "11px", color: "var(--apple-red)", fontFamily: "var(--font-mono)" }}>
+            <span style={{ fontSize: "11px", color: "var(--status-critical)", fontFamily: "var(--font-mono)" }}>
               {error}
             </span>
           )}
@@ -101,7 +101,7 @@ export const EvaluationView: React.FC = () => {
 
         <div className={styles.calCard}>
           <span className={styles.calLabel}>Fast-Path Resolution P90</span>
-          <span className={styles.calValue} style={{ color: "var(--accent-cyan)" }}>
+          <span className={styles.calValue} style={{ color: "var(--interactive-primary)" }}>
             {benchmarkData?.calibration_metrics?.fast_path_latency_p90_ms !== undefined
               ? `${Math.round(benchmarkData.calibration_metrics.fast_path_latency_p90_ms)}ms`
               : "330ms"}
@@ -111,7 +111,7 @@ export const EvaluationView: React.FC = () => {
 
         <div className={styles.calCard}>
           <span className={styles.calLabel}>Stockout Risk Reduction</span>
-          <span className={styles.calValue} style={{ color: "var(--accent-purple)" }}>
+          <span className={styles.calValue} style={{ color: "var(--status-success)" }}>
             {benchmarkData?.calibration_metrics?.stockout_reduction_pct !== undefined
               ? `${benchmarkData.calibration_metrics.stockout_reduction_pct.toFixed(1)}%`
               : "42.0%"}
@@ -199,7 +199,7 @@ export const EvaluationView: React.FC = () => {
                       <span className={styles.categoryTag}>{cat.category}</span>
                     </td>
                     <td style={{ fontFamily: "var(--font-mono)" }}>{cat.scenario_count}</td>
-                    <td style={{ fontFamily: "var(--font-mono)", fontWeight: "600", color: "var(--apple-green)" }}>
+                    <td style={{ fontFamily: "var(--font-mono)", fontWeight: "600", color: "var(--status-success)" }}>
                       {(cat.accuracy * 100).toFixed(1)}%
                     </td>
                     <td style={{ fontFamily: "var(--font-mono)" }}>{cat.wcs_stability.toFixed(3)}</td>

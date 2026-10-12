@@ -597,16 +597,17 @@ export const WhatIfLabView: React.FC = () => {
 
           <div className={styles.formGroup}>
             <label className={styles.label}>Severity Override (1 to 5)</label>
-            <div className={styles.sliderRow}>
-              <input
-                type="range"
-                min="1"
-                max="5"
-                value={severity}
-                onChange={(e) => setSeverity(Number(e.target.value))}
-                className={styles.slider}
-              />
-              <span className={styles.sliderValue}>{severity} / 5</span>
+            <div className={styles.severitySegmented}>
+              {[1, 2, 3, 4, 5].map((lvl) => (
+                <button
+                  key={lvl}
+                  type="button"
+                  className={`${styles.severityBtn} ${severity === lvl ? styles.severityBtnActive : ""}`}
+                  onClick={() => setSeverity(lvl)}
+                >
+                  {lvl}
+                </button>
+              ))}
             </div>
           </div>
 
